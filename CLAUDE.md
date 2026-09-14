@@ -73,6 +73,7 @@ singularity.
 | matriz de contagem, DEG, scRNA-seq, enriquecimento | `omics-analyst` |
 | plasmídeo, primer, códon, Golden Gate, CRISPR guide | `seq-designer` |
 | variante, VCF, ACMG, gnomAD, farmacogenômica | `variant-curator` |
+| perda gênica, pseudogene, estado ancestral, atavismo, evo-devo | `evo-devo` |
 | Nextflow, nf-core, Snakemake, cluster, container | `pipeline-engineer` |
 | revisão de literatura, estado da arte, precedente | `lit-scout` |
 | "onde nos meus PDFs fala sobre X" | `mcp__nvidia-nemo__library_search` |
@@ -127,6 +128,7 @@ consulte o log, não a memória da conversa.
 - `/bio-doctor` — diagnóstico do ambiente
 - `/nim` — estado dos endpoints NVIDIA
 - `/fold` — predição de estrutura
+- `/atavismo` — testa se um caráter foi perdido por gene ou por regulação
 - `/metodos` — gera a seção de Métodos a partir do log
 - `/nvidia` — audita tudo que a chave NVIDIA destrava
 
