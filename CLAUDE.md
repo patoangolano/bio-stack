@@ -21,7 +21,7 @@ GPU:    NVIDIA GeForce RTX 5070 Laptop
 VRAM:   8 GB
 CUDA:   13.4 (driver 616.92)
 Arch:   Blackwell, sm_120  → PyTorch precisa de wheels cu128+
-SO:     Windows 11 · WSL2 presente (distro docker-desktop), sem Ubuntu
+SO:     Windows 11 · WSL2 com Ubuntu-24.04 (20 núcleos, 15 GB RAM, 955 GB livres)
 ```
 
 **Não proponha rodar localmente**: AlphaFold2, ESMFold, OpenFold2/3, Boltz-2,
@@ -31,11 +31,30 @@ Evo 2, RFdiffusion, Parabricks. Nenhum cabe em 8 GB. Use as ferramentas
 **Cabe local**: ESM-2 650M, DNABERT-2, scanpy, pydeseq2, RDKit, biopython,
 nvMolKit, inferência de modelos pequenos.
 
-**Precisa de WSL2**: nextflow, samtools/bcftools, rapids-singlecell, pysam.
-O kernel do WSL2 **já está instalado** — Docker Desktop roda sobre ele
-(`wsl -l -v` mostra `docker-desktop`, versão 2). Falta só a distro:
-`wsl --install -d Ubuntu-24.04`, que não exige reinício nem habilitar recurso
-do Windows. Peça isso antes, em vez de tentar no PowerShell.
+**Vive no WSL** (Ubuntu-24.04, instalado em 2026-09-14): `nextflow` 26.04.6,
+`nf-core` 4.1.0, `samtools` 1.19.2, `bcftools` 1.19, `bedtools` 2.31.1,
+`seqkit` 2.13.0, `tabix`, Java 21. Não procure essas no PATH do Windows.
+
+```bash
+wsl -d Ubuntu-24.04 -- bash -lc "samtools flagstat amostra.bam"
+```
+
+O projeto aparece lá como `/mnt/c/Users/Manec/bio-stack`. Prefira trabalhar em
+`~/` dentro do WSL quando o I/O importar — `/mnt/c` atravessa a fronteira de
+sistema de arquivos e é ordens de grandeza mais lento para muitos arquivos
+pequenos, que é exatamente o padrão de um pipeline Nextflow.
+
+> **Armadilha medida:** chamado via `subprocess` do Python, o `wsl.exe` **engole
+> sequências `$var`** na tradução da linha de comando — um laço
+> `for t in ...; do echo "$t"; done` executa o número certo de vezes e imprime
+> vazio em todas, sem erro. Escreva comandos sem cifrão, ou ponha o script num
+> arquivo e execute o arquivo. Ver `_wsl_presentes()` em
+> `.claude/hooks/session_context.py`.
+
+**Pendente:** a integração WSL do Docker Desktop está **desligada** para
+Ubuntu-24.04 (Settings → Resources → WSL Integration). Sem ela não há `docker`
+dentro da distro, e portanto os pipelines nf-core rodam só com `-profile conda`
+ou `singularity` — não com containers Docker.
 
 ## Roteamento de agentes
 

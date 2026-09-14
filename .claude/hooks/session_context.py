@@ -63,15 +63,65 @@ def probe_gpu() -> str:
         return "GPU: leitura falhou."
 
 
+#: Distro Linux onde vivem as ferramentas que nao tem build nativo Windows.
+WSL_DISTRO = "Ubuntu-24.04"
+
+#: Ferramentas que so existem dentro do WSL. Procura-las no PATH do Windows
+#: sempre devolveria "ausente" — foi o que a versao anterior deste hook fazia,
+#: e por isso o relatorio de sessao continuou dizendo "nextflow ausente" depois
+#: de o nextflow estar instalado e funcionando.
+WSL_TOOLS = {
+    "nextflow": "pipelines nf-core",
+    "nf-core": "lint e scaffold de pipeline",
+    "samtools": "manipulacao de BAM",
+    "bcftools": "manipulacao de VCF",
+    "bedtools": "operacoes de intervalo",
+    "seqkit": "manipulacao de FASTA/FASTQ",
+}
+
+
+def _wsl_presentes() -> set[str] | None:
+    """
+    Quais ferramentas respondem dentro da distro. `None` = WSL indisponivel.
+
+    Uma unica chamada resolve todas: abrir o WSL custa ~1s, e fazer isso seis
+    vezes tornaria o hook de inicio de sessao perceptivelmente lento.
+    """
+    if not shutil.which("wsl"):
+        return None
+
+    # Sem cifrao no comando, de proposito. Passado por subprocess, o wsl.exe
+    # engole sequencias `$var` na traducao da linha de comando: um laco
+    # `for t in ...; do echo "$t"; done` executa o numero certo de vezes e
+    # imprime vazio em todas. Medido nesta maquina. `command -v` aceita varios
+    # nomes de uma vez e imprime o caminho de cada um que existe, o que resolve
+    # sem precisar de variavel nenhuma.
+    try:
+        proc = subprocess.run(
+            ["wsl", "-d", WSL_DISTRO, "--", "bash", "-lc",
+             "command -v " + " ".join(WSL_TOOLS)],
+            capture_output=True, text=True, timeout=40, check=False,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    if proc.returncode != 0 and not proc.stdout.strip():
+        return None
+
+    # `command -v` devolve caminho completo; o nome da ferramenta e o basename.
+    return {
+        ln.strip().rsplit("/", 1)[-1]
+        for ln in proc.stdout.replace("\x00", "").splitlines()
+        if ln.strip()
+    }
+
+
 def probe_tools() -> str:
     wanted = {
         "git": "plugins do Claude Code",
         "uv": "servidores MCP Python",
         "node": "npx skills add (BioNeMo Toolkit)",
         "python": "scripts de analise",
-        "nextflow": "pipelines nf-core",
         "docker": "containers NIM auto-hospedados",
-        "samtools": "manipulacao de BAM",
         "R": "Bioconductor",
     }
     present: list[str] = []
@@ -87,9 +137,25 @@ def probe_tools() -> str:
         else:
             missing.append(f"{tool} ({why})")
 
-    out = [f"Ferramentas presentes: {', '.join(present) or 'nenhuma'}"]
+    out = [f"Ferramentas presentes (Windows): {', '.join(present) or 'nenhuma'}"]
     if missing:
-        out.append(f"Ausentes: {', '.join(missing)}")
+        out.append(f"Ausentes no Windows: {', '.join(missing)}")
+
+    no_wsl = _wsl_presentes()
+    if no_wsl is None:
+        out.append(f"WSL ({WSL_DISTRO}): indisponivel — nenhuma ferramenta Linux acessivel.")
+    else:
+        faltando = [f"{t} ({w})" for t, w in WSL_TOOLS.items() if t not in no_wsl]
+        out.append(
+            f"Ferramentas no WSL ({WSL_DISTRO}): "
+            f"{', '.join(sorted(no_wsl)) or 'nenhuma'}"
+        )
+        if faltando:
+            out.append(f"  ausentes no WSL: {', '.join(faltando)}")
+        out.append(
+            f'  Como chamar: wsl -d {WSL_DISTRO} -- bash -lc "samtools view ..." '
+            "— o projeto fica em /mnt/c/Users/Manec/bio-stack."
+        )
     return "\n".join(out)
 
 
