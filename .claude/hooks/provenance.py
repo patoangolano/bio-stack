@@ -108,19 +108,41 @@ def main() -> int:
     tool_name = payload.get("tool_name", "")
     if not tool_name or tool_name in IGNORED:
         return 0
-    if tool_name.startswith(IGNORED_PREFIXES):
+
+    event = payload.get("hook_event_name") or "PostToolUse"
+    falhou = event == "PostToolUseFailure"
+
+    # A excecao dos servidores proprios vale so para chamada bem-sucedida.
+    # Em `servers/nvidia_bio_mcp/server.py` todo `_log_provenance(...)` roda
+    # DEPOIS de obter o resultado, entao quando o POST levanta excecao — o 422
+    # que `evo2_score` dava em toda chamada, por exemplo — a linha de log nunca
+    # e alcancada. Sem esta ressalva a falha nao aparece em lugar nenhum, que e
+    # como tres rotas quebradas passaram meses sem ninguem notar.
+    if not falhou and tool_name.startswith(IGNORED_PREFIXES):
         return 0
 
     tool_input = payload.get("tool_input") or {}
     response = payload.get("tool_response")
 
+    # Qual evento disparou. Sem isto o log so tinha sucesso: `PostToolUse` nao
+    # dispara quando a ferramenta falha, entao uma predicao que deu 422 e um
+    # script que estourou excecao sumiam do caderno. Uma secao de Metodos
+    # escrita a partir de um log so-de-sucesso descreve um experimento que nao
+    # aconteceu — e o vies e invisivel, porque nada no arquivo denuncia a falta.
     entry = {
         "ts": datetime.now(UTC).isoformat(timespec="seconds"),
         "session": payload.get("session_id"),
         "kind": classify(tool_name, tool_input),
         "tool": tool_name,
+        "ok": not falhou,
         "input": redact(tool_input),
     }
+
+    if falhou:
+        motivo = payload.get("tool_error") or payload.get("error") or ""
+        if isinstance(motivo, dict):
+            motivo = motivo.get("message") or json.dumps(motivo, ensure_ascii=False)
+        entry["erro"] = str(motivo)[:400] or "(sem mensagem)"
 
     # Guarda so o essencial da resposta: caminhos de arquivo e status de erro.
     if isinstance(response, dict):

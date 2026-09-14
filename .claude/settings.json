@@ -42,7 +42,13 @@
       "mcp__nvidia-bio__nim_probe_endpoints",
       "mcp__gget",
       "mcp__biocontext",
-      "mcp__biomcp"
+      "mcp__biomcp",
+      "Bash(uvx tooluniverse*)",
+      "Bash(git init*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(python tests/*)",
+      "mcp__tooluniverse"
     ],
     "ask": [
       "Bash(nextflow run*)",
@@ -83,7 +89,7 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "Bash|PowerShell",
+        "matcher": "Bash|PowerShell|Write|Edit|MultiEdit|NotebookEdit",
         "hooks": [
           {
             "type": "command",
@@ -114,6 +120,51 @@
           }
         ]
       }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --script \"${CLAUDE_PROJECT_DIR}/.claude/hooks/provenance.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --script \"${CLAUDE_PROJECT_DIR}/.claude/hooks/session_mark.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --script \"${CLAUDE_PROJECT_DIR}/.claude/hooks/session_mark.py\"",
+            "timeout": 10
+          }
+        ]
+      }
     ]
+  },
+  "extraKnownMarketplaces": {
+    "bio-stack": {
+      "source": {
+        "source": "directory",
+        "path": "C:/Users/Manec/bio-stack/.claude/marketplace"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "bio-lsp@bio-stack": true
   }
 }

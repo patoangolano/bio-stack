@@ -133,13 +133,73 @@ def _overwrites_existing(command: str) -> str | None:
     return None
 
 
+#: Ferramentas que escrevem arquivo sem passar por shell. O guard original so
+#: olhava Bash/PowerShell, entao `Write` sobre um FASTQ em data/raw passava sem
+#: nenhuma checagem — o caminho mais curto para destruir dado bruto era tambem
+#: o unico desprotegido.
+WRITE_TOOLS = ("Write", "Edit", "MultiEdit", "NotebookEdit")
+
+#: Ancorado em limite de caminho: `data/raw` casa, `metadata/rawstats` nao.
+RAW_DIR = re.compile(r"(?:^|[/\\])data[/\\]raw(?:[/\\]|$)", re.I)
+
+
+def _guard_write(tool_name: str, tool_input: dict) -> str | None:
+    """
+    Bloqueia escrita dentro de data/raw e sobrescrita de arquivo de dado bruto.
+
+    Criar arquivo novo em qualquer outro lugar e livre — o objetivo e proteger
+    o insubstituivel, nao atrapalhar a analise.
+    """
+    alvo = str(
+        tool_input.get("file_path")
+        or tool_input.get("notebook_path")
+        or tool_input.get("path")
+        or ""
+    )
+    if not alvo:
+        return None
+
+    if RAW_DIR.search(alvo):
+        return (
+            f"{alvo} esta dentro de data/raw, que guarda dado bruto irrecuperavel.\n"
+            "  Escreva em data/proc/ ou runs/ e deixe o bruto intacto. Se o arquivo "
+            "precisa mesmo entrar no acervo bruto, o usuario copia manualmente."
+        )
+
+    if alvo.lower().endswith(DATA_EXT):
+        try:
+            existe = Path(alvo).exists()
+        except OSError:
+            existe = False
+        if existe:
+            return (
+                f"{alvo} ja existe e e um arquivo de dado bruto.\n"
+                "  Sobrescrever apaga o original sem historico. Escreva num nome "
+                "novo e compare antes de substituir."
+            )
+    return None
+
+
 def main() -> int:
     try:
         payload = json.load(sys.stdin)
     except (json.JSONDecodeError, ValueError):
         return 0  # entrada malformada nunca deve travar a sessao
 
-    if payload.get("tool_name") not in ("Bash", "PowerShell"):
+    tool_name = payload.get("tool_name")
+
+    if tool_name in WRITE_TOOLS:
+        motivo = _guard_write(tool_name, payload.get("tool_input") or {})
+        if motivo:
+            print(
+                "[guard_data] escrita bloqueada pela bio-stack.\n"
+                f"  motivo: {motivo}",
+                file=sys.stderr,
+            )
+            return 2
+        return 0
+
+    if tool_name not in ("Bash", "PowerShell"):
         return 0
 
     tool_input = payload.get("tool_input") or {}

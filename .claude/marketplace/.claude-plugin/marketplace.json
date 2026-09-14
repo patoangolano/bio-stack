@@ -1,0 +1,36 @@
+{
+  "name": "bio-stack",
+  "owner": { "name": "Matheus Lima" },
+  "metadata": {
+    "description": "Marketplace local da bio-stack. Existe para uma coisa so: declarar language servers, que nao podem ser configurados por settings.json — o schema oficial nao tem campo lspServers, so plugin.json ou .lsp.json na raiz de um plugin.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "bio-lsp",
+      "description": "Language servers Python da bio-stack: basedpyright (tipos, definicoes, referencias) e ruff (diagnostico e formatacao). Aponta para os binarios da .venv do projeto, nao para instalacao global.",
+      "version": "1.0.0",
+      "author": { "name": "Matheus Lima" },
+      "source": "./plugins/bio-lsp",
+      "category": "development",
+      "strict": false,
+      "lspServers": {
+        "basedpyright": {
+          "command": "C:/Users/Manec/bio-stack/.venv/Scripts/basedpyright-langserver.exe",
+          "args": ["--stdio"],
+          "extensionToLanguage": { ".py": "python", ".pyi": "python" },
+          "restartOnCrash": true,
+          "maxRestarts": 3,
+          "startupTimeout": 30000
+        },
+        "ruff": {
+          "command": "C:/Users/Manec/bio-stack/.venv/Scripts/ruff.exe",
+          "args": ["server"],
+          "extensionToLanguage": { ".py": "python" },
+          "restartOnCrash": true,
+          "maxRestarts": 3
+        }
+      }
+    }
+  ]
+}
