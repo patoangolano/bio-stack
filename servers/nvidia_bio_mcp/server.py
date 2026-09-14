@@ -342,7 +342,67 @@ async def _poll_nvcf(client: httpx.AsyncClient, req_id: str) -> httpx.Response:
     )
 
 
+CACHE_DIR = OUT_DIR / "cache"
+CACHE_ON = os.environ.get("BIO_STACK_NIM_CACHE", "1") not in ("0", "false", "off")
+
+
+def _cache_key(path: str, payload: dict[str, Any]) -> str:
+    """
+    Endereca pelo conteudo: mesma rota + mesmos parametros = mesma chave.
+
+    `sort_keys` importa mais do que parece — sem ele, dois dicts identicos com
+    ordem de insercao diferente geram chaves diferentes e o cache nunca acerta.
+    """
+    canonico = json.dumps({"path": path, "payload": payload}, sort_keys=True, default=str)
+    return hashlib.sha256(canonico.encode()).hexdigest()
+
+
+def _cache_read(chave: str) -> dict[str, Any] | None:
+    if not CACHE_ON:
+        return None
+    arq = CACHE_DIR / f"{chave}.json"
+    try:
+        envelope = json.loads(arq.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    corpo = envelope.get("response")
+    return corpo if isinstance(corpo, dict) else None
+
+
+def _cache_write(chave: str, path: str, resposta: dict[str, Any]) -> None:
+    if not CACHE_ON:
+        return
+    try:
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        # O envelope guarda quando e de onde veio. Uma predicao reaproveitada
+        # seis meses depois continua valida como numero, mas a banca pode
+        # querer saber que ela nao foi recalculada — e uma busca de MSA contra
+        # um banco que foi atualizado nesse meio tempo talvez devesse ser.
+        (CACHE_DIR / f"{chave}.json").write_text(
+            json.dumps(
+                {
+                    "gravado_em": datetime.now(UTC).isoformat(timespec="seconds"),
+                    "rota": path,
+                    "response": resposta,
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+    except OSError:
+        pass  # cache e otimizacao; falhar em gravar nunca pode derrubar a chamada
+
+
 async def _post(path: str, payload: dict[str, Any]) -> dict[str, Any]:
+    # Predicao de estrutura e a operacao cara desta stack. Dobrar a mesma
+    # sequencia duas vezes custava duas vezes; numa varredura de mutantes com
+    # prefixo compartilhado, a busca de MSA era recomprada a cada variante.
+    chave = _cache_key(path, payload)
+    guardado = _cache_read(chave)
+    if guardado is not None:
+        _log_provenance("_cache_hit", {"rota": path, "chave": chave[:12]}, {"reaproveitado": True})
+        return guardado
+
     url = _url_for(path)
     async with httpx.AsyncClient(timeout=REQUEST_TIMEOUT, follow_redirects=True) as client:
         try:
@@ -387,6 +447,10 @@ async def _post(path: str, payload: dict[str, Any]) -> dict[str, Any]:
             raise NimError(
                 f"resposta JSON nao era objeto (tipo {type(data).__name__}): {r.text[:300]}"
             )
+        # So sucesso entra no cache: todo caminho de erro acima levanta NimError
+        # e nunca chega aqui. Guardar um 429 seria transformar uma falha
+        # temporaria em falha permanente.
+        _cache_write(chave, path, data)
         return data
 
 
@@ -489,6 +553,30 @@ def nim_config() -> dict[str, Any]:
         "provenance_log": str(PROV_LOG),
         "timeout_seconds": REQUEST_TIMEOUT,
         "models_registered": sorted(REGISTRY),
+        "cache": _cache_stats(),
+    }
+
+
+def _cache_stats() -> dict[str, Any]:
+    """
+    Quantas respostas ja estao guardadas e quanto ocupam.
+
+    Serve para responder "esta varredura vai custar chamada nova?" antes de
+    dispara-la, e para decidir quando limpar. Predicao nao expira sozinha:
+    o modelo e deterministico, entao a resposta de ontem vale hoje.
+    """
+    if not CACHE_ON:
+        return {"ativo": False}
+    try:
+        arquivos = list(CACHE_DIR.glob("*.json"))
+    except OSError:
+        return {"ativo": True, "entradas": 0, "bytes": 0, "dir": str(CACHE_DIR)}
+    return {
+        "ativo": True,
+        "entradas": len(arquivos),
+        "bytes": sum(a.stat().st_size for a in arquivos),
+        "dir": str(CACHE_DIR),
+        "desligar_com": "BIO_STACK_NIM_CACHE=0",
     }
 
 

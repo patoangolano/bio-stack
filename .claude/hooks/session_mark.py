@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import json
 import os
+import subprocess
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
@@ -40,6 +41,38 @@ def _log_path() -> Path:
 
 # Traducao para portugues so na leitura humana; a chave `event` guarda o nome
 # original, que e o que um script deve filtrar.
+RAIZ = Path(__file__).resolve().parents[2]
+
+
+def _estado_git() -> dict[str, object]:
+    """
+    Commit do HEAD e se havia alteracao nao commitada.
+
+    A distincao e o que separa reprodutivel de quase-reprodutivel: um resultado
+    produzido com a arvore suja nao pode ser refeito a partir do SHA, porque o
+    codigo que rodou nao esta em lugar nenhum do historico.
+    """
+    try:
+        sha = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=RAIZ, capture_output=True, text=True, timeout=8, check=False,
+        )
+        if sha.returncode != 0:
+            return {"git": "fora de repositorio"}
+        sujo = subprocess.run(
+            ["git", "status", "--porcelain"],
+            cwd=RAIZ, capture_output=True, text=True, timeout=8, check=False,
+        )
+        pendentes = [ln for ln in sujo.stdout.splitlines() if ln.strip()]
+        return {
+            "commit": sha.stdout.strip()[:40],
+            "arvore_limpa": not pendentes,
+            "arquivos_pendentes": len(pendentes),
+        }
+    except (OSError, subprocess.SubprocessError):
+        return {"git": "indisponivel"}
+
+
 DESCRICAO = {
     "SessionStart": "sessao iniciada",
     "SessionEnd": "sessao encerrada",
@@ -66,6 +99,13 @@ def main() -> int:
         "event": event,
         "nota": DESCRICAO[event],
     }
+
+    # Estado do repositorio no limite da sessao. Aqui `git status` cabe: roda
+    # duas vezes por sessao, nao uma vez por chamada de ferramenta. E e o que
+    # qualifica o SHA que o provenance.py grava em cada linha — um commit
+    # limpo significa "este codigo exato produziu este resultado"; um commit
+    # sujo significa "havia alteracao nao commitada, o SHA e so uma dica".
+    entry.update(_estado_git())
 
     # SessionEnd informa por que a sessao acabou (clear, logout, saida do
     # usuario). Util para distinguir "terminou o trabalho" de "caiu".

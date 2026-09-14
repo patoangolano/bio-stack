@@ -85,8 +85,13 @@ consulte o log, não a memória da conversa.
 
 - Python 3.11, `ruff` para lint e formato, type hints em funções públicas.
 - Análise em script ou notebook versionado, nunca comando solto no terminal.
-- Seeds fixadas (`np.random.seed`, `random_state=`) em tudo que é estocástico —
-  UMAP e Leiden mudam de resultado entre execuções sem isso.
+- Seeds fixadas em tudo que é estocástico — UMAP e Leiden mudam de resultado
+  entre execuções sem isso. **Nunca use `np.random.seed()`**: é estado global de
+  processo, e qualquer biblioteca importada depois pode consumir números do
+  mesmo gerador e deslocar a sequência sem que nada falhe. O lint recusa
+  (`ruff` regra NPY002). Use `random_state=` no parâmetro da biblioteca
+  (`sc.tl.leiden(..., random_state=0)`) e `rng = np.random.default_rng(0)` para
+  aleatoriedade sua.
 - Figuras com eixos rotulados, unidade, e n declarado.
 - Caminhos relativos ao projeto; dados brutos em `data/raw/` ficam somente-leitura.
 

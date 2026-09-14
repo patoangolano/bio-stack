@@ -41,6 +41,49 @@ def _log_path() -> Path:
 
 LOG = _log_path()
 
+#: Versao do formato de cada linha. O arquivo ja mudou de forma uma vez sem
+#: aviso (linhas antigas nao tem `ok` nem `commit`), e um leitor que assuma o
+#: formato novo quebra ou, pior, mente sobre as linhas velhas.
+SCHEMA = 3
+
+
+def _commit() -> str | None:
+    """
+    SHA do HEAD, lido direto do diretorio .git.
+
+    Poderia ser `git rev-parse HEAD`, mas isso e um subprocesso por chamada de
+    ferramenta — em 900 operacoes, minutos de overhead. Ler o arquivo custa
+    microssegundos e da a mesma resposta.
+
+    Isto e o que amarra resultado a codigo. Sem o SHA, o log responde "o que eu
+    rodei" mas nao "com qual versao do script" — e a segunda pergunta e a que
+    torna o resultado reproduzivel.
+    """
+    raiz = Path(__file__).resolve().parents[2] / ".git"
+    try:
+        head = (raiz / "HEAD").read_text(encoding="utf-8").strip()
+    except OSError:
+        return None
+    if not head.startswith("ref:"):
+        return head[:40] or None  # HEAD destacado ja e o proprio SHA
+
+    ref = head[4:].strip()
+    try:
+        return (raiz / ref).read_text(encoding="utf-8").strip()[:40]
+    except OSError:
+        pass
+    # Ref empacotada: depois de `git gc` o arquivo solto deixa de existir.
+    try:
+        for linha in (raiz / "packed-refs").read_text(encoding="utf-8").splitlines():
+            if linha.endswith(f" {ref}"):
+                return linha.split(" ", 1)[0][:40]
+    except OSError:
+        pass
+    return None
+
+
+COMMIT = _commit()
+
 # Ferramentas de leitura pura nao mudam nada; registra-las so gera ruido.
 IGNORED = {"Read", "Grep", "Glob", "TodoWrite", "ListAgents", "ToolSearch", "WebSearch"}
 
@@ -130,8 +173,10 @@ def main() -> int:
     # escrita a partir de um log so-de-sucesso descreve um experimento que nao
     # aconteceu — e o vies e invisivel, porque nada no arquivo denuncia a falta.
     entry = {
+        "v": SCHEMA,
         "ts": datetime.now(UTC).isoformat(timespec="seconds"),
         "session": payload.get("session_id"),
+        "commit": COMMIT,
         "kind": classify(tool_name, tool_input),
         "tool": tool_name,
         "ok": not falhou,

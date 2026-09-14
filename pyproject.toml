@@ -1,7 +1,59 @@
-# Configuracao dos analisadores usados pelo hook lint_gate.py.
-# Sem isto o basedpyright roda no modo "recommended" (mais estrito que o
-# Pylance padrao) e devolve uma parede de diagnosticos em qualquer script
-# cientifico normal.
+# bio-stack — ambiente de bioinformatica computacional academica.
+#
+# O [project] existe por um motivo especifico: sem ele `uv lock` nao resolve
+# nada e o uv.lock fica com tres linhas e zero pacotes. Toda afirmacao de
+# Metodos que cite uma versao ("PyDESeq2 v0.5.4 calcula padj com
+# scipy.stats.false_discovery_control") vira inverificavel um ano depois se a
+# versao nao estiver travada em lugar nenhum.
+#
+# As versoes exatas abaixo sao as que carregam peso estatistico: trocar
+# qualquer uma pode mudar como padj e calculado, e portanto muda o que a secao
+# de Metodos afirma. O resto usa piso de versao; o uv.lock guarda o fecho
+# transitivo com hash.
+
+[project]
+name = "bio-stack"
+version = "0.1.0"
+description = "Ambiente de bioinformatica e biologia sintetica computacional com aceleracao via NVIDIA BioNeMo NIM"
+requires-python = ">=3.11"
+dependencies = [
+    # --- carregam peso estatistico: versao exata ---
+    "scanpy==1.11.5",        # FDR por grupo em rank_genes_groups (statsmodels fdr_bh)
+    "pydeseq2==0.5.4",       # padj via scipy.stats.false_discovery_control + filtro independente
+    "statsmodels==0.15.0",   # multipletests, usado pelo scanpy
+    "numpy==2.4.6",
+    "scipy==1.17.1",         # false_discovery_control vive aqui
+    # --- restante do core ---
+    "anndata>=0.12",
+    "gseapy>=1.3",
+    "pandas>=2.3",
+    "polars>=1.44",
+    "biopython>=1.88",
+    "biotite>=1.6",
+    "rdkit>=2026.3",
+    "matplotlib>=3.11",
+    "seaborn>=0.13",
+    "jupyterlab>=4.6",
+    "ipykernel>=6.29",
+    "httpx>=0.27",
+    "requests>=2.32",
+    "leidenalg>=0.10",
+    "igraph>=0.11",
+]
+
+[dependency-groups]
+dev = [
+    "ruff==0.16.7",
+    "pytest>=9.1",
+    "pytest-cov>=7.1",
+    "pytest-randomly>=5.0",  # reordena testes e reseeda: exp e determinismo real
+    "basedpyright>=1.40",
+]
+
+# Isto aqui nao e um pacote instalavel, e um projeto de analise. Sem esta linha
+# o `uv sync` tenta construir a propria bio-stack como wheel e falha.
+[tool.uv]
+package = false
 
 [tool.ruff]
 line-length = 100
@@ -9,7 +61,13 @@ target-version = "py311"
 exclude = [".venv", "runs", "work", "data"]
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I", "UP", "B"]
+# NPY: regras especificas de numpy. A que importa e a NPY002, que proibe o
+# gerador global legado (np.random.seed + np.random.rand). O gerador global e
+# um estado compartilhado de processo: qualquer biblioteca importada depois
+# pode consumir numeros dele e deslocar a sequencia sem que nada falhe — o
+# resultado muda entre execucoes e o script parece deterministico.
+# PD: regras de pandas. PT: regras de pytest.
+select = ["E", "F", "W", "I", "UP", "B", "NPY"]
 ignore = [
     "E501",  # comprimento de linha ja e tratado pelo formatador
     "B008",  # chamada em default de argumento: comum e intencional em MCP
