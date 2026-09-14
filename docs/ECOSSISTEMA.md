@@ -145,6 +145,7 @@ Criado `.claude/marketplace/` no próprio repositório declarando `basedpyright`
 |---|---|---|
 | 1 | ~~`wsl --install -d Ubuntu-24.04`~~ | **Feito em 2026-09-14.** Ver §6 |
 | 2 | Aprovar o marketplace `bio-stack` quando o Claude Code perguntar | Sem isso o `bio-lsp` não carrega |
+| 2b | ~~Docker dentro do WSL~~ | **Feito em 2026-09-14.** Ver §6 |
 | 3 | Nomear uma acessão real (GEO/SRA/ArrayExpress) | `data/raw/` e `data/proc/` estão **vazios**. Todo o maquinário estatístico acima está validado contra nenhuma entrada |
 | 4 | Indexar sua bibliografia (`library_index`) | `runs/library/` continua vazio |
 | 5 | Repor `S2_API_KEY` | Semantic Scholar ausente |
@@ -219,7 +220,7 @@ Honestidade sobre os limites desta auditoria.
 | # | Ação | Custo |
 |---|---|---|
 | 1 | Desligar os plugins fora de escopo | minutos |
-| 2 | Ligar a integração WSL do Docker Desktop para Ubuntu-24.04 | minutos |
+| 2 | ~~Ligar a integração WSL do Docker Desktop~~ | **Feito.** Cadeia Nextflow→container verificada |
 | 3 | Escolher a acessão e baixar o dado | 1 dia |
 | 4 | Indexar a bibliografia | ~1 h |
 | 5 | Rodar `--tag seqqa2 --limit 5` do LABBench2 como linha de base | ~2 h |
@@ -265,11 +266,25 @@ commit* que **mencionava** o padrão: a regra varre a string inteira do comando.
 Contorno: `git commit -F arquivo`, que é melhor prática para texto longo de
 qualquer forma.
 
-### Ainda pendente
+### Docker: ligado e verificado no mesmo dia
 
-A integração WSL do Docker Desktop está **desligada** para Ubuntu-24.04
-(Settings → Resources → WSL Integration). Sem ela não há `docker` dentro da
-distro, e os pipelines nf-core rodam só com `-profile conda` ou `singularity`.
+A integração WSL do Docker Desktop foi ligada para Ubuntu-24.04. `docker`
+29.7.2 responde dentro da distro, falando com o daemon do Desktop (20 CPUs,
+16,5 GB).
+
+Verificado com o pipeline inteiro, não com `docker info`:
+
+```
+nextflow run nf-core/demo -profile test,docker --outdir resultados
+→ 8 processos em container: FASTQC x3, SEQTK_TRIM x3, MULTIQC, COWPY
+→ Pipeline completed successfully (exit 0)
+→ resultados/multiqc/multiqc_report.html, 2,4 MB
+→ work/ 42 MB · resultados/ 29 MB
+```
+
+Com isso a cadeia inteira está fechada: **Nextflow → container → ferramenta de
+bioinformática → relatório**. `-profile docker` é o padrão daqui em diante;
+conda e singularity ficam desnecessários.
 
 `/mnt/c` atravessa a fronteira de sistema de arquivos e é ordens de grandeza
 mais lento para muitos arquivos pequenos — o padrão exato de um pipeline

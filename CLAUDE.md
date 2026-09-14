@@ -51,10 +51,18 @@ pequenos, que é exatamente o padrão de um pipeline Nextflow.
 > arquivo e execute o arquivo. Ver `_wsl_presentes()` em
 > `.claude/hooks/session_context.py`.
 
-**Pendente:** a integração WSL do Docker Desktop está **desligada** para
-Ubuntu-24.04 (Settings → Resources → WSL Integration). Sem ela não há `docker`
-dentro da distro, e portanto os pipelines nf-core rodam só com `-profile conda`
-ou `singularity` — não com containers Docker.
+**Docker funciona dentro da distro** (integração WSL ligada em 2026-09-14):
+`docker` 29.7.2 falando com o daemon do Docker Desktop, 20 CPUs, 16,5 GB.
+Verificado com o pipeline inteiro, não só com `docker info`:
+
+```bash
+wsl -d Ubuntu-24.04 -- bash -lc "cd ~/nf-smoke && nextflow run nf-core/demo -profile test,docker --outdir resultados"
+```
+
+Resultado: 8 processos em container (FASTQC ×3, SEQTK_TRIM ×3, MULTIQC, COWPY),
+`Pipeline completed successfully`, relatório MultiQC de 2,4 MB gerado.
+Então `-profile docker` é o padrão a usar aqui — não precisa de conda nem
+singularity.
 
 ## Roteamento de agentes
 
