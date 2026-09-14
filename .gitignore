@@ -1,0 +1,58 @@
+# ambiente
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# segredos — as chaves vivem no ambiente do usuario, nunca em arquivo
+.env
+.env.*
+*.key
+.claude/settings.local.json
+
+# dados brutos: grandes demais para git. Use DVC, git-annex ou o storage da
+# universidade, e versione apenas o manifesto.
+data/raw/**
+!data/raw/.gitkeep
+data/proc/**
+!data/proc/.gitkeep
+
+*.bam
+*.bai
+*.cram
+*.fastq
+*.fastq.gz
+*.fq.gz
+*.sra
+*.vcf.gz
+*.vcf.gz.tbi
+*.h5ad
+*.loom
+
+# saidas de analise. O provenance.jsonl E versionado de proposito:
+# ele e o caderno de laboratorio e precisa de historico.
+runs/nim/**
+!runs/nim/.gitkeep
+!runs/provenance.jsonl
+
+# nextflow
+work/
+.nextflow/
+.nextflow.log*
+
+# sistema
+Thumbs.db
+.DS_Store
+
+# artefatos de sondagem e indice RAG — grandes, regeneraveis, sem valor de historico
+runs/probe-*/**
+runs/library/**
+!runs/library/.gitkeep
+runs/queue.jsonl
+
+# caches
+.ruff_cache/
+.pytest_cache/
+
+# rascunho de sessao na raiz — nao faz parte do projeto
+*.bak

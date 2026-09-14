@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "NVIDIA_NIM_MODE": "hosted",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUNBUFFERED": "1",
+    "MPLBACKEND": "Agg",
+    "NXF_ANSI_LOG": "false",
+    "TOKENIZERS_PARALLELISM": "false"
+  },
+  "permissions": {
+    "allow": [
+      "Read(//**)",
+      "Bash(nvidia-smi*)",
+      "Bash(python -c*)",
+      "Bash(python -m pytest*)",
+      "Bash(uv run*)",
+      "Bash(uv pip list*)",
+      "Bash(ruff check*)",
+      "Bash(ruff format*)",
+      "Bash(basedpyright*)",
+      "Bash(samtools view*)",
+      "Bash(samtools flagstat*)",
+      "Bash(samtools idxstats*)",
+      "Bash(bcftools stats*)",
+      "Bash(bcftools view -h*)",
+      "Bash(seqkit stats*)",
+      "Bash(seqkit fx2tab*)",
+      "Bash(fastqc --version*)",
+      "Bash(multiqc --version*)",
+      "Bash(nextflow -version*)",
+      "Bash(nextflow info*)",
+      "Bash(nextflow lint*)",
+      "Bash(nf-core --version*)",
+      "Bash(nf-core pipelines list*)",
+      "Bash(nf-core pipelines lint*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "mcp__nvidia-bio__nim_config",
+      "mcp__nvidia-bio__nim_list_models",
+      "mcp__nvidia-bio__nim_probe_endpoints",
+      "mcp__gget",
+      "mcp__biocontext",
+      "mcp__biomcp"
+    ],
+    "ask": [
+      "Bash(nextflow run*)",
+      "Bash(docker run*)",
+      "Bash(uv pip install*)",
+      "Bash(pip install*)",
+      "mcp__nvidia-bio__fold_protein",
+      "mcp__nvidia-bio__cofold_complex",
+      "mcp__nvidia-bio__dock_ligand",
+      "mcp__nvidia-bio__msa_search",
+      "mcp__nvidia-bio__evo2_score",
+      "mcp__nvidia-bio__nim_invoke",
+      "mcp__nvidia-bio__design_backbone",
+      "mcp__nvidia-bio__design_sequence",
+      "mcp__nvidia-bio__generate_molecules",
+      "mcp__nvidia-bio__generate_from_fragment"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/*.pem)",
+      "Read(./**/id_rsa*)",
+      "Bash(rm -rf /*)",
+      "Bash(git push --force*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --script \"${CLAUDE_PROJECT_DIR}/.claude/hooks/session_context.py\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --script \"${CLAUDE_PROJECT_DIR}/.claude/hooks/guard_data.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --script \"${CLAUDE_PROJECT_DIR}/.claude/hooks/lint_gate.py\"",
+            "timeout": 60
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --script \"${CLAUDE_PROJECT_DIR}/.claude/hooks/provenance.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

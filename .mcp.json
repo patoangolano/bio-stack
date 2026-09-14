@@ -1,0 +1,70 @@
+{
+  "mcpServers": {
+    "nvidia-bio": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--script",
+        "C:/Users/Manec/bio-stack/servers/nvidia_bio_mcp/server.py"
+      ],
+      "env": {
+        "NVIDIA_API_KEY": "${NVIDIA_API_KEY}",
+        "NVIDIA_NIM_MODE": "hosted",
+        "NVIDIA_NIM_TIMEOUT": "900",
+        "BIO_STACK_OUT": "C:/Users/Manec/bio-stack/runs/nim",
+        "BIO_STACK_PROVENANCE": "C:/Users/Manec/bio-stack/runs/provenance.jsonl"
+      }
+    },
+    "nvidia-nemo": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--script",
+        "C:/Users/Manec/bio-stack/servers/nvidia_nemo_mcp/server.py"
+      ],
+      "env": {
+        "NVIDIA_API_KEY": "${NVIDIA_API_KEY}",
+        "NVIDIA_EMBED_MODEL": "nvidia/nemotron-3-embed-1b",
+        "NVIDIA_RERANK_MODEL": "nvidia/llama-3.2-nv-rerankqa-1b-v2",
+        "BIO_STACK_INDEX": "C:/Users/Manec/bio-stack/runs/library",
+        "BIO_STACK_PROVENANCE": "C:/Users/Manec/bio-stack/runs/provenance.jsonl"
+      }
+    },
+    "biocontext": {
+      "command": "uvx",
+      "args": [
+        "--python",
+        "3.12",
+        "--with",
+        "bibtexparser<2",
+        "biocontext_kb@latest"
+      ],
+      "env": {
+        "UV_PYTHON": "3.12"
+      }
+    },
+    "gget": {
+      "command": "uvx",
+      "args": [
+        "gget-mcp",
+        "stdio"
+      ]
+    },
+    "biomcp": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "biomcp-python",
+        "biomcp",
+        "run",
+        "--mode",
+        "stdio"
+      ],
+      "env": {
+        "NCBI_API_KEY": "${NCBI_API_KEY:-}",
+        "S2_API_KEY": "${S2_API_KEY:-}",
+        "OPENFDA_API_KEY": "${OPENFDA_API_KEY:-}"
+      }
+    }
+  }
+}

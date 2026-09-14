@@ -1,0 +1,69 @@
+{
+  "//": "Copie para .vscode/settings.json. Pareado com .claude/hooks/lint_gate.py.",
+
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+  "python.analysis.typeCheckingMode": "standard",
+  "python.analysis.autoImportCompletions": true,
+  "python.terminal.activateEnvironment": true,
+
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    }
+  },
+
+  "ruff.lineLength": 100,
+
+  "nextflow.formatting.harshilAlignment": true,
+  "nextflow.debug": false,
+  "[nextflow]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
+  },
+
+  "r.lsp.enabled": true,
+  "r.plot.useHttpgd": true,
+
+  "files.associations": {
+    "*.nf": "nextflow",
+    "*.smk": "snakemake",
+    "Snakefile": "snakemake",
+    "*.a3m": "plaintext",
+    "*.fasta": "fasta",
+    "*.fa": "fasta",
+    "*.gb": "genbank"
+  },
+
+  "files.exclude": {
+    "**/.venv": true,
+    "**/work": true,
+    "**/.nextflow": true,
+    "**/__pycache__": true
+  },
+
+  "//search": "dados brutos e saidas fora da busca — senao o VS Code trava em FASTQ",
+  "search.exclude": {
+    "**/data/raw/**": true,
+    "**/runs/nim/**": true,
+    "**/work/**": true,
+    "**/*.bam": true,
+    "**/*.fastq.gz": true,
+    "**/*.vcf.gz": true
+  },
+
+  "files.watcherExclude": {
+    "**/data/**": true,
+    "**/runs/**": true,
+    "**/work/**": true
+  },
+
+  "jupyter.notebookFileRoot": "${workspaceFolder}",
+  "notebook.output.textLineLimit": 60,
+
+  "editor.rulers": [100],
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true
+}

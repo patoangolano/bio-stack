@@ -1,0 +1,67 @@
+[shell_environment_policy]
+inherit = "core"
+
+[shell_environment_policy.set]
+NVIDIA_NIM_MODE = "hosted"
+PYTHONIOENCODING = "utf-8"
+PYTHONUNBUFFERED = "1"
+MPLBACKEND = "Agg"
+NXF_ANSI_LOG = "false"
+TOKENIZERS_PARALLELISM = "false"
+
+[mcp_servers.biocontext]
+command = "uvx"
+args = ["biocontext_kb@latest"]
+
+[mcp_servers.biocontext.env]
+UV_PYTHON = "3.12"
+
+[mcp_servers.biomcp]
+command = "biomcp"
+args = [
+    "run",
+    "--mode",
+    "stdio",
+]
+env_vars = [
+    "NCBI_API_KEY",
+    "S2_API_KEY",
+    "OPENFDA_API_KEY",
+]
+
+[mcp_servers.gget]
+command = "uvx"
+args = [
+    "gget-mcp",
+    "stdio",
+]
+
+[mcp_servers.nvidia-bio]
+command = "uv"
+args = [
+    "run",
+    "--script",
+    "C:/Users/Manec/bio-stack/servers/nvidia_bio_mcp/server.py",
+]
+env_vars = ["NVIDIA_API_KEY"]
+
+[mcp_servers.nvidia-bio.env]
+NVIDIA_NIM_MODE = "hosted"
+NVIDIA_NIM_TIMEOUT = "900"
+BIO_STACK_OUT = "C:/Users/Manec/bio-stack/runs/nim"
+BIO_STACK_PROVENANCE = "C:/Users/Manec/bio-stack/runs/provenance.jsonl"
+
+[mcp_servers.nvidia-nemo]
+command = "uv"
+args = [
+    "run",
+    "--script",
+    "C:/Users/Manec/bio-stack/servers/nvidia_nemo_mcp/server.py",
+]
+env_vars = ["NVIDIA_API_KEY"]
+
+[mcp_servers.nvidia-nemo.env]
+NVIDIA_EMBED_MODEL = "nvidia/llama-3.2-nv-embedqa-1b-v2"
+NVIDIA_RERANK_MODEL = "nvidia/llama-3.2-nv-rerankqa-1b-v2"
+BIO_STACK_INDEX = "C:/Users/Manec/bio-stack/runs/library"
+BIO_STACK_PROVENANCE = "C:/Users/Manec/bio-stack/runs/provenance.jsonl"

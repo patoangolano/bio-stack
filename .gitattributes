@@ -1,0 +1,11 @@
+# O caderno de laboratorio. Append-only: merge por uniao evita conflito quando
+# duas sessoes registram operacoes em paralelo.
+runs/provenance.jsonl merge=union -diff
+
+# Notebooks: diff textual e ilegivel. Versione, mas nao tente mesclar.
+*.ipynb -merge
+
+# Fim de linha: o repositorio guarda LF, o Windows recebe CRLF no checkout.
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.bat text eol=crlf

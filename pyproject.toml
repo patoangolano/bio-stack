@@ -1,0 +1,21 @@
+# Configuracao dos analisadores usados pelo hook lint_gate.py.
+# Sem isto o basedpyright roda no modo "recommended" (mais estrito que o
+# Pylance padrao) e devolve uma parede de diagnosticos em qualquer script
+# cientifico normal.
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = [".venv", "runs", "work", "data"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = [
+    "E501",  # comprimento de linha ja e tratado pelo formatador
+    "B008",  # chamada em default de argumento: comum e intencional em MCP
+]
+
+[tool.basedpyright]
+typeCheckingMode = "standard"
+reportMissingImports = "warning"
+exclude = [".venv", "runs", "work", "data", "**/__pycache__"]
