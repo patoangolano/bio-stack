@@ -201,9 +201,52 @@ a mesma ordem gênica do jacaré (`ENAM → AMBN → … → LPL`): *Meleagris*,
 ψ-`AMELX` com 2 stops.
 
 **`AMBN` não foi deletado do genoma do frango.** Era o item genuinamente em
-aberto na literatura, e está resolvido: teste recíproco do fragmento de 42 aa
-contra banco com a família SCPP completa de oito espécies mais iscas acerta
-**só `AMBN`**, em quatro espécies independentes, e nenhum outro membro SCPP.
+aberto na literatura, e está resolvido por duas vias independentes:
+
+1. Teste recíproco do fragmento de 42 aa contra banco com a família SCPP
+   completa de oito espécies mais iscas acerta **só `AMBN`**, em quatro
+   espécies, e nenhum outro membro SCPP.
+2. Varredura do **genoma inteiro** de *Gallus* (1,067 Gb, `diamond blastx`
+   local): a relíquia do chrZ é **o único acerto de `AMBN` no genoma todo**.
+
+### Robustez ao mascaramento, e por que isso importa
+
+Proteína de matriz de esmalte é P/Q-rica e de baixa complexidade, então o
+mascaramento padrão poderia, em tese, estar apagando ou fabricando sinal. Foi
+testado nos dois sentidos:
+
+| achado | sem mascaramento | com mascaramento (tantan) |
+|---|---|---|
+| ψ-`ENAM` chrZ | 4,75e-21 | **4,75e-21** |
+| ψ-`AMBN` chrZ | 3,73e-09 | **3,73e-09** |
+| ψ-`AMELX` chr1 | 3,08e-19 | **3,35e-15** |
+
+Os três sobrevivem. O mascaramento não fabricou nem apagou nada.
+
+**Mas desligar o mascaramento no genoma inteiro é erro.** Numa janela de 1 Mb
+restrita por sintenia é controlável; nos 1,067 Gb inundou o resultado com 324
+HSPs de 20–26% de identidade espalhados por dezenas de scaffolds. A regra
+prática: `--masking 0` só dentro de janela ancorada.
+
+### Dois candidatos novos, e o recíproco matou os dois
+
+A varredura genômica levantou dois hits fora das janelas. Ambos foram submetidos
+ao mesmo teste que o `AMBN` passou, e ambos reprovaram:
+
+- **chr1 194,25–194,33 Mb** (`ENAM`+`AMELX`): **zero HSP** com mascaramento
+  ligado. Artefato puro. Descartado.
+- **chr1 182.326.008–182.326.519**, candidato a ψ-`MMP20`: sobrevive ao
+  mascaramento (E=6,8e-26) e cai no lugar sintenicamente certo, no vão entre
+  `MMP13` e `MMP27`. Parecia bom. **O recíproco reprovou:** contra painel de 16
+  MMPs, acerta `MMP1`, `MMP12`, `MMP27` e `MMP13` antes — `MMP20` aparece em
+  **décimo**. É domínio catalítico genérico com sítio de zinco, provável
+  parálogo não anotado. Descartado.
+
+Esse contraste é o que dá peso ao `AMBN`: o fragmento do chrZ acerta `AMBN` em
+quatro espécies e **nenhum** outro SCPP; o do chr1 acerta oito MMPs antes de
+`MMP20`. Mesmo teste, resultados opostos. Ambos ficam registrados como linhas
+`CANDIDATO_REJEITADO` na tabela — negativo documentado vale tanto quanto
+positivo.
 
 **Por que a varredura da §2 não os viu:** as duas relíquias do chrZ caem num vão
 **não anotado** do RefSeq, entre `NRG1` e `LOC112530610`. Consulta em nível de
@@ -541,6 +584,23 @@ presença/ausência.
 A lição transferível: **resultado biologicamente implausível quase nunca é
 descoberta.** Três dos quatro eram infraestrutura, não biologia.
 
+**Quinta armadilha, e a pior: o zero silencioso do BLAST web do NCBI.** Três
+consultas com acerto obrigatório ficaram em `WAITING` após ~18 min de polling e
+devolveram uma **página HTML de 24 KB** em vez de tabela. Um parser que filtra
+linha por contagem de TAB não acha nenhuma e reporta **`0 HSPs` sem erro**. Um
+dos jobs chegou a informar `ThereAreHits=yes` e mesmo assim saiu como zero.
+
+Todo `0 HSPs` vindo do NCBI nesta sessão era timeout mal interpretado, nunca
+resultado biológico. A conclusão intermediária de que *"`core_nt` não contém
+sequência genômica de Gallus"* era **falsa** e foi retratada — o banco está bem,
+o cliente é que falhou. Evidência guardada de propósito em
+`runs/atavismo/diag_ncbi_blast_falhou.txt`.
+
+É a Regra 2 do agente `evo-devo` aplicada à própria ferramenta: **ausência de
+saída não é ausência de acerto.** Regra prática desta stack: nunca aceite `0`
+de um serviço remoto sem checar o **status** e o **content-type** da resposta;
+e o controle positivo só serve se você ler o resultado dele.
+
 **Limite ético e regulatório.** Tudo aqui é in silico. Qualquer passo em embrião
 de vertebrado exige aprovação prévia do comitê de ética no uso de animais
 (CEUA). O desenho computacional é legítimo e publicável por si; a passagem para
@@ -563,11 +623,14 @@ Em ordem de valor, o que sobra:
    isto a levaria ao ancestral de Aves. *Struthio* é a espécie-chave.
 2. **Localizar a lesão de ψ-`AMBN`.** O fragmento recuperado tem 43 códons e
    zero stop — curto demais para carregar a lesão. Estender a janela.
-3. **Resolver `DSPP` e `MMP20`.** "Não encontrados" é nível 1, não 3. A
-   varredura é **ancorada em sintenia, não genômica** — o tBLASTn irrestrito do
-   NCBI falhou o próprio controle positivo e foi descartado. Relíquia
-   translocada para fora das janelas passaria despercebida. Caminho: montar
-   banco local do genoma de *Gallus* no WSL e rodar sem âncora.
+3. **Resolver `DSPP` e `AMTN` em *Gallus*.** Continuam não encontrados, mas a
+   varredura **genômica irrestrita agora existe** — `diamond blastx` local sobre
+   os 1,067 Gb — então isto deixou de ser limitação de janela. É negativo de
+   **nível 2**, não 3, por uma razão específica e contornável: o DIAMOND do
+   Windows aborta em `Masking queries` com 1,07 Gb de consulta (`rc=127`,
+   testado com block-size 2,0 e 0,4). Sem a versão mascarada do genoma completo
+   não se chama de ausência. Caminho: refazer no WSL, onde a build não tem esse
+   limite.
 4. **Dois achados pendentes**, anotados para não virarem certeza por omissão:
    o acerto de `AMELX` em *Melopsittacus* no chrZ tem **0 stop em 156 códons** —
    não é perfil de pseudogene e não bate com `AMELX` estar no chr1 no frango;
