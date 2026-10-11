@@ -18,11 +18,17 @@ projeto tem via institucional própria e não passa por aqui.
 
 ```
 GPU:    NVIDIA GeForce RTX 5070 Laptop
-VRAM:   8 GB
-CUDA:   13.4 (driver 616.92)
-Arch:   Blackwell, sm_120  → PyTorch precisa de wheels cu128+
-SO:     Windows 11 · WSL2 com Ubuntu-24.04 (20 núcleos, 15 GB RAM, 955 GB livres)
+VRAM:   8 GB (8151 MiB)
+CUDA:   13.4 (driver 617.14)
+Arch:   Blackwell, sm_120 (compute 12.0)  → PyTorch precisa de wheels cu128+
+Torch:  2.11.0+cu128 · torch.version.cuda 12.8 · cuda.is_available() True
+SO:     Windows 11 · WSL2 com Ubuntu-24.04 (20 núcleos, 15 GB RAM, 950 GB livres de 1007 GB)
 ```
+
+O par `cu128` / `torch.version.cuda 12.8` é o que torna a exigência de wheels
+cu128+ verificável: o driver 617.14 expõe CUDA 13.4, mas não existe wheel
+oficial de PyTorch para sm_120 abaixo de cu128 — um wheel cu121 instala sem
+reclamar e só falha no primeiro kernel.
 
 **Não proponha rodar localmente**: AlphaFold2, ESMFold, OpenFold2/3, Boltz-2,
 Evo 2, RFdiffusion, Parabricks. Nenhum cabe em 8 GB. Use as ferramentas
@@ -31,9 +37,14 @@ Evo 2, RFdiffusion, Parabricks. Nenhum cabe em 8 GB. Use as ferramentas
 **Cabe local**: ESM-2 650M, DNABERT-2, scanpy, pydeseq2, RDKit, biopython,
 nvMolKit, inferência de modelos pequenos.
 
-**Vive no WSL** (Ubuntu-24.04, instalado em 2026-09-14): `nextflow` 26.04.6,
-`nf-core` 4.1.0, `samtools` 1.19.2, `bcftools` 1.19, `bedtools` 2.31.1,
-`seqkit` 2.13.0, `tabix`, Java 21. Não procure essas no PATH do Windows.
+**Vive no WSL** (Ubuntu 24.04.5 LTS, distro `Ubuntu-24.04`, reinstalada em
+2026-10-10): `nextflow` 26.04.6, `nf-core` 4.1.0, `samtools` 1.19.2,
+`bcftools` 1.19, `bedtools` 2.31.1, `seqkit` 2.13.0, `tabix` 1.19, `bgzip` 1.19,
+`docker` 29.9.0, Java 21. Não procure essas no PATH do Windows.
+
+Onde cada uma mora importa para a armadilha do PATH, logo abaixo:
+samtools/bcftools/bedtools/tabix vieram do apt e estão em `/usr/bin`; seqkit e
+nextflow são binários em `~/.local/bin`; nf-core veio por pipx.
 
 ```bash
 wsl -d Ubuntu-24.04 -- bash -lc "samtools flagstat amostra.bam"
@@ -44,25 +55,51 @@ O projeto aparece lá como `/mnt/c/Users/Manec/bio-stack`. Prefira trabalhar em
 sistema de arquivos e é ordens de grandeza mais lento para muitos arquivos
 pequenos, que é exatamente o padrão de um pipeline Nextflow.
 
-> **Armadilha medida:** chamado via `subprocess` do Python, o `wsl.exe` **engole
-> sequências `$var`** na tradução da linha de comando — um laço
-> `for t in ...; do echo "$t"; done` executa o número certo de vezes e imprime
-> vazio em todas, sem erro. Escreva comandos sem cifrão, ou ponha o script num
-> arquivo e execute o arquivo. Ver `_wsl_presentes()` em
-> `.claude/hooks/session_context.py`.
+> **Três armadilhas medidas, e elas se somam.** Na prática você precisa das três
+> defesas ao mesmo tempo: script em arquivo, `MSYS_NO_PATHCONV=1`, e `bash -l`.
+>
+> 1. **`wsl.exe` engole `$var`.** Chamado via `subprocess` do Python, o `wsl.exe`
+>    perde as sequências `$var` na tradução da linha de comando — um laço
+>    `for t in ...; do echo "$t"; done` executa o número certo de vezes e imprime
+>    vazio em todas, com exit 0 e sem erro. Escreva comandos sem cifrão, ou ponha
+>    o script num arquivo e execute o arquivo. Ver `_wsl_presentes()` em
+>    `.claude/hooks/session_context.py`.
+> 2. **Git Bash reescreve o caminho antes do `wsl.exe` ver.** Pelo Bash tool,
+>    passar `/mnt/c/Users/...` para `wsl.exe` volta como
+>    `bash: C:/Program Files/Git/mnt/c/Users/...: No such file or directory` — o
+>    MSYS traduziu o caminho POSIX para caminho Windows e colou a raiz da
+>    instalação do Git na frente. Contorno: `export MSYS_NO_PATHCONV=1` antes da
+>    chamada.
+> 3. **Execute com `bash -l`, não `bash`.** O `-l` não é detalhe de estilo: o
+>    PATH de `~/.local/bin` e dos shims do pipx está em `~/.profile`, que só é
+>    lido em shell de **login**. O `~/.bashrc` do Ubuntu não serve de substituto
+>    — ele abre com `case $- in *i*) ;; *) return;; esac` e desiste em shell
+>    não-interativa, que é exatamente o caso de `bash arquivo.sh`. O efeito é uma
+>    falha **parcial**: nextflow, nf-core e seqkit dão `command not found`
+>    enquanto samtools, bcftools, bedtools e tabix seguem funcionando porque
+>    estão em `/usr/bin`. Isso tem cara de instalação incompleta e manda o leitor
+>    investigar a coisa errada. É a mais traiçoeira das três.
 
-**Docker funciona dentro da distro** (integração WSL ligada em 2026-09-14):
-`docker` 29.7.2 falando com o daemon do Docker Desktop, 20 CPUs, 16,5 GB.
-Verificado com o pipeline inteiro, não só com `docker info`:
+**Docker é nativo dentro da distro** (instalado em 2026-10-10): `docker-ce`
+29.9.0 do repositório oficial do Docker, daemon sob systemd
+(`systemctl enable --now docker`), socket em `/var/run/docker.sock`, usuário
+`manec` no grupo `docker`. Não há Docker Desktop no Windows e não haverá — logo
+**não existe `docker` no PATH do Windows, e isso é o esperado, não lacuna**. Quem
+procura o binário do lado Windows conclui errado que falta instalar.
+
+Verificado com o pipeline inteiro, não só com `docker info`: o `info` prova
+apenas que o daemon responde, enquanto o pipeline exercita pull de imagem, bind
+mount do diretório de trabalho e propagação de código de saída — é nesses três
+que a configuração costuma falhar depois de um `info` verde.
 
 ```bash
 wsl -d Ubuntu-24.04 -- bash -lc "cd ~/nf-smoke && nextflow run nf-core/demo -profile test,docker --outdir resultados"
 ```
 
-Resultado: 8 processos em container (FASTQC ×3, SEQTK_TRIM ×3, MULTIQC, COWPY),
-`Pipeline completed successfully`, relatório MultiQC de 2,4 MB gerado.
-Então `-profile docker` é o padrão a usar aqui — não precisa de conda nem
-singularity.
+Resultado: 8 processos em container (FASTQC ×3, SEQTK_TRIM ×3, COWPY, MULTIQC),
+`Pipeline completed successfully`, relatório MultiQC de 2 452 732 bytes
+(2,45 MB) gerado. Então `-profile docker` é o padrão a usar aqui — não precisa
+de conda nem singularity.
 
 ## Roteamento de agentes
 
@@ -77,6 +114,14 @@ singularity.
 | Nextflow, nf-core, Snakemake, cluster, container | `pipeline-engineer` |
 | revisão de literatura, estado da arte, precedente | `lit-scout` |
 | "onde nos meus PDFs fala sobre X" | `mcp__nvidia-nemo__library_search` |
+| varredura longa que não deve ocupar este contexto | `mcp__claude-science__science_ask` |
+
+O `claude-science` opera o daemon local pela API REST dele — ver
+`docs/ECOSSISTEMA.md`. Mande para lá o que é longo ou precisa dos 24 conectores
+nativos de biologia do Claude Science; pergunta trivial se responde aqui. O uso
+sai da assinatura Max, e o servidor **recusa** se a conta cair para cobrança por
+token. Peça saída enxuta no texto do pedido ("devolva só a tabela", "não imprima
+sequência") — a resposta volta para este contexto.
 
 Perguntas rápidas de lookup (o que é o gene X, qual o UniProt de Y) resolva
 direto com `mcp__gget__*` ou `mcp__biocontext` — não delegue.

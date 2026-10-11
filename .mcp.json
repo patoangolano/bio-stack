@@ -76,6 +76,21 @@
         "NCBI_API_KEY": "${NCBI_API_KEY:-}",
         "OPENFDA_API_KEY": "${OPENFDA_API_KEY:-}"
       }
+    },
+    "claude-science": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--script",
+        "C:/Users/Manec/bio-stack/servers/claude_science_mcp/server.py"
+      ],
+      "env": {
+        "CLAUDE_SCIENCE_TARGET": "wsl",
+        "CLAUDE_SCIENCE_WSL_DISTRO": "Ubuntu-24.04",
+        "CLAUDE_SCIENCE_TIMEOUT": "900",
+        "BIO_STACK_PROVENANCE": "C:/Users/Manec/bio-stack/runs/provenance.jsonl",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      }
     }
   }
 }

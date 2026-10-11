@@ -402,3 +402,100 @@ Os clones não são versionados. Para refazer tudo:
 bash .claude/marketplace/plugins/clonar.sh
 claude plugin marketplace update bio-stack
 ```
+
+## Operar o Claude Science daqui (2026-10-11)
+
+`servers/claude_science_mcp/server.py`, registrado como `claude-science` no
+`.mcp.json`. Oito ferramentas: `science_status`, `science_projects`,
+`science_agents`, `science_ask`, `science_followup`, `science_frames`,
+`science_read`, `science_cancel`.
+
+O `claude-science --help` não tem subcomando para rodar uma conversa — serve,
+open, url, status, logs, stop, update, import, sandbox, install. Operar o app
+exigiria um humano no navegador. Mas o daemon expõe uma API REST completa que
+aceita a mesma sessão da UI, e é nela que este servidor fala.
+
+### O caminho das pedras da autenticação
+
+Quatro passos, cada um descoberto por tentativa contra a versão 0.1.60:
+
+1. `claude-science url` emite um nonce de uso único, ~3 min de validade.
+2. `GET /?nonce=<n>` devolve a página de login e semeia o cookie `operon_csrf`.
+3. `POST /api/auth/nonce` com `{"nonce": <n>}` conclui o sign-in e semeia
+   `operon_auth`. **Não** é `/api/auth/exchange` — essa rota pede um bearer que
+   o fluxo de navegador nunca produz, e responde `invalid bearer token`.
+4. Toda escrita precisa de dois cabeçalhos: `Origin` (sem ele, 403
+   `origin_required`) e **`X-Operon-CSRF`**.
+
+O nome do cabeçalho de CSRF foi a armadilha central. `X-CSRF-Token`,
+`x-csrf-token`, `X-XSRF-TOKEN` e `csrf-token` todos devolvem 403 `csrf_stale`.
+A mensagem diz "token velho ou ausente", mas o token estava correto — era o
+*nome* que estava errado. Com `X-Operon-CSRF` a requisição passa direto para a
+validação de corpo.
+
+A segunda armadilha é o caso das chaves: o corpo é snake_case, e o validador
+relata o erro em camelCase. `POST /api/frames` exige `project_id` enquanto a
+mensagem de erro diz `projectId: project_id is required`.
+
+A terceira é a pior, porque falha tarde: `input_data` é `record(unknown())` e
+aceita qualquer objeto sem validar o interior. Mandar `{"prompt": "..."}`
+devolve **HTTP 200** e a conversa morre depois, no modelo, com
+`messages: at least one message is required`. A chave correta é `request`, e eu
+só a encontrei no bundle do binário (`input_data?.request`).
+
+### Um bug meu que custou uma conversa
+
+A primeira versão enumerava os estados *em andamento* e tratava todo o resto
+como terminal. O daemon devolveu `processing`, que não estava na lista, o poll
+saiu na hora e a ferramenta retornou resposta vazia enquanto o agente seguia
+rodando. Agora o servidor enumera os **terminais** (`completed`, `failed`,
+`error`, `cancelled`, `canceled`) e trata o desconhecido como "ainda
+trabalhando". Enumerar o fim é mais seguro que enumerar o meio: estado
+desconhecido no meio só faz esperar, com teto em `timeout_s`; estado
+desconhecido tratado como fim descarta trabalho já feito.
+
+### Cobrança: assinatura, imposta em código
+
+O daemon reporta `subscription_type: max`,
+`rate_limit_tier: default_claude_max_20x`, `billing_type: stripe_subscription`.
+O uso sai da assinatura Max, não de crédito por token — o saldo marca 0 BRL e as
+conversas rodam, o que seria impossível em modo pré-pago.
+
+O `custo_usd` que as ferramentas devolvem é **contabilidade de tokens**, não
+fatura: mede quanto a conversa valeria em API, útil para dimensionar o pedido. A
+conversa de verificação marcou US$ 0,70 com 548 mil tokens de entrada.
+
+`_exige_assinatura` lê `/api/auth/status` antes de cada escrita e **recusa** se a
+conta não estiver em modo assinatura. Se o daemon um dia cair para crédito
+pré-pago — assinatura expirada, troca de org, conta refeita com chave de API —
+as ferramentas param em vez de gastar. Burlar exige
+`CLAUDE_SCIENCE_PERMITIR_PAGO=1`.
+
+O recurso escasso de verdade é a janela de rate limit do Max, compartilhada com
+esta sessão. Mande para o Claude Science o que é longo, não o que é trivial.
+
+### A ponte é de mão dupla
+
+| Direção | Mecanismo |
+|---|---|
+| Claude Code → Claude Science | este servidor MCP, pela API REST do daemon |
+| Claude Science → NIM da NVIDIA | conector `nvidia-bio` em `~/.claude-science/mcp/local-mcp.json` |
+
+A verificação exercitou as duas: `science_ask` pediu ao orquestrador para listar
+as ferramentas do `nvidia-bio` e rodar um `evo2_score`. Ele listou as 14, rodou,
+gravou 981 KB em `runs/nim/` e registrou procedência em `runs/provenance.jsonl`
+— o mesmo arquivo que o `/metodos` lê. E corrigiu a premissa do meu pedido: o
+`evo2_score` devolve um tensor de embeddings da camada
+`blocks.28.mlp.l3.output`, não um escalar; o número vem do `evo2_likelihood`.
+
+### Sessão em cache
+
+A sessão autenticada fica em `~/.claude-science/.mcp-sessao.json` com permissão
+0600, chaveada pelo daemon de origem. Sem cache, cada ferramenta queimaria um
+nonce de uso único e um `wsl.exe` de ~2 s. O cookie `operon_auth` vale o mesmo
+que estar logado na UI — daí o 0600. Em caso de 401 o servidor reautentica uma
+vez e repete a chamada.
+
+O alvo é `wsl` por padrão (`CLAUDE_SCIENCE_TARGET`), porque é no daemon do WSL
+que o conector `nvidia-bio` está registrado. O do Windows roda na porta 8000 e
+não tem esse conector.
