@@ -35,6 +35,12 @@ runs/nim/**
 !runs/nim/.gitkeep
 !runs/provenance.jsonl
 
+# bibliografia: o PDF e dado bruto (direito autoral e tamanho) e fica fora do
+# git; o manifesto e o artefato citavel e e versionado. Quem clonar reconstroi
+# a biblioteca com `python scripts/biblio/baixar_pdfs.py`.
+data/biblio/pdf/**
+!data/biblio/manifesto.jsonl
+
 # nextflow
 work/
 .nextflow/
@@ -66,3 +72,16 @@ runs/atavismo/*.fa
 runs/atavismo/*.fasta
 runs/atavismo/evo2_entradas/**
 fc.gz
+
+# capturas de navegador deixadas por agentes (Playwright MCP)
+.playwright-mcp/
+
+# Repositorios de skills de terceiros, clonados dentro do marketplace local.
+# Ficam ali e nao em vendor/ porque o `claude plugin install` recusa uma entrada
+# cujo caminho saia do diretorio do marketplace — inclusive por juncao de
+# diretorio ("link-traversing entry"). Nao sao versionados aqui: sao clones.
+# Reconstrucao: bash .claude/marketplace/plugins/clonar.sh
+.claude/marketplace/plugins/*/
+!.claude/marketplace/plugins/bio-lsp/
+!.claude/marketplace/plugins/clonar.sh
+!.claude/marketplace/plugins/extrair_pavel.sh

@@ -1,6 +1,8 @@
 {
   "name": "bio-stack",
-  "owner": { "name": "Matheus Lima" },
+  "owner": {
+    "name": "Matheus Lima"
+  },
   "metadata": {
     "description": "Marketplace local da bio-stack. Existe para uma coisa so: declarar language servers, que nao podem ser configurados por settings.json — o schema oficial nao tem campo lspServers, so plugin.json ou .lsp.json na raiz de um plugin.",
     "version": "1.0.0"
@@ -10,27 +12,119 @@
       "name": "bio-lsp",
       "description": "Language servers Python da bio-stack: basedpyright (tipos, definicoes, referencias) e ruff (diagnostico e formatacao). Aponta para os binarios da .venv do projeto, nao para instalacao global.",
       "version": "1.0.0",
-      "author": { "name": "Matheus Lima" },
+      "author": {
+        "name": "Matheus Lima"
+      },
       "source": "./plugins/bio-lsp",
       "category": "development",
       "strict": false,
       "lspServers": {
         "basedpyright": {
           "command": "C:/Users/Manec/bio-stack/.venv/Scripts/basedpyright-langserver.exe",
-          "args": ["--stdio"],
-          "extensionToLanguage": { ".py": "python", ".pyi": "python" },
+          "args": [
+            "--stdio"
+          ],
+          "extensionToLanguage": {
+            ".py": "python",
+            ".pyi": "python"
+          },
           "restartOnCrash": true,
           "maxRestarts": 3,
           "startupTimeout": 30000
         },
         "ruff": {
           "command": "C:/Users/Manec/bio-stack/.venv/Scripts/ruff.exe",
-          "args": ["server"],
-          "extensionToLanguage": { ".py": "python" },
+          "args": [
+            "server"
+          ],
+          "extensionToLanguage": {
+            ".py": "python"
+          },
           "restartOnCrash": true,
           "maxRestarts": 3
         }
       }
+    },
+    {
+      "name": "bio-scientist-crispr",
+      "description": "Engenharia de prime editing e CRISPR screen: desenho de pegRNA, planilha de oligos IDT, Golden Gate in silico, arquivos SnapGene anotados, genotipagem e estatistica de screen. De Kexin Dong (MIT).",
+      "version": "1.0.0",
+      "source": "./plugins/bio-scientist-crispr",
+      "category": "genomics",
+      "strict": false,
+      "license": "MIT"
+    },
+    {
+      "name": "bioinfo-pipelines",
+      "description": "Pipelines de analise com ferramenta nomeada e versao fixada: pydeseq2, scanpy+Harmony+Leiden, GATK4 Mutect2, Ensembl VEP, QIIME2/DADA2, Nextflow DSL2, RDKit/LightGBM, DiffDock, CARD/ResFinder, CIBERSORT. De Yulia Nuzhnenko (MIT).",
+      "version": "1.0.0",
+      "source": "./plugins/bioinfo-pipelines",
+      "category": "bioinformatics",
+      "strict": false,
+      "license": "MIT"
+    },
+    {
+      "name": "biomedical-ai",
+      "description": "Camada de IA biomedica: multiomica integrada, patologia computacional, transcriptomica espacial, deconvolucao imune, atlas de celula unica, modelos de fundacao, sobrevida e anotacao de variante. De Hussain Zubair (MIT).",
+      "version": "1.0.0",
+      "source": "./plugins/biomedical-ai",
+      "category": "biomedical",
+      "strict": false,
+      "license": "MIT"
+    },
+    {
+      "name": "arms-biostat",
+      "description": "Fluxo de pesquisa e manuscrito: lead de literatura, arquiteto de metodologia, modelador, critico, corretor e avaliador de artigo. ATENCAO: licenca CC BY-NC 4.0, nao-comercial — uso academico apenas. De koaeraser.",
+      "version": "1.0.0",
+      "source": "./plugins/arms-biostat",
+      "category": "research",
+      "strict": false,
+      "license": "CC-BY-NC-4.0"
+    },
+    {
+      "name": "bioinfo-213",
+      "description": "213 skills de bioinformatica e computacao: 81 bio-applied (GWAS, assembly, ChIP-seq, scRNA, relogios epigeneticos), 31 python, 29 algoritmos, 17 bio-core, 13 ai-science (AlphaFold, ESM-2, Enformer, Geneformer). ATENCAO: o repositorio nao declara licenca — use como referencia de leitura, nao redistribua. De Pavel Kravchenko.",
+      "version": "1.0.0",
+      "source": "./plugins/bioinfo-213",
+      "category": "bioinformatics",
+      "strict": false,
+      "license": "sem licenca declarada"
+    },
+    {
+      "name": "bayesian-modeling",
+      "description": "Modelos bayesianos em Stan, PyMC, JAGS e WinBUGS: hierarquicos, regressao, series temporais, sobrevida, meta-analise e diagnostico de MCMC. 9 skills, 6 agentes. De Ahmad Sofi-Mahmudi (MIT).",
+      "version": "1.0.0",
+      "source": "./plugins/biostat-agent/plugins/bayesian-modeling",
+      "category": "biostatistics",
+      "strict": false,
+      "license": "MIT"
+    },
+    {
+      "name": "itc-modeling",
+      "description": "Comparacao indireta de tratamentos em R: meta-analise par a par, NMA, MAIC, STC e ML-NMR, no padrao NICE-DSU. 6 skills, 7 agentes. De Ahmad Sofi-Mahmudi (MIT).",
+      "version": "1.0.0",
+      "source": "./plugins/biostat-agent/plugins/itc-modeling",
+      "category": "biostatistics",
+      "strict": false,
+      "license": "MIT"
+    },
+    {
+      "name": "r-tidy-modeling",
+      "description": "Ciencia de dados e bioestatistica em R com tidyverse/tidymodels: recipes, reamostragem, tuning, avaliacao, ensaios clinicos, randomizacao mendeliana, farmacocinetica, RWE. 23 skills, 10 agentes. De Ahmad Sofi-Mahmudi (MIT).",
+      "version": "1.0.0",
+      "source": "./plugins/biostat-agent/plugins/r-tidy-modeling",
+      "category": "biostatistics",
+      "strict": false,
+      "license": "MIT"
+    },
+    {
+      "name": "clinical-trial-simulation",
+      "description": "Simulacao de ensaio clinico com simtrial e Mediana: poder, tamanho de amostra, desenho sequencial em grupo e otimizacao de multiplicidade. 7 skills, 7 agentes. De Ahmad Sofi-Mahmudi (MIT).",
+      "version": "1.0.0",
+      "source": "./plugins/biostat-agent/plugins/clinical-trial-simulation",
+      "category": "biostatistics",
+      "strict": false,
+      "license": "MIT"
     }
   ]
 }

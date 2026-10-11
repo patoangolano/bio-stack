@@ -143,12 +143,12 @@ Criado `.claude/marketplace/` no próprio repositório declarando `basedpyright`
 
 | # | Ação | Por quê |
 |---|---|---|
-| 1 | ~~`wsl --install -d Ubuntu-24.04`~~ | **Feito em 2026-09-14.** Ver §6 |
+| 1 | ~~`wsl --install -d Ubuntu-24.04`~~ | **Feito.** Distro reinstalada em 2026-10-10 — ver §6 |
 | 2 | Aprovar o marketplace `bio-stack` quando o Claude Code perguntar | Sem isso o `bio-lsp` não carrega |
-| 2b | ~~Docker dentro do WSL~~ | **Feito em 2026-09-14.** Ver §6 |
+| 2b | ~~Docker dentro do WSL~~ | **Feito.** `docker-ce` nativo na distro — ver §6 |
 | 3 | Nomear uma acessão real (GEO/SRA/ArrayExpress) | `data/raw/` e `data/proc/` estão **vazios**. Todo o maquinário estatístico acima está validado contra nenhuma entrada |
 | 4 | Indexar sua bibliografia (`library_index`) | `runs/library/` continua vazio |
-| 5 | Repor `S2_API_KEY` | Semantic Scholar ausente |
+| 5 | ~~Repor `S2_API_KEY`~~ | **Não é pendência.** Rastreada em 2026-10-10: nenhum código lê a variável, ela saiu das sondas, e `docs/CHAVES.md` §2 documenta o rastreamento |
 
 ### Plugins que poluem o contexto
 
@@ -220,7 +220,7 @@ Honestidade sobre os limites desta auditoria.
 | # | Ação | Custo |
 |---|---|---|
 | 1 | Desligar os plugins fora de escopo | minutos |
-| 2 | ~~Ligar a integração WSL do Docker Desktop~~ | **Feito.** Cadeia Nextflow→container verificada |
+| 2 | ~~Instalar o Docker dentro da distro~~ | **Feito.** `docker-ce` nativo, daemon sob systemd; cadeia Nextflow→container verificada |
 | 3 | Escolher a acessão e baixar o dado | 1 dia |
 | 4 | Indexar a bibliografia | ~1 h |
 | 5 | Rodar `--tag seqqa2 --limit 5` do LABBench2 como linha de base | ~2 h |
@@ -233,10 +233,23 @@ em qualquer ponto sem deixar nada pela metade.
 
 ---
 
-## 6. Adendo — WSL2 instalado (2026-09-14)
+## 6. Adendo — WSL2 instalado (2026-09-14, distro reinstalada em 2026-10-10)
 
-Ubuntu 24.04.5 LTS, 20 núcleos, 15 GB RAM, 955 GB livres. Instalado na distro e
-verificado ponta a ponta:
+Ubuntu 24.04.5 LTS, 20 núcleos, 15 GB RAM, 949 GB livres de 1007 GB, `systemd`
+como PID 1. A distro chama-se `Ubuntu-24.04` e é a **única** entrada de
+`wsl -l -v`.
+
+O disco foi refeito: o `ext4.vhdx` de setembro desapareceu e o atual nasceu em
+2026-10-10 — `/lost+found` carimba 02:23 daquele dia. É o que explica a
+correção de arquitetura do Docker no fim desta seção. As **versões** da tabela
+abaixo foram remedidas em 2026-10-10 e batem; as **verificações** da terceira
+coluna são da rodada de 2026-09-14 e não foram repetidas no disco novo — o
+`pipelines lint` de 237 testes, em particular, está por reconfirmar. Onde cada
+binário mora importa:
+`samtools`/`bcftools`/`bedtools`/`tabix` vieram do `apt` e estão em `/usr/bin`;
+`seqkit` e `nextflow` são binário em `~/.local/bin`; `nf-core` veio por pipx.
+
+Verificado ponta a ponta:
 
 | Ferramenta | Versão | Verificação |
 |---|---|---|
@@ -246,7 +259,7 @@ verificado ponta a ponta:
 | `bcftools` | 1.19 | — |
 | `bedtools` | 2.31.1 | — |
 | `seqkit` | 2.13.0 | — |
-| Java | OpenJDK 21.0.12 | pré-requisito do Nextflow |
+| Java | OpenJDK 21.0.12.1 | pré-requisito do Nextflow |
 
 Isso **reverte** uma linha da §3: `nf-core pipelines lint` não tinha defeito —
 abortava por ausência do Nextflow. Verificação negativa também envelhece.
@@ -266,20 +279,29 @@ commit* que **mencionava** o padrão: a regra varre a string inteira do comando.
 Contorno: `git commit -F arquivo`, que é melhor prática para texto longo de
 qualquer forma.
 
-### Docker: ligado e verificado no mesmo dia
+### Docker: nativo na distro, verificado ponta a ponta
 
-A integração WSL do Docker Desktop foi ligada para Ubuntu-24.04. `docker`
-29.7.2 responde dentro da distro, falando com o daemon do Desktop (20 CPUs,
-16,5 GB).
+> **Correção de 2026-10-10 — mudança de arquitetura.** A redação original deste
+> trecho descrevia `docker` 29.7.2 na distro falando com o daemon do **Docker
+> Desktop** por integração WSL. Essa montagem não existe mais: o Docker Desktop
+> **não está instalado** nesta máquina, nem há distro `docker-desktop` em
+> `wsl -l -v`. Portanto não existe `docker` no PATH do Windows, e isso é o
+> esperado — não lacuna a corrigir.
+
+O que roda é **`docker-ce` 29.9.0 nativo dentro da Ubuntu-24.04**, instalado pelo
+repositório oficial do Docker: daemon sob systemd (`systemctl enable --now
+docker`), socket em `/var/run/docker.sock`, usuário `manec` no grupo `docker`,
+20 CPUs e 15 GB de RAM visíveis. Nenhuma peça no Windows — um reparo no Desktop
+não conserta nada aqui, porque não há Desktop no caminho.
 
 Verificado com o pipeline inteiro, não com `docker info`:
 
 ```
-nextflow run nf-core/demo -profile test,docker --outdir resultados
-→ 8 processos em container: FASTQC x3, SEQTK_TRIM x3, MULTIQC, COWPY
+wsl -d Ubuntu-24.04 -- bash -lc "cd ~/nf-smoke && \
+  nextflow run nf-core/demo -profile test,docker --outdir resultados"
+→ 8 processos em container: FASTQC x3, SEQTK_TRIM x3, COWPY, MULTIQC
 → Pipeline completed successfully (exit 0)
-→ resultados/multiqc/multiqc_report.html, 2,4 MB
-→ work/ 42 MB · resultados/ 29 MB
+→ resultados/multiqc/multiqc_report.html, 2 452 732 bytes (2,45 MB)
 ```
 
 Com isso a cadeia inteira está fechada: **Nextflow → container → ferramenta de
@@ -289,3 +311,94 @@ conda e singularity ficam desnecessários.
 `/mnt/c` atravessa a fronteira de sistema de arquivos e é ordens de grandeza
 mais lento para muitos arquivos pequenos — o padrão exato de um pipeline
 Nextflow. Trabalhe em `~/` dentro da distro quando o I/O importar.
+
+## Seis repositórios de skills de terceiros (2026-10-11)
+
+Nove plugins, 310 skills e 30 agentes entraram pelo marketplace local
+`bio-stack`, no escopo do projeto. Nenhum deles instalou pelo caminho curto, e
+as razões valem registro porque cada uma é uma armadilha diferente.
+
+| Plugin | Origem | Skills | Agentes | Licença |
+|---|---|---|---|---|
+| `bio-scientist-crispr` | kexindon/claude-bio-scientist | 11 | 0 | MIT |
+| `bioinfo-pipelines` | YuliaNuzhnenko/bioinformatics-agent-skills | 12 | 0 | MIT |
+| `biomedical-ai` | zamushwani/biomedical-ai-skills | 16 | 0 | MIT |
+| `arms-biostat` | koaeraser/ARMS-Biostat | 10 | 0 | **CC BY-NC 4.0** |
+| `bioinfo-213` | Pavel-Kravchenko/Bioinformatics | 213 | 0 | **não declarada** |
+| `bayesian-modeling` | choxos/BiostatAgent | 9 | 6 | MIT |
+| `itc-modeling` | choxos/BiostatAgent | 6 | 7 | MIT |
+| `r-tidy-modeling` | choxos/BiostatAgent | 23 | 10 | MIT |
+| `clinical-trial-simulation` | choxos/BiostatAgent | 7 | 7 | MIT |
+
+Duas licenças pedem atenção. O **ARMS-Biostat é CC BY-NC 4.0** — uso acadêmico
+está dentro, uso comercial não. O **repositório do Pavel não declara licença
+nenhuma**, então o padrão legal é "todos os direitos reservados": serve como
+referência de leitura, não para redistribuir.
+
+### Por que não `claude plugin marketplace add <repo>`
+
+Nenhum dos seis entrou por esse caminho:
+
+- quatro não têm `.claude-plugin/marketplace.json`, e o `add` responde
+  `Marketplace file not found`;
+- o do Pavel tem um arquivo com esse nome, mas declara só
+  `{name, description, version, skills}` — sem `owner` nem `plugins`, não valida
+  como marketplace;
+- o do choxos valida e os plugins validam, mas carregam com erro:
+  `conflicting manifests: both plugin.json and marketplace entry specify
+  components`. O `marketplace.json` dele enumera agentes, comandos e skills com
+  `strict: false`, e cada plugin tem o próprio `plugin.json`. Declarado no
+  marketplace local como ponteiro, sem componentes, ele carrega limpo.
+
+### Três armadilhas medidas
+
+1. **`enable` não instala.** `claude plugin enable` liga o interruptor de um
+   plugin já instalado; sem `claude plugin install` antes, o plugin não aparece
+   em `claude plugin list` e nada carrega — sem erro, só ausência.
+
+2. **O caminho da entrada não pode sair do marketplace, nem por junção.** A
+   recusa é explícita: `an absolute, climbing, network-shaped,
+   backslash-containing or link-traversing entry`. Um `vendor/` na raiz do
+   projeto com `source: ../../vendor/x` falha, e um `mklink /J` apontando para
+   lá falha igual. Por isso os clones moram dentro de
+   `.claude/marketplace/plugins/`, ignorados pelo git.
+
+3. **Enumerar skills soma com a descoberta por convenção.** Declarar as 213 do
+   Pavel na entrada do marketplace *e* manter o diretório `Skills/` fez o
+   `details` reportar **426**. As entradas deste marketplace não enumeram
+   componentes de propósito.
+
+E uma quarta, específica do Windows: o repositório do Pavel tem
+`Legacy/.../Thumbs.db:encryptable` no índice. O dois-pontos é sintaxe de
+alternate data stream no NTFS, e o git aborta a operação inteira com
+`invalid path` — `clone` deixa a árvore vazia com exit 0 e sem aviso, `checkout`
+falha, `sparse-checkout` falha porque a validação roda antes do filtro, e
+`git archive` falha também. Só passa com `core.protectNTFS=false`, e é o que o
+`extrair_pavel.sh` faz. Como o archive leva apenas `Skills/`, o arquivo
+problemático nunca é materializado — e de brinde os 496 MB caem para 2,5 MB,
+porque o peso era `Course/` e `Legacy/`, material de curso sem relação com
+skill nenhuma.
+
+### Custo em contexto
+
+O `details` projeta o custo sempre-ligado de cada plugin. Somados, os nove
+custam **~38,5 k tokens em toda sessão**, e **27 k são do `bioinfo-213`** — as
+213 descrições de skill, das quais 29 são de algoritmo (`algo-avl-trees`,
+`algo-dijkstra`) e 31 de Python, sem relação com os dois projetos. Para cortar
+esse pedaço sem perder as de bioinformática:
+
+```bash
+cd .claude/marketplace/plugins/bioinfo-213
+rm -rf Skills/algo-* Skills/python-*
+cd ../../../.. && claude plugin uninstall bioinfo-213@bio-stack --scope project \
+  && claude plugin install bioinfo-213@bio-stack --scope project
+```
+
+### Reconstrução
+
+Os clones não são versionados. Para refazer tudo:
+
+```bash
+bash .claude/marketplace/plugins/clonar.sh
+claude plugin marketplace update bio-stack
+```

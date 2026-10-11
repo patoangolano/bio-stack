@@ -60,6 +60,14 @@
       "Bash(wsl -d Ubuntu-24.04 -- bash -lc \"nf-core pipelines lint*\")",
       "Bash(wsl -l -v*)"
     ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/*.pem)",
+      "Read(./**/id_rsa*)",
+      "Bash(rm -rf /*)",
+      "Bash(git push --force*)"
+    ],
     "ask": [
       "Bash(nextflow run*)",
       "Bash(docker run*)",
@@ -77,14 +85,6 @@
       "mcp__nvidia-bio__generate_from_fragment",
       "Bash(wsl -d Ubuntu-24.04 -- bash -lc \"nextflow run*\")",
       "Bash(wsl -d Ubuntu-24.04 -u root*)"
-    ],
-    "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(./**/*.pem)",
-      "Read(./**/id_rsa*)",
-      "Bash(rm -rf /*)",
-      "Bash(git push --force*)"
     ]
   },
   "hooks": {
@@ -173,6 +173,18 @@
       }
     ]
   },
+  "enabledPlugins": {
+    "bio-lsp@bio-stack": true,
+    "bayesian-modeling@bio-stack": true,
+    "itc-modeling@bio-stack": true,
+    "r-tidy-modeling@bio-stack": true,
+    "clinical-trial-simulation@bio-stack": true,
+    "bioinfo-213@bio-stack": true,
+    "bio-scientist-crispr@bio-stack": true,
+    "bioinfo-pipelines@bio-stack": true,
+    "biomedical-ai@bio-stack": true,
+    "arms-biostat@bio-stack": true
+  },
   "extraKnownMarketplaces": {
     "bio-stack": {
       "source": {
@@ -180,8 +192,5 @@
         "path": "C:/Users/Manec/bio-stack/.claude/marketplace"
       }
     }
-  },
-  "enabledPlugins": {
-    "bio-lsp@bio-stack": true
   }
 }
