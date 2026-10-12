@@ -18,10 +18,33 @@ nvidia-smi --query-gpu=name,memory.total,memory.used,compute_cap,driver_version 
 ```
 
 Depois verifique a presença de: `git`, `node`, `npm`, `uv`, `uvx`, `python`,
-`nextflow`, `docker`, `samtools`, `R`. No PowerShell:
+`R`. No PowerShell (`nextflow`, `docker` e `samtools` ficam de fora de
+propósito: só existem no WSL, e MISS deles aqui é o esperado — a presença
+real é conferida na seção 1b):
 
 ```powershell
-'git','node','npm','uv','uvx','python','nextflow','docker','samtools','R' | ForEach-Object { $c = Get-Command $_ -ErrorAction SilentlyContinue; if ($c) { "OK   $_" } else { "MISS $_" } }
+'git','node','npm','uv','uvx','python','R' | ForEach-Object { $c = Get-Command $_ -ErrorAction SilentlyContinue; if ($c) { "OK   $_" } else { "MISS $_" } }
+```
+
+## 1b. Camada de CLIs no WSL (pixi)
+
+As ferramentas de bioinformática vivem no WSL, num ambiente pixi por
+ferramenta, declaradas em `bootstrap/pixi-global.toml`. Sem cifrão na linha
+de comando e com `bash -lc`:
+
+```powershell
+wsl -d Ubuntu-24.04 -- bash -lc "pixi --version && pixi global list"
+wsl -d Ubuntu-24.04 -- bash -lc "command -v nextflow docker iqtree3 mafft hyphy codeml blastn diamond miniprot datasets nf-test samtools"
+```
+
+Ferramenta faltando: `wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/bootstrap/05_wsl_ferramentas.sh`.
+`samtools`/`bcftools` respondem pelo pixi (1.24), não pelo apt (1.19).
+
+## 1c. Pipeline de filogenia
+
+```powershell
+wsl -d Ubuntu-24.04 -- bash -lc "cd /mnt/c/Users/Manec/bio-stack/pipelines/filogenia && nextflow lint main.nf nextflow.config conf modules/local"
+uv run --script tests/check_filogenia.py
 ```
 
 ## 2. Chaves de API
@@ -29,8 +52,12 @@ Depois verifique a presença de: `git`, `node`, `npm`, `uv`, `uvx`, `python`,
 Verifique se estão definidas (sem imprimir o valor):
 
 ```powershell
-'NVIDIA_API_KEY','NCBI_API_KEY','S2_API_KEY' | ForEach-Object { $v = [Environment]::GetEnvironmentVariable($_, 'User'); if ($v) { "OK   $_ ($($v.Length) chars)" } else { "MISS $_" } }
+'NVIDIA_API_KEY','NCBI_API_KEY' | ForEach-Object { $v = [Environment]::GetEnvironmentVariable($_, 'User'); if ($v) { "OK   $_ ($($v.Length) chars)" } else { "MISS $_" } }
 ```
+
+> O `S2_API_KEY` saiu desta sonda em 2026-10-10: era repassado ao `biomcp`, que
+> não o lê. Ver `docs/CHAVES.md` seção 2. **Não reponha** sem achar um
+> consumidor real.
 
 ## 3. Camada NVIDIA
 
@@ -67,6 +94,7 @@ quebrado, dê o comando exato de correção, não uma descrição.
 
 Se tudo estiver verde, diga isso em uma linha e liste os agentes disponíveis
 (`structure-bio`, `omics-analyst`, `seq-designer`, `variant-curator`,
-`pipeline-engineer`, `lit-scout`) com um exemplo de uso de cada.
+`evo-devo`, `phylo-analyst`, `pipeline-engineer`, `lit-scout`) com um
+exemplo de uso de cada.
 
 Não conserte nada sem perguntar — este comando é só diagnóstico.
