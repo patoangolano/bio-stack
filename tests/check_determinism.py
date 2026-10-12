@@ -13,7 +13,7 @@ erro, so uma figura diferente e uma contagem de cluster diferente.
 Roda sobre matriz sintetica de proposito. Determinismo e propriedade do codigo,
 nao do dado; usar dado real tornaria o teste lento e dependente de download.
 
-    uv run --script tests/test_determinism.py
+    uv run --script tests/check_determinism.py
 """
 
 from __future__ import annotations

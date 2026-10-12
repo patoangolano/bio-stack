@@ -1,5 +1,6 @@
 """Sintenia do cluster SCPP de esmalte (ENAM/AMBN): vizinhos em Homo e busca
 dos ortologos desses vizinhos em Gallus gallus. Ensembl REST."""
+
 from __future__ import annotations
 
 import json

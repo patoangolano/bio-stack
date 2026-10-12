@@ -69,11 +69,18 @@ def probe_tools() -> str:
         "uv": "servidores MCP Python",
         "node": "npx skills add (BioNeMo Toolkit)",
         "python": "scripts de analise",
-        "nextflow": "pipelines nf-core",
-        "docker": "containers NIM auto-hospedados",
-        "samtools": "manipulacao de BAM",
         "R": "Bioconductor",
     }
+    # `nextflow`, `docker` e `samtools` sairam desta lista em 2026-10-10. Eles
+    # eram checados com shutil.which() no PATH do *Windows*, onde nunca
+    # estiveram: os tres vivem dentro da Ubuntu-24.04. O resultado era um
+    # relatorio de sessao com tres ausencias permanentes e falsas.
+    #
+    # Este hook nao sonda o WSL — quem faz isso e o _wsl_presentes() em
+    # .claude/hooks/session_context.py. Para checar os tres aqui seria preciso
+    # portar aquela funcao junto com a armadilha dela: `wsl.exe` chamado via
+    # subprocess engole sequencias $var, e um `for t in ...; do echo "$t"; done`
+    # roda o numero certo de vezes imprimindo vazio em todas, sem erro.
     present: list[str] = []
     missing: list[str] = []
     for tool, why in wanted.items():
@@ -94,10 +101,11 @@ def probe_tools() -> str:
 
 
 def probe_keys() -> str:
+    # Espelha .claude/hooks/session_context.py: o S2_API_KEY saiu em 2026-10-10
+    # porque nenhum consumidor o le. Ver docs/CHAVES.md secao 2.
     keys = {
         "NVIDIA_API_KEY": "NIM de biologia",
         "NCBI_API_KEY": "rate limit do E-utilities",
-        "S2_API_KEY": "Semantic Scholar",
     }
     lines = []
     for k, why in keys.items():

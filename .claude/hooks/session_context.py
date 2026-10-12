@@ -77,6 +77,23 @@ WSL_TOOLS = {
     "bcftools": "manipulacao de VCF",
     "bedtools": "operacoes de intervalo",
     "seqkit": "manipulacao de FASTA/FASTQ",
+    # Entrou em 2026-10-10: o docker agora vive aqui, nao no Windows. E o
+    # `-profile docker` do Nextflow depende dele, entao a ausencia dele
+    # importa tanto quanto a do nextflow.
+    "docker": "-profile docker do Nextflow",
+    # Camada pixi global (bootstrap/05_wsl_ferramentas.sh, 2026-10-11). Um
+    # representante por familia: se ele falta, a familia inteira falta, e
+    # listar as 30 ferramentas so alongaria o relatorio de toda sessao.
+    "pixi": "gerenciador das CLIs (bootstrap/pixi-global.toml)",
+    "iqtree3": "filogenia interativa (o pipeline usa container)",
+    "mafft": "alinhamento multiplo",
+    "hyphy": "testes de selecao (RELAX, aBSREL, BUSTED)",
+    "codeml": "PAML: dN/dS por ramo e sitio",
+    "blastn": "BLAST+ local (tblastn incluso)",
+    "miniprot": "proteina contra genoma, com frameshift",
+    "orthofinder": "ortologia entre proteomas (entrada do pipeline de filogenia)",
+    "datasets": "NCBI Datasets: genomas e ortologos",
+    "nf-test": "testes de pipeline Nextflow",
 }
 
 
@@ -121,9 +138,13 @@ def probe_tools() -> str:
         "uv": "servidores MCP Python",
         "node": "npx skills add (BioNeMo Toolkit)",
         "python": "scripts de analise",
-        "docker": "containers NIM auto-hospedados",
         "R": "Bioconductor",
     }
+    # `docker` saiu desta lista em 2026-10-10. A partir da reconstrucao do WSL
+    # o daemon e o docker-ce nativo DENTRO da Ubuntu-24.04, por systemd, e nao
+    # o Docker Desktop. Logo nao existe `docker` no PATH do Windows e nunca vai
+    # existir — reportar isso como ausencia descrevia a maquina errada. A
+    # presenca real do docker e checada no bloco do WSL, abaixo.
     present: list[str] = []
     missing: list[str] = []
     for tool, why in wanted.items():
@@ -160,10 +181,15 @@ def probe_tools() -> str:
 
 
 def probe_keys() -> str:
+    # Apenas chaves com consumidor real. O S2_API_KEY saiu daqui em 2026-10-10:
+    # era repassado ao `biomcp`, e o biomcp-python 0.7.3 nao tem uma unica
+    # ocorrencia de S2_API_KEY nem de semanticscholar. Reportar AUSENTE para
+    # uma variavel que ninguem le produz uma lacuna falsa no inicio de toda
+    # sessao, e uma lacuna falsa custa mais que nenhuma informacao. Ver
+    # docs/CHAVES.md secao 2.
     keys = {
         "NVIDIA_API_KEY": "NIM de biologia",
         "NCBI_API_KEY": "rate limit do E-utilities",
-        "S2_API_KEY": "Semantic Scholar",
     }
     lines = []
     for k, why in keys.items():

@@ -58,33 +58,93 @@ MODULOS: dict[str, dict] = {
     "A_esmalte_dentina_HARDWARE": {
         "hipotese": "perdido nas aves (pseudogenizado); intacto em Crocodylia",
         "genes": [
-            "ENAM", "AMBN", "AMELX", "DSPP", "MMP20", "AMTN", "ODAM",
-            "KLK4", "ACP4", "SLC24A4", "WDR72", "FAM83H",
+            "ENAM",
+            "AMBN",
+            "AMELX",
+            "DSPP",
+            "MMP20",
+            "AMTN",
+            "ODAM",
+            "KLK4",
+            "ACP4",
+            "SLC24A4",
+            "WDR72",
+            "FAM83H",
         ],
     },
     "B_odontogenese_REGULATORIA": {
         "hipotese": "retido e funcional nas aves (pleiotropia: pena, bico, escama)",
         "genes": [
-            "BMP4", "BMP2", "SHH", "PITX1", "PITX2", "MSX1", "MSX2",
-            "BARX1", "RUNX2", "FGF8", "FGF4", "LEF1", "WNT10A", "WNT10B",
-            "EDA", "EDAR", "EDARADD", "PAX9", "DLX1", "DLX2", "SP6",
-            "SOSTDC1", "CTNNB1", "NOTCH1", "JAG1", "TFAP2B",
+            "BMP4",
+            "BMP2",
+            "SHH",
+            "PITX1",
+            "PITX2",
+            "MSX1",
+            "MSX2",
+            "BARX1",
+            "RUNX2",
+            "FGF8",
+            "FGF4",
+            "LEF1",
+            "WNT10A",
+            "WNT10B",
+            "EDA",
+            "EDAR",
+            "EDARADD",
+            "PAX9",
+            "DLX1",
+            "DLX2",
+            "SP6",
+            "SOSTDC1",
+            "CTNNB1",
+            "NOTCH1",
+            "JAG1",
+            "TFAP2B",
         ],
     },
     "C_eixo_caudal": {
         "hipotese": "presente nas aves; a diferenca e regulatoria/temporal, nao de conteudo",
         "genes": [
-            "TBXT", "GDF11", "LIN28A", "LIN28B", "CDX1", "CDX2", "CDX4",
-            "HOXA13", "HOXB13", "HOXC13", "HOXD13", "WNT3A", "WNT5A",
-            "ALDH1A2", "CYP26A1", "MSGN1", "TBX6", "RSPO3", "SALL4",
-            "HES7", "DLL1", "LFNG", "MESP2", "RIPPLY2",
+            "TBXT",
+            "GDF11",
+            "LIN28A",
+            "LIN28B",
+            "CDX1",
+            "CDX2",
+            "CDX4",
+            "HOXA13",
+            "HOXB13",
+            "HOXC13",
+            "HOXD13",
+            "WNT3A",
+            "WNT5A",
+            "ALDH1A2",
+            "CYP26A1",
+            "MSGN1",
+            "TBX6",
+            "RSPO3",
+            "SALL4",
+            "HES7",
+            "DLL1",
+            "LFNG",
+            "MESP2",
+            "RIPPLY2",
         ],
     },
     "D_ciliogenese_talpid": {
         "hipotese": "intacto; a via talpid2/C2CD3 revelou germe dentario em frango",
         "genes": [
-            "C2CD3", "KIAA0586", "IFT88", "OFD1", "GLI3", "SMO", "KIF7",
-            "PTCH1", "EVC", "EVC2",
+            "C2CD3",
+            "KIAA0586",
+            "IFT88",
+            "OFD1",
+            "GLI3",
+            "SMO",
+            "KIF7",
+            "PTCH1",
+            "EVC",
+            "EVC2",
         ],
     },
 }
@@ -165,8 +225,7 @@ def main() -> int:
                 if g:
                     bruto[f"{taxon}|{s}"] = g
 
-    campos = ["modulo", "gene", "taxon", "clado", "nota_taxon", "estado",
-              "gene_id", "cromossomo"]
+    campos = ["modulo", "gene", "taxon", "clado", "nota_taxon", "estado", "gene_id", "cromossomo"]
     tsv = SAIDA / "inventario_genes.tsv"
     with tsv.open("w", encoding="utf-8") as fh:
         fh.write("\t".join(campos) + "\n")
@@ -193,9 +252,9 @@ def main() -> int:
                 cel = []
                 for clado in ORDEM_CLADOS:
                     est = [
-                        ln["estado"] for ln in linhas
-                        if ln["gene"] == gene and ln["clado"] == clado
-                        and ln["modulo"] == modulo
+                        ln["estado"]
+                        for ln in linhas
+                        if ln["gene"] == gene and ln["clado"] == clado and ln["modulo"] == modulo
                     ]
                     pres = [e for e in est if e != "-"]
                     cel.append(f"{len(pres)}/{len(est)}" if est else "?")

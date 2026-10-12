@@ -1,0 +1,201 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    d7e9cd6da700 (AVX2, FMA3, 15 GB RAM)
+Command: iqtree -m MFP+MERGE -B 1000 --bnni --alrt 1000 --abayes --seed 12345 -o Homo_sapiens -s supermatriz.fa -spp particoes.nex -pre concatenado -T 1
+Seed:    12345 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Mon Oct 12 03:10:53 2026
+Kernel:  AVX+FMA - 1 threads (20 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 20 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading partition model file particoes.nex ...
+Partition file is in NEXUS format...
+Reading alignment file supermatriz.fa ... Fasta format detected
+Reading fasta file: done in 0.000288963 secs using 99.67% CPU
+Alignment most likely contains DNA/RNA sequences
+Constructing alignment: done in 0.00142193 secs using 100% CPU
+Alignment has 12 sequences with 4055 columns, 1742 distinct patterns
+1166 parsimony-informative, 1053 singleton sites, 1836 constant sites
+                            Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 2.28882e-05 secs using 100.5% CPU
+   1  Alligator_mississippiensis    3.75%    passed     52.21%
+   2  Anas_platyrhynchos            3.97%    passed     91.72%
+   3  Anolis_carolinensis           5.84%    passed     97.56%
+   4  Chrysemys_picta               3.01%    passed     98.08%
+   5  Crocodylus_porosus            4.29%    passed     76.56%
+   6  Gallus_gallus                 4.02%    passed     74.41%
+   7  Gavialis_gangeticus           3.60%    passed     63.36%
+   8  Homo_sapiens                 32.45%    passed     58.60%
+   9  Melopsittacus_undulatus       3.92%    passed     91.94%
+  10  Pelodiscus_sinensis          20.91%    passed     55.05%
+  11  Strigops_habroptila          22.12%    passed     87.09%
+  12  Taeniopygia_guttata           5.15%    passed     82.74%
+****  TOTAL                         9.42%  0 sequences failed composition chi2 test (p-value<5%; df=3)
+NOTE: No CharPartition defined, use all CharSets
+Loading 4 partitions...
+Identifying sites to remove: done in 0.000124931 secs using 100.1% CPU
+Identifying sites to remove: done in 0.000171185 secs using 99.31% CPU
+Subset	Type	Seqs	Sites	Infor	Invar	Model	Name
+1		12	938	295	386	MFP+MERGE	loco_A
+2		12	1265	415	485	MFP+MERGE	loco_B
+3		10	751	195	362	MFP+MERGE	loco_C
+4		11	1101	261	603	MFP+MERGE	loco_D
+Degree of missing data: 0.053
+
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.001 seconds
+Perform fast likelihood tree search using GTR+I+G model...
+Estimate model parameters (epsilon = 5.000)
+Initial log-likelihood: -24516.837
+Current log-likelihood at step 1: -23914.031
+Current log-likelihood at step 2: -23910.580
+Parameters optimization took 1 rounds (0.061 sec)
+
+Perform nearest neighbor interchange...
+Estimate model parameters (epsilon = 1.000)
+Initial log-likelihood: -23910.580
+Current log-likelihood at step 1: -23910.151
+Partition-specific rates:  0.975 1.030 1.039 0.960
+Parameters optimization took 0 rounds (0.014 sec)
+
+Time for fast ML tree search: 0.089 seconds
+
+NOTE: ModelFinder requires 5 MB RAM!
+
+PartitionFinder's parameters:
+Fast Relaxed Algorithm
+Percentage: 10.000
+Maximum pairs: 40
+
+Selecting individual models for 4 charsets using BIC...
+ModelFinder will allocate partition-specific threads based on partition sizes
+Full partition model BIC score: 48281.580 (LnL: -23912.328  df:55)
+Merging models to increase model fit (about 7 total partition schemes)...
+PartitionFinder	RClusterF	Step 1	3 Partitions	BIC 48254.940	deltaBIC -26.640
+PartitionFinder	RClusterF	Step 2	2 Partitions	BIC 48236.172	deltaBIC -18.768
+PartitionFinder	RClusterF	Step 3	1 Partitions	BIC 48205.783	deltaBIC -30.389
+Merging into 1 partitions...
+ModelFinder will allocate partition-specific threads based on partition sizes
+Best partition model BIC score: 48167.717 (LnL: -23988.320  df:23)
+Partition information was printed to concatenado.best_scheme.nex
+Partition information in Raxml format was printed to concatenado.best_scheme
+
+All model information printed to concatenado.model.gz
+CPU time for ModelFinder: 1.095 seconds (0h:0m:1s)
+Wall-clock time for ModelFinder: 1.099 seconds (0h:0m:1s)
+Generating 1000 samples for ultrafast bootstrap (seed: 12345)...
+
+NOTE: 9 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -23985.778
+Current log-likelihood at step 1: -23985.599
+Current log-likelihood at step 2: -23985.591
+Partition-specific rates:  1.000
+Parameters optimization took 1 rounds (0.015 sec)
+
+Wrote distance file to... 
+Computing ML distances based on estimated model parameters...
+Calculating distance matrix: done in 1.50204e-05 secs using 99.86% CPU
+Computing ML distances took 0.000028 sec (of wall-clock time) 0.000030 sec (of CPU time)
+Setting up auxiliary I and S matrices: done in 2.7895e-05 secs using 939.2% CPU
+Constructing RapidNJ tree: done in 1.78814e-05 secs using 190.1% CPU
+Computing RapidNJ tree took 0.000070 sec (of wall-clock time) 0.000337 sec (of CPU time)
+Log-likelihood of RapidNJ tree: -26487.906
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 98 parsimony trees... 0.081 second
+Computing log-likelihood of 95 initial trees ... 0.230 seconds
+Current best score: -23985.591
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -23985.591
+Current log-likelihood at step 1: -23985.590
+Parameters optimization took 0 rounds (0.006 sec)
+
+BETTER TREE FOUND at iteration 1: -23985.590
+Iteration 10 / LogL: -23985.761 / Time: 0h:0m:1s
+Iteration 20 / LogL: -23985.725 / Time: 0h:0m:2s
+Finish initializing candidate tree set (1)
+Current best tree score: -23985.590 / CPU time: 0.979
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+UPDATE BEST LOG-LIKELIHOOD: -23985.590
+Iteration 30 / LogL: -23985.590 / Time: 0h:0m:2s (0h:0m:3s left)
+Iteration 40 / LogL: -23985.896 / Time: 0h:0m:2s (0h:0m:2s left)
+UPDATE BEST LOG-LIKELIHOOD: -23985.590
+Iteration 50 / LogL: -23986.237 / Time: 0h:0m:3s (0h:0m:2s left)
+Iteration 60 / LogL: -23986.045 / Time: 0h:0m:3s (0h:0m:1s left)
+Iteration 70 / LogL: -23985.961 / Time: 0h:0m:3s (0h:0m:1s left)
+Iteration 80 / LogL: -23985.938 / Time: 0h:0m:4s (0h:0m:0s left)
+Iteration 90 / LogL: -23985.598 / Time: 0h:0m:4s (0h:0m:0s left)
+Iteration 100 / LogL: -23986.636 / Time: 0h:0m:4s (0h:0m:0s left)
+Refining ufboot trees with NNI 5 branches...
+100 samples done
+200 samples done
+300 samples done
+400 samples done
+500 samples done
+600 samples done
+700 samples done
+800 samples done
+900 samples done
+1000 samples done
+Total 0 ufboot trees refined
+TREE SEARCH COMPLETED AFTER 102 ITERATIONS / Time: 0h:0m:16s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+Initial log-likelihood: -23985.590
+Current log-likelihood at step 1: -23985.590
+Partition-specific rates:  1.000
+Parameters optimization took 0 rounds (0.006 sec)
+
+Partition information was printed to concatenado.best_model.nex
+BEST SCORE FOUND : -23985.590
+
+Testing tree branches by SH-like aLRT with 1000 replicates...
+Testing tree branches by aBayes parametric test...
+0.398 sec.
+Creating bootstrap support values...
+Split supports printed to NEXUS file concatenado.splits.nex
+Total tree length: 1.709
+
+Total number of iterations: 102
+CPU time used for tree search: 15.171 sec (0h:0m:15s)
+Wall-clock time used for tree search: 14.965 sec (0h:0m:14s)
+Total CPU time used: 16.794 sec (0h:0m:16s)
+Total wall-clock time used: 16.581 sec (0h:0m:16s)
+UFBoot trees printed to concatenado.ufboot
+
+Computing bootstrap consensus tree...
+Reading input file concatenado.splits.nex...
+12 taxa and 21 splits.
+Consensus tree written to concatenado.contree
+Reading input trees file concatenado.contree
+Log-likelihood of consensus tree: -23985.590
+
+Analysis results written to: 
+  IQ-TREE report:                concatenado.iqtree
+  Maximum-likelihood tree:       concatenado.treefile
+  Likelihood distances:          concatenado.mldist
+  Best partitioning scheme:      concatenado.best_scheme.nex
+           in RAxML format:      concatenado.best_scheme
+
+Ultrafast bootstrap approximation results written to:
+  Split support values:          concatenado.splits.nex
+  Consensus tree:                concatenado.contree
+  UFBoot trees:                  concatenado.ufboot
+  Screen log file:               concatenado.log
+
+Date and Time: Mon Oct 12 03:11:10 2026

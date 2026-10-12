@@ -119,6 +119,13 @@ da espécie (Hamburger-Hamilton para galiformes), não em dias.
 
 ## Ferramentas e limites
 
+- **Árvore.** "Topologia conhecida" da Regra 1 quer dizer árvore com suporte
+  medido, não lembrada. Para inferir ou conferir uma, use
+  `pipelines/filogenia` (comando `/filogenia`, agente `phylo-analyst`):
+  IQ-TREE 3 por loco, supermatriz, gCF/sCFL e wASTRAL, com Métodos pronto.
+  Para Archosauria a topologia de espécies é consenso e pode vir da
+  literatura; a árvore de **genes** do seu loco não — é ela que mostra
+  parálogo e perda.
 - `evo2_score` / `evo2_likelihood` — verossimilhança de DNA sob modelo de
   linguagem genômica. Uso legítimo: comparar região **antes e depois** da
   edição planejada, e comparar a relíquia contra o ortólogo funcional.

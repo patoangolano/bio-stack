@@ -187,7 +187,14 @@ def main() -> int:
         motivo = payload.get("tool_error") or payload.get("error") or ""
         if isinstance(motivo, dict):
             motivo = motivo.get("message") or json.dumps(motivo, ensure_ascii=False)
-        entry["erro"] = str(motivo)[:400] or "(sem mensagem)"
+        # redact() ANTES do truncamento. Este era o unico campo da entrada que
+        # nao passava pelo filtro de segredo, e e justamente o campo que tende a
+        # ecoar a linha de comando que falhou — um `curl -H "Authorization:
+        # Bearer ..."` que da errado devolve o header na mensagem de erro. Como
+        # runs/provenance.jsonl e versionado de proposito (.gitignore tem
+        # `!runs/provenance.jsonl`), um segredo aqui entra no historico do git e
+        # nao sai mais. Corrigido em 2026-10-10.
+        entry["erro"] = redact(str(motivo))[:400] or "(sem mensagem)"
 
     # Guarda so o essencial da resposta: caminhos de arquivo e status de erro.
     if isinstance(response, dict):

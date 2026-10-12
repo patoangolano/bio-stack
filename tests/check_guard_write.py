@@ -6,7 +6,7 @@ Roda o hook como subprocesso de verdade, com JSON no stdin, porque e assim que
 o Claude Code o invoca. Testar a funcao importada esconderia justamente o erro
 mais provavel: o hook receber um payload cujo formato mudou.
 
-    uv run --script tests/test_guard_write.py
+    uv run --script tests/check_guard_write.py
 """
 
 from __future__ import annotations

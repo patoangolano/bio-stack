@@ -4,7 +4,7 @@
 # ///
 """Testa o servidor MCP nvidia-bio. Nenhuma chamada de rede e feita.
 
-    uv run --script tests/test_server.py
+    uv run --script tests/check_server.py
 
 Cobre: registro de ferramentas, registro de modelos, validacao de sequencia,
 mensagens de erro de credencial, modo local vs hospedado, e a garantia de que

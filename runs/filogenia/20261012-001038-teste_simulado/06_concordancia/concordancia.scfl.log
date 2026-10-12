@@ -1,0 +1,73 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    c322abab5048 (AVX2, FMA3, 15 GB RAM)
+Command: iqtree -te concatenado.treefile -s supermatriz.fa -p concatenado.best_model.nex --scfl 100 --prefix concordancia.scfl -T 1 --seed 12345
+Seed:    12345 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Mon Oct 12 03:11:10 2026
+Kernel:  AVX+FMA - 1 threads (20 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 20 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading partition model file concatenado.best_model.nex ...
+Partition file is in NEXUS format...
+Reading alignment file supermatriz.fa ... Fasta format detected
+Reading fasta file: done in 0.000317097 secs using 98.08% CPU
+Alignment most likely contains DNA/RNA sequences
+Constructing alignment: done in 0.0014801 secs using 98.44% CPU
+Alignment has 12 sequences with 4055 columns, 1742 distinct patterns
+1166 parsimony-informative, 1053 singleton sites, 1836 constant sites
+                            Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 2.98023e-05 secs using 97.31% CPU
+   1  Alligator_mississippiensis    3.75%    passed     52.21%
+   2  Anas_platyrhynchos            3.97%    passed     91.72%
+   3  Anolis_carolinensis           5.84%    passed     97.56%
+   4  Chrysemys_picta               3.01%    passed     98.08%
+   5  Crocodylus_porosus            4.29%    passed     76.56%
+   6  Gallus_gallus                 4.02%    passed     74.41%
+   7  Gavialis_gangeticus           3.60%    passed     63.36%
+   8  Homo_sapiens                 32.45%    passed     58.60%
+   9  Melopsittacus_undulatus       3.92%    passed     91.94%
+  10  Pelodiscus_sinensis          20.91%    passed     55.05%
+  11  Strigops_habroptila          22.12%    passed     87.09%
+  12  Taeniopygia_guttata           5.15%    passed     82.74%
+****  TOTAL                         9.42%  0 sequences failed composition chi2 test (p-value<5%; df=3)
+Loading 1 partitions...
+Subset	Type	Seqs	Sites	Infor	Invar	Model	Name
+1	DNA	12	4055	1166	1836	HKY{3.00136}+F{0.267424,0.235616,0.243897,0.253063}+G4{0.740386}	loco_A_loco_B_loco_C_loco_D
+Degree of missing data: 0.000
+Reading input tree file concatenado.treefile ...
+
+NOTE: 2 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.010)
+Initial log-likelihood: -23985.590
+Current log-likelihood at step 1: -23985.590
+Partition-specific rates:  1.000
+Parameters optimization took 0 rounds (0.003 sec)
+
+Wrote distance file to... 
+Partition information was printed to concordancia.scfl.best_model.nex
+BEST SCORE FOUND : -23985.590
+Total tree length: 1.709
+
+Total number of iterations: 0
+CPU time used for tree search: 0.000 sec (0h:0m:0s)
+Wall-clock time used for tree search: 0.000 sec (0h:0m:0s)
+Total CPU time used: 0.012 sec (0h:0m:0s)
+Total wall-clock time used: 0.012 sec (0h:0m:0s)
+Computing site concordance factor using likelihood...
+0.070 sec
+Tree with site concordance factors written to concordancia.scfl.cf.tree
+Annotated tree (best viewed in FigTree) written to concordancia.scfl.cf.tree.nex
+Tree with branch IDs written to concordancia.scfl.cf.branch
+Concordance factors per branch printed to concordancia.scfl.cf.stat
+
+Analysis results written to: 
+  IQ-TREE report:                concordancia.scfl.iqtree
+  Maximum-likelihood tree:       concordancia.scfl.treefile
+  Screen log file:               concordancia.scfl.log
+
+Date and Time: Mon Oct 12 03:11:10 2026

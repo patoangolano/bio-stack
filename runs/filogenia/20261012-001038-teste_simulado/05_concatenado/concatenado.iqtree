@@ -1,0 +1,190 @@
+IQ-TREE 3.1.4 built Sep 29 2026
+
+Partition file name: particoes.nex
+Input file name: supermatriz.fa
+Type of analysis: ModelFinder + tree reconstruction + ultrafast bootstrap (1000 replicates)
+Random seed number: 12345
+
+REFERENCES
+----------
+
+To cite IQ-TREE 3 please use:
+
+Thomas K.F. Wong, Nhan Ly-Trong, Huaiyan Ren, Piyumal Demotte, Hector Banos,
+Andrew J. Roger, Edward Susko, Chris Bielow, Nicola De Maio, Nick Goldman,
+Matthew W. Hahn, Mario dos Reis, Le Sy Vinh, Gavin Huttley, Robert Lanfear, Bui Quang Minh (2026)
+IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models.
+Molecular Biology and Evolution, msag117.
+https://doi.org/10.1093/molbev/msag117
+
+Since you used ModelFinder please also cite: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used ultrafast bootstrap (UFBoot) please also cite: 
+
+Diep Thi Hoang, Olga Chernomor, Arndt von Haeseler, Bui Quang Minh,
+and Le Sy Vinh (2018) UFBoot2: Improving the ultrafast bootstrap
+approximation. Mol. Biol. Evol., 35:518–522.
+https://doi.org/10.1093/molbev/msx281
+
+Since you used partition models please also cite:
+
+Olga Chernomor, Arndt von Haeseler, and Bui Quang Minh (2016)
+Terrace aware data structure for phylogenomic inference from
+supermatrices. Syst. Biol., 65:997-1008.
+https://doi.org/10.1093/sysbio/syw037
+
+SEQUENCE ALIGNMENT
+------------------
+
+NOTE: Alignment sequence type is auto-detected. If in doubt, specify it via -st option.
+Input data: 12 taxa with 1 partitions and 4055 total sites (0% missing data)
+
+  ID	Type	Seq	Site	Unique	Infor	Invar	Const	Name
+   1	DNA	12	4055	1742	1166	1836	1836	loco_A+loco_B+loco_C+loco_D
+
+Column meanings:
+  Unique: Number of unique site patterns
+  Infor:  Number of parsimony-informative sites
+  Invar:  Number of invariant sites
+  Const:  Number of constant sites (can be subset of invariant sites)
+
+ModelFinder
+-----------
+
+Best-fit model according to BIC: HKY+G4:loco_A+loco_B+loco_C+loco_D
+
+List of best-fit models per partition:
+
+  ID  Model                  LogL         AIC      w-AIC        AICc     w-AICc         BIC      w-BIC
+   1  HKY+G4           -23988.320   47982.640 + 6.9e-310   47982.646 + 2.83e-314   48001.563 + 6.95e-310
+
+AIC, w-AIC   : Akaike information criterion scores and weights.
+AICc, w-AICc : Corrected AIC scores and weights.
+BIC, w-BIC   : Bayesian information criterion scores and weights.
+
+Plus signs denote the 95% confidence sets.
+Minus signs denote significant exclusion.
+
+SUBSTITUTION PROCESS
+--------------------
+
+Edge-linked-proportional partition model with separate substitution models and separate rates across sites
+
+  ID  Model           Speed  Parameters
+   1  HKY+F+G4       1.0000  HKY{3.00136}+F{0.267424,0.235616,0.243897,0.253063}+G4{0.740386}
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -23985.5902 (s.e. 272.0200)
+Unconstrained log-likelihood (without tree): -24450.2926
+Number of free parameters (#branches + #model parameters): 26
+Akaike information criterion (AIC) score: 48023.1804
+Corrected Akaike information criterion (AICc) score: 48023.5290
+Bayesian information criterion (BIC) score: 48187.1808
+
+Marginal log-likelihood of the tree: -23985.5902
+Marginal Akaike information criterion (mAIC) score: 48023.1804
+
+Total tree length (sum of branch lengths): 1.7094
+Sum of internal branch lengths: 0.3552 (20.7813% of tree length)
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Homo_sapiens' is drawn at root
+Numbers in parentheses are SH-aLRT support (%) / aBayes support / ultrafast bootstrap support (%)
+
+                    +---Alligator_mississippiensis
+            +-------| (100/1/100)
+            |       |  +--Crocodylus_porosus
+            |       +--| (99.9/1/100)
+            |          +--Gavialis_gangeticus
+        +---| (99.9/1/100)
+        |   |        +-------Anas_platyrhynchos
+        |   |     +--| (100/1/100)
+        |   |     |  +-------Gallus_gallus
+        |   +-----| (100/1/100)
+        |         |     +----Melopsittacus_undulatus
+        |         |  +--| (100/1/100)
+        |         |  |  +--Strigops_habroptila
+        |         +--| (99.9/1/100)
+        |            +--------Taeniopygia_guttata
++-------| (98.6/1/100)
+|       |   +---------Chrysemys_picta
+|       +---| (99.9/1/100)
+|           +---------Pelodiscus_sinensis
+|
++-------------------------------------Anolis_carolinensis
+|
++-----------------------------------------------------------Homo_sapiens
+
+Tree in newick format:
+
+((((Alligator_mississippiensis:0.0398210563,(Crocodylus_porosus:0.0210257061,Gavialis_gangeticus:0.0281795543)99.9/1/100:0.0137948515)100/1/100:0.0717679004,((Anas_platyrhynchos:0.0681988090,Gallus_gallus:0.0724341268)100/1/100:0.0289481157,((Melopsittacus_undulatus:0.0418050786,Strigops_habroptila:0.0320342801)100/1/100:0.0309345248,Taeniopygia_guttata:0.0743649627)99.9/1/100:0.0185010738)100/1/100:0.0526556567)99.9/1/100:0.0333933047,(Chrysemys_picta:0.0890593312,Pelodiscus_sinensis:0.0830309609)99.9/1/100:0.0349597364)98.6/1/100:0.0702768420,Anolis_carolinensis:0.3129035054,Homo_sapiens:0.4912956971);
+
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000 bootstrap trees
+Log-likelihood of consensus tree: -23985.590287
+Robinson-Foulds distance between ML tree and consensus tree: 0
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
+                    +---Alligator_mississippiensis
+            +-------| (100)
+            |       |  +--Crocodylus_porosus
+            |       +--| (100)
+            |          +--Gavialis_gangeticus
+        +---| (100)
+        |   |        +-------Anas_platyrhynchos
+        |   |     +--| (100)
+        |   |     |  +-------Gallus_gallus
+        |   +-----| (100)
+        |         |     +----Melopsittacus_undulatus
+        |         |  +--| (100)
+        |         |  |  +--Strigops_habroptila
+        |         +--| (100)
+        |            +--------Taeniopygia_guttata
++-------| (100)
+|       |   +---------Chrysemys_picta
+|       +---| (100)
+|           +---------Pelodiscus_sinensis
+|
++-------------------------------------Anolis_carolinensis
+|
++-----------------------------------------------------------Homo_sapiens
+
+
+Consensus tree in newick format: 
+
+((((Alligator_mississippiensis:0.0398224311,(Crocodylus_porosus:0.0210263384,Gavialis_gangeticus:0.0281807755)100:0.0137959791)100:0.0717748443,((Anas_platyrhynchos:0.0682028657,Gallus_gallus:0.0724387217)100:0.0289483120,((Melopsittacus_undulatus:0.0418072899,Strigops_habroptila:0.0320366795)100:0.0309360200,Taeniopygia_guttata:0.0743707755)100:0.0185020486)100:0.0526573242)100:0.0333839347,(Chrysemys_picta:0.0890623328,Pelodiscus_sinensis:0.0830364604)100:0.0349637088)100:0.0704322709,Anolis_carolinensis:0.3127885323,Homo_sapiens:0.4912248672);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t concatenado.treefile -p concatenado.best_model.nex
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s supermatriz.fa --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s supermatriz.fa --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Mon Oct 12 03:11:10 2026
+Total CPU time used: 16.79392 seconds (0h:0m:16s)
+Total wall-clock time used: 16.61158705 seconds (0h:0m:16s)
+

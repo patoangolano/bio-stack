@@ -1,0 +1,4393 @@
+{
+    "@context": "https://w3id.org/ro/crate/1.1/context",
+    "@graph": [
+        {
+            "@id": "ro-crate-metadata.json",
+            "@type": "CreativeWork",
+            "about": {
+                "@id": "./"
+            },
+            "conformsTo": [
+                {
+                    "@id": "https://w3id.org/ro/crate/1.1"
+                },
+                {
+                    "@id": "https://w3id.org/workflowhub/workflow-ro-crate/1.0"
+                }
+            ]
+        },
+        {
+            "@id": "./",
+            "@type": "Dataset",
+            "datePublished": "2026-10-12",
+            "conformsTo": [
+                {
+                    "@id": "https://w3id.org/ro/wfrun/process/0.1"
+                },
+                {
+                    "@id": "https://w3id.org/ro/wfrun/workflow/0.1"
+                },
+                {
+                    "@id": "https://w3id.org/ro/wfrun/provenance/0.1"
+                },
+                {
+                    "@id": "https://w3id.org/workflowhub/workflow-ro-crate/1.0"
+                }
+            ],
+            "name": "Workflow run of bio-stack/filogenia",
+            "description": "Locos nao alinhados ate arvore de ML, concordancia e arvore de especies, com IQ-TREE 3",
+            "hasPart": [
+                {
+                    "@id": "main.nf"
+                },
+                {
+                    "@id": "README.md"
+                },
+                {
+                    "@id": "nextflow.config"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_C.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_B.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/runs/filogenia/20261012-001038-teste_simulado/pipeline_info/versoes.yml"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_D.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_E.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_A.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/bin/filogenia_util.py"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/runs/filogenia/20261012-001038-teste_simulado/pipeline_info/parametros.json"
+                },
+                {
+                    "@id": "01_entrada/loco_C.entrada.fa"
+                },
+                {
+                    "@id": "01_entrada/loco_C.entrada.json"
+                },
+                {
+                    "@id": "01_entrada/loco_B.entrada.fa"
+                },
+                {
+                    "@id": "01_entrada/loco_B.entrada.json"
+                },
+                {
+                    "@id": "01_entrada/loco_D.entrada.fa"
+                },
+                {
+                    "@id": "01_entrada/loco_D.entrada.json"
+                },
+                {
+                    "@id": "01_entrada/loco_A.entrada.fa"
+                },
+                {
+                    "@id": "01_entrada/loco_A.entrada.json"
+                },
+                {
+                    "@id": "01_entrada/loco_E.entrada.fa"
+                },
+                {
+                    "@id": "01_entrada/loco_E.entrada.json"
+                },
+                {
+                    "@id": "02_alinhamento/loco_C.fas"
+                },
+                {
+                    "@id": "02_alinhamento/loco_D.fas"
+                },
+                {
+                    "@id": "02_alinhamento/loco_A.fas"
+                },
+                {
+                    "@id": "02_alinhamento/loco_B.fas"
+                },
+                {
+                    "@id": "03_limpeza/loco_A.limpo.fa.log"
+                },
+                {
+                    "@id": "03_limpeza/loco_A.limpo.fa"
+                },
+                {
+                    "@id": "03_limpeza/loco_C.limpo.fa"
+                },
+                {
+                    "@id": "03_limpeza/loco_C.limpo.fa.log"
+                },
+                {
+                    "@id": "03_limpeza/loco_D.limpo.fa.log"
+                },
+                {
+                    "@id": "03_limpeza/loco_D.limpo.fa"
+                },
+                {
+                    "@id": "03_limpeza/loco_B.limpo.fa.log"
+                },
+                {
+                    "@id": "03_limpeza/loco_B.limpo.fa"
+                },
+                {
+                    "@id": "05_concatenado/ocupacao.tsv"
+                },
+                {
+                    "@id": "05_concatenado/supermatriz.fa"
+                },
+                {
+                    "@id": "05_concatenado/particoes.nex"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_C.contree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_C.treefile"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_C.iqtree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_C.log"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_D.contree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_D.iqtree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_D.treefile"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_D.log"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_A.iqtree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_A.contree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_A.treefile"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_A.log"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_B.iqtree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_B.treefile"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_B.log"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_B.contree"
+                },
+                {
+                    "@id": "05_concatenado/concatenado.best_scheme.nex"
+                },
+                {
+                    "@id": "05_concatenado/concatenado.treefile"
+                },
+                {
+                    "@id": "05_concatenado/concatenado.iqtree"
+                },
+                {
+                    "@id": "05_concatenado/concatenado.contree"
+                },
+                {
+                    "@id": "05_concatenado/concatenado.log"
+                },
+                {
+                    "@id": "05_concatenado/concatenado.best_model.nex"
+                },
+                {
+                    "@id": "07_arvore_especies/especies.entrada.tre"
+                },
+                {
+                    "@id": "07_arvore_especies/especies.log"
+                },
+                {
+                    "@id": "07_arvore_especies/especies.tre"
+                },
+                {
+                    "@id": "06_concordancia/concordancia.gcf.log"
+                },
+                {
+                    "@id": "06_concordancia/concordancia.gcf.cf.stat"
+                },
+                {
+                    "@id": "06_concordancia/concordancia.scfl.log"
+                },
+                {
+                    "@id": "06_concordancia/concordancia.scfl.cf.stat"
+                },
+                {
+                    "@id": "06_concordancia/concordancia.gcf.cf.tree"
+                },
+                {
+                    "@id": "06_concordancia/concordancia.scfl.cf.tree"
+                },
+                {
+                    "@id": "metodos.md"
+                },
+                {
+                    "@id": "resumo.tsv"
+                },
+                {
+                    "@id": "resumo.json"
+                }
+            ],
+            "mainEntity": {
+                "@id": "main.nf"
+            },
+            "mentions": [
+                {
+                    "@id": "#2e672108-6ae6-4c80-8ce2-6fb1e09d99b1"
+                },
+                {
+                    "@id": "#task/0ca7a516e92bbf6260e4e9bcfde7cd2d"
+                },
+                {
+                    "@id": "#task/a2905a21d36168021a7c64dfc2ad02aa"
+                },
+                {
+                    "@id": "#task/be6eb778c9610fc21563e610cb34ecb1"
+                },
+                {
+                    "@id": "#task/167131562f23a6488bf4d71f576cc0dd"
+                },
+                {
+                    "@id": "#task/5071648ba1294f90327ec61baad97eb2"
+                },
+                {
+                    "@id": "#task/cbde31334ead79603b2cf2c866aecf67"
+                },
+                {
+                    "@id": "#task/bf5e6f15d6b91a7f230bb56dc405d68a"
+                },
+                {
+                    "@id": "#task/192eca1b73488d87351025264709debe"
+                },
+                {
+                    "@id": "#task/02a5dfb110c64b77e6b84918b3169487"
+                },
+                {
+                    "@id": "#task/17c20ea21056a00cec1f721fd81a8f39"
+                },
+                {
+                    "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec"
+                },
+                {
+                    "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8"
+                },
+                {
+                    "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc"
+                },
+                {
+                    "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae"
+                },
+                {
+                    "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89"
+                },
+                {
+                    "@id": "#task/115e4020a7b5aeb761e6c2bf47162767"
+                },
+                {
+                    "@id": "#task/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.fa"
+                },
+                {
+                    "@id": "#task/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.json"
+                },
+                {
+                    "@id": "#task/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.fa"
+                },
+                {
+                    "@id": "#task/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.json"
+                },
+                {
+                    "@id": "#task/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.fa"
+                },
+                {
+                    "@id": "#task/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.json"
+                },
+                {
+                    "@id": "#task/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.fa"
+                },
+                {
+                    "@id": "#task/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.json"
+                },
+                {
+                    "@id": "#task/5071648ba1294f90327ec61baad97eb2/loco_E.entrada.fa"
+                },
+                {
+                    "@id": "#task/5071648ba1294f90327ec61baad97eb2/loco_E.entrada.json"
+                },
+                {
+                    "@id": "#task/cbde31334ead79603b2cf2c866aecf67/loco_C.fas"
+                },
+                {
+                    "@id": "#task/bf5e6f15d6b91a7f230bb56dc405d68a/loco_D.fas"
+                },
+                {
+                    "@id": "#task/192eca1b73488d87351025264709debe/loco_A.fas"
+                },
+                {
+                    "@id": "#task/02a5dfb110c64b77e6b84918b3169487/loco_B.fas"
+                },
+                {
+                    "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa"
+                },
+                {
+                    "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa.log"
+                },
+                {
+                    "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa.txt"
+                },
+                {
+                    "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa"
+                },
+                {
+                    "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa.log"
+                },
+                {
+                    "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa.txt"
+                },
+                {
+                    "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa"
+                },
+                {
+                    "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa.log"
+                },
+                {
+                    "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa.txt"
+                },
+                {
+                    "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa"
+                },
+                {
+                    "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa.log"
+                },
+                {
+                    "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa.txt"
+                },
+                {
+                    "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/supermatriz.fa"
+                },
+                {
+                    "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/particoes.nex"
+                },
+                {
+                    "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/ocupacao.tsv"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.treefile"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.iqtree"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.mldist"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.ufboot"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.contree"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.splits.nex"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.log"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.treefile"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.iqtree"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.mldist"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.ufboot"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.contree"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.splits.nex"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.log"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.treefile"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.iqtree"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.mldist"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.ufboot"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.contree"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.splits.nex"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.log"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.treefile"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.iqtree"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.mldist"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.ufboot"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.contree"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.splits.nex"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.log"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.treefile"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.iqtree"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.mldist"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.ufboot"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.contree"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_model.nex"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_scheme.nex"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.splits.nex"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_scheme"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.log"
+                },
+                {
+                    "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.tre"
+                },
+                {
+                    "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.log"
+                },
+                {
+                    "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.entrada.tre"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.cf.tree"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.cf.tree"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.cf.stat"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.cf.stat"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.log"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.log"
+                },
+                {
+                    "@id": "#task/115e4020a7b5aeb761e6c2bf47162767/resumo.tsv"
+                },
+                {
+                    "@id": "#task/115e4020a7b5aeb761e6c2bf47162767/resumo.json"
+                },
+                {
+                    "@id": "#task/115e4020a7b5aeb761e6c2bf47162767/metodos.md"
+                },
+                {
+                    "@id": "#publish/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.fa"
+                },
+                {
+                    "@id": "#publish/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.json"
+                },
+                {
+                    "@id": "#publish/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.fa"
+                },
+                {
+                    "@id": "#publish/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.json"
+                },
+                {
+                    "@id": "#publish/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.fa"
+                },
+                {
+                    "@id": "#publish/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.json"
+                },
+                {
+                    "@id": "#publish/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.fa"
+                },
+                {
+                    "@id": "#publish/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.json"
+                },
+                {
+                    "@id": "#publish/5071648ba1294f90327ec61baad97eb2/loco_E.entrada.fa"
+                },
+                {
+                    "@id": "#publish/5071648ba1294f90327ec61baad97eb2/loco_E.entrada.json"
+                },
+                {
+                    "@id": "#publish/cbde31334ead79603b2cf2c866aecf67/loco_C.fas"
+                },
+                {
+                    "@id": "#publish/bf5e6f15d6b91a7f230bb56dc405d68a/loco_D.fas"
+                },
+                {
+                    "@id": "#publish/192eca1b73488d87351025264709debe/loco_A.fas"
+                },
+                {
+                    "@id": "#publish/02a5dfb110c64b77e6b84918b3169487/loco_B.fas"
+                },
+                {
+                    "@id": "#publish/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa.log"
+                },
+                {
+                    "@id": "#publish/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa"
+                },
+                {
+                    "@id": "#publish/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa"
+                },
+                {
+                    "@id": "#publish/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa.log"
+                },
+                {
+                    "@id": "#publish/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa.log"
+                },
+                {
+                    "@id": "#publish/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa"
+                },
+                {
+                    "@id": "#publish/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa.log"
+                },
+                {
+                    "@id": "#publish/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa"
+                },
+                {
+                    "@id": "#publish/7e2ce1e50e93923cc38158fd9f5caba1/ocupacao.tsv"
+                },
+                {
+                    "@id": "#publish/7e2ce1e50e93923cc38158fd9f5caba1/supermatriz.fa"
+                },
+                {
+                    "@id": "#publish/7e2ce1e50e93923cc38158fd9f5caba1/particoes.nex"
+                },
+                {
+                    "@id": "#publish/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.contree"
+                },
+                {
+                    "@id": "#publish/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.treefile"
+                },
+                {
+                    "@id": "#publish/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.iqtree"
+                },
+                {
+                    "@id": "#publish/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.log"
+                },
+                {
+                    "@id": "#publish/f10c64e51586a561a46d17d5e141fd6e/loco_D.contree"
+                },
+                {
+                    "@id": "#publish/f10c64e51586a561a46d17d5e141fd6e/loco_D.iqtree"
+                },
+                {
+                    "@id": "#publish/f10c64e51586a561a46d17d5e141fd6e/loco_D.treefile"
+                },
+                {
+                    "@id": "#publish/f10c64e51586a561a46d17d5e141fd6e/loco_D.log"
+                },
+                {
+                    "@id": "#publish/612ab23b091645b1f7da002ab9ab154f/loco_A.iqtree"
+                },
+                {
+                    "@id": "#publish/612ab23b091645b1f7da002ab9ab154f/loco_A.contree"
+                },
+                {
+                    "@id": "#publish/612ab23b091645b1f7da002ab9ab154f/loco_A.treefile"
+                },
+                {
+                    "@id": "#publish/612ab23b091645b1f7da002ab9ab154f/loco_A.log"
+                },
+                {
+                    "@id": "#publish/328ad5b0b6ad19acd57944218bc85c8a/loco_B.iqtree"
+                },
+                {
+                    "@id": "#publish/328ad5b0b6ad19acd57944218bc85c8a/loco_B.treefile"
+                },
+                {
+                    "@id": "#publish/328ad5b0b6ad19acd57944218bc85c8a/loco_B.log"
+                },
+                {
+                    "@id": "#publish/328ad5b0b6ad19acd57944218bc85c8a/loco_B.contree"
+                },
+                {
+                    "@id": "#publish/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_scheme.nex"
+                },
+                {
+                    "@id": "#publish/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.treefile"
+                },
+                {
+                    "@id": "#publish/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.iqtree"
+                },
+                {
+                    "@id": "#publish/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.contree"
+                },
+                {
+                    "@id": "#publish/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.log"
+                },
+                {
+                    "@id": "#publish/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_model.nex"
+                },
+                {
+                    "@id": "#publish/68c8a42feef11e1a5ad51b0418d30f48/especies.entrada.tre"
+                },
+                {
+                    "@id": "#publish/68c8a42feef11e1a5ad51b0418d30f48/especies.log"
+                },
+                {
+                    "@id": "#publish/68c8a42feef11e1a5ad51b0418d30f48/especies.tre"
+                },
+                {
+                    "@id": "#publish/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.log"
+                },
+                {
+                    "@id": "#publish/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.cf.stat"
+                },
+                {
+                    "@id": "#publish/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.log"
+                },
+                {
+                    "@id": "#publish/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.cf.stat"
+                },
+                {
+                    "@id": "#publish/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.cf.tree"
+                },
+                {
+                    "@id": "#publish/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.cf.tree"
+                },
+                {
+                    "@id": "#publish/115e4020a7b5aeb761e6c2bf47162767/metodos.md"
+                },
+                {
+                    "@id": "#publish/115e4020a7b5aeb761e6c2bf47162767/resumo.tsv"
+                },
+                {
+                    "@id": "#publish/115e4020a7b5aeb761e6c2bf47162767/resumo.json"
+                }
+            ]
+        },
+        {
+            "@id": "https://w3id.org/ro/wfrun/process/0.1",
+            "@type": "CreativeWork",
+            "name": "Process Run Crate",
+            "version": "0.1"
+        },
+        {
+            "@id": "https://w3id.org/ro/wfrun/workflow/0.1",
+            "@type": "CreativeWork",
+            "name": "Workflow Run Crate",
+            "version": "0.1"
+        },
+        {
+            "@id": "https://w3id.org/ro/wfrun/provenance/0.1",
+            "@type": "CreativeWork",
+            "name": "Provenance Run Crate",
+            "version": "0.1"
+        },
+        {
+            "@id": "https://w3id.org/workflowhub/workflow-ro-crate/1.0",
+            "@type": "CreativeWork",
+            "name": "Workflow RO-Crate",
+            "version": "1.0"
+        },
+        {
+            "@id": "main.nf",
+            "@type": [
+                "File",
+                "SoftwareSourceCode",
+                "ComputationalWorkflow",
+                "HowTo"
+            ],
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/ComputationalWorkflow/1.0-RELEASE"
+            },
+            "name": "bio-stack/filogenia",
+            "description": "Locos nao alinhados ate arvore de ML, concordancia e arvore de especies, com IQ-TREE 3",
+            "programmingLanguage": {
+                "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow"
+            },
+            "encodingFormat": "application/nextflow",
+            "runtimePlatform": "Nextflow 26.04.6",
+            "hasPart": [
+                {
+                    "@id": "#module/PREPARA_LOCO"
+                },
+                {
+                    "@id": "#module/MAFFT_ALIGN"
+                },
+                {
+                    "@id": "#module/CLIPKIT"
+                },
+                {
+                    "@id": "#module/CONCATENA"
+                },
+                {
+                    "@id": "#module/IQTREE"
+                },
+                {
+                    "@id": "#module/ASTER_WASTRAL"
+                },
+                {
+                    "@id": "#module/IQTREE_CONCORDANCIA"
+                },
+                {
+                    "@id": "#module/RESUMO"
+                }
+            ],
+            "input": [
+                {
+                    "@id": "#param/alrt"
+                },
+                {
+                    "@id": "#param/scfl"
+                },
+                {
+                    "@id": "#param/seed"
+                },
+                {
+                    "@id": "#param/alinhador"
+                },
+                {
+                    "@id": "#param/bnni"
+                },
+                {
+                    "@id": "#param/tipo_seq"
+                },
+                {
+                    "@id": "#param/clipkit_modo"
+                },
+                {
+                    "@id": "#param/amostragem_concat"
+                },
+                {
+                    "@id": "#param/modelo"
+                },
+                {
+                    "@id": "#param/limpeza"
+                },
+                {
+                    "@id": "#param/outdir"
+                },
+                {
+                    "@id": "#param/arvore_especies"
+                },
+                {
+                    "@id": "#param/input"
+                },
+                {
+                    "@id": "#param/ufboot"
+                },
+                {
+                    "@id": "#param/min_taxa"
+                },
+                {
+                    "@id": "#param/concordancia"
+                },
+                {
+                    "@id": "#param/cpus_concatenado"
+                },
+                {
+                    "@id": "#param/nome_taxon"
+                },
+                {
+                    "@id": "#param/concatenar"
+                },
+                {
+                    "@id": "#param/min_locos_especies"
+                },
+                {
+                    "@id": "#param/abayes"
+                },
+                {
+                    "@id": "#param/outgroup"
+                }
+            ],
+            "output": [
+                
+            ],
+            "step": [
+                {
+                    "@id": "#process-step/PREPARA_LOCO"
+                },
+                {
+                    "@id": "#process-step/MAFFT_ALIGN"
+                },
+                {
+                    "@id": "#process-step/CLIPKIT"
+                },
+                {
+                    "@id": "#process-step/CONCATENA"
+                },
+                {
+                    "@id": "#process-step/IQTREE_GENES"
+                },
+                {
+                    "@id": "#process-step/IQTREE_CONCAT"
+                },
+                {
+                    "@id": "#process-step/ASTER_WASTRAL"
+                },
+                {
+                    "@id": "#process-step/IQTREE_CONCORDANCIA"
+                },
+                {
+                    "@id": "#process-step/RESUMO"
+                }
+            ]
+        },
+        {
+            "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow",
+            "@type": "ComputerLanguage",
+            "name": "Nextflow",
+            "identifier": "https://www.nextflow.io/",
+            "url": "https://www.nextflow.io/",
+            "version": "26.04.6"
+        },
+        {
+            "@id": "main.nf#software-application",
+            "@type": "SoftwareApplication",
+            "name": "Nextflow 26.04.6"
+        },
+        {
+            "@id": "#module/PREPARA_LOCO",
+            "@type": "SoftwareApplication",
+            "name": "PREPARA_LOCO",
+            "url": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/modules/local/prepara_loco/main.nf"
+        },
+        {
+            "@id": "#module/MAFFT_ALIGN",
+            "@type": "SoftwareApplication",
+            "name": "mafft_align",
+            "url": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/modules/nf-core/mafft/align/main.nf",
+            "hasPart": [
+                {
+                    "@id": "#module/MAFFT_ALIGN/mafft"
+                },
+                {
+                    "@id": "#module/MAFFT_ALIGN/pigz"
+                }
+            ]
+        },
+        {
+            "@id": "#module/CLIPKIT",
+            "@type": "SoftwareApplication",
+            "name": "clipkit",
+            "url": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/modules/nf-core/clipkit/main.nf",
+            "hasPart": [
+                {
+                    "@id": "#module/CLIPKIT/clipkit"
+                }
+            ]
+        },
+        {
+            "@id": "#module/CONCATENA",
+            "@type": "SoftwareApplication",
+            "name": "CONCATENA",
+            "url": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/modules/local/concatena/main.nf"
+        },
+        {
+            "@id": "#module/IQTREE",
+            "@type": "SoftwareApplication",
+            "name": "iqtree",
+            "url": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/modules/nf-core/iqtree/main.nf",
+            "hasPart": [
+                {
+                    "@id": "#module/IQTREE/iqtree"
+                }
+            ]
+        },
+        {
+            "@id": "#module/ASTER_WASTRAL",
+            "@type": "SoftwareApplication",
+            "name": "ASTER_WASTRAL",
+            "url": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/modules/local/aster_wastral/main.nf"
+        },
+        {
+            "@id": "#module/IQTREE_CONCORDANCIA",
+            "@type": "SoftwareApplication",
+            "name": "IQTREE_CONCORDANCIA",
+            "url": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/modules/local/iqtree_concordancia/main.nf"
+        },
+        {
+            "@id": "#module/RESUMO",
+            "@type": "SoftwareApplication",
+            "name": "RESUMO",
+            "url": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/modules/local/resumo/main.nf"
+        },
+        {
+            "@id": "#module/MAFFT_ALIGN/mafft",
+            "@type": "SoftwareApplication",
+            "name": "mafft",
+            "description": "Multiple alignment program for amino acid or nucleotide sequences based on fast Fourier transform"
+        },
+        {
+            "@id": "#module/MAFFT_ALIGN/pigz",
+            "@type": "SoftwareApplication",
+            "name": "pigz",
+            "description": "Parallel implementation of the gzip algorithm."
+        },
+        {
+            "@id": "#module/CLIPKIT/clipkit",
+            "@type": "SoftwareApplication",
+            "name": "clipkit",
+            "description": "ClipKIT is a fast and flexible alignment trimming tool that keeps\nphylogenetically informative sites and removes those with poor phylogenetic signal.\n"
+        },
+        {
+            "@id": "#module/IQTREE/iqtree",
+            "@type": "SoftwareApplication",
+            "name": "iqtree",
+            "description": "Efficient phylogenomic software by maximum likelihood."
+        },
+        {
+            "@id": "#param/alrt",
+            "@type": "FormalParameter",
+            "additionalType": "Number",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "alrt"
+        },
+        {
+            "@id": "#param/scfl",
+            "@type": "FormalParameter",
+            "additionalType": "Number",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "scfl"
+        },
+        {
+            "@id": "#param/seed",
+            "@type": "FormalParameter",
+            "additionalType": "Number",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "seed"
+        },
+        {
+            "@id": "#param/alinhador",
+            "@type": "FormalParameter",
+            "additionalType": "Text",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "alinhador"
+        },
+        {
+            "@id": "#param/bnni",
+            "@type": "FormalParameter",
+            "additionalType": "Boolean",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "bnni"
+        },
+        {
+            "@id": "#param/tipo_seq",
+            "@type": "FormalParameter",
+            "additionalType": "Text",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "tipo_seq"
+        },
+        {
+            "@id": "#param/clipkit_modo",
+            "@type": "FormalParameter",
+            "additionalType": "Text",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "clipkit_modo"
+        },
+        {
+            "@id": "#param/amostragem_concat",
+            "@type": "FormalParameter",
+            "additionalType": "Text",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "amostragem_concat"
+        },
+        {
+            "@id": "#param/modelo",
+            "@type": "FormalParameter",
+            "additionalType": "Text",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "modelo"
+        },
+        {
+            "@id": "#param/limpeza",
+            "@type": "FormalParameter",
+            "additionalType": "Text",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "limpeza"
+        },
+        {
+            "@id": "#param/outdir",
+            "@type": "FormalParameter",
+            "additionalType": "Text",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "outdir"
+        },
+        {
+            "@id": "#param/arvore_especies",
+            "@type": "FormalParameter",
+            "additionalType": "Boolean",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "arvore_especies"
+        },
+        {
+            "@id": "#param/input",
+            "@type": "FormalParameter",
+            "additionalType": "Text",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "input"
+        },
+        {
+            "@id": "#param/ufboot",
+            "@type": "FormalParameter",
+            "additionalType": "Number",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "ufboot"
+        },
+        {
+            "@id": "#param/min_taxa",
+            "@type": "FormalParameter",
+            "additionalType": "Number",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "min_taxa"
+        },
+        {
+            "@id": "#param/concordancia",
+            "@type": "FormalParameter",
+            "additionalType": "Boolean",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "concordancia"
+        },
+        {
+            "@id": "#param/cpus_concatenado",
+            "@type": "FormalParameter",
+            "additionalType": "Number",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "cpus_concatenado"
+        },
+        {
+            "@id": "#param/nome_taxon",
+            "@type": "FormalParameter",
+            "additionalType": "Text",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "nome_taxon"
+        },
+        {
+            "@id": "#param/concatenar",
+            "@type": "FormalParameter",
+            "additionalType": "Boolean",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "concatenar"
+        },
+        {
+            "@id": "#param/min_locos_especies",
+            "@type": "FormalParameter",
+            "additionalType": "Number",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "min_locos_especies"
+        },
+        {
+            "@id": "#param/abayes",
+            "@type": "FormalParameter",
+            "additionalType": "Boolean",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "abayes"
+        },
+        {
+            "@id": "#param/outgroup",
+            "@type": "FormalParameter",
+            "additionalType": "Text",
+            "conformsTo": {
+                "@id": "https://bioschemas.org/profiles/FormalParameter/1.0-RELEASE"
+            },
+            "name": "outgroup"
+        },
+        {
+            "@id": "#process-step/PREPARA_LOCO",
+            "@type": "HowToStep",
+            "workExample": {
+                "@id": "#module/PREPARA_LOCO"
+            },
+            "position": 1
+        },
+        {
+            "@id": "#process-step/MAFFT_ALIGN",
+            "@type": "HowToStep",
+            "workExample": {
+                "@id": "#module/MAFFT_ALIGN"
+            },
+            "position": 2
+        },
+        {
+            "@id": "#process-step/CLIPKIT",
+            "@type": "HowToStep",
+            "workExample": {
+                "@id": "#module/CLIPKIT"
+            },
+            "position": 4
+        },
+        {
+            "@id": "#process-step/CONCATENA",
+            "@type": "HowToStep",
+            "workExample": {
+                "@id": "#module/CONCATENA"
+            },
+            "position": 7
+        },
+        {
+            "@id": "#process-step/IQTREE_GENES",
+            "@type": "HowToStep",
+            "workExample": {
+                "@id": "#module/IQTREE"
+            },
+            "position": 6
+        },
+        {
+            "@id": "#process-step/IQTREE_CONCAT",
+            "@type": "HowToStep",
+            "workExample": {
+                "@id": "#module/IQTREE"
+            },
+            "position": 8
+        },
+        {
+            "@id": "#process-step/ASTER_WASTRAL",
+            "@type": "HowToStep",
+            "workExample": {
+                "@id": "#module/ASTER_WASTRAL"
+            },
+            "position": 10
+        },
+        {
+            "@id": "#process-step/IQTREE_CONCORDANCIA",
+            "@type": "HowToStep",
+            "workExample": {
+                "@id": "#module/IQTREE_CONCORDANCIA"
+            },
+            "position": 9
+        },
+        {
+            "@id": "#process-step/RESUMO",
+            "@type": "HowToStep",
+            "workExample": {
+                "@id": "#module/RESUMO"
+            },
+            "position": 11
+        },
+        {
+            "@id": "main.nf#organize",
+            "@type": "OrganizeAction",
+            "agent": null,
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "name": "Run of Nextflow 26.04.6",
+            "object": [
+                {
+                    "@id": "#process-control/PREPARA_LOCO"
+                },
+                {
+                    "@id": "#process-control/MAFFT_ALIGN"
+                },
+                {
+                    "@id": "#process-control/CLIPKIT"
+                },
+                {
+                    "@id": "#process-control/CONCATENA"
+                },
+                {
+                    "@id": "#process-control/IQTREE_GENES"
+                },
+                {
+                    "@id": "#process-control/IQTREE_CONCAT"
+                },
+                {
+                    "@id": "#process-control/ASTER_WASTRAL"
+                },
+                {
+                    "@id": "#process-control/IQTREE_CONCORDANCIA"
+                },
+                {
+                    "@id": "#process-control/RESUMO"
+                }
+            ],
+            "result": {
+                "@id": "#2e672108-6ae6-4c80-8ce2-6fb1e09d99b1"
+            },
+            "startTime": "2026-10-12T00:10:40.277725688-03:00",
+            "endTime": "2026-10-12T00:11:12.430410043-03:00"
+        },
+        {
+            "@id": "#2e672108-6ae6-4c80-8ce2-6fb1e09d99b1",
+            "@type": "CreateAction",
+            "agent": null,
+            "name": "Nextflow workflow run 2e672108-6ae6-4c80-8ce2-6fb1e09d99b1",
+            "startTime": "2026-10-12T00:10:40.277725688-03:00",
+            "endTime": "2026-10-12T00:11:12.430410043-03:00",
+            "instrument": {
+                "@id": "main.nf"
+            },
+            "object": [
+                {
+                    "@id": "#param/alrt/value"
+                },
+                {
+                    "@id": "#param/scfl/value"
+                },
+                {
+                    "@id": "#param/seed/value"
+                },
+                {
+                    "@id": "#param/alinhador/value"
+                },
+                {
+                    "@id": "#param/bnni/value"
+                },
+                {
+                    "@id": "#param/tipo_seq/value"
+                },
+                {
+                    "@id": "#param/clipkit_modo/value"
+                },
+                {
+                    "@id": "#param/amostragem_concat/value"
+                },
+                {
+                    "@id": "#param/modelo/value"
+                },
+                {
+                    "@id": "#param/limpeza/value"
+                },
+                {
+                    "@id": "#param/outdir/value"
+                },
+                {
+                    "@id": "#param/arvore_especies/value"
+                },
+                {
+                    "@id": "#param/input/value"
+                },
+                {
+                    "@id": "#param/ufboot/value"
+                },
+                {
+                    "@id": "#param/min_taxa/value"
+                },
+                {
+                    "@id": "#param/concordancia/value"
+                },
+                {
+                    "@id": "#param/cpus_concatenado/value"
+                },
+                {
+                    "@id": "#param/nome_taxon/value"
+                },
+                {
+                    "@id": "#param/concatenar/value"
+                },
+                {
+                    "@id": "#param/min_locos_especies/value"
+                },
+                {
+                    "@id": "#param/abayes/value"
+                },
+                {
+                    "@id": "#param/outgroup/value"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_C.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_B.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/runs/filogenia/20261012-001038-teste_simulado/pipeline_info/versoes.yml"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_D.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_E.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_A.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/bin/filogenia_util.py"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/runs/filogenia/20261012-001038-teste_simulado/pipeline_info/parametros.json"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "01_entrada/loco_C.entrada.fa"
+                },
+                {
+                    "@id": "01_entrada/loco_C.entrada.json"
+                },
+                {
+                    "@id": "01_entrada/loco_B.entrada.fa"
+                },
+                {
+                    "@id": "01_entrada/loco_B.entrada.json"
+                },
+                {
+                    "@id": "01_entrada/loco_D.entrada.fa"
+                },
+                {
+                    "@id": "01_entrada/loco_D.entrada.json"
+                },
+                {
+                    "@id": "01_entrada/loco_A.entrada.fa"
+                },
+                {
+                    "@id": "01_entrada/loco_A.entrada.json"
+                },
+                {
+                    "@id": "01_entrada/loco_E.entrada.fa"
+                },
+                {
+                    "@id": "01_entrada/loco_E.entrada.json"
+                },
+                {
+                    "@id": "02_alinhamento/loco_C.fas"
+                },
+                {
+                    "@id": "02_alinhamento/loco_D.fas"
+                },
+                {
+                    "@id": "02_alinhamento/loco_A.fas"
+                },
+                {
+                    "@id": "02_alinhamento/loco_B.fas"
+                },
+                {
+                    "@id": "03_limpeza/loco_A.limpo.fa.log"
+                },
+                {
+                    "@id": "03_limpeza/loco_A.limpo.fa"
+                },
+                {
+                    "@id": "03_limpeza/loco_C.limpo.fa"
+                },
+                {
+                    "@id": "03_limpeza/loco_C.limpo.fa.log"
+                },
+                {
+                    "@id": "03_limpeza/loco_D.limpo.fa.log"
+                },
+                {
+                    "@id": "03_limpeza/loco_D.limpo.fa"
+                },
+                {
+                    "@id": "03_limpeza/loco_B.limpo.fa.log"
+                },
+                {
+                    "@id": "03_limpeza/loco_B.limpo.fa"
+                },
+                {
+                    "@id": "05_concatenado/ocupacao.tsv"
+                },
+                {
+                    "@id": "05_concatenado/supermatriz.fa"
+                },
+                {
+                    "@id": "05_concatenado/particoes.nex"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_C.contree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_C.treefile"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_C.iqtree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_C.log"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_D.contree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_D.iqtree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_D.treefile"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_D.log"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_A.iqtree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_A.contree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_A.treefile"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_A.log"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_B.iqtree"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_B.treefile"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_B.log"
+                },
+                {
+                    "@id": "04_arvores_genes/loco_B.contree"
+                },
+                {
+                    "@id": "05_concatenado/concatenado.best_scheme.nex"
+                },
+                {
+                    "@id": "05_concatenado/concatenado.treefile"
+                },
+                {
+                    "@id": "05_concatenado/concatenado.iqtree"
+                },
+                {
+                    "@id": "05_concatenado/concatenado.contree"
+                },
+                {
+                    "@id": "05_concatenado/concatenado.log"
+                },
+                {
+                    "@id": "05_concatenado/concatenado.best_model.nex"
+                },
+                {
+                    "@id": "07_arvore_especies/especies.entrada.tre"
+                },
+                {
+                    "@id": "07_arvore_especies/especies.log"
+                },
+                {
+                    "@id": "07_arvore_especies/especies.tre"
+                },
+                {
+                    "@id": "06_concordancia/concordancia.gcf.log"
+                },
+                {
+                    "@id": "06_concordancia/concordancia.gcf.cf.stat"
+                },
+                {
+                    "@id": "06_concordancia/concordancia.scfl.log"
+                },
+                {
+                    "@id": "06_concordancia/concordancia.scfl.cf.stat"
+                },
+                {
+                    "@id": "06_concordancia/concordancia.gcf.cf.tree"
+                },
+                {
+                    "@id": "06_concordancia/concordancia.scfl.cf.tree"
+                },
+                {
+                    "@id": "metodos.md"
+                },
+                {
+                    "@id": "resumo.tsv"
+                },
+                {
+                    "@id": "resumo.json"
+                }
+            ]
+        },
+        {
+            "@id": "README.md",
+            "@type": "File",
+            "name": "README.md",
+            "description": "The README file of the workflow.",
+            "encodingFormat": "text/markdown"
+        },
+        {
+            "@id": "nextflow.config",
+            "@type": "File",
+            "name": "Resolved Nextflow configuration",
+            "description": "The resolved Nextflow configuration for the workflow run.",
+            "encodingFormat": "text/plain"
+        },
+        {
+            "@id": "#param/alrt/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/alrt"
+            },
+            "name": "alrt",
+            "value": 1000
+        },
+        {
+            "@id": "#param/scfl/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/scfl"
+            },
+            "name": "scfl",
+            "value": 100
+        },
+        {
+            "@id": "#param/seed/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/seed"
+            },
+            "name": "seed",
+            "value": 12345
+        },
+        {
+            "@id": "#param/alinhador/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/alinhador"
+            },
+            "name": "alinhador",
+            "value": "mafft"
+        },
+        {
+            "@id": "#param/bnni/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/bnni"
+            },
+            "name": "bnni",
+            "value": true
+        },
+        {
+            "@id": "#param/tipo_seq/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/tipo_seq"
+            },
+            "name": "tipo_seq",
+            "value": null
+        },
+        {
+            "@id": "#param/clipkit_modo/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/clipkit_modo"
+            },
+            "name": "clipkit_modo",
+            "value": "smart-gap"
+        },
+        {
+            "@id": "#param/amostragem_concat/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/amostragem_concat"
+            },
+            "name": "amostragem_concat",
+            "value": null
+        },
+        {
+            "@id": "#param/modelo/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/modelo"
+            },
+            "name": "modelo",
+            "value": "MFP"
+        },
+        {
+            "@id": "#param/limpeza/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/limpeza"
+            },
+            "name": "limpeza",
+            "value": "clipkit"
+        },
+        {
+            "@id": "#param/outdir/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/outdir"
+            },
+            "name": "outdir",
+            "value": "file:///mnt/c/Users/Manec/bio-stack/runs/filogenia/20261012-001038-teste_simulado"
+        },
+        {
+            "@id": "#param/arvore_especies/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/arvore_especies"
+            },
+            "name": "arvore_especies",
+            "value": true
+        },
+        {
+            "@id": "#param/input/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/input"
+            },
+            "name": "input",
+            "value": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos"
+        },
+        {
+            "@id": "#param/ufboot/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/ufboot"
+            },
+            "name": "ufboot",
+            "value": 1000
+        },
+        {
+            "@id": "#param/min_taxa/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/min_taxa"
+            },
+            "name": "min_taxa",
+            "value": 4
+        },
+        {
+            "@id": "#param/concordancia/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/concordancia"
+            },
+            "name": "concordancia",
+            "value": true
+        },
+        {
+            "@id": "#param/cpus_concatenado/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/cpus_concatenado"
+            },
+            "name": "cpus_concatenado",
+            "value": 1
+        },
+        {
+            "@id": "#param/nome_taxon/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/nome_taxon"
+            },
+            "name": "nome_taxon",
+            "value": "primeiro"
+        },
+        {
+            "@id": "#param/concatenar/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/concatenar"
+            },
+            "name": "concatenar",
+            "value": true
+        },
+        {
+            "@id": "#param/min_locos_especies/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/min_locos_especies"
+            },
+            "name": "min_locos_especies",
+            "value": 3
+        },
+        {
+            "@id": "#param/abayes/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/abayes"
+            },
+            "name": "abayes",
+            "value": true
+        },
+        {
+            "@id": "#param/outgroup/value",
+            "@type": "PropertyValue",
+            "exampleOfWork": {
+                "@id": "#param/outgroup"
+            },
+            "name": "outgroup",
+            "value": "Homo sapiens"
+        },
+        {
+            "@id": "#process-control/PREPARA_LOCO",
+            "@type": "ControlAction",
+            "instrument": {
+                "@id": "#process-step/PREPARA_LOCO"
+            },
+            "name": "Orchestrate process PREPARA_LOCO",
+            "object": [
+                {
+                    "@id": "#task/0ca7a516e92bbf6260e4e9bcfde7cd2d"
+                },
+                {
+                    "@id": "#task/a2905a21d36168021a7c64dfc2ad02aa"
+                },
+                {
+                    "@id": "#task/be6eb778c9610fc21563e610cb34ecb1"
+                },
+                {
+                    "@id": "#task/167131562f23a6488bf4d71f576cc0dd"
+                },
+                {
+                    "@id": "#task/5071648ba1294f90327ec61baad97eb2"
+                }
+            ]
+        },
+        {
+            "@id": "#process-control/MAFFT_ALIGN",
+            "@type": "ControlAction",
+            "instrument": {
+                "@id": "#process-step/MAFFT_ALIGN"
+            },
+            "name": "Orchestrate process MAFFT_ALIGN",
+            "object": [
+                {
+                    "@id": "#task/cbde31334ead79603b2cf2c866aecf67"
+                },
+                {
+                    "@id": "#task/bf5e6f15d6b91a7f230bb56dc405d68a"
+                },
+                {
+                    "@id": "#task/192eca1b73488d87351025264709debe"
+                },
+                {
+                    "@id": "#task/02a5dfb110c64b77e6b84918b3169487"
+                }
+            ]
+        },
+        {
+            "@id": "#process-control/CLIPKIT",
+            "@type": "ControlAction",
+            "instrument": {
+                "@id": "#process-step/CLIPKIT"
+            },
+            "name": "Orchestrate process CLIPKIT",
+            "object": [
+                {
+                    "@id": "#task/17c20ea21056a00cec1f721fd81a8f39"
+                },
+                {
+                    "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec"
+                },
+                {
+                    "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8"
+                },
+                {
+                    "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc"
+                }
+            ]
+        },
+        {
+            "@id": "#process-control/CONCATENA",
+            "@type": "ControlAction",
+            "instrument": {
+                "@id": "#process-step/CONCATENA"
+            },
+            "name": "Orchestrate process CONCATENA",
+            "object": [
+                {
+                    "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1"
+                }
+            ]
+        },
+        {
+            "@id": "#process-control/IQTREE_GENES",
+            "@type": "ControlAction",
+            "instrument": {
+                "@id": "#process-step/IQTREE_GENES"
+            },
+            "name": "Orchestrate process IQTREE_GENES",
+            "object": [
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a"
+                }
+            ]
+        },
+        {
+            "@id": "#process-control/IQTREE_CONCAT",
+            "@type": "ControlAction",
+            "instrument": {
+                "@id": "#process-step/IQTREE_CONCAT"
+            },
+            "name": "Orchestrate process IQTREE_CONCAT",
+            "object": [
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae"
+                }
+            ]
+        },
+        {
+            "@id": "#process-control/ASTER_WASTRAL",
+            "@type": "ControlAction",
+            "instrument": {
+                "@id": "#process-step/ASTER_WASTRAL"
+            },
+            "name": "Orchestrate process ASTER_WASTRAL",
+            "object": [
+                {
+                    "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48"
+                }
+            ]
+        },
+        {
+            "@id": "#process-control/IQTREE_CONCORDANCIA",
+            "@type": "ControlAction",
+            "instrument": {
+                "@id": "#process-step/IQTREE_CONCORDANCIA"
+            },
+            "name": "Orchestrate process IQTREE_CONCORDANCIA",
+            "object": [
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89"
+                }
+            ]
+        },
+        {
+            "@id": "#process-control/RESUMO",
+            "@type": "ControlAction",
+            "instrument": {
+                "@id": "#process-step/RESUMO"
+            },
+            "name": "Orchestrate process RESUMO",
+            "object": [
+                {
+                    "@id": "#task/115e4020a7b5aeb761e6c2bf47162767"
+                }
+            ]
+        },
+        {
+            "@id": "#task/0ca7a516e92bbf6260e4e9bcfde7cd2d",
+            "@type": "CreateAction",
+            "name": "PREPARA_LOCO (loco_C)",
+            "instrument": {
+                "@id": "#module/PREPARA_LOCO"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/bin/filogenia_util.py"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_C.fa"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.fa"
+                },
+                {
+                    "@id": "#task/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.json"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/a2905a21d36168021a7c64dfc2ad02aa",
+            "@type": "CreateAction",
+            "name": "PREPARA_LOCO (loco_B)",
+            "instrument": {
+                "@id": "#module/PREPARA_LOCO"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_B.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/bin/filogenia_util.py"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.fa"
+                },
+                {
+                    "@id": "#task/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.json"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/be6eb778c9610fc21563e610cb34ecb1",
+            "@type": "CreateAction",
+            "name": "PREPARA_LOCO (loco_D)",
+            "instrument": {
+                "@id": "#module/PREPARA_LOCO"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/bin/filogenia_util.py"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_D.fa"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.fa"
+                },
+                {
+                    "@id": "#task/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.json"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/167131562f23a6488bf4d71f576cc0dd",
+            "@type": "CreateAction",
+            "name": "PREPARA_LOCO (loco_A)",
+            "instrument": {
+                "@id": "#module/PREPARA_LOCO"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_A.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/bin/filogenia_util.py"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.fa"
+                },
+                {
+                    "@id": "#task/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.json"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/5071648ba1294f90327ec61baad97eb2",
+            "@type": "CreateAction",
+            "name": "PREPARA_LOCO (loco_E)",
+            "instrument": {
+                "@id": "#module/PREPARA_LOCO"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_E.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/bin/filogenia_util.py"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/5071648ba1294f90327ec61baad97eb2/loco_E.entrada.fa"
+                },
+                {
+                    "@id": "#task/5071648ba1294f90327ec61baad97eb2/loco_E.entrada.json"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/cbde31334ead79603b2cf2c866aecf67",
+            "@type": "CreateAction",
+            "name": "MAFFT_ALIGN (loco_C)",
+            "instrument": {
+                "@id": "#module/MAFFT_ALIGN"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.fa"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/cbde31334ead79603b2cf2c866aecf67/loco_C.fas"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/bf5e6f15d6b91a7f230bb56dc405d68a",
+            "@type": "CreateAction",
+            "name": "MAFFT_ALIGN (loco_D)",
+            "instrument": {
+                "@id": "#module/MAFFT_ALIGN"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.fa"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/bf5e6f15d6b91a7f230bb56dc405d68a/loco_D.fas"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/192eca1b73488d87351025264709debe",
+            "@type": "CreateAction",
+            "name": "MAFFT_ALIGN (loco_A)",
+            "instrument": {
+                "@id": "#module/MAFFT_ALIGN"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.fa"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/192eca1b73488d87351025264709debe/loco_A.fas"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/02a5dfb110c64b77e6b84918b3169487",
+            "@type": "CreateAction",
+            "name": "MAFFT_ALIGN (loco_B)",
+            "instrument": {
+                "@id": "#module/MAFFT_ALIGN"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.fa"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/02a5dfb110c64b77e6b84918b3169487/loco_B.fas"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/17c20ea21056a00cec1f721fd81a8f39",
+            "@type": "CreateAction",
+            "name": "CLIPKIT (loco_A)",
+            "instrument": {
+                "@id": "#module/CLIPKIT"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/192eca1b73488d87351025264709debe/loco_A.fas"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa"
+                },
+                {
+                    "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa.log"
+                },
+                {
+                    "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa.txt"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec",
+            "@type": "CreateAction",
+            "name": "CLIPKIT (loco_C)",
+            "instrument": {
+                "@id": "#module/CLIPKIT"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/cbde31334ead79603b2cf2c866aecf67/loco_C.fas"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa"
+                },
+                {
+                    "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa.log"
+                },
+                {
+                    "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa.txt"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8",
+            "@type": "CreateAction",
+            "name": "CLIPKIT (loco_D)",
+            "instrument": {
+                "@id": "#module/CLIPKIT"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/bf5e6f15d6b91a7f230bb56dc405d68a/loco_D.fas"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa"
+                },
+                {
+                    "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa.log"
+                },
+                {
+                    "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa.txt"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc",
+            "@type": "CreateAction",
+            "name": "CLIPKIT (loco_B)",
+            "instrument": {
+                "@id": "#module/CLIPKIT"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/02a5dfb110c64b77e6b84918b3169487/loco_B.fas"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa"
+                },
+                {
+                    "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa.log"
+                },
+                {
+                    "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa.txt"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1",
+            "@type": "CreateAction",
+            "name": "CONCATENA (4 locos)",
+            "instrument": {
+                "@id": "#module/CONCATENA"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa"
+                },
+                {
+                    "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa"
+                },
+                {
+                    "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa"
+                },
+                {
+                    "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/bin/filogenia_util.py"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/supermatriz.fa"
+                },
+                {
+                    "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/particoes.nex"
+                },
+                {
+                    "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/ocupacao.tsv"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8",
+            "@type": "CreateAction",
+            "name": "IQTREE_GENES (loco_C)",
+            "instrument": {
+                "@id": "#module/IQTREE"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.treefile"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.iqtree"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.mldist"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.ufboot"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.contree"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.splits.nex"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.log"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/f10c64e51586a561a46d17d5e141fd6e",
+            "@type": "CreateAction",
+            "name": "IQTREE_GENES (loco_D)",
+            "instrument": {
+                "@id": "#module/IQTREE"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.treefile"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.iqtree"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.mldist"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.ufboot"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.contree"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.splits.nex"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.log"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/612ab23b091645b1f7da002ab9ab154f",
+            "@type": "CreateAction",
+            "name": "IQTREE_GENES (loco_A)",
+            "instrument": {
+                "@id": "#module/IQTREE"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.treefile"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.iqtree"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.mldist"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.ufboot"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.contree"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.splits.nex"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.log"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a",
+            "@type": "CreateAction",
+            "name": "IQTREE_GENES (loco_B)",
+            "instrument": {
+                "@id": "#module/IQTREE"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.treefile"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.iqtree"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.mldist"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.ufboot"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.contree"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.splits.nex"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.log"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae",
+            "@type": "CreateAction",
+            "name": "IQTREE_CONCAT (concatenado)",
+            "instrument": {
+                "@id": "#module/IQTREE"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/supermatriz.fa"
+                },
+                {
+                    "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/particoes.nex"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.treefile"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.iqtree"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.mldist"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.ufboot"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.contree"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_model.nex"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_scheme.nex"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.splits.nex"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_scheme"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.log"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48",
+            "@type": "CreateAction",
+            "name": "ASTER_WASTRAL (especies)",
+            "instrument": {
+                "@id": "#module/ASTER_WASTRAL"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.treefile"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.treefile"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.treefile"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.treefile"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.tre"
+                },
+                {
+                    "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.log"
+                },
+                {
+                    "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.entrada.tre"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/3da07d0fc0403a73549c539f6e760d89",
+            "@type": "CreateAction",
+            "name": "IQTREE_CONCORDANCIA (concatenado)",
+            "instrument": {
+                "@id": "#module/IQTREE_CONCORDANCIA"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.treefile"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.treefile"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.treefile"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.treefile"
+                },
+                {
+                    "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/supermatriz.fa"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_model.nex"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.treefile"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.cf.tree"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.cf.tree"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.cf.stat"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.cf.stat"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.log"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.log"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/115e4020a7b5aeb761e6c2bf47162767",
+            "@type": "CreateAction",
+            "name": "RESUMO (1)",
+            "instrument": {
+                "@id": "#module/RESUMO"
+            },
+            "agent": null,
+            "object": [
+                {
+                    "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa"
+                },
+                {
+                    "@id": "#task/cbde31334ead79603b2cf2c866aecf67/loco_C.fas"
+                },
+                {
+                    "@id": "#task/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.json"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.treefile"
+                },
+                {
+                    "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.iqtree"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.splits.nex"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.iqtree"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/bin/filogenia_util.py"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_model.nex"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.treefile"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.cf.stat"
+                },
+                {
+                    "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa"
+                },
+                {
+                    "@id": "#task/5071648ba1294f90327ec61baad97eb2/loco_E.entrada.json"
+                },
+                {
+                    "@id": "#task/02a5dfb110c64b77e6b84918b3169487/loco_B.fas"
+                },
+                {
+                    "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.cf.stat"
+                },
+                {
+                    "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.log"
+                },
+                {
+                    "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.tre"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.iqtree"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.treefile"
+                },
+                {
+                    "@id": "#task/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.json"
+                },
+                {
+                    "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.treefile"
+                },
+                {
+                    "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/particoes.nex"
+                },
+                {
+                    "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.iqtree"
+                },
+                {
+                    "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa"
+                },
+                {
+                    "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/ocupacao.tsv"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.log"
+                },
+                {
+                    "@id": "#task/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.json"
+                },
+                {
+                    "@id": "#task/192eca1b73488d87351025264709debe/loco_A.fas"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/runs/filogenia/20261012-001038-teste_simulado/pipeline_info/parametros.json"
+                },
+                {
+                    "@id": "#task/bf5e6f15d6b91a7f230bb56dc405d68a/loco_D.fas"
+                },
+                {
+                    "@id": "file:///mnt/c/Users/Manec/bio-stack/runs/filogenia/20261012-001038-teste_simulado/pipeline_info/versoes.yml"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.iqtree"
+                },
+                {
+                    "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa"
+                },
+                {
+                    "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.treefile"
+                },
+                {
+                    "@id": "#task/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.json"
+                },
+                {
+                    "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_scheme.nex"
+                }
+            ],
+            "result": [
+                {
+                    "@id": "#task/115e4020a7b5aeb761e6c2bf47162767/resumo.tsv"
+                },
+                {
+                    "@id": "#task/115e4020a7b5aeb761e6c2bf47162767/resumo.json"
+                },
+                {
+                    "@id": "#task/115e4020a7b5aeb761e6c2bf47162767/metodos.md"
+                }
+            ],
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#task/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.fa",
+            "@type": "CreativeWork",
+            "name": "loco_C.entrada.fa"
+        },
+        {
+            "@id": "#task/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.json",
+            "@type": "CreativeWork",
+            "name": "loco_C.entrada.json",
+            "encodingFormat": "application/json"
+        },
+        {
+            "@id": "#task/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.fa",
+            "@type": "CreativeWork",
+            "name": "loco_B.entrada.fa"
+        },
+        {
+            "@id": "#task/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.json",
+            "@type": "CreativeWork",
+            "name": "loco_B.entrada.json",
+            "encodingFormat": "application/json"
+        },
+        {
+            "@id": "#task/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.fa",
+            "@type": "CreativeWork",
+            "name": "loco_D.entrada.fa"
+        },
+        {
+            "@id": "#task/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.json",
+            "@type": "CreativeWork",
+            "name": "loco_D.entrada.json",
+            "encodingFormat": "application/json"
+        },
+        {
+            "@id": "#task/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.fa",
+            "@type": "CreativeWork",
+            "name": "loco_A.entrada.fa"
+        },
+        {
+            "@id": "#task/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.json",
+            "@type": "CreativeWork",
+            "name": "loco_A.entrada.json",
+            "encodingFormat": "application/json"
+        },
+        {
+            "@id": "#task/5071648ba1294f90327ec61baad97eb2/loco_E.entrada.fa",
+            "@type": "CreativeWork",
+            "name": "loco_E.entrada.fa"
+        },
+        {
+            "@id": "#task/5071648ba1294f90327ec61baad97eb2/loco_E.entrada.json",
+            "@type": "CreativeWork",
+            "name": "loco_E.entrada.json",
+            "encodingFormat": "application/json"
+        },
+        {
+            "@id": "#task/cbde31334ead79603b2cf2c866aecf67/loco_C.fas",
+            "@type": "CreativeWork",
+            "name": "loco_C.fas"
+        },
+        {
+            "@id": "#task/bf5e6f15d6b91a7f230bb56dc405d68a/loco_D.fas",
+            "@type": "CreativeWork",
+            "name": "loco_D.fas"
+        },
+        {
+            "@id": "#task/192eca1b73488d87351025264709debe/loco_A.fas",
+            "@type": "CreativeWork",
+            "name": "loco_A.fas"
+        },
+        {
+            "@id": "#task/02a5dfb110c64b77e6b84918b3169487/loco_B.fas",
+            "@type": "CreativeWork",
+            "name": "loco_B.fas"
+        },
+        {
+            "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa",
+            "@type": "CreativeWork",
+            "name": "loco_A.limpo.fa"
+        },
+        {
+            "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa.log",
+            "@type": "CreativeWork",
+            "name": "loco_A.limpo.fa.log"
+        },
+        {
+            "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa.txt",
+            "@type": "CreativeWork",
+            "name": "loco_A.limpo.fa.txt",
+            "encodingFormat": "text/plain"
+        },
+        {
+            "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa",
+            "@type": "CreativeWork",
+            "name": "loco_C.limpo.fa"
+        },
+        {
+            "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa.log",
+            "@type": "CreativeWork",
+            "name": "loco_C.limpo.fa.log"
+        },
+        {
+            "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa.txt",
+            "@type": "CreativeWork",
+            "name": "loco_C.limpo.fa.txt",
+            "encodingFormat": "text/plain"
+        },
+        {
+            "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa",
+            "@type": "CreativeWork",
+            "name": "loco_D.limpo.fa"
+        },
+        {
+            "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa.log",
+            "@type": "CreativeWork",
+            "name": "loco_D.limpo.fa.log"
+        },
+        {
+            "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa.txt",
+            "@type": "CreativeWork",
+            "name": "loco_D.limpo.fa.txt",
+            "encodingFormat": "text/plain"
+        },
+        {
+            "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa",
+            "@type": "CreativeWork",
+            "name": "loco_B.limpo.fa"
+        },
+        {
+            "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa.log",
+            "@type": "CreativeWork",
+            "name": "loco_B.limpo.fa.log"
+        },
+        {
+            "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa.txt",
+            "@type": "CreativeWork",
+            "name": "loco_B.limpo.fa.txt",
+            "encodingFormat": "text/plain"
+        },
+        {
+            "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/supermatriz.fa",
+            "@type": "CreativeWork",
+            "name": "supermatriz.fa"
+        },
+        {
+            "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/particoes.nex",
+            "@type": "CreativeWork",
+            "name": "particoes.nex"
+        },
+        {
+            "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/ocupacao.tsv",
+            "@type": "CreativeWork",
+            "name": "ocupacao.tsv",
+            "encodingFormat": "text/tab-separated-values"
+        },
+        {
+            "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.treefile",
+            "@type": "CreativeWork",
+            "name": "loco_C.treefile"
+        },
+        {
+            "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.iqtree",
+            "@type": "CreativeWork",
+            "name": "loco_C.iqtree"
+        },
+        {
+            "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.mldist",
+            "@type": "CreativeWork",
+            "name": "loco_C.mldist"
+        },
+        {
+            "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.ufboot",
+            "@type": "CreativeWork",
+            "name": "loco_C.ufboot"
+        },
+        {
+            "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.contree",
+            "@type": "CreativeWork",
+            "name": "loco_C.contree"
+        },
+        {
+            "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.splits.nex",
+            "@type": "CreativeWork",
+            "name": "loco_C.splits.nex"
+        },
+        {
+            "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.log",
+            "@type": "CreativeWork",
+            "name": "loco_C.log"
+        },
+        {
+            "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.treefile",
+            "@type": "CreativeWork",
+            "name": "loco_D.treefile"
+        },
+        {
+            "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.iqtree",
+            "@type": "CreativeWork",
+            "name": "loco_D.iqtree"
+        },
+        {
+            "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.mldist",
+            "@type": "CreativeWork",
+            "name": "loco_D.mldist"
+        },
+        {
+            "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.ufboot",
+            "@type": "CreativeWork",
+            "name": "loco_D.ufboot"
+        },
+        {
+            "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.contree",
+            "@type": "CreativeWork",
+            "name": "loco_D.contree"
+        },
+        {
+            "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.splits.nex",
+            "@type": "CreativeWork",
+            "name": "loco_D.splits.nex"
+        },
+        {
+            "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.log",
+            "@type": "CreativeWork",
+            "name": "loco_D.log"
+        },
+        {
+            "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.treefile",
+            "@type": "CreativeWork",
+            "name": "loco_A.treefile"
+        },
+        {
+            "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.iqtree",
+            "@type": "CreativeWork",
+            "name": "loco_A.iqtree"
+        },
+        {
+            "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.mldist",
+            "@type": "CreativeWork",
+            "name": "loco_A.mldist"
+        },
+        {
+            "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.ufboot",
+            "@type": "CreativeWork",
+            "name": "loco_A.ufboot"
+        },
+        {
+            "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.contree",
+            "@type": "CreativeWork",
+            "name": "loco_A.contree"
+        },
+        {
+            "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.splits.nex",
+            "@type": "CreativeWork",
+            "name": "loco_A.splits.nex"
+        },
+        {
+            "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.log",
+            "@type": "CreativeWork",
+            "name": "loco_A.log"
+        },
+        {
+            "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.treefile",
+            "@type": "CreativeWork",
+            "name": "loco_B.treefile"
+        },
+        {
+            "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.iqtree",
+            "@type": "CreativeWork",
+            "name": "loco_B.iqtree"
+        },
+        {
+            "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.mldist",
+            "@type": "CreativeWork",
+            "name": "loco_B.mldist"
+        },
+        {
+            "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.ufboot",
+            "@type": "CreativeWork",
+            "name": "loco_B.ufboot"
+        },
+        {
+            "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.contree",
+            "@type": "CreativeWork",
+            "name": "loco_B.contree"
+        },
+        {
+            "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.splits.nex",
+            "@type": "CreativeWork",
+            "name": "loco_B.splits.nex"
+        },
+        {
+            "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.log",
+            "@type": "CreativeWork",
+            "name": "loco_B.log"
+        },
+        {
+            "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.treefile",
+            "@type": "CreativeWork",
+            "name": "concatenado.treefile"
+        },
+        {
+            "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.iqtree",
+            "@type": "CreativeWork",
+            "name": "concatenado.iqtree"
+        },
+        {
+            "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.mldist",
+            "@type": "CreativeWork",
+            "name": "concatenado.mldist"
+        },
+        {
+            "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.ufboot",
+            "@type": "CreativeWork",
+            "name": "concatenado.ufboot"
+        },
+        {
+            "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.contree",
+            "@type": "CreativeWork",
+            "name": "concatenado.contree"
+        },
+        {
+            "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_model.nex",
+            "@type": "CreativeWork",
+            "name": "concatenado.best_model.nex"
+        },
+        {
+            "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_scheme.nex",
+            "@type": "CreativeWork",
+            "name": "concatenado.best_scheme.nex"
+        },
+        {
+            "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.splits.nex",
+            "@type": "CreativeWork",
+            "name": "concatenado.splits.nex"
+        },
+        {
+            "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_scheme",
+            "@type": "CreativeWork",
+            "name": "concatenado.best_scheme"
+        },
+        {
+            "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.log",
+            "@type": "CreativeWork",
+            "name": "concatenado.log"
+        },
+        {
+            "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.tre",
+            "@type": "CreativeWork",
+            "name": "especies.tre"
+        },
+        {
+            "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.log",
+            "@type": "CreativeWork",
+            "name": "especies.log"
+        },
+        {
+            "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.entrada.tre",
+            "@type": "CreativeWork",
+            "name": "especies.entrada.tre"
+        },
+        {
+            "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.cf.tree",
+            "@type": "CreativeWork",
+            "name": "concordancia.gcf.cf.tree",
+            "encodingFormat": "application/vnd.rainstor.data"
+        },
+        {
+            "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.cf.tree",
+            "@type": "CreativeWork",
+            "name": "concordancia.scfl.cf.tree",
+            "encodingFormat": "application/vnd.rainstor.data"
+        },
+        {
+            "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.cf.stat",
+            "@type": "CreativeWork",
+            "name": "concordancia.gcf.cf.stat"
+        },
+        {
+            "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.cf.stat",
+            "@type": "CreativeWork",
+            "name": "concordancia.scfl.cf.stat"
+        },
+        {
+            "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.log",
+            "@type": "CreativeWork",
+            "name": "concordancia.gcf.log"
+        },
+        {
+            "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.log",
+            "@type": "CreativeWork",
+            "name": "concordancia.scfl.log"
+        },
+        {
+            "@id": "#task/115e4020a7b5aeb761e6c2bf47162767/resumo.tsv",
+            "@type": "CreativeWork",
+            "name": "resumo.tsv",
+            "encodingFormat": "text/tab-separated-values"
+        },
+        {
+            "@id": "#task/115e4020a7b5aeb761e6c2bf47162767/resumo.json",
+            "@type": "CreativeWork",
+            "name": "resumo.json",
+            "encodingFormat": "application/json"
+        },
+        {
+            "@id": "#task/115e4020a7b5aeb761e6c2bf47162767/metodos.md",
+            "@type": "CreativeWork",
+            "name": "metodos.md",
+            "encodingFormat": "text/markdown"
+        },
+        {
+            "@id": "#publish/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.fa",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.fa"
+            },
+            "result": {
+                "@id": "01_entrada/loco_C.entrada.fa"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.json",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/0ca7a516e92bbf6260e4e9bcfde7cd2d/loco_C.entrada.json"
+            },
+            "result": {
+                "@id": "01_entrada/loco_C.entrada.json"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.fa",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.fa"
+            },
+            "result": {
+                "@id": "01_entrada/loco_B.entrada.fa"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.json",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/a2905a21d36168021a7c64dfc2ad02aa/loco_B.entrada.json"
+            },
+            "result": {
+                "@id": "01_entrada/loco_B.entrada.json"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.fa",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.fa"
+            },
+            "result": {
+                "@id": "01_entrada/loco_D.entrada.fa"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.json",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/be6eb778c9610fc21563e610cb34ecb1/loco_D.entrada.json"
+            },
+            "result": {
+                "@id": "01_entrada/loco_D.entrada.json"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.fa",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.fa"
+            },
+            "result": {
+                "@id": "01_entrada/loco_A.entrada.fa"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.json",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/167131562f23a6488bf4d71f576cc0dd/loco_A.entrada.json"
+            },
+            "result": {
+                "@id": "01_entrada/loco_A.entrada.json"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/5071648ba1294f90327ec61baad97eb2/loco_E.entrada.fa",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/5071648ba1294f90327ec61baad97eb2/loco_E.entrada.fa"
+            },
+            "result": {
+                "@id": "01_entrada/loco_E.entrada.fa"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/5071648ba1294f90327ec61baad97eb2/loco_E.entrada.json",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/5071648ba1294f90327ec61baad97eb2/loco_E.entrada.json"
+            },
+            "result": {
+                "@id": "01_entrada/loco_E.entrada.json"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/cbde31334ead79603b2cf2c866aecf67/loco_C.fas",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/cbde31334ead79603b2cf2c866aecf67/loco_C.fas"
+            },
+            "result": {
+                "@id": "02_alinhamento/loco_C.fas"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/bf5e6f15d6b91a7f230bb56dc405d68a/loco_D.fas",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/bf5e6f15d6b91a7f230bb56dc405d68a/loco_D.fas"
+            },
+            "result": {
+                "@id": "02_alinhamento/loco_D.fas"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/192eca1b73488d87351025264709debe/loco_A.fas",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/192eca1b73488d87351025264709debe/loco_A.fas"
+            },
+            "result": {
+                "@id": "02_alinhamento/loco_A.fas"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/02a5dfb110c64b77e6b84918b3169487/loco_B.fas",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/02a5dfb110c64b77e6b84918b3169487/loco_B.fas"
+            },
+            "result": {
+                "@id": "02_alinhamento/loco_B.fas"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa.log",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa.log"
+            },
+            "result": {
+                "@id": "03_limpeza/loco_A.limpo.fa.log"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/17c20ea21056a00cec1f721fd81a8f39/loco_A.limpo.fa"
+            },
+            "result": {
+                "@id": "03_limpeza/loco_A.limpo.fa"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa"
+            },
+            "result": {
+                "@id": "03_limpeza/loco_C.limpo.fa"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa.log",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/fa12b5b1e4c94c141ebc7c3f8774e3ec/loco_C.limpo.fa.log"
+            },
+            "result": {
+                "@id": "03_limpeza/loco_C.limpo.fa.log"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa.log",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa.log"
+            },
+            "result": {
+                "@id": "03_limpeza/loco_D.limpo.fa.log"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/b0a7024c2a7702cd6be3c4f1b3bea2b8/loco_D.limpo.fa"
+            },
+            "result": {
+                "@id": "03_limpeza/loco_D.limpo.fa"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa.log",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa.log"
+            },
+            "result": {
+                "@id": "03_limpeza/loco_B.limpo.fa.log"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/491e01d89fca0e96a1a5283b6c311bfc/loco_B.limpo.fa"
+            },
+            "result": {
+                "@id": "03_limpeza/loco_B.limpo.fa"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/7e2ce1e50e93923cc38158fd9f5caba1/ocupacao.tsv",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/ocupacao.tsv"
+            },
+            "result": {
+                "@id": "05_concatenado/ocupacao.tsv"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/7e2ce1e50e93923cc38158fd9f5caba1/supermatriz.fa",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/supermatriz.fa"
+            },
+            "result": {
+                "@id": "05_concatenado/supermatriz.fa"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/7e2ce1e50e93923cc38158fd9f5caba1/particoes.nex",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/7e2ce1e50e93923cc38158fd9f5caba1/particoes.nex"
+            },
+            "result": {
+                "@id": "05_concatenado/particoes.nex"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.contree",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.contree"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_C.contree"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.treefile",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.treefile"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_C.treefile"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.iqtree",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.iqtree"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_C.iqtree"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.log",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/c722fbbcd80f600d7c36745cfe0ad5e8/loco_C.log"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_C.log"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/f10c64e51586a561a46d17d5e141fd6e/loco_D.contree",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.contree"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_D.contree"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/f10c64e51586a561a46d17d5e141fd6e/loco_D.iqtree",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.iqtree"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_D.iqtree"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/f10c64e51586a561a46d17d5e141fd6e/loco_D.treefile",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.treefile"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_D.treefile"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/f10c64e51586a561a46d17d5e141fd6e/loco_D.log",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/f10c64e51586a561a46d17d5e141fd6e/loco_D.log"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_D.log"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/612ab23b091645b1f7da002ab9ab154f/loco_A.iqtree",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.iqtree"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_A.iqtree"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/612ab23b091645b1f7da002ab9ab154f/loco_A.contree",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.contree"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_A.contree"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/612ab23b091645b1f7da002ab9ab154f/loco_A.treefile",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.treefile"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_A.treefile"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/612ab23b091645b1f7da002ab9ab154f/loco_A.log",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/612ab23b091645b1f7da002ab9ab154f/loco_A.log"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_A.log"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/328ad5b0b6ad19acd57944218bc85c8a/loco_B.iqtree",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.iqtree"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_B.iqtree"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/328ad5b0b6ad19acd57944218bc85c8a/loco_B.treefile",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.treefile"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_B.treefile"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/328ad5b0b6ad19acd57944218bc85c8a/loco_B.log",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.log"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_B.log"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/328ad5b0b6ad19acd57944218bc85c8a/loco_B.contree",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/328ad5b0b6ad19acd57944218bc85c8a/loco_B.contree"
+            },
+            "result": {
+                "@id": "04_arvores_genes/loco_B.contree"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_scheme.nex",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_scheme.nex"
+            },
+            "result": {
+                "@id": "05_concatenado/concatenado.best_scheme.nex"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.treefile",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.treefile"
+            },
+            "result": {
+                "@id": "05_concatenado/concatenado.treefile"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.iqtree",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.iqtree"
+            },
+            "result": {
+                "@id": "05_concatenado/concatenado.iqtree"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.contree",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.contree"
+            },
+            "result": {
+                "@id": "05_concatenado/concatenado.contree"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.log",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.log"
+            },
+            "result": {
+                "@id": "05_concatenado/concatenado.log"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_model.nex",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/0fbba234f32b3a6e1fe21e7bb1d601ae/concatenado.best_model.nex"
+            },
+            "result": {
+                "@id": "05_concatenado/concatenado.best_model.nex"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/68c8a42feef11e1a5ad51b0418d30f48/especies.entrada.tre",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.entrada.tre"
+            },
+            "result": {
+                "@id": "07_arvore_especies/especies.entrada.tre"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/68c8a42feef11e1a5ad51b0418d30f48/especies.log",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.log"
+            },
+            "result": {
+                "@id": "07_arvore_especies/especies.log"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/68c8a42feef11e1a5ad51b0418d30f48/especies.tre",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/68c8a42feef11e1a5ad51b0418d30f48/especies.tre"
+            },
+            "result": {
+                "@id": "07_arvore_especies/especies.tre"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.log",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.log"
+            },
+            "result": {
+                "@id": "06_concordancia/concordancia.gcf.log"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.cf.stat",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.cf.stat"
+            },
+            "result": {
+                "@id": "06_concordancia/concordancia.gcf.cf.stat"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.log",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.log"
+            },
+            "result": {
+                "@id": "06_concordancia/concordancia.scfl.log"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.cf.stat",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.cf.stat"
+            },
+            "result": {
+                "@id": "06_concordancia/concordancia.scfl.cf.stat"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.cf.tree",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.gcf.cf.tree"
+            },
+            "result": {
+                "@id": "06_concordancia/concordancia.gcf.cf.tree"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.cf.tree",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/3da07d0fc0403a73549c539f6e760d89/concordancia.scfl.cf.tree"
+            },
+            "result": {
+                "@id": "06_concordancia/concordancia.scfl.cf.tree"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/115e4020a7b5aeb761e6c2bf47162767/metodos.md",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/115e4020a7b5aeb761e6c2bf47162767/metodos.md"
+            },
+            "result": {
+                "@id": "metodos.md"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/115e4020a7b5aeb761e6c2bf47162767/resumo.tsv",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/115e4020a7b5aeb761e6c2bf47162767/resumo.tsv"
+            },
+            "result": {
+                "@id": "resumo.tsv"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "#publish/115e4020a7b5aeb761e6c2bf47162767/resumo.json",
+            "@type": "CreateAction",
+            "name": "publish",
+            "instrument": {
+                "@id": "main.nf#software-application"
+            },
+            "object": {
+                "@id": "#task/115e4020a7b5aeb761e6c2bf47162767/resumo.json"
+            },
+            "result": {
+                "@id": "resumo.json"
+            },
+            "actionStatus": "http://schema.org/CompletedActionStatus"
+        },
+        {
+            "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_C.fa",
+            "@type": "File",
+            "name": "loco_C.fa"
+        },
+        {
+            "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_B.fa",
+            "@type": "File",
+            "name": "loco_B.fa"
+        },
+        {
+            "@id": "file:///mnt/c/Users/Manec/bio-stack/runs/filogenia/20261012-001038-teste_simulado/pipeline_info/versoes.yml",
+            "@type": "File",
+            "name": "versoes.yml",
+            "encodingFormat": "application/yaml"
+        },
+        {
+            "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_D.fa",
+            "@type": "File",
+            "name": "loco_D.fa"
+        },
+        {
+            "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_E.fa",
+            "@type": "File",
+            "name": "loco_E.fa"
+        },
+        {
+            "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/assets/test/locos/loco_A.fa",
+            "@type": "File",
+            "name": "loco_A.fa"
+        },
+        {
+            "@id": "file:///mnt/c/Users/Manec/bio-stack/pipelines/filogenia/bin/filogenia_util.py",
+            "@type": "File",
+            "name": "filogenia_util.py",
+            "encodingFormat": "text/x-python"
+        },
+        {
+            "@id": "file:///mnt/c/Users/Manec/bio-stack/runs/filogenia/20261012-001038-teste_simulado/pipeline_info/parametros.json",
+            "@type": "File",
+            "name": "parametros.json",
+            "encodingFormat": "application/json"
+        },
+        {
+            "@id": "01_entrada/loco_C.entrada.fa",
+            "@type": "File",
+            "name": "loco_C.entrada.fa"
+        },
+        {
+            "@id": "01_entrada/loco_C.entrada.json",
+            "@type": "File",
+            "name": "loco_C.entrada.json",
+            "encodingFormat": "application/json"
+        },
+        {
+            "@id": "01_entrada/loco_B.entrada.fa",
+            "@type": "File",
+            "name": "loco_B.entrada.fa"
+        },
+        {
+            "@id": "01_entrada/loco_B.entrada.json",
+            "@type": "File",
+            "name": "loco_B.entrada.json",
+            "encodingFormat": "application/json"
+        },
+        {
+            "@id": "01_entrada/loco_D.entrada.fa",
+            "@type": "File",
+            "name": "loco_D.entrada.fa"
+        },
+        {
+            "@id": "01_entrada/loco_D.entrada.json",
+            "@type": "File",
+            "name": "loco_D.entrada.json",
+            "encodingFormat": "application/json"
+        },
+        {
+            "@id": "01_entrada/loco_A.entrada.fa",
+            "@type": "File",
+            "name": "loco_A.entrada.fa"
+        },
+        {
+            "@id": "01_entrada/loco_A.entrada.json",
+            "@type": "File",
+            "name": "loco_A.entrada.json",
+            "encodingFormat": "application/json"
+        },
+        {
+            "@id": "01_entrada/loco_E.entrada.fa",
+            "@type": "File",
+            "name": "loco_E.entrada.fa"
+        },
+        {
+            "@id": "01_entrada/loco_E.entrada.json",
+            "@type": "File",
+            "name": "loco_E.entrada.json",
+            "encodingFormat": "application/json"
+        },
+        {
+            "@id": "02_alinhamento/loco_C.fas",
+            "@type": "File",
+            "name": "loco_C.fas"
+        },
+        {
+            "@id": "02_alinhamento/loco_D.fas",
+            "@type": "File",
+            "name": "loco_D.fas"
+        },
+        {
+            "@id": "02_alinhamento/loco_A.fas",
+            "@type": "File",
+            "name": "loco_A.fas"
+        },
+        {
+            "@id": "02_alinhamento/loco_B.fas",
+            "@type": "File",
+            "name": "loco_B.fas"
+        },
+        {
+            "@id": "03_limpeza/loco_A.limpo.fa.log",
+            "@type": "File",
+            "name": "loco_A.limpo.fa.log"
+        },
+        {
+            "@id": "03_limpeza/loco_A.limpo.fa",
+            "@type": "File",
+            "name": "loco_A.limpo.fa"
+        },
+        {
+            "@id": "03_limpeza/loco_C.limpo.fa",
+            "@type": "File",
+            "name": "loco_C.limpo.fa"
+        },
+        {
+            "@id": "03_limpeza/loco_C.limpo.fa.log",
+            "@type": "File",
+            "name": "loco_C.limpo.fa.log"
+        },
+        {
+            "@id": "03_limpeza/loco_D.limpo.fa.log",
+            "@type": "File",
+            "name": "loco_D.limpo.fa.log"
+        },
+        {
+            "@id": "03_limpeza/loco_D.limpo.fa",
+            "@type": "File",
+            "name": "loco_D.limpo.fa"
+        },
+        {
+            "@id": "03_limpeza/loco_B.limpo.fa.log",
+            "@type": "File",
+            "name": "loco_B.limpo.fa.log"
+        },
+        {
+            "@id": "03_limpeza/loco_B.limpo.fa",
+            "@type": "File",
+            "name": "loco_B.limpo.fa"
+        },
+        {
+            "@id": "05_concatenado/ocupacao.tsv",
+            "@type": "File",
+            "name": "ocupacao.tsv",
+            "encodingFormat": "text/tab-separated-values"
+        },
+        {
+            "@id": "05_concatenado/supermatriz.fa",
+            "@type": "File",
+            "name": "supermatriz.fa"
+        },
+        {
+            "@id": "05_concatenado/particoes.nex",
+            "@type": "File",
+            "name": "particoes.nex"
+        },
+        {
+            "@id": "04_arvores_genes/loco_C.contree",
+            "@type": "File",
+            "name": "loco_C.contree"
+        },
+        {
+            "@id": "04_arvores_genes/loco_C.treefile",
+            "@type": "File",
+            "name": "loco_C.treefile"
+        },
+        {
+            "@id": "04_arvores_genes/loco_C.iqtree",
+            "@type": "File",
+            "name": "loco_C.iqtree"
+        },
+        {
+            "@id": "04_arvores_genes/loco_C.log",
+            "@type": "File",
+            "name": "loco_C.log"
+        },
+        {
+            "@id": "04_arvores_genes/loco_D.contree",
+            "@type": "File",
+            "name": "loco_D.contree"
+        },
+        {
+            "@id": "04_arvores_genes/loco_D.iqtree",
+            "@type": "File",
+            "name": "loco_D.iqtree"
+        },
+        {
+            "@id": "04_arvores_genes/loco_D.treefile",
+            "@type": "File",
+            "name": "loco_D.treefile"
+        },
+        {
+            "@id": "04_arvores_genes/loco_D.log",
+            "@type": "File",
+            "name": "loco_D.log"
+        },
+        {
+            "@id": "04_arvores_genes/loco_A.iqtree",
+            "@type": "File",
+            "name": "loco_A.iqtree"
+        },
+        {
+            "@id": "04_arvores_genes/loco_A.contree",
+            "@type": "File",
+            "name": "loco_A.contree"
+        },
+        {
+            "@id": "04_arvores_genes/loco_A.treefile",
+            "@type": "File",
+            "name": "loco_A.treefile"
+        },
+        {
+            "@id": "04_arvores_genes/loco_A.log",
+            "@type": "File",
+            "name": "loco_A.log"
+        },
+        {
+            "@id": "04_arvores_genes/loco_B.iqtree",
+            "@type": "File",
+            "name": "loco_B.iqtree"
+        },
+        {
+            "@id": "04_arvores_genes/loco_B.treefile",
+            "@type": "File",
+            "name": "loco_B.treefile"
+        },
+        {
+            "@id": "04_arvores_genes/loco_B.log",
+            "@type": "File",
+            "name": "loco_B.log"
+        },
+        {
+            "@id": "04_arvores_genes/loco_B.contree",
+            "@type": "File",
+            "name": "loco_B.contree"
+        },
+        {
+            "@id": "05_concatenado/concatenado.best_scheme.nex",
+            "@type": "File",
+            "name": "concatenado.best_scheme.nex"
+        },
+        {
+            "@id": "05_concatenado/concatenado.treefile",
+            "@type": "File",
+            "name": "concatenado.treefile"
+        },
+        {
+            "@id": "05_concatenado/concatenado.iqtree",
+            "@type": "File",
+            "name": "concatenado.iqtree"
+        },
+        {
+            "@id": "05_concatenado/concatenado.contree",
+            "@type": "File",
+            "name": "concatenado.contree"
+        },
+        {
+            "@id": "05_concatenado/concatenado.log",
+            "@type": "File",
+            "name": "concatenado.log"
+        },
+        {
+            "@id": "05_concatenado/concatenado.best_model.nex",
+            "@type": "File",
+            "name": "concatenado.best_model.nex"
+        },
+        {
+            "@id": "07_arvore_especies/especies.entrada.tre",
+            "@type": "File",
+            "name": "especies.entrada.tre"
+        },
+        {
+            "@id": "07_arvore_especies/especies.log",
+            "@type": "File",
+            "name": "especies.log"
+        },
+        {
+            "@id": "07_arvore_especies/especies.tre",
+            "@type": "File",
+            "name": "especies.tre"
+        },
+        {
+            "@id": "06_concordancia/concordancia.gcf.log",
+            "@type": "File",
+            "name": "concordancia.gcf.log"
+        },
+        {
+            "@id": "06_concordancia/concordancia.gcf.cf.stat",
+            "@type": "File",
+            "name": "concordancia.gcf.cf.stat"
+        },
+        {
+            "@id": "06_concordancia/concordancia.scfl.log",
+            "@type": "File",
+            "name": "concordancia.scfl.log"
+        },
+        {
+            "@id": "06_concordancia/concordancia.scfl.cf.stat",
+            "@type": "File",
+            "name": "concordancia.scfl.cf.stat"
+        },
+        {
+            "@id": "06_concordancia/concordancia.gcf.cf.tree",
+            "@type": "File",
+            "name": "concordancia.gcf.cf.tree",
+            "encodingFormat": "application/vnd.rainstor.data"
+        },
+        {
+            "@id": "06_concordancia/concordancia.scfl.cf.tree",
+            "@type": "File",
+            "name": "concordancia.scfl.cf.tree",
+            "encodingFormat": "application/vnd.rainstor.data"
+        },
+        {
+            "@id": "metodos.md",
+            "@type": "File",
+            "name": "metodos.md",
+            "encodingFormat": "text/markdown"
+        },
+        {
+            "@id": "resumo.tsv",
+            "@type": "File",
+            "name": "resumo.tsv",
+            "encodingFormat": "text/tab-separated-values"
+        },
+        {
+            "@id": "resumo.json",
+            "@type": "File",
+            "name": "resumo.json",
+            "encodingFormat": "application/json"
+        }
+    ]
+}

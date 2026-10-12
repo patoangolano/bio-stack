@@ -13,7 +13,7 @@ Reverifique com `/bio-doctor` — endpoints mudam.
 |---|---|---|
 | `NVIDIA_API_KEY` | **OK** | NIMs de biologia, embeddings, 3 LLMs, login no `nvcr.io` |
 | `NCBI_API_KEY` | **removida em 2026-09-12** | estava com o valor da chave NVIDIA — o NCBI devolvia `400 API key invalid` |
-| `S2_API_KEY` | ausente | Semantic Scholar dá `429` na 2ª requisição seguida sem chave |
+| `S2_API_KEY` | ausente — **e nenhum código lê** | ver abaixo: a variável é passada ao `biomcp`, que não a consome |
 | `OPENFDA_API_KEY` | ausente | openFDA responde `200` sem chave; só sobe o teto |
 | `HF_TOKEN` | ausente | download anônimo de modelo não-gated funciona (`307`) |
 | `NGC_API_KEY` | ausente | **não é necessária** — `docker login nvcr.io` com a `NVIDIA_API_KEY` deu *Login Succeeded* |
@@ -64,17 +64,48 @@ Todas gratuitas, todas em minutos.
 Sobe o E-utilities de 3 para 10 requisições por segundo. Formato: 36 caracteres
 hexadecimais. **Não** começa com `nvapi-`.
 
-### 2. `S2_API_KEY` — Semantic Scholar (prioridade alta para `lit-scout`)
+### 2. `S2_API_KEY` — Semantic Scholar (**não é necessária**)
 
-<https://www.semanticscholar.org/product/api> → formulário, aprovação por
-e-mail. Medido sem chave: a 1ª requisição passa, a 2ª e a 3ª imediatas dão
-`429`. O pool anônimo é compartilhado entre o mundo inteiro — para revisão de
-literatura em lote, é inutilizável.
+Rastreado em 2026-10-10: a variável aparece em quatro lugares e **nenhum deles
+a consome**.
 
-### 3. `CROSSREF_MAILTO` / `OPENALEX_MAILTO` — não é chave
+| Lugar | O que faz com ela |
+|---|---|
+| `.mcp.json:65` | repassa como env para o servidor `biomcp` |
+| `.claude/commands/bio-doctor.md:26` | só relata presente/ausente |
+| `.claude/hooks/session_context.py:166` | só relata presente/ausente |
+| `.codex/config.toml:28` | só declara como variável a repassar |
 
-Só um e-mail no `User-Agent` ou no parâmetro `mailto=`. Move você para a fila
-rápida das duas APIs. Custo zero.
+O único consumidor possível era o `biomcp`, e o `biomcp-python 0.7.3` instalado
+tem zero ocorrências de `S2_API_KEY` ou `semanticscholar`:
+
+```bash
+grep -rc "S2_API_KEY\|semanticscholar" \
+  "$(find ~/AppData/Local/uv/cache/archive-v0 -maxdepth 5 -type d -name biomcp | head -1)"
+# 0
+```
+
+O `lit-scout` **nunca** dependeu dela: as ferramentas dele são PubMed,
+bioRxiv, Europe PMC, Open Targets, STRING, Reactome e `nvidia-nemo`. Nenhuma
+fala com o Semantic Scholar. A versão anterior desta seção chamava a chave de
+"prioridade alta para `lit-scout`" — estava errado, e o `/bio-doctor` repetia
+o erro reportando `MISS` como se fosse lacuna.
+
+Se um dia um servidor que *use* o S2 entrar na stack: conta não basta, o pedido
+é um formulário separado em <https://www.semanticscholar.org/product/api> →
+*Request an API Key*, a chave chega por e-mail, o teto inicial é 1 req/s e o
+Allen Institute não publica prazo de aprovação. Medido sem chave em 2026-09-12:
+a 1ª requisição passa, a 2ª e a 3ª imediatas dão `429`.
+
+### 3. `CROSSREF_MAILTO` / `OPENALEX_MAILTO` — **não existem na stack**
+
+A recomendação anterior aqui era colocar um e-mail no `User-Agent` para entrar
+na fila rápida do Crossref e do OpenAlex, a custo zero. Verificado em
+2026-10-10: essas duas variáveis aparecem **apenas nesta página** — nenhum
+servidor MCP, hook ou script as lê. Definir no ambiente não muda nada.
+
+Para valer, o e-mail teria de ser injetado por quem faz a requisição HTTP, e
+hoje ninguém na stack chama Crossref ou OpenAlex direto.
 
 ### 4. `HF_TOKEN` — Hugging Face (opcional)
 

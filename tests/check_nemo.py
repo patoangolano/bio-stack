@@ -4,7 +4,7 @@
 # ///
 """Testa o servidor MCP nvidia-nemo. Nenhuma chamada de rede.
 
-    uv run --script tests/test_nemo.py
+    uv run --script tests/check_nemo.py
 
 As funcoes de rede (_embed, _post) sao substituidas por um dublê deterministico,
 entao a suite exercita toda a logica de indexacao, fatiamento, persistencia e

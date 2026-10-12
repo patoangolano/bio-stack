@@ -12,8 +12,15 @@ Escopo pedido: $ARGUMENTS
 ## Fontes, nesta ordem
 
 1. `runs/provenance.jsonl` — registro append-only de toda ferramenta chamada,
-   com parâmetros e horário UTC. Esta é a fonte primária.
+   com parâmetros e horário UTC. Esta é a fonte primária. Linhas com
+   `"kind": "pipeline-run"` são execuções do pipeline de filogenia, com
+   parâmetros e versões já resolvidos.
 2. `runs/nim/` — arquivos de saída gerados (estruturas, MSAs, embeddings).
+   `runs/filogenia/<id>/metodos.md` — parágrafo de Métodos que o próprio
+   pipeline escreveu, com versões lidas do container e DOIs conferidos.
+   **Incorpore, não reescreva**: as versões ali vêm do `versoes.yml` da
+   execução, e reescrever à mão é como versão errada entra no texto. As
+   pendências listadas no fim dele entram na sua lista de pendências.
 3. Scripts e notebooks no projeto — a lógica de análise.
 4. Versões de pacotes: `uv pip list` ou o `pipeline_info/` do nf-core.
 
@@ -24,7 +31,9 @@ python -c "
 import json, collections
 rows = [json.loads(l) for l in open('runs/provenance.jsonl', encoding='utf-8')]
 print('total:', len(rows))
-print(collections.Counter(r['kind'] for r in rows))
+# As linhas do servidor nvidia-bio nao tem 'kind' (tem 'server'); r['kind']
+# levantava KeyError nelas — 18 linhas em 2026-10-11.
+print(collections.Counter(r.get('kind') or r.get('server', '?') for r in rows))
 print('periodo:', rows[0]['ts'], '->', rows[-1]['ts'])
 "
 ```

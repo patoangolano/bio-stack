@@ -1,6 +1,6 @@
 # /// script
 # requires-python = ">=3.10"
-# dependencies = ["mcp>=1.2.0", "httpx>=0.27.0", "numpy>=1.26"]
+# dependencies = ["mcp>=1.2.0", "httpx[socks]>=0.27.0", "numpy>=1.26"]
 # ///
 """
 nvidia-bio-mcp — servidor MCP para os NIM de biologia da NVIDIA (BioNeMo).
@@ -44,6 +44,7 @@ import json
 import math
 import os
 import re
+import sys
 import time
 from dataclasses import dataclass
 from datetime import UTC, datetime
@@ -57,8 +58,10 @@ import numpy as np
 # duas evita que a stack quebre dependendo de qual versao o uv resolver.
 try:
     from mcp.server.mcpserver import MCPServer as _Server  # mcp >= 2.0
+    from mcp.server.mcpserver.exceptions import ToolError as _ToolError
 except ImportError:  # pragma: no cover - caminho legado
     from mcp.server.fastmcp import FastMCP as _Server  # mcp 1.x
+    from mcp.server.fastmcp.exceptions import ToolError as _ToolError
 
 # ---------------------------------------------------------------------------
 # Configuracao
@@ -159,7 +162,7 @@ REGISTRY: dict[str, NimModel] = {
             retired=(
                 "endpoint hospedado desligado pela NVIDIA — HTTP 410 Gone em "
                 "biology/meta/esmfold, verificado em 2026-09-11. Nao ha slug "
-                "substituto; use boltz2, openfold2 ou alphafold2."
+                "substituto; use boltz2, openfold2 ou openfold3."
             ),
         ),
         NimModel(
@@ -169,6 +172,12 @@ REGISTRY: dict[str, NimModel] = {
             action="",
             task="folding",
             summary="AlphaFold2 monomerico, pipeline completo incluindo MSA.",
+            retired=(
+                "endpoint hospedado desligado pela NVIDIA — HTTP 410 Gone em "
+                "biology/deepmind/alphafold2, end-of-life 2026-09-24, "
+                "verificado em 2026-10-10. Nao ha slug substituto; use boltz2 "
+                "ou openfold3."
+            ),
         ),
         NimModel(
             key="alphafold2_multimer",
@@ -182,6 +191,12 @@ REGISTRY: dict[str, NimModel] = {
                 "campo obrigatorio e 'sequences' (lista), nao 'sequence' como no "
                 "alphafold2 monomerico. sem segmento de acao. rota verificada com "
                 "chamada real em 2026-09-12 (422 pedindo 'sequences')."
+            ),
+            retired=(
+                "endpoint hospedado desligado pela NVIDIA — HTTP 410 Gone em "
+                "biology/deepmind/alphafold2-multimer, end-of-life 2026-09-24, "
+                "verificado em 2026-10-10. Use boltz2 para cofolding de varias "
+                "cadeias, ou openfold3."
             ),
         ),
         NimModel(
@@ -292,8 +307,45 @@ REGISTRY: dict[str, NimModel] = {
 # ---------------------------------------------------------------------------
 
 
-class NimError(RuntimeError):
-    """Falha previsivel de chamada ao NIM, com mensagem util para o modelo."""
+class NimError(_ToolError):
+    """Falha previsivel de chamada ao NIM, com mensagem util para o modelo.
+
+    Deriva de ToolError, nao de RuntimeError. Isso nao e estilo: no mcp 2.x,
+    `Tool.run` so preserva o texto de excecoes que derivam de ToolError. Todo
+    o resto e tratado como crash e o cliente recebe apenas a string
+    "Error executing tool <nome>". Enquanto esta classe herdava de
+    RuntimeError, as mensagens de `_post` (401 chave invalida, 403 licenca,
+    404 slug mudou, 410 aposentado, 429 rate limit) eram montadas com cuidado
+    e descartadas no caminho de volta, nas 14 ferramentas. Corrigido em
+    2026-10-10.
+    """
+
+
+def _cliente_http(**kwargs: Any) -> httpx.AsyncClient:
+    """Cria o AsyncClient com a falha de construcao convertida em NimError.
+
+    O httpx le as variaveis *_PROXY do ambiente NA CONSTRUCAO do cliente, e
+    falha ali mesmo, antes de qualquer requisicao: com proxy SOCKS e sem o
+    pacote socksio levanta ImportError; com esquema que ele nao conhece (ex.
+    unix://) levanta ValueError. Nenhum dos dois e NimError, entao o mcp os
+    tratava como crash e o cliente recebia so "Error executing tool <nome>",
+    em ~0,1 s, em toda ferramenta de rede. Foi exatamente o que aconteceu na
+    sandbox de conector do Claude Science, que roteia a rede por um proxy
+    filtrante local. Medido em 2026-10-10.
+    """
+    try:
+        return httpx.AsyncClient(**kwargs)
+    except Exception as exc:
+        # So o esquema de cada proxy: o valor pode carregar usuario e senha.
+        proxies = {
+            k: v.split("://", 1)[0] + "://..."
+            for k, v in os.environ.items()
+            if k.upper().endswith("_PROXY") and k.upper() != "NO_PROXY" and v
+        }
+        raise NimError(
+            f"nao consegui criar o cliente HTTP: {type(exc).__name__}: {exc}. "
+            f"Proxy no ambiente: {proxies or 'nenhum'}."
+        ) from exc
 
 
 def _base_url() -> str:
@@ -404,7 +456,7 @@ async def _post(path: str, payload: dict[str, Any]) -> dict[str, Any]:
         return guardado
 
     url = _url_for(path)
-    async with httpx.AsyncClient(timeout=REQUEST_TIMEOUT, follow_redirects=True) as client:
+    async with _cliente_http(timeout=REQUEST_TIMEOUT, follow_redirects=True) as client:
         try:
             r = await client.post(url, headers=_headers(), json=payload)
         except httpx.ConnectError as exc:
@@ -414,7 +466,13 @@ async def _post(path: str, payload: dict[str, Any]) -> dict[str, Any]:
                 if MODE == "local"
                 else f"nao consegui conectar em {url}. Cheque a rede."
             )
-            raise NimError(hint) from exc
+            raise NimError(f"{hint} ({type(exc).__name__}: {exc})") from exc
+        except httpx.HTTPError as exc:
+            # Todo o resto da familia do httpx: ProxyError (proxy filtrante que
+            # recusa o CONNECT — o caso provavel na sandbox do Claude Science),
+            # timeouts, erro de protocolo. Sem este ramo eles subiam crus e o
+            # cliente recebia so "Error executing tool <nome>".
+            raise NimError(f"falha de rede em {url}: {type(exc).__name__}: {exc}") from exc
 
         if r.status_code == 202:
             req_id = r.headers.get("nvcf-reqid")
@@ -433,6 +491,20 @@ async def _post(path: str, payload: dict[str, Any]) -> dict[str, Any]:
             raise NimError(
                 f"HTTP 404 em {url}. O slug do modelo provavelmente mudou. "
                 "Rode nim_probe_endpoints para descobrir quais respondem."
+            )
+        if r.status_code == 410:
+            # 410 Gone e o jeito que a NVIDIA sinaliza end-of-life, e e
+            # diferente de 404: o slug nao mudou, o modelo deixou de existir e
+            # nao ha substituto. Sem este ramo o chamador cai no generico
+            # abaixo e recebe o corpo cru da resposta, sem saber que o certo e
+            # trocar de modelo, nao reconferir a rota. Foi o que aconteceu com
+            # alphafold2 depois do EOL de 2026-09-24.
+            tarefa = next((v.task for v in REGISTRY.values() if v.path in url), None)
+            vivos = [k for k, v in REGISTRY.items() if v.task == tarefa and not v.retired]
+            extra = f" Alternativas vivas para '{tarefa}': {vivos}." if vivos else ""
+            raise NimError(
+                f"HTTP 410 em {url}: endpoint aposentado pela NVIDIA, sem slug "
+                f"substituto.{extra} Corpo: {r.text[:300]}"
             )
         if r.status_code == 429:
             raise NimError("HTTP 429: limite de taxa atingido. Espere e tente de novo.")
@@ -469,7 +541,6 @@ def _save(content: str, stem: str, ext: str) -> Path:
     resposta da API, entao os dois sao sanitizados: sem isso, um `name` como
     "../../.ssh/authorized_keys" escreveria fora do diretorio.
     """
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
     stem = re.sub(r"[^A-Za-z0-9_.-]", "_", str(stem)).strip("._")[:64] or "output"
     ext = re.sub(r"[^A-Za-z0-9]", "", str(ext))[:8] or "txt"
 
@@ -478,7 +549,20 @@ def _save(content: str, stem: str, ext: str) -> Path:
     if OUT_DIR.resolve() not in path.parents:
         raise NimError(f"caminho de saida escaparia de {OUT_DIR}: {path}")
 
-    path.write_text(content, encoding="utf-8")
+    # OSError vira NimError de proposito. OSError cru e tratado pelo mcp como
+    # crash e o cliente recebe so "Error executing tool <nome>" — o mesmo
+    # defeito que o NimError(ToolError) consertou. O caso real que motivou isto:
+    # dentro da sandbox de conector do Claude Science o diretorio de saida pode
+    # estar montado somente-leitura, e sem esta mensagem a falha e muda.
+    try:
+        OUT_DIR.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding="utf-8")
+    except OSError as exc:
+        raise NimError(
+            f"nao consegui gravar a saida em {OUT_DIR}: {exc}. Se este servidor roda "
+            "dentro de uma sandbox (conector do Claude Science), libere gravacao "
+            "nesse diretorio ou aponte BIO_STACK_OUT para um que seja gravavel."
+        ) from exc
     return path
 
 
@@ -498,8 +582,24 @@ def _log_provenance(tool: str, params: dict[str, Any], result: dict[str, Any]) -
         }
         with PROV_LOG.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(entry, ensure_ascii=False) + "\n")
-    except OSError:
-        pass  # log nunca deve derrubar a ferramenta
+    except OSError as exc:
+        # O log nunca deve derrubar a ferramenta — mas tambem nao pode sumir
+        # calado. Antes era `pass`: dentro de uma sandbox que monta runs/ como
+        # somente-leitura, toda a procedencia deixava de existir sem um unico
+        # sinal, e a secao de Metodos saia incompleta sem ninguem saber.
+        # stderr e seguro aqui: o protocolo MCP stdio usa so o stdout, e o
+        # cliente (Claude Code, Claude Science) guarda o stderr no log dele.
+        global _PROV_AVISADO
+        if not _PROV_AVISADO:
+            print(
+                f"[nvidia-bio] AVISO: procedencia NAO esta sendo gravada em {PROV_LOG}: {exc}",
+                file=sys.stderr,
+                flush=True,
+            )
+            _PROV_AVISADO = True
+
+
+_PROV_AVISADO = False
 
 
 AA = set("ACDEFGHIKLMNPQRSTVWY")
@@ -581,17 +681,27 @@ def _cache_stats() -> dict[str, Any]:
 
 
 @mcp.tool()
-def nim_list_models(task: str | None = None) -> list[dict[str, Any]]:
+def nim_list_models(
+    task: str | None = None, incluir_aposentados: bool = False
+) -> list[dict[str, Any]]:
     """
-    Lista os NIM de biologia conhecidos por este servidor.
+    Lista os NIM de biologia que este servidor sabe chamar e que estao vivos.
 
     Args:
         task: filtra por categoria — folding, cofolding, docking, design,
               chemistry, genomics, msa. Omita para listar tudo.
+        incluir_aposentados: por padrao False. Tres modelos do REGISTRY estao
+              desligados pela NVIDIA e devolvem HTTP 410 (esmfold, alphafold2,
+              alphafold2_multimer). Antes de 2026-10-10 este catalogo os
+              listava sem marca nenhuma, ou seja, oferecia endpoint morto como
+              escolha valida. Passe True para ver o cemiterio junto, com o
+              campo `aposentado` preenchido.
     """
     out = []
     for m in REGISTRY.values():
         if task and m.task != task:
+            continue
+        if m.retired and not incluir_aposentados:
             continue
         out.append(
             {
@@ -601,6 +711,7 @@ def nim_list_models(task: str | None = None) -> list[dict[str, Any]]:
                 "summary": m.summary,
                 "slug_confidence": m.confidence,
                 "notes": m.notes or None,
+                "aposentado": m.retired or None,
             }
         )
     return sorted(out, key=lambda d: (d["task"], d["key"]))
@@ -621,13 +732,15 @@ async def nim_probe_endpoints(keys: list[str] | None = None) -> dict[str, Any]:
     targets = [REGISTRY[k] for k in (keys or REGISTRY.keys()) if k in REGISTRY]
     results: dict[str, str] = {}
 
-    async with httpx.AsyncClient(timeout=45) as client:
+    async with _cliente_http(timeout=45) as client:
 
         async def probe(m: NimModel) -> tuple[str, str]:
             try:
                 r = await client.post(_url_for(m.path), headers=_headers(), json={})
             except httpx.HTTPError as exc:
-                return m.key, f"rede: {type(exc).__name__}"
+                # Nome E mensagem: o nome sozinho ("ProxyError") nao diz se o
+                # proxy recusou o host, exigiu autenticacao ou nem respondeu.
+                return m.key, f"rede: {type(exc).__name__}: {str(exc)[:200]}"
             code = r.status_code
             if code == 404:
                 return m.key, "404 rota inexistente — slug provavelmente mudou"
@@ -683,8 +796,10 @@ async def fold_protein(
 
     Args:
         sequence: sequencia de aminoacidos, alfabeto de 20 letras.
-        model: boltz2 (padrao, melhor geral) | openfold2 | openfold3 |
-               alphafold2. (esmfold foi aposentado pela NVIDIA.)
+        model: boltz2 (padrao, melhor geral) | openfold2 | openfold3.
+               Aposentados pela NVIDIA, todos com HTTP 410 e sem slug
+               substituto: esmfold (2026-09-11), alphafold2 e
+               alphafold2_multimer (end-of-life 2026-09-24).
         name: rotulo curto usado no nome do arquivo.
         recycling_steps: passos de reciclagem; mais = melhor e mais lento.
         sampling_steps: passos de difusao.
@@ -693,9 +808,11 @@ async def fold_protein(
     seq = _validate_protein(sequence)
     m = REGISTRY.get(model)
     if m is None or m.task not in ("folding", "cofolding"):
+        # `not v.retired` tambem aqui: oferecer um endpoint 410 como "opcao"
+        # manda o chamador de um modelo invalido direto para um modelo morto.
         raise NimError(
             f"modelo '{model}' nao serve para dobramento. "
-            f"Opcoes: {[k for k, v in REGISTRY.items() if v.task in ('folding', 'cofolding')]}"
+            f"Opcoes: {[k for k, v in REGISTRY.items() if v.task in ('folding', 'cofolding') and not v.retired]}"
         )
     if m.retired:
         tarefas = ("folding", "cofolding")
@@ -1548,6 +1665,18 @@ async def nim_invoke(
     if ".." in parts or not parts or parts[0] != "biology":
         raise NimError("por seguranca, path deve comecar com 'biology/' e nao conter '..'.")
     path = "/".join(parts)
+
+    # Esta ferramenta existe para alcancar rotas que o REGISTRY nao conhece,
+    # entao ela nao deve validar contra o registro — mas bater exatamente no
+    # caminho de um modelo JA sabido morto nunca e o que se quer, e a ida a
+    # rede custa tempo para voltar um 410 previsivel. Um slug novo para o mesmo
+    # modelo teria caminho diferente e passa reto por aqui.
+    morto = next((v for v in REGISTRY.values() if v.retired and v.path == path), None)
+    if morto is not None:
+        raise NimError(
+            f"path '{path}' e o endpoint aposentado de '{morto.key}': {morto.retired} "
+            "Se voce descobriu um slug novo para este modelo, chame com o caminho novo."
+        )
 
     data = await _post(path, payload)
 

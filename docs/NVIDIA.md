@@ -312,7 +312,7 @@ Note que o caminho local **não** tem o prefixo `/v1`:
 
 | Carga | VRAM | Roda? |
 |---|---|---|
-| ESM-2 t33 650M (embeddings) | ~2,7 GB fp16 | sim, folgado |
+| ESM-2 t33 650M (embeddings) | 1,25 GiB fp16, medido | sim, folgado |
 | ESM-2 t36 3B | ~6,5 GB fp16 | sim, batch 1 |
 | DNABERT-2 117M | ~0,5 GB | sim |
 | nvMolKit (fingerprints, conformers) | baixo | sim |
@@ -334,6 +334,8 @@ Instalar do PyPI padrão traz build de CPU ou um CUDA velho que não reconhece
 
 ### Embeddings de proteína local
 
+Pelo `fair-esm`, que é o caminho sem armadilha:
+
 ```python
 import torch, esm
 
@@ -344,11 +346,78 @@ bc = alphabet.get_batch_converter()
 _, _, toks = bc([("alvo", "MALWMRLLPLLALLALWGPDPAAA")])
 with torch.no_grad():
     out = model(toks.cuda(), repr_layers=[33])
-emb = out["representations"][33].mean(1)   # (1, 1280)
+# O batch converter envolve a sequência em <cls> … <eos> (tokens 0 e 2); os dois
+# carregam estado próprio e entram na média como se fossem resíduos.
+emb = out["representations"][33][:, 1:-1, :].mean(1)   # (1, 1280)
 ```
 
 Uso acadêmico: comparar variantes por distância no espaço de embedding,
 agrupar homólogos, alimentar um classificador simples de propriedade.
+
+#### Pelo `transformers`: não use `AutoModel`
+
+> **`AutoModel.from_pretrained("facebook/esm2_t33_650M_UR50D")` ganha um pooler
+> inicializado aleatoriamente.** O `AutoModel` resolve para `EsmModel`, que
+> constrói `pooler.dense` por padrão — e esse peso **não existe** no checkpoint do
+> ESM-2. O relatório de carga do `transformers` 5.19 marca
+> `missing_keys: {'pooler.dense.weight', 'pooler.dense.bias'}`: são inicializados
+> na hora, com o RNG do processo. Medido nesta máquina carregando duas vezes no
+> mesmo processo: `last_hidden_state` sai bit-a-bit idêntico, `pooler_output`
+> **não** (delta máximo 0,938). Quem usar `pooler_output` como embedding colhe um
+> número diferente a cada execução, sem erro, sem aviso no stderr.
+>
+> É a mesma classe de defeito que o `CLAUDE.md` proíbe em `np.random.seed()` —
+> estado global de processo mudando o resultado sem nada falhar — numa camada
+> diferente. Fixar seed não resolve: o pooler continua sendo ruído, só ruído
+> reprodutível.
+
+O contorno é pedir o modelo sem a camada e fazer o pooling à mão:
+
+```python
+import torch
+from transformers import AutoTokenizer, EsmModel
+
+NOME = "facebook/esm2_t33_650M_UR50D"
+SEQUENCIAS = ["MALWMRLLPLLALLALWGPDPAAA", "MKTAYIAKQRQISFVKSHFSRQ"]
+
+tokenizador = AutoTokenizer.from_pretrained(NOME)
+
+# add_pooling_layer=False: sem isto o transformers cria pooler.dense com pesos
+# aleatórios, porque o checkpoint do ESM-2 não tem esse tensor.
+modelo = EsmModel.from_pretrained(NOME, add_pooling_layer=False, dtype=torch.float16)
+modelo = modelo.cuda().eval()
+
+entrada = tokenizador(SEQUENCIAS, padding=True, return_tensors="pt")
+entrada = {chave: valor.cuda() for chave, valor in entrada.items()}
+
+with torch.no_grad():
+    estados = modelo(**entrada).last_hidden_state
+
+# O tokenizador envolve cada sequência em <cls> … <eos> e completa com <pad>.
+# Os três carregam estado próprio; a média tem de cair só sobre os resíduos.
+mascara = entrada["attention_mask"].clone()
+mascara[:, 0] = 0                                    # <cls>
+ultimo = entrada["attention_mask"].sum(1) - 1        # <eos> de cada sequência
+mascara[torch.arange(mascara.shape[0], device=mascara.device), ultimo] = 0
+
+peso = mascara.unsqueeze(-1).to(estados.dtype)
+emb = (estados * peso).sum(1) / peso.sum(1)          # (2, 1280)
+
+print(emb.shape, emb.dtype)
+```
+
+Verificado nesta máquina com `.venv/Scripts/python.exe`, `transformers` 5.19.0 e
+`torch` 2.11.0+cu128:
+
+- `EsmModel(..., add_pooling_layer=False)` carrega com `missing_keys` vazio — só
+  `lm_head.*` sobra como `UNEXPECTED`, que é o esperado ao tirar a cabeça de
+  linguagem. Nenhum peso inicializado na hora.
+- `mascara.sum(1)` devolve `[24, 22]`, o comprimento real das duas sequências:
+  `<cls>`, `<eos>` e `<pad>` ficaram fora da média.
+- O embedding sai **bit-a-bit idêntico** entre duas cargas no mesmo processo.
+- Pico de VRAM com `torch.cuda.max_memory_allocated()`: **1250,3 MiB**
+  (1 311 052 800 bytes) para estas duas sequências em fp16 — as ativações crescem
+  com o comprimento, o peso fixo do modelo é ~1,25 GiB. Folga larga nos 8151 MiB.
 
 ---
 

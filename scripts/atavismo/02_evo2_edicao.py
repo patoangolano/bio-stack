@@ -114,15 +114,26 @@ def controle_positivo(seq: str) -> tuple[str, str]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser(description=__doc__,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     ap.add_argument("fasta", type=Path, help="sequencia de referencia")
-    ap.add_argument("--edicao", action="append", default=[], metavar="POS:DE>PARA",
-                    help="substituicao 1-based, repetivel (ex: 150:A>T)")
-    ap.add_argument("--replicas-controle", type=int, default=5,
-                    help="quantos sorteios do controle negativo (padrao 5)")
-    ap.add_argument("--seed", type=int, default=0,
-                    help="semente do gerador; NUNCA usar np.random.seed global")
+    ap.add_argument(
+        "--edicao",
+        action="append",
+        default=[],
+        metavar="POS:DE>PARA",
+        help="substituicao 1-based, repetivel (ex: 150:A>T)",
+    )
+    ap.add_argument(
+        "--replicas-controle",
+        type=int,
+        default=5,
+        help="quantos sorteios do controle negativo (padrao 5)",
+    )
+    ap.add_argument(
+        "--seed", type=int, default=0, help="semente do gerador; NUNCA usar np.random.seed global"
+    )
     args = ap.parse_args(argv)
 
     if not args.edicao:
@@ -145,11 +156,13 @@ def main(argv: list[str] | None = None) -> int:
         ("variante", variante, "; ".join(f"{e.pos}:{e.de}>{e.para}" for e in edicoes)),
     ]
     for r in range(args.replicas_controle):
-        conjunto.append((
-            f"ctrl_neg_{r}",
-            controle_negativo(ref, len(edicoes), alvos, rng),
-            f"{len(edicoes)} substituicoes sorteadas fora do alvo, seed {args.seed}+{r}",
-        ))
+        conjunto.append(
+            (
+                f"ctrl_neg_{r}",
+                controle_negativo(ref, len(edicoes), alvos, rng),
+                f"{len(edicoes)} substituicoes sorteadas fora do alvo, seed {args.seed}+{r}",
+            )
+        )
     seq_pos, desc_pos = controle_positivo(ref)
     conjunto.append(("ctrl_pos", seq_pos, desc_pos))
 
@@ -157,15 +170,29 @@ def main(argv: list[str] | None = None) -> int:
     for rotulo, seq, desc in conjunto:
         arq = dir_ent / f"{rotulo}.fasta"
         arq.write_text(f">{rotulo} {desc}\n{seq}\n", encoding="utf-8")
-        manifesto.append({"rotulo": rotulo, "arquivo": str(arq),
-                          "descricao": desc, "comprimento": len(seq),
-                          "n_diferencas_vs_ref": sum(
-                              1 for a, b in zip(ref, seq, strict=True) if a != b)})
+        manifesto.append(
+            {
+                "rotulo": rotulo,
+                "arquivo": str(arq),
+                "descricao": desc,
+                "comprimento": len(seq),
+                "n_diferencas_vs_ref": sum(1 for a, b in zip(ref, seq, strict=True) if a != b),
+            }
+        )
 
     (SAIDA / "evo2_manifesto.json").write_text(
-        json.dumps({"referencia_cabecalho": cab, "fonte": str(args.fasta),
-                    "seed": args.seed, "entradas": manifesto}, indent=2,
-                   ensure_ascii=False), encoding="utf-8")
+        json.dumps(
+            {
+                "referencia_cabecalho": cab,
+                "fonte": str(args.fasta),
+                "seed": args.seed,
+                "entradas": manifesto,
+            },
+            indent=2,
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
 
     print(f"Referencia: {cab}  ({len(ref)} nt)")
     print(f"Edicoes: {len(edicoes)}")

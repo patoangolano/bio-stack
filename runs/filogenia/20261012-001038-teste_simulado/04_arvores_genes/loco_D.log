@@ -1,0 +1,166 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    4ed8b9823a9e (AVX2, FMA3, 15 GB RAM)
+Command: iqtree -m MFP -B 1000 --bnni --alrt 1000 --abayes --seed 12345 -s loco_D.limpo.fa -pre loco_D -T 1 -mem 2GB
+Seed:    12345 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Mon Oct 12 03:10:47 2026
+Kernel:  AVX+FMA - 1 threads (20 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 20 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading alignment file loco_D.limpo.fa ... Fasta format detected
+Reading fasta file: done in 0.000106096 secs using 98.97% CPU
+Alignment most likely contains DNA/RNA sequences
+Constructing alignment: done in 0.000394106 secs using 99.97% CPU
+Alignment has 11 sequences with 1101 columns, 430 distinct patterns
+261 parsimony-informative, 237 singleton sites, 603 constant sites
+                            Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 1.00136e-05 secs using 99.86% CPU
+   1  Anolis_carolinensis           6.54%    passed     74.25%
+   2  Chrysemys_picta               2.91%    passed     86.87%
+   3  Pelodiscus_sinensis           3.36%    passed     59.27%
+   4  Gallus_gallus                 6.99%    passed     94.21%
+   5  Anas_platyrhynchos            6.09%    passed     67.98%
+   6  Taeniopygia_guttata           5.72%    passed     81.20%
+   7  Melopsittacus_undulatus       4.54%    passed     98.21%
+   8  Strigops_habroptila           4.81%    passed     94.01%
+   9  Alligator_mississippiensis    4.27%    passed     94.95%
+  10  Crocodylus_porosus            4.27%    passed     97.18%
+  11  Gavialis_gangeticus           4.18%    passed     83.65%
+****  TOTAL                         4.88%  0 sequences failed composition chi2 test (p-value<5%; df=3)
+Checking for duplicate sequences: done in 2.00272e-05 secs using 99.86% CPU
+
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.000 seconds
+Perform fast likelihood tree search using GTR+I+G model...
+Estimate model parameters (epsilon = 5.000)
+Perform nearest neighbor interchange...
+Estimate model parameters (epsilon = 1.000)
+1. Initial log-likelihood: -5763.797
+Optimal log-likelihood: -5763.765
+Rate parameters:  A-C: 1.15988  A-G: 2.99006  A-T: 1.28336  C-G: 1.20160  C-T: 2.78365  G-T: 1.00000
+Base frequencies:  A: 0.241  C: 0.255  G: 0.258  T: 0.247
+Proportion of invariable sites: 0.262
+Gamma shape alpha: 1.198
+Parameters optimization took 1 rounds (0.002 sec)
+Time for fast ML tree search: 0.013 seconds
+
+NOTE: ModelFinder requires 3 MB RAM!
+ModelFinder will test up to 968 DNA models (sample size: 1101 epsilon: 0.100) ...
+Akaike Information Criterion:           K2P+G4
+Corrected Akaike Information Criterion: K2P+G4
+Bayesian Information Criterion:         K2P+G4
+Best-fit model: K2P+G4 chosen according to BIC
+
+All model information printed to loco_D.model.gz
+CPU time for ModelFinder: 0.426 seconds (0h:0m:0s)
+Wall-clock time for ModelFinder: 0.434 seconds (0h:0m:0s)
+Generating 1000 samples for ultrafast bootstrap (seed: 12345)...
+
+NOTE: 2 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+1. Initial log-likelihood: -5764.660
+Optimal log-likelihood: -5764.640
+Rate parameters:  A-C: 1.00000  A-G: 2.48932  A-T: 1.00000  C-G: 1.00000  C-T: 2.48932  G-T: 1.00000
+Base frequencies:  A: 0.250  C: 0.250  G: 0.250  T: 0.250
+Gamma shape alpha: 0.548
+Parameters optimization took 1 rounds (0.002 sec)
+Wrote distance file to... 
+Computing ML distances based on estimated model parameters...
+Calculating distance matrix: done in 0.000182152 secs using 99.92% CPU
+Computing ML distances took 0.000217 sec (of wall-clock time) 0.000219 sec (of CPU time)
+Setting up auxiliary I and S matrices: done in 2.09808e-05 secs using 1230% CPU
+Constructing RapidNJ tree: done in 2.19345e-05 secs using 177.8% CPU
+Computing RapidNJ tree took 0.000070 sec (of wall-clock time) 0.000354 sec (of CPU time)
+Log-likelihood of RapidNJ tree: -5781.760
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 98 parsimony trees... 0.022 second
+Computing log-likelihood of 94 initial trees ... 0.059 seconds
+Current best score: -5764.640
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 1: -5764.640
+Iteration 10 / LogL: -5764.663 / Time: 0h:0m:0s
+Iteration 20 / LogL: -5765.427 / Time: 0h:0m:0s
+Finish initializing candidate tree set (1)
+Current best tree score: -5764.640 / CPU time: 0.205
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Iteration 30 / LogL: -5764.642 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 40 / LogL: -5764.704 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5764.640
+Iteration 50 / LogL: -5766.077 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 60 / LogL: -5764.773 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 70 / LogL: -5764.714 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 80 / LogL: -5764.729 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 90 / LogL: -5764.642 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 100 / LogL: -5765.398 / Time: 0h:0m:1s (0h:0m:0s left)
+Refining ufboot trees with NNI 1 branch...
+100 samples done
+200 samples done
+300 samples done
+400 samples done
+500 samples done
+600 samples done
+700 samples done
+800 samples done
+900 samples done
+1000 samples done
+Total 76 ufboot trees refined
+TREE SEARCH COMPLETED AFTER 102 ITERATIONS / Time: 0h:0m:3s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -5764.640
+Optimal log-likelihood: -5764.640
+Rate parameters:  A-C: 1.00000  A-G: 2.48852  A-T: 1.00000  C-G: 1.00000  C-T: 2.48852  G-T: 1.00000
+Base frequencies:  A: 0.250  C: 0.250  G: 0.250  T: 0.250
+Gamma shape alpha: 0.548
+Parameters optimization took 1 rounds (0.002 sec)
+BEST SCORE FOUND : -5764.640
+
+Testing tree branches by SH-like aLRT with 1000 replicates...
+Testing tree branches by aBayes parametric test...
+0.094 sec.
+Creating bootstrap support values...
+Split supports printed to NEXUS file loco_D.splits.nex
+Total tree length: 1.152
+
+Total number of iterations: 102
+CPU time used for tree search: 3.519 sec (0h:0m:3s)
+Wall-clock time used for tree search: 3.332 sec (0h:0m:3s)
+Total CPU time used: 4.082 sec (0h:0m:4s)
+Total wall-clock time used: 3.901 sec (0h:0m:3s)
+UFBoot trees printed to loco_D.ufboot
+
+Computing bootstrap consensus tree...
+Reading input file loco_D.splits.nex...
+11 taxa and 25 splits.
+Consensus tree written to loco_D.contree
+Reading input trees file loco_D.contree
+Log-likelihood of consensus tree: -5764.640
+
+Analysis results written to: 
+  IQ-TREE report:                loco_D.iqtree
+  Maximum-likelihood tree:       loco_D.treefile
+  Likelihood distances:          loco_D.mldist
+
+Ultrafast bootstrap approximation results written to:
+  Split support values:          loco_D.splits.nex
+  Consensus tree:                loco_D.contree
+  UFBoot trees:                  loco_D.ufboot
+  Screen log file:               loco_D.log
+
+Date and Time: Mon Oct 12 03:10:51 2026

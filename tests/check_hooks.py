@@ -4,7 +4,7 @@
 # ///
 """Testa os quatro hooks da bio-stack invocando-os como subprocesso.
 
-    uv run --script tests/test_hooks.py
+    uv run --script tests/check_hooks.py
 
 Reproduz o contrato real do Claude Code: JSON no stdin, codigo de saida como
 veredito (PreToolUse exit 2 bloqueia; PostToolUse exit 2 devolve stderr ao
@@ -39,9 +39,15 @@ def run_hook(script, payload, env=None, cwd=None):
     e = dict(os.environ)
     if env:
         e.update(env)
+    # `encoding` explicito e obrigatorio: sem ele o subprocess decodifica pelo
+    # locale, que nesta maquina e cp1252. Os hooks emitem UTF-8, e o travessao
+    # (U+2014) voltava como tres caracteres latin-1 — mojibake fabricado pelo
+    # proprio teste, que fazia a checagem de mojibake la embaixo acusar o hook
+    # de um defeito que era da decodificacao aqui.
     return subprocess.run(
         [sys.executable, str(HOOKS / script)],
         input=json.dumps(payload), capture_output=True, text=True,
+        encoding="utf-8", errors="replace",
         env=e, cwd=str(cwd) if cwd else None,
     )
 
@@ -260,8 +266,22 @@ print("\n--- session_context: estado do ambiente ---")
 p = run_hook("session_context.py", {}, cwd=ROOT)
 check("roda sem erro", p.returncode == 0, p.stderr[:120])
 check("reporta GPU", "GPU:" in p.stdout, p.stdout[:120])
-check("lista ferramentas", "Ferramentas presentes:" in p.stdout)
+# O rotulo ganhou "(Windows)" quando a sonda de WSL entrou. Sao duas listas
+# agora, e cada uma precisa dizer de qual PATH esta falando.
+check("lista ferramentas do Windows", "Ferramentas presentes (Windows):" in p.stdout,
+      p.stdout[:200])
+check("lista ferramentas do WSL", "Ferramentas no WSL" in p.stdout, p.stdout[:200])
+# docker-ce roda nativo dentro da Ubuntu-24.04, com daemon por systemd. Nao ha
+# Docker Desktop no Windows, logo nao ha `docker` no PATH do Windows — cobra-lo
+# ali reportaria AUSENTE e mandaria o leitor instalar o que foi dispensado.
+linha_win = next((x for x in p.stdout.splitlines()
+                  if x.startswith("Ferramentas presentes (Windows)")), "")
+check("docker nao e cobrado do PATH do Windows", "docker" not in linha_win, linha_win)
+check("docker aparece entre as ferramentas do WSL", "docker" in p.stdout, p.stdout[:200])
 check("reporta chaves", "NVIDIA_API_KEY" in p.stdout)
+# S2_API_KEY saiu da sonda: nada neste repo consome a API do Semantic Scholar,
+# e cobrar chave sem consumidor so produz um AUSENTE permanente na abertura.
+check("nao cobra chave sem consumidor", "S2_API_KEY" not in p.stdout, p.stdout[:200])
 check("declara o escopo", "academica" in p.stdout or "Escopo" in p.stdout)
 check("sem mojibake de encoding", "â€" not in p.stdout, "travessao corrompido")
 

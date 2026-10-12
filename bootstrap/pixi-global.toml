@@ -1,0 +1,209 @@
+# bio-stack — manifesto do pixi global no WSL (Ubuntu-24.04).
+#
+# Fonte da verdade das CLIs de bioinformatica. Aplicado por
+# bootstrap/05_wsl_ferramentas.sh (copia para ~/.pixi/manifests/ e roda
+# `pixi global sync`), que tambem grava pixi-global.snapshot.tsv com build e
+# sha256 do que foi instalado — o pixi global nao tem lockfile (issue #1280),
+# entao a versao exata fica aqui (==) e o build, no snapshot.
+#
+# Um ambiente por ferramenta (ou grupo coeso, como hts e kent) isola dependencias
+# e atualizacoes. Tudo junto tambem resolve (os 43 pacotes, pixi 0.81.0, ~2 s),
+# mas ali o perl cai para 5.32.1 (hts e parallel usam 5.44), clipkit e
+# orthofinder descem para python 3.13 e o bcftools 1.24 troca de build. Versoes conferidas ao vivo em 2026-10-11 (anaconda.org e
+# `pixi search`) e cada binario testado depois da instalacao.
+#
+# O ambiente `hts` (samtools/bcftools/htslib 1.24) faz sombra ao apt 1.19 em
+# /usr/bin, porque ~/.pixi/bin vem antes no PATH. De proposito: o htslib 1.19
+# do Ubuntu 24.04 tem CVEs abertas no decodificador CRAM, corrigidas na 1.23.1.
+#
+# Para acrescentar uma ferramenta: `pixi global install -c conda-forge -c bioconda
+# --environment <nome> "<pacote>==<versao>"` no WSL, depois copie
+# ~/.pixi/manifests/pixi-global.toml de volta para ca e rode o bootstrap para
+# regravar o snapshot.
+
+version = 1
+
+[envs.iqtree]
+channels = ["conda-forge", "bioconda"]
+dependencies = { iqtree = "==3.1.4" }
+exposed = { iqtree = "iqtree", iqtree3 = "iqtree3" }
+
+[envs.mafft]
+channels = ["conda-forge", "bioconda"]
+dependencies = { mafft = "==7.525" }
+exposed = { einsi = "einsi", fftns = "fftns", fftnsi = "fftnsi", ginsi = "ginsi", linsi = "linsi", mafft = "mafft", mafft-distance = "mafft-distance", mafft-einsi = "mafft-einsi", mafft-fftns = "mafft-fftns", mafft-fftnsi = "mafft-fftnsi", mafft-ginsi = "mafft-ginsi", mafft-homologs = "mafft-homologs", mafft-linsi = "mafft-linsi", mafft-nwns = "mafft-nwns", mafft-nwnsi = "mafft-nwnsi", mafft-profile = "mafft-profile", mafft-qinsi = "mafft-qinsi", mafft-sparsecore = "mafft-sparsecore", mafft-xinsi = "mafft-xinsi", nwns = "nwns", nwnsi = "nwnsi" }
+
+[envs.famsa]
+channels = ["conda-forge", "bioconda"]
+dependencies = { famsa = "==2.4.1" }
+exposed = { famsa = "famsa" }
+
+[envs.muscle]
+channels = ["conda-forge", "bioconda"]
+dependencies = { muscle = "==5.3" }
+exposed = { muscle = "muscle" }
+
+[envs.clipkit]
+channels = ["conda-forge", "bioconda"]
+dependencies = { clipkit = "==2.14.0" }
+exposed = { clipkit = "clipkit" }
+
+[envs.trimal]
+channels = ["conda-forge", "bioconda"]
+dependencies = { trimal = "==1.5.1" }
+exposed = { readal = "readal", statal = "statal", trimal = "trimal" }
+
+[envs.raxml-ng]
+channels = ["conda-forge", "bioconda"]
+dependencies = { raxml-ng = "==2.0.3" }
+exposed = { raxml-ng = "raxml-ng", raxml-ng-mpi = "raxml-ng-mpi" }
+
+[envs.fasttree]
+channels = ["conda-forge", "bioconda"]
+dependencies = { fasttree = "==2.2.0" }
+exposed = { FastTree = "FastTree", FastTreeMP = "FastTreeMP", fasttree = "fasttree" }
+
+[envs.aster]
+channels = ["conda-forge", "bioconda"]
+dependencies = { aster = "==1.25" }
+exposed = { astral = "astral", astral-hybrid = "astral-hybrid", astral-pro = "astral-pro", astral-pro3 = "astral-pro3", astral4 = "astral4", caster-pair = "caster-pair", caster-site = "caster-site", caster-site_branchlength = "caster-site_branchlength", dstar = "dstar", dstar-branch = "dstar-branch", dstar-branch-merge-diag = "dstar-branch-merge-diag", waster = "waster", waster_branchlength = "waster_branchlength", wastral = "wastral" }
+
+[envs.gotree]
+channels = ["conda-forge", "bioconda"]
+dependencies = { gotree = "==0.5.2" }
+exposed = { gotree = "gotree", gotree_test = "gotree_test" }
+
+[envs.goalign]
+channels = ["conda-forge", "bioconda"]
+dependencies = { goalign = "==0.4.1" }
+exposed = { goalign = "goalign", goalign_test = "goalign_test" }
+
+[envs.hyphy]
+channels = ["conda-forge", "bioconda"]
+dependencies = { hyphy = "==2.5.103" }
+exposed = { HYPHYMPI = "HYPHYMPI", hyphy = "hyphy" }
+
+[envs.paml]
+channels = ["conda-forge", "bioconda"]
+dependencies = { paml = "==4.10.10" }
+exposed = { baseml = "baseml", basemlg = "basemlg", chi2 = "chi2", codeml = "codeml", ds = "ds", evolver = "evolver", infinitesites = "infinitesites", mcmctree = "mcmctree", pamp = "pamp", yn00 = "yn00" }
+
+[envs.macse]
+channels = ["conda-forge", "bioconda"]
+dependencies = { macse = "==2.07" }
+exposed = { macse = "macse" }
+
+[envs.prank]
+channels = ["conda-forge", "bioconda"]
+dependencies = { prank = "==251117" }
+exposed = { prank = "prank" }
+
+[envs.blast]
+channels = ["conda-forge", "bioconda"]
+dependencies = { blast = "==2.17.0" }
+exposed = { blast_formatter = "blast_formatter", blastdb_aliastool = "blastdb_aliastool", blastdbcheck = "blastdbcheck", blastdbcmd = "blastdbcmd", blastn = "blastn", blastn_vdb = "blastn_vdb", blastp = "blastp", blastx = "blastx", cleanup-blastdb-volumes = "cleanup-blastdb-volumes", convert2blastmask = "convert2blastmask", datatool = "datatool", deltablast = "deltablast", dustmasker = "dustmasker", get_species_taxids = "get_species_taxids", legacy_blast = "legacy_blast", makeblastdb = "makeblastdb", makembindex = "makembindex", makeprofiledb = "makeprofiledb", project_tree_builder = "project_tree_builder", psiblast = "psiblast", rpsblast = "rpsblast", rpstblastn = "rpstblastn", run_with_lock = "run_with_lock", segmasker = "segmasker", tblastn = "tblastn", tblastn_vdb = "tblastn_vdb", tblastx = "tblastx", test_pcre = "test_pcre", update_blastdb = "update_blastdb", windowmasker = "windowmasker", "windowmasker_2.2.22_adapter" = "windowmasker_2.2.22_adapter" }
+
+[envs.diamond]
+channels = ["conda-forge", "bioconda"]
+dependencies = { diamond = "==2.2.8" }
+exposed = { diamond = "diamond" }
+
+[envs.hmmer]
+channels = ["conda-forge", "bioconda"]
+dependencies = { hmmer = "==3.4" }
+exposed = { alimask = "alimask", easel = "easel", esl-afetch = "esl-afetch", esl-alimanip = "esl-alimanip", esl-alimap = "esl-alimap", esl-alimask = "esl-alimask", esl-alimerge = "esl-alimerge", esl-alipid = "esl-alipid", esl-alirev = "esl-alirev", esl-alistat = "esl-alistat", esl-compalign = "esl-compalign", esl-compstruct = "esl-compstruct", esl-construct = "esl-construct", esl-histplot = "esl-histplot", esl-mask = "esl-mask", esl-mixdchlet = "esl-mixdchlet", esl-reformat = "esl-reformat", esl-selectn = "esl-selectn", esl-seqrange = "esl-seqrange", esl-seqstat = "esl-seqstat", esl-sfetch = "esl-sfetch", esl-shuffle = "esl-shuffle", esl-ssdraw = "esl-ssdraw", esl-translate = "esl-translate", esl-weight = "esl-weight", hmmalign = "hmmalign", hmmbuild = "hmmbuild", hmmconvert = "hmmconvert", hmmemit = "hmmemit", hmmfetch = "hmmfetch", hmmlogo = "hmmlogo", hmmpgmd = "hmmpgmd", hmmpgmd_shard = "hmmpgmd_shard", hmmpress = "hmmpress", hmmscan = "hmmscan", hmmsearch = "hmmsearch", hmmsim = "hmmsim", hmmstat = "hmmstat", jackhmmer = "jackhmmer", makehmmerdb = "makehmmerdb", nhmmer = "nhmmer", nhmmscan = "nhmmscan", phmmer = "phmmer" }
+
+[envs.mmseqs2]
+channels = ["conda-forge", "bioconda"]
+dependencies = { mmseqs2 = "==18.8cc5c" }
+exposed = { mmseqs = "mmseqs" }
+
+[envs.orthofinder]
+channels = ["conda-forge", "bioconda"]
+dependencies = { orthofinder = "==3.1.5" }
+exposed = { orthofinder = "orthofinder" }
+
+[envs.miniprot]
+channels = ["conda-forge", "bioconda"]
+dependencies = { miniprot = "==0.18" }
+exposed = { miniprot = "miniprot" }
+
+[envs.minimap2]
+channels = ["conda-forge", "bioconda"]
+dependencies = { minimap2 = "==2.31" }
+exposed = { minimap2 = "minimap2", "paftools.js" = "paftools.js", sdust = "sdust" }
+
+[envs.subread]
+channels = ["conda-forge", "bioconda"]
+dependencies = { subread = "==2.1.1" }
+exposed = { featureCounts = "featureCounts" }
+
+[envs.stringtie]
+channels = ["conda-forge", "bioconda"]
+dependencies = { stringtie = "==3.0.3" }
+exposed = { stringtie = "stringtie" }
+
+[envs.hts]
+channels = ["conda-forge", "bioconda"]
+dependencies = { samtools = "==1.24", bcftools = "==1.24", htslib = "==1.24" }
+exposed = { ace2sam = "ace2sam", blast2sam = "blast2sam", bowtie2sam = "bowtie2sam", export2sam = "export2sam", fasta-sanitize = "fasta-sanitize", interpolate_sam = "interpolate_sam", maq2sam-long = "maq2sam-long", maq2sam-short = "maq2sam-short", md5fa = "md5fa", md5sum-lite = "md5sum-lite", novo2sam = "novo2sam", plot-ampliconstats = "plot-ampliconstats", plot-bamstats = "plot-bamstats", psl2sam = "psl2sam", sam2vcf = "sam2vcf", samtools = "samtools", seq_cache_populate = "seq_cache_populate", soap2sam = "soap2sam", wgsim = "wgsim", wgsim_eval = "wgsim_eval", zoom2sam = "zoom2sam", bcftools = "bcftools", color-chrs = "color-chrs", gff2gff = "gff2gff", guess-ploidy = "guess-ploidy", plot-roh = "plot-roh", plot-vcfstats = "plot-vcfstats", roh-viz = "roh-viz", run-roh = "run-roh", vcfutils = "vcfutils", vrfs-variances = "vrfs-variances", annot-tsv = "annot-tsv", bgzip = "bgzip", htsfile = "htsfile", ref-cache = "ref-cache", tabix = "tabix" }
+
+[envs.seqkit]
+channels = ["conda-forge", "bioconda"]
+dependencies = { seqkit = "==2.14.0" }
+exposed = { seqkit = "seqkit" }
+
+[envs.csvtk]
+channels = ["conda-forge", "bioconda"]
+dependencies = { csvtk = "==0.38.0" }
+exposed = { csvtk = "csvtk", tsvtk = "tsvtk" }
+
+[envs.taxonkit]
+channels = ["conda-forge", "bioconda"]
+dependencies = { taxonkit = "==0.20.0" }
+exposed = { taxonkit = "taxonkit" }
+
+[envs.datasets]
+channels = ["conda-forge", "bioconda"]
+dependencies = { ncbi-datasets-cli = "==18.38.0" }
+exposed = { dataformat = "dataformat", datasets = "datasets" }
+
+[envs.edirect]
+channels = ["conda-forge", "bioconda"]
+dependencies = { entrez-direct = "==26.0" }
+exposed = { accn-at-a-time = "accn-at-a-time", align-columns = "align-columns", amino-acid-composition = "amino-acid-composition", archive-nihocc = "archive-nihocc", archive-nlmnlp = "archive-nlmnlp", archive-nmcds = "archive-nmcds", archive-peptide = "archive-peptide", archive-pids = "archive-pids", archive-pmc = "archive-pmc", archive-pubmed = "archive-pubmed", archive-taxonomy = "archive-taxonomy", args2slice = "args2slice", asn2ref = "asn2ref", asn2xml = "asn2xml", between-two-genes = "between-two-genes", blst2gm = "blst2gm", blst2tkns = "blst2tkns", bsmp2info = "bsmp2info", cit2pmid = "cit2pmid", cittest = "cittest", combine-uids = "combine-uids", compare-uids = "compare-uids", csv2xml = "csv2xml", disambiguate-nucleotides = "disambiguate-nucleotides", download-flatfile = "download-flatfile", download-ncbi-data = "download-ncbi-data", download-ncbi-software = "download-ncbi-software", download-pmc = "download-pmc", download-pubmed = "download-pubmed", download-sequence = "download-sequence", ds2pme = "ds2pme", ecollect = "ecollect", ecommon = "ecommon", efetch = "efetch", efilter = "efilter", einfo = "einfo", elink = "elink", epost = "epost", esample = "esample", esearch = "esearch", esummary = "esummary", exclude-uids = "exclude-uids", filter-columns = "filter-columns", filter-genbank = "filter-genbank", filter-records = "filter-records", filter-stop-words = "filter-stop-words", find-in-gene = "find-in-gene", fsa2xml = "fsa2xml", fuse-ranges = "fuse-ranges", fuse-segments = "fuse-segments", gbf2facds = "gbf2facds", gbf2fsa = "gbf2fsa", gbf2info = "gbf2info", gbf2ref = "gbf2ref", gbf2tbl = "gbf2tbl", gbf2xml = "gbf2xml", gene2range = "gene2range", gene2tbl = "gene2tbl", gff-sort = "gff-sort", gff2xml = "gff2xml", gm2ranges = "gm2ranges", gm2segs = "gm2segs", gpf2info = "gpf2info", hgvs2spdi = "hgvs2spdi", ini2xml = "ini2xml", intersect-uids = "intersect-uids", join-into-groups-of = "join-into-groups-of", json2xml = "json2xml", jsonl2xml = "jsonl2xml", just-top-hits = "just-top-hits", nhance = "nhance", nquire = "nquire", pair-at-a-time = "pair-at-a-time", pma2apa = "pma2apa", pma2pme = "pma2pme", pmc2bioc = "pmc2bioc", pmc2info = "pmc2info", print-columns = "print-columns", print-missing-subranges = "print-missing-subranges", quote-grouped-elements = "quote-grouped-elements", rchive = "rchive", "rchive.Linux" = "rchive.Linux", rcommon = "rcommon", ref2pmid = "ref2pmid", refseq-nm-cds = "refseq-nm-cds", reorder-columns = "reorder-columns", run-ncbi-converter = "run-ncbi-converter", scn2xml = "scn2xml", skip-if-file-exists = "skip-if-file-exists", snp2hgvs = "snp2hgvs", snp2tbl = "snp2tbl", sort-by-length = "sort-by-length", sort-table = "sort-table", sort-uniq-count = "sort-uniq-count", sort-uniq-count-rank = "sort-uniq-count-rank", spdi2tbl = "spdi2tbl", split-at-intron = "split-at-intron", split-records = "split-records", systematic-mutations = "systematic-mutations", tbl2prod = "tbl2prod", tbl2xml = "tbl2xml", test-edirect = "test-edirect", test-eutils = "test-eutils", test-pmc-index = "test-pmc-index", test-pubmed-index = "test-pubmed-index", test-repeat = "test-repeat", toml2xml = "toml2xml", transmute = "transmute", "transmute.Linux" = "transmute.Linux", uniq-count = "uniq-count", uniq-count-rank = "uniq-count-rank", uniq-table = "uniq-table", word-at-a-time = "word-at-a-time", xcommon = "xcommon", xfetch = "xfetch", xfilter = "xfilter", xinfo = "xinfo", xlink = "xlink", xml2fsa = "xml2fsa", xml2json = "xml2json", xml2tbl = "xml2tbl", xsearch = "xsearch", xtract = "xtract", "xtract.Linux" = "xtract.Linux", yaml2xml = "yaml2xml" }
+
+[envs.gffread]
+channels = ["conda-forge", "bioconda"]
+dependencies = { gffread = "==0.12.9" }
+exposed = { gffread = "gffread" }
+
+[envs.jq]
+channels = ["conda-forge", "bioconda"]
+dependencies = { jq = "==1.8.2" }
+exposed = { jq = "jq" }
+
+[envs.duckdb]
+channels = ["conda-forge", "bioconda"]
+dependencies = { duckdb-cli = "==1.5.6" }
+exposed = { duckdb = "duckdb" }
+
+[envs.parallel]
+channels = ["conda-forge", "bioconda"]
+dependencies = { parallel = "==20260922" }
+exposed = { env_parallel = "env_parallel", "env_parallel.ash" = "env_parallel.ash", "env_parallel.dash" = "env_parallel.dash", "env_parallel.mksh" = "env_parallel.mksh", "env_parallel.pdksh" = "env_parallel.pdksh", niceload = "niceload", parallel = "parallel", parcat = "parcat", parset = "parset", parsort = "parsort", sem = "sem", sql = "sql" }
+
+[envs.nf-test]
+channels = ["conda-forge", "bioconda"]
+dependencies = { nf-test = "==0.9.5" }
+exposed = { nf-test = "nf-test" }
+
+[envs.kent]
+channels = ["conda-forge", "bioconda"]
+dependencies = { ucsc-twobittofa = "==482", ucsc-fatotwobit = "==482", ucsc-liftover = "==482", ucsc-mafsinregion = "==482", ucsc-mafspeciessubset = "==482", ucsc-bigwigaverageoverbed = "==482", ucsc-bigwigtowig = "==482" }
+exposed = { twoBitToFa = "twoBitToFa", faToTwoBit = "faToTwoBit", liftOver = "liftOver", liftOverMerge = "liftOverMerge", mafsInRegion = "mafsInRegion", mafSpeciesSubset = "mafSpeciesSubset", bigWigAverageOverBed = "bigWigAverageOverBed", bigWigToWig = "bigWigToWig" }
+
+[envs.agat]
+channels = ["conda-forge", "bioconda"]
+dependencies = { agat = "==1.7.0" }
+exposed = { agat = "agat", agat_convert_bed2gff = "agat_convert_bed2gff", agat_convert_embl2gff = "agat_convert_embl2gff", agat_convert_genscan2gff = "agat_convert_genscan2gff", agat_convert_mfannot2gff = "agat_convert_mfannot2gff", agat_convert_minimap2_bam2gff = "agat_convert_minimap2_bam2gff", agat_convert_sp_gff2bed = "agat_convert_sp_gff2bed", agat_convert_sp_gff2gtf = "agat_convert_sp_gff2gtf", agat_convert_sp_gff2tsv = "agat_convert_sp_gff2tsv", agat_convert_sp_gff2zff = "agat_convert_sp_gff2zff", agat_convert_sp_gxf2gxf = "agat_convert_sp_gxf2gxf", agat_sp_add_attribute_shortest_exon_size = "agat_sp_add_attribute_shortest_exon_size", agat_sp_add_attribute_shortest_intron_size = "agat_sp_add_attribute_shortest_intron_size", agat_sp_add_intergenic_regions = "agat_sp_add_intergenic_regions", agat_sp_add_introns = "agat_sp_add_introns", agat_sp_add_splice_sites = "agat_sp_add_splice_sites", agat_sp_add_start_and_stop = "agat_sp_add_start_and_stop", agat_sp_alignment_output_style = "agat_sp_alignment_output_style", agat_sp_clipN_seqExtremities_and_fixCoordinates = "agat_sp_clipN_seqExtremities_and_fixCoordinates", agat_sp_compare_two_BUSCOs = "agat_sp_compare_two_BUSCOs", agat_sp_compare_two_annotations = "agat_sp_compare_two_annotations", agat_sp_complement_annotations = "agat_sp_complement_annotations", agat_sp_ensembl_output_style = "agat_sp_ensembl_output_style", agat_sp_extract_attributes = "agat_sp_extract_attributes", agat_sp_extract_sequences = "agat_sp_extract_sequences", agat_sp_filter_by_ORF_size = "agat_sp_filter_by_ORF_size", agat_sp_filter_by_locus_distance = "agat_sp_filter_by_locus_distance", agat_sp_filter_by_mrnaBlastValue = "agat_sp_filter_by_mrnaBlastValue", agat_sp_filter_feature_by_attribute_presence = "agat_sp_filter_feature_by_attribute_presence", agat_sp_filter_feature_by_attribute_value = "agat_sp_filter_feature_by_attribute_value", agat_sp_filter_feature_from_keep_list = "agat_sp_filter_feature_from_keep_list", agat_sp_filter_feature_from_kill_list = "agat_sp_filter_feature_from_kill_list", agat_sp_filter_gene_by_intron_numbers = "agat_sp_filter_gene_by_intron_numbers", agat_sp_filter_gene_by_length = "agat_sp_filter_gene_by_length", agat_sp_filter_incomplete_gene_coding_models = "agat_sp_filter_incomplete_gene_coding_models", agat_sp_filter_record_by_coordinates = "agat_sp_filter_record_by_coordinates", agat_sp_fix_cds_phases = "agat_sp_fix_cds_phases", agat_sp_fix_features_locations_duplicated = "agat_sp_fix_features_locations_duplicated", agat_sp_fix_fusion = "agat_sp_fix_fusion", agat_sp_fix_longest_ORF = "agat_sp_fix_longest_ORF", agat_sp_fix_overlaping_genes = "agat_sp_fix_overlaping_genes", agat_sp_fix_small_exon_from_extremities = "agat_sp_fix_small_exon_from_extremities", agat_sp_flag_premature_stop_codons = "agat_sp_flag_premature_stop_codons", agat_sp_flag_short_introns = "agat_sp_flag_short_introns", agat_sp_flag_short_introns_ebi = "agat_sp_flag_short_introns_ebi", agat_sp_functional_statistics = "agat_sp_functional_statistics", agat_sp_keep_longest_isoform = "agat_sp_keep_longest_isoform", agat_sp_kraken_assess_liftover = "agat_sp_kraken_assess_liftover", agat_sp_list_short_introns = "agat_sp_list_short_introns", agat_sp_load_function_from_protein_align = "agat_sp_load_function_from_protein_align", agat_sp_manage_IDs = "agat_sp_manage_IDs", agat_sp_manage_UTRs = "agat_sp_manage_UTRs", agat_sp_manage_attributes = "agat_sp_manage_attributes", agat_sp_manage_functional_annotation = "agat_sp_manage_functional_annotation", agat_sp_manage_introns = "agat_sp_manage_introns", agat_sp_merge_annotations = "agat_sp_merge_annotations", agat_sp_move_attributes_within_records = "agat_sp_move_attributes_within_records", agat_sp_prokka_fix_fragmented_gene_annotations = "agat_sp_prokka_fix_fragmented_gene_annotations", agat_sp_prokka_infer_name_from_attributes = "agat_sp_prokka_infer_name_from_attributes", agat_sp_sensitivity_specificity = "agat_sp_sensitivity_specificity", agat_sp_separate_by_record_type = "agat_sp_separate_by_record_type", agat_sp_statistics = "agat_sp_statistics", agat_sp_webApollo_compliant = "agat_sp_webApollo_compliant", agat_sq_add_attributes_from_tsv = "agat_sq_add_attributes_from_tsv", agat_sq_add_hash_tag = "agat_sq_add_hash_tag", agat_sq_add_locus_tag = "agat_sq_add_locus_tag", agat_sq_count_attributes = "agat_sq_count_attributes", agat_sq_filter_feature_from_fasta = "agat_sq_filter_feature_from_fasta", agat_sq_list_attributes = "agat_sq_list_attributes", agat_sq_manage_IDs = "agat_sq_manage_IDs", agat_sq_manage_attributes = "agat_sq_manage_attributes", agat_sq_mask = "agat_sq_mask", agat_sq_remove_redundant_entries = "agat_sq_remove_redundant_entries", agat_sq_rename_seqid = "agat_sq_rename_seqid", agat_sq_repeats_analyzer = "agat_sq_repeats_analyzer", agat_sq_reverse_complement = "agat_sq_reverse_complement", agat_sq_rfam_analyzer = "agat_sq_rfam_analyzer", agat_sq_split = "agat_sq_split", agat_sq_stat_basic = "agat_sq_stat_basic" }

@@ -100,19 +100,41 @@ Isso também é o que transforma o trabalho em portfólio defensável: "montei u
 ambiente" é fraco; "montei um ambiente e ele sai de 40% para 65% no BixBench" é
 um resultado.
 
-### 6. WSL2 com Ubuntu — mais barato do que a documentação dizia
+### 6. ~~WSL2 com Ubuntu~~ — resolvido, e a redação anterior estava invertida
 
-O `CLAUDE.md` dizia que não havia WSL. **Está instalado**: `wsl -l -v` mostra
-`docker-desktop` na versão 2, e o Docker Desktop 29.7.2 está rodando sobre ele.
-Falta só a distro:
+A primeira versão desta seção errava as duas metades ao mesmo tempo, cada uma na
+direção oposta da outra: dizia que faltava instalar a distro e que o Docker
+Desktop estava rodando. Medido nesta máquina em 2026-10-10, é o inverso dos dois
+lados.
 
-```powershell
-wsl --install -d Ubuntu-24.04
-```
+**A distro existe e está completa.** `wsl -l -v` lista uma única entrada —
+`Ubuntu-24.04`, versão 2 — com Ubuntu 24.04.5 LTS, 20 núcleos, 15 GB de RAM,
+949 GB livres de 1007 GB e `systemd` como PID 1. Dentro dela: `nextflow` 26.04.6,
+`nf-core` 4.1.0, `samtools` 1.19.2, `bcftools` 1.19, `bedtools` 2.31.1, `seqkit`
+2.13.0, `tabix`/`bgzip` 1.19 e OpenJDK 21.0.12.1. O disco foi **reinstalado em
+2026-10-10** — o `ext4.vhdx` anterior desapareceu — e as ferramentas foram
+recolocadas: `samtools`/`bcftools`/`bedtools`/`tabix` por `apt` em `/usr/bin`,
+`seqkit` e `nextflow` como binário em `~/.local/bin`, `nf-core` por pipx.
 
-Sem reinício, sem habilitar recurso do Windows. Destrava de uma vez: `nextflow`,
-`samtools`/`bcftools`, `seqkit`, `pysam`, `rapids-singlecell`, e os servidores da
-organização `bio-mcp`.
+**O Docker Desktop não existe nesta máquina, e não vai existir.** Não há distro
+`docker-desktop` em `wsl -l -v`, `where.exe docker` não encontra nada e
+`C:\Program Files\Docker` não existe. O que roda é `docker-ce` 29.9.0 **nativo
+dentro da Ubuntu-24.04**, do repositório oficial do Docker, com daemon sob
+systemd (`systemctl enable --now docker`), socket em `/var/run/docker.sock` e o
+usuário `manec` no grupo `docker`. Logo a ausência de `docker` no PATH do Windows
+é o estado esperado, não lacuna — é onde um leitor desavisado vai procurar
+primeiro e concluir a coisa errada.
+
+Então nada aqui depende de `wsl --install`. O que a seção prometia destravar —
+`nextflow`, `samtools`/`bcftools`, `seqkit` e os servidores da organização
+`bio-mcp` — está destravado. `pysam` e `rapids-singlecell` continuam **não
+instalados** nesta venv, o que agora é escolha e não consequência de falta de WSL.
+
+Uma consequência prática para quem for executar algo lá: o PATH de
+`~/.local/bin` e dos shims do pipx mora em `~/.profile`, lido só em shell de
+**login**. Use `bash -lc`, nunca `bash -c` — sem o `-l`, `nextflow`, `nf-core` e
+`seqkit` dão `command not found` enquanto `samtools` e companhia seguem
+respondendo de `/usr/bin`, o que tem cara de instalação pela metade.
 
 ---
 
@@ -178,7 +200,7 @@ Verificação adversarial de 3 votos por alegação; sobreviveram 15 de 25.
 |---|---|---|---|
 | 1 | `git init` + primeiro commit | minutos | reprodutibilidade real |
 | 2 | Rotacionar `NVIDIA_API_KEY`, repor `NCBI_API_KEY` | minutos | ver `docs/CHAVES.md` |
-| 3 | `wsl --install -d Ubuntu-24.04` | ~15 min | nextflow, samtools, bio-mcp |
+| 3 | ~~`wsl --install -d Ubuntu-24.04`~~ | **feito** | nextflow, samtools, bio-mcp — ver §6 |
 | 4 | Indexar sua bibliografia (`library_index`) | ~1 h | a camada de RAG que nunca rodou |
 | 5 | Cache de resultado no `nvidia-bio` | ~150 linhas | para de pagar duas vezes |
 | 6 | Livro-caixa no `provenance.py` | ~60 linhas | orçamento previsível |

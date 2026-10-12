@@ -18,7 +18,7 @@ O que importa verificar, em ordem de quanto doi errar:
 
 Nao chama a API. Testar rede aqui tornaria o teste lento e dependente de cota.
 
-    uv run --script tests/test_cache.py
+    uv run --script tests/check_cache.py
 """
 
 from __future__ import annotations
