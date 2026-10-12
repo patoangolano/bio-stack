@@ -1,0 +1,19 @@
+# bio-stack — ambiente isolado do BioEmu (Microsoft), 2026-10-12.
+#
+# Por que venv separada e nao um grupo do pyproject.toml: o BioEmu traz a
+# propria arvore de torch e de modelo generativo. Resolver isso junto com o
+# venv do projeto poria numpy e scipy em negociacao, e as duas estao travadas
+# em versao exata porque sustentam afirmacao de Metodos (ver pyproject.toml).
+#
+# Por que venv e nao `uv tool install`: o bioemu nao declara console script.
+# `uv tool install bioemu` falha com "No executables are provided by package".
+# O uso e por modulo: `python -m bioemu.sample`.
+#
+# Reconstruir:
+#   uv venv envs/bioemu/.venv --python 3.11
+#   uv pip install --python envs/bioemu/.venv --torch-backend cu128 \
+#       -r envs/bioemu/requirements.in
+#
+# O BioEmu preve ensemble de equilibrio em representacao de backbone apenas —
+# nao devolve cadeia lateral. Licenca MIT.
+bioemu

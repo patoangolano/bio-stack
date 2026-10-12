@@ -1,0 +1,39 @@
+# bio-stack — ambiente isolado dos scripts BoneJ_Headless, 2026-10-12.
+#
+# Estes scripts (vendor/BoneJ_Headless, BSD-3-Clause) nao sao um pacote: eles
+# pilotam o Fiji+BoneJ em modo headless. O Fiji desta maquina esta em
+# C:/Users/Manec/Apps/Fiji.app, com a update site BoneJ habilitada por
+#   ImageJ-win64.exe --update add-update-site BoneJ https://sites.imagej.net/BoneJ/
+# que trouxe bonej-ops/bonej-plugins/bonej-utilities 7.2.2 e bonej-plus 0.0.24.
+#
+# DESVIO DECLARADO em relacao ao requirements.txt do repositorio, que pede
+# numpy==1.26.0, matplotlib==3.4.3, tifffile==2021.7.2, SimpleITK==2.2.1,
+# pydicom==2.3.1, nibabel==5.1.0, pynrrd==1.0.0, glob2==0.7:
+#
+#   Instalado como esta la, falha. Medido em 2026-10-12: o matplotlib 3.4.3 nao
+#   tem wheel para CPython 3.11, cai para compilacao de fonte e para em
+#   "Unable to find a compatible Visual Studio installation". Os pins sao de
+#   2023 e o repositorio nao recebe push desde 2025-05-06.
+#
+#   Aqui vai piso de versao. Os scripts usam essas bibliotecas apenas para ler
+#   e escrever volume (NRRD, DICOM, NIfTI, TIFF) e plotar histograma — nenhuma
+#   estatistica depende da versao exata, diferente do que acontece no
+#   pyproject.toml do projeto. O que entrou de verdade esta no requirements.txt
+#   ao lado, gerado por `uv pip freeze`.
+#
+# Por que venv separada e nao um grupo do pyproject.toml: o repositorio pede
+# numpy 1.26 e o projeto trava numpy==2.4.6 porque ele sustenta afirmacao de
+# Metodos. As duas arvores nao se encontram.
+#
+# Reconstruir:
+#   bash vendor/clonar.sh
+#   uv venv envs/bonej-headless/.venv --python 3.11
+#   uv pip install --python envs/bonej-headless/.venv -r envs/bonej-headless/requirements.in
+pynrrd>=1.0
+pydicom>=2.3
+nibabel>=5.1
+SimpleITK>=2.2
+tifffile>=2024.1
+matplotlib>=3.8
+numpy>=1.26
+glob2>=0.7

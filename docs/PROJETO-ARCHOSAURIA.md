@@ -62,8 +62,13 @@ sintenia, não para análise de gene.
 | Papel | Espécie | Accession |
 |---|---|---|
 | Ave fora de Neoaves | *Gallus gallus* | `GCF_016699485.2` |
-| Testudines | *Chrysemys picta* | `GCF_007399415.2` |
+| Testudines | *Chrysemys picta* | `GCF_011386835.1` |
 | Lepidosauria | *Anolis carolinensis* | `GCF_035594765.1` |
+
+Correção de 2026-10-11: esta tabela trazia `GCF_007399415.2` para *Chrysemys*,
+mas esse accession é *Gopherus evgoodei* (rGopEvg1_v1.p) — conferido no NCBI
+Datasets. `GCF_011386835.1` é o genoma de referência de *C. picta bellii*
+(ASM1138683v2, nível cromossomo, 2023). Nenhum script usou o accession errado.
 
 Sem grupo externo você não **polariza**. Se periquito tem A e jacaré tem G, só a
 tartaruga e o lagarto dizem qual é o estado ancestral e qual é a mudança
@@ -171,6 +176,35 @@ literatura primária antes de escrever Métodos, não como fato estabelecido:
 ---
 
 ## 6. Itens em aberto
+
+> **Atualizado em 2026-10-12.** Os itens 1 e 3 foram fechados com fonte primária
+> pelo levantamento em
+> [`PESQUISA-2026-10-12-FENOTIPO-E-ENSEMBLE.md`](PESQUISA-2026-10-12-FENOTIPO-E-ENSEMBLE.md).
+> Leia a §1 dele antes de escopar análise de taxa evolutiva: um go/no-go disparou
+> e **7 genomas não bastam** para taxa evolutiva relativa — o RERconverge 0.3.0
+> instalado tem `min.sp = 10` como padrão, e o precedente publicado usa 48 a 62
+> pontas. O item 4 também foi fechado: as ferramentas da §4 foram instaladas e
+> medidas nesta máquina (ver `docs/STACK.md`).
+>
+> **Item 1, a data — fechado para o que importa.** A divergência
+> ave–crocodiliano continua sem número verificado aqui, mas a data que este
+> projeto precisa é a da perda do caráter: **~116 Ma, IC 95% 105,7–128,3 Ma**, no
+> ancestral comum de Neornithes (Meredith et al. 2014, *Science*).
+>
+> **Item 3, a pergunta biológica — fechado.** Dentição e esmalte têm precedente
+> publicado: 6 genes (`DSPP`, `AMTN`, `AMBN`, `ENAM`, `AMELX`, `MMP20`)
+> inativados em 48 aves e **intactos em *Alligator mississippiensis***. O jacaré
+> é controle positivo funcional. E a lacuna é real: **nenhum estudo localizado
+> aplicou taxa evolutiva relativa a esse caráter** — os três que existem usam
+> detecção de mutação inativadora e dN/dS no PAML.
+>
+> **Risco novo, que não estava aqui.** A perda de dente nas aves teve **uma única
+> origem**. Caráter de origem única não oferece réplica evolutiva, e método de
+> taxa relativa tem potência mínima sem ela, por mais genomas que se empilhe. O
+> recorte precisa sair de Neornithes e incluir as outras origens independentes em
+> amniotas. Isso é o Passo 0 do programa.
+
+
 
 Registrado como ausência de cobertura, não como resposta negativa.
 

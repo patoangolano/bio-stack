@@ -1,5 +1,8 @@
 # ambiente
 .venv/
+# venv dos ambientes isolados (envs/<nome>/.venv). O requirements.in de cada
+# um E versionado: e ele que reconstroi.
+envs/**/.venv/
 __pycache__/
 *.py[cod]
 .ipynb_checkpoints/
@@ -49,12 +52,36 @@ work/
 # sistema
 Thumbs.db
 .DS_Store
+# copias temporarias do Google Drive (a pasta do projeto e sincronizada);
+# um `git add .` levaria centenas de MB de lixo para o historico.
+.tmp.drive*/
 
 # artefatos de sondagem e indice RAG — grandes, regeneraveis, sem valor de historico
 runs/probe-*/**
 runs/library/**
 !runs/library/.gitkeep
 runs/queue.jsonl
+
+# Clones de terceiros que nao sao pacote instalavel (BoneJ_Headless,
+# opencap-processing). Nao versionados aqui: sao clones, e o BoneJ_Headless tem
+# 415 MB de imagem de exemplo no upstream. Reconstroi: bash vendor/clonar.sh
+vendor/*/
+!vendor/clonar.sh
+
+# Release do daemon do Claude Science, baixado pelo instalador. 124 MB de
+# binario de terceiro, versionado no repositorio deles.
+runtime/
+
+# Fatias de genoma e bancos BLAST do teste de reliquia (s24/s25/s26). Sao
+# ~9,7 MB regeneraveis por uma chamada de API: os scripts baixam de novo pelo
+# accession. O que tem valor de historico sao os TSV de resultado e o JSON de
+# resumo, e esses ficam.
+runs/atavismo/lncrna/*.fna
+runs/atavismo/lncrna/*.faa
+runs/atavismo/lncrna/db_*
+runs/atavismo/lncrna/*.bed
+runs/atavismo/lncrna/*.err
+runs/atavismo/lncrna/*.fai
 
 # caches
 .ruff_cache/
@@ -72,6 +99,21 @@ runs/atavismo/*.fa
 runs/atavismo/*.fasta
 runs/atavismo/evo2_entradas/**
 fc.gz
+
+# filogenia (pipelines/filogenia). Fica versionado o que tem valor de historico:
+# arvores, alinhamentos, resumo, metodos.md, figuras, executar.sh, versoes.yml,
+# parametros.json e a proveniencia do nf-prov (ro-crate-metadata.json, bco.json
+# e o nextflow.config resolvido da execucao). Sai a copia da entrada, a
+# supermatriz (reconstruivel dos alinhamentos limpos), o log por sitio do
+# ClipKIT (maior que o proprio alinhamento), as copias do codigo que o nf-prov
+# poe no crate (ja versionado em pipelines/) e os relatorios HTML do Nextflow.
+runs/filogenia/*/01_entrada/
+runs/filogenia/*/05_concatenado/supermatriz.fa
+runs/filogenia/*/03_limpeza/*.log
+runs/filogenia/*/main.nf
+runs/filogenia/*/README.md
+runs/filogenia/*/pipeline_info/*.html
+runs/filogenia/*/nextflow_console.log
 
 # capturas de navegador deixadas por agentes (Playwright MCP)
 .playwright-mcp/

@@ -1,0 +1,81 @@
+# bio-stack — ambiente do opencap-processing (Stanford NMBL), 2026-10-12.
+#
+# Cinematica e simulacao musculoesqueletica a partir de video de celular.
+# Licenca Apache-2.0, upstream ativo (push em 2026-09-10).
+#
+# O opencap-processing NAO e um pacote: e um conjunto de scripts que importa
+# `opensim` no mesmo interpretador. Por isso o OpenSim entra aqui como
+# dependencia conda do ambiente, e nao pelo `opensim` do pixi global — script
+# que faz `import opensim` precisa do modulo no SEU interpretador.
+#
+# O servico OpenCap (o que processa o video) exige conta em opencap.ai e o
+# script createAuthenticationEnvFile.py do repositorio. Este ambiente cobre o
+# processamento local e a simulacao.
+#
+# A VERSAO DO OPENSIM AQUI E A QUE O README DO UPSTREAM MANDA, com o build
+# exato: `conda install -c opensim-org opensim=4.5=py311np123`. Nao e detalhe
+# de estilo, e o que faz o ambiente resolver. Medido em 2026-10-12: com o
+# opensim 4.6 (que traz numpy 2.4.6) a resolucao morre em
+# "Because scipy==1.10.0 depends on numpy>=1.19.5,<1.27.0 and numpy==2.4.6,
+# we can conclude that scipy==1.10.0 cannot be used" — o requirements.txt do
+# upstream trava scipy==1.10.0, e o build py311np123 e justamente o que casa
+# com ele (numpy 1.23).
+#
+# O `evdev` (dependencia de `maskpass`) compila extensao C e foi a parte mais
+# teimosa deste ambiente. O que NAO resolve, medido em 2026-10-12:
+#   - `apt-get install linux-headers-$(uname -r)`, que o proprio erro sugere:
+#     o kernel e 6.18.33.2-microsoft-standard-WSL2 e a Ubuntu nao empacota
+#     headers para ele;
+#   - fixar `evdev<2`: o 1.9.3 falha nas mesmas constantes que o 2.0.0.
+# O que resolve esta nas duas dependencias conda abaixo, c-compiler e
+# kernel-headers_linux-64 — toolchain e header pertencem ao MANIFESTO, nao ao
+# apt, porque e isso que faz o ambiente reproduzir em outra maquina.
+#
+# Roda no WSL. Aplicar: bash bootstrap/06_wsl_envs_biomec.sh
+
+[workspace]
+name = "opencap"
+channels = ["opensim-org", "conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = "==3.11"
+# Build fixado: a string py311np123 vem do README do upstream.
+opensim = { version = "==4.5", build = "py311np123" }
+# O README pede libopenblas no Linux; no conda ele vem como `openblas` e e
+# dependencia do proprio opensim, declarado aqui para ficar explicito.
+openblas = "*"
+# cmake entra pelo conda, nao pelo pip: o casadi compila extensao na
+# instalacao e o wheel de cmake do PyPI nao traz toolchain.
+cmake = ">=3.31"
+# Compilador C DENTRO do ambiente. O `evdev` (via maskpass) nao tem wheel e
+# compila extensao; o build do pixi roda com o PATH do ambiente, onde o gcc do
+# sistema nao aparece — o erro e `error: [Errno 2] No such file or directory:
+# 'gcc'`. O metapacote c-compiler do conda-forge resolve sem depender do que
+# esta instalado na distro, e e isso que faz o ambiente reproduzir em outra
+# maquina.
+c-compiler = "*"
+# Header de kernel DENTRO do ambiente, e nao o da distro. O `evdev` compila um
+# `ecodes.c` pre-gerado que referencia constantes novas de linux/input.h
+# (BUS_AMD_SFH, KEY_ALL_APPLICATIONS, KEY_LINK_PHONE,
+# KEY_REFRESH_RATE_TOGGLE). O `linux-libc-dev` do Ubuntu 24.04 e da serie 6.8 e
+# nao as tem — a compilacao morre em "error: 'BUS_AMD_SFH' undeclared", tanto
+# no evdev 2.0.0 quanto no 1.9.3, entao nao ha pin de evdev que resolva. O
+# conda-forge serve 6.12, e o gcc do c-compiler le o sysroot do proprio
+# ambiente. Resolver aqui, e nao com apt, e o que faz o ambiente reproduzir.
+kernel-headers_linux-64 = ">=6.12"
+
+# Exatamente o requirements.txt do upstream. scipy em versao exata porque e
+# assim que esta la — e e o pin que decide a versao do OpenSim acima.
+[pypi-dependencies]
+scipy = "==1.10.0"
+pandas = "*"
+matplotlib = "*"
+ipython = "*"
+python-decouple = "*"
+maskpass = "==0.3.6"
+requests = "*"
+casadi = "*"
+pyyaml = "*"
+joblib = "*"
+seaborn = "*"

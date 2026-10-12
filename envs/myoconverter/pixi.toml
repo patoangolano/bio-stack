@@ -1,0 +1,48 @@
+# bio-stack — ambiente do MyoConverter (MyoHub), 2026-10-12.
+#
+# Converte e otimiza modelo musculoesqueletico do OpenSim 4.x para o MuJoCo.
+# Licenca Apache-2.0. Ultimo push no upstream: 2024-10-22.
+#
+# AVISO DO PROPRIO UPSTREAM, repetido aqui porque muda o que se pode afirmar:
+# modelo convertido pode exigir ajuste antes de servir para pesquisa. Modelo ja
+# ajustado mora no projeto MyoSim, nao sai daqui.
+#
+# Por que ambiente proprio e nao a camada pixi global: o pacote exige
+# python <3.11, numpy ==1.21.6 e opensim 4.4.x. O ambiente `opensim` do pixi
+# global desta maquina tem opensim 4.6 com python 3.11 e numpy 2.4. As duas
+# arvores nao coexistem, e a conversao depende da API 4.4.
+#
+# POR QUE ESTE MANIFESTO E MINIMO. A tentacao e copiar o conda_env.yml do
+# upstream, que lista as 14 dependencias com versao exata. Nao funciona, e o
+# motivo e que o upstream se contradiz consigo mesmo: o conda_env.yml pede
+# pyvista=0.41.1 e o pyproject.toml do proprio pacote exige
+# pyvista>=0.40.0,<0.41.0. Quem manda na instalacao e o pyproject. Medido em
+# 2026-10-12, com o 0.41.1 do lado conda a resolucao morre em
+# "Because myoconverter==0.1.0 depends on pyvista>=0.40.0,<0.41.0 and
+# pyvista==0.41.1, we can conclude that myoconverter==0.1.0 cannot be used".
+# O conda-forge nao empacota pyvista 0.40.x, entao nao ha pin conda que sirva.
+#
+# Logo: o conda entrega so o que o PyPI nao tem — o interpretador e o OpenSim,
+# que nao aparece no pyproject porque o upstream assume que ja veio do conda.
+# Todo o resto (loguru, lxml, numpy, scipy, scikit-learn, matplotlib, trimesh,
+# pyvista, networkx, fpdf2, seaborn, mujoco) vem do PyPI com as faixas que o
+# proprio pacote declara, e o pixi.lock grava o que caiu.
+#
+# Roda no WSL. Aplicar: bash bootstrap/06_wsl_envs_biomec.sh
+
+[workspace]
+name = "myoconverter"
+channels = ["opensim-org", "conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+# pyproject do pacote: python = ">=3.9,<3.11".
+python = "==3.10"
+# Unica dependencia que o PyPI nao serve. O build py310np121 e o que casa com
+# o numpy 1.21.6 que o pacote trava.
+opensim = "==4.4.1"
+
+# O pacote em si nao esta no PyPI nem no conda: vem do git, com o commit fixado
+# pelo pixi no pixi.lock.
+[pypi-dependencies]
+myoconverter = { git = "https://github.com/MyoHub/myoconverter.git" }

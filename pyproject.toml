@@ -27,7 +27,9 @@ dependencies = [
     "anndata>=0.12",
     "gseapy>=1.3",
     "pandas>=2.3",
-    "polars>=1.44",
+    # Teto: o polars 2.0.0 (2026-10-06) muda API; sem ele o proximo
+    # `uv lock --upgrade` o puxaria sem aviso.
+    "polars>=1.44,<2",
     "biopython>=1.88",
     "biotite>=1.6",
     "rdkit>=2026.3",
@@ -41,6 +43,22 @@ dependencies = [
     "igraph>=0.11",
 ]
 
+# O indice do PyTorch e marcado `explicit`: so os pacotes que o apontam em
+# [tool.uv.sources] vem dele. Sem isso o uv procuraria *todo* pacote neste
+# indice e a resolucao fica lenta e imprevisivel.
+#
+# Existe tambem `[tool.uv] torch-backend = "auto"`, que detecta a GPU e escolhe
+# o wheel sozinho. Nao usamos: "auto" decide em tempo de instalacao e o
+# uv.lock deixa de dizer de onde o wheel veio. A secao de Metodos precisa
+# nomear o indice, nao um algoritmo de deteccao.
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+
 [dependency-groups]
 dev = [
     "ruff==0.16.7",
@@ -50,10 +68,124 @@ dev = [
     "basedpyright>=1.40",
 ]
 
+# Camada GPU. Fica num GRUPO, nao num extra de [project.optional-dependencies],
+# e a diferenca e armadilha medida, nao estilo.
+#
+# Extra e opt-in puro: `uv sync` sem `--extra gpu` DESINSTALA tudo que so o
+# extra pedia. Medido em 2026-10-10 com `uv sync --locked --dry-run`: 26
+# pacotes removidos, `torch==2.11.0+cu128` entre eles. Como o passo 3 do
+# bootstrap chama o script sem flags, o caminho documentado de instalacao
+# destruia a camada GPU que o passo anterior tinha acabado de montar.
+#
+# O uv 0.13.0 nao tem `default-extras` (verificado: o campo e recusado com
+# "unknown field"), mas tem `default-groups`. Grupo entao resolve: entra por
+# padrao, e sai com `--no-group gpu` quando alguem quiser o ambiente magro.
+# Grupo tambem e a construcao certa aqui por outro motivo — este projeto tem
+# `package = false`, nao e distribuivel, e extra existe para consumidor de
+# wheel publicado. Ninguem instala a bio-stack com `pip install bio-stack[gpu]`.
+#
+# Orcamento de VRAM (RTX 5070 Laptop, 8151 MiB): ESM-2 650M ~2,7 GB fp16 cabe
+# folgado; ESM-2 3B ~6,5 GB cabe com batch 1; DNABERT-2 117M ~0,5 GB. ESMFold,
+# AlphaFold2, Boltz-2 e Evo 2 nao cabem — use mcp__nvidia-bio__*. Estes dois
+# ultimos numeros sao de ficha tecnica, nao medidos aqui: nao cabem, logo nao
+# ha o que medir nesta maquina.
+gpu = [
+    "torch>=2.9",            # precisa de wheel cu128+ para Blackwell/sm_120
+    "transformers>=4.44",
+    "accelerate>=0.33",
+    "safetensors>=0.4",
+    "sentencepiece>=0.2",
+    "einops>=0.8",
+    "fair-esm>=2.0",
+    "tqdm>=4.66",
+]
+
+# Os quatro grupos abaixo entraram em 2026-10-11 (docs/PESQUISA-STACK-2026-10.md).
+# Todos com wheel win_amd64 ou puro-Python para o CPython 3.11 deste venv,
+# conferido no PyPI. O que exige 3.12 (esm/ESM C, piqtree, biotite 1.7,
+# scanpy 1.12, scvi-tools 1.5) ficou de fora de proposito: ver a secao
+# "Python 3.12" do relatorio antes de subir o piso.
+#
+# Filogenia e genomica comparativa do lado Windows; o pesado roda no WSL e em
+# pipelines/filogenia. PhyKIT calcula estatistica de alinhamento e de arvore
+# (saturacao, treeness, dS par a par) que vai para Metodos: versao exata.
+evolucao = [
+    "phykit==2.8.0",
+    "dendropy>=5.1",
+    "toytree>=3.0",
+    "pyhmmer>=0.12.3",
+    "pyfaidx>=0.9",
+    "pygenomeviz>=1.7",
+    "omadb>=2.2",
+]
+# Estatistica que sai em Metodos com p-valor: versao exata, pela mesma regra
+# do bloco [project] — trocar a versao pode mudar o que o texto afirma.
+estatistica = [
+    "pingouin==0.7.0",
+    "scikit-posthocs==0.17.1",
+    "decoupler==2.2.0",
+    "duckdb>=1.5.6",
+]
+# Literatura: OpenAlex (pyalex) e Crossref (habanero) para achar e conferir DOI.
+pesquisa = [
+    "pyalex>=0.21",
+    "habanero>=2.9",
+]
+# Notebook que versiona bem: marimo (reativo, salvo como .py), jupytext
+# (par .ipynb <-> .py) e nbstripout (tira saida antes do commit).
+notebooks = [
+    "marimo>=0.25",
+    "jupytext>=1.19",
+    "nbstripout>=0.9",
+]
+
+# Os tres grupos abaixo entraram em 2026-10-12, vindos de
+# Downloads/ferramentas-bio-claude-code.md (biofisica, biomecanica, morfologia
+# e osteologia). Todos com wheel win_amd64 ou puro-Python para o CPython
+# 3.11.17 deste venv, conferido no PyPI pela API JSON antes de entrar.
+#
+# O que a lista pede e NAO esta aqui, com o motivo: OpenMM, GROMACS, OpenSim e
+# PyMOL sao conda-only ou CLI nativa e vivem na camada pixi do WSL;
+# TotalSegmentator, nnInteractive, DeepLabCut, BioEmu e os MCP de ferramenta
+# grafica entraram por `uv tool install`, em ambiente isolado, porque cada um
+# traz sua propria arvore de torch e nao pode negociar numpy/scipy com este
+# venv — o travamento de numpy==2.4.6 e scipy==1.17.1 sustenta afirmacao de
+# Metodos e nao se move por conveniencia de instalacao.
+#
+# MDAnalysis le trajetoria de dinamica molecular; o OpenMM que *gera* a
+# trajetoria roda no WSL. A divisao e proposital: a analise fica onde esta o
+# resto da analise, e o solver fica onde esta a CUDA sem camada de traducao.
+biofisica = [
+    "mdanalysis>=2.10",
+]
+# MuJoCo e o motor de fisica; febio-python escreve e le o .feb do solver FEBio,
+# que e binario nativo e nao vem por pip (ver docs/STACK.md).
+biomecanica = [
+    "mujoco>=3.15",
+    "febio-python>=0.2.1",
+]
+# Malha e morfometria por script. gmsh traz o SDK dentro do wheel, entao o
+# binario `gmsh` aparece no PATH do venv sem instalacao separada.
+# morphosource busca midia pela API do repositorio (download pede chave).
+morfologia = [
+    "trimesh>=5.1",
+    "pyvista>=0.49",
+    "open3d>=0.20",
+    "gmsh>=4.15",
+    "morphosource>=1.2",
+]
+
 # Isto aqui nao e um pacote instalavel, e um projeto de analise. Sem esta linha
 # o `uv sync` tenta construir a propria bio-stack como wheel e falha.
+#
+# default-groups: `dev` e `gpu` entram num `uv sync` pelado. E o que faz o
+# passo 3 do bootstrap deixar de desinstalar o torch.
 [tool.uv]
 package = false
+default-groups = [
+    "dev", "gpu", "evolucao", "estatistica", "pesquisa", "notebooks",
+    "biofisica", "biomecanica", "morfologia",
+]
 
 [tool.ruff]
 line-length = 100

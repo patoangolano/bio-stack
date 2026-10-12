@@ -19,14 +19,19 @@ projeto tem via institucional própria e não passa por aqui.
 ```
 GPU:    NVIDIA GeForce RTX 5070 Laptop
 VRAM:   8 GB (8151 MiB)
-CUDA:   13.4 (driver 617.14)
+CUDA:   13.4 (driver 617.42)
 Arch:   Blackwell, sm_120 (compute 12.0)  → PyTorch precisa de wheels cu128+
 Torch:  2.11.0+cu128 · torch.version.cuda 12.8 · cuda.is_available() True
-SO:     Windows 11 · WSL2 com Ubuntu-24.04 (20 núcleos, 15 GB RAM, 950 GB livres de 1007 GB)
+SO:     Windows 11 · WSL2 com Ubuntu-24.04 (20 núcleos, 15 GB RAM; disco: ver abaixo)
 ```
 
+Disco: dentro do WSL o `df -h /` mostra ~1 TB (1007G) porque o `ext4.vhdx`
+é um VHD dinâmico de 1 TiB virtual guardado em C:. O espaço que conta é o
+livre em C: — 98 GB de 476 GB em 2026-10-12, dividido com o Windows. Meça
+com `df -h /c` no Git Bash antes de baixar genomas.
+
 O par `cu128` / `torch.version.cuda 12.8` é o que torna a exigência de wheels
-cu128+ verificável: o driver 617.14 expõe CUDA 13.4, mas não existe wheel
+cu128+ verificável: o driver 617.42 expõe CUDA 13.4, mas não existe wheel
 oficial de PyTorch para sm_120 abaixo de cu128 — um wheel cu121 instala sem
 reclamar e só falha no primeiro kernel.
 
@@ -35,16 +40,42 @@ Evo 2, RFdiffusion, Parabricks. Nenhum cabe em 8 GB. Use as ferramentas
 `mcp__nvidia-bio__*`, que batem nos endpoints hospedados da NVIDIA.
 
 **Cabe local**: ESM-2 650M, DNABERT-2, scanpy, pydeseq2, RDKit, biopython,
-nvMolKit, inferência de modelos pequenos.
+nvMolKit, inferência de modelos pequenos. Desde 2026-10-12 também TotalSegmentator,
+nnInteractive, DeepLabCut, SLEAP e BioEmu — todos em ambiente isolado com
+`torch cu128` próprio, cada um verificado com kernel real em `sm_120`, não só
+com `cuda.is_available()`.
 
 **Vive no WSL** (Ubuntu 24.04.5 LTS, distro `Ubuntu-24.04`, reinstalada em
-2026-10-10): `nextflow` 26.04.6, `nf-core` 4.1.0, `samtools` 1.19.2,
-`bcftools` 1.19, `bedtools` 2.31.1, `seqkit` 2.13.0, `tabix` 1.19, `bgzip` 1.19,
-`docker` 29.9.0, Java 21. Não procure essas no PATH do Windows.
+2026-10-10): `nextflow` 26.04.6, `nf-core` 4.1.0, `bedtools` 2.31.1,
+`docker` 29.9.0, Java 21 — e, desde 2026-10-11, a **camada pixi**: 37 ambientes
+de CLIs de bioinformática (um por ferramenta, ou grupo coeso), declaradas em
+`bootstrap/pixi-global.toml` (versão exata) com build e sha256 em
+`bootstrap/pixi-global.snapshot.tsv`. Entre elas: `iqtree3` 3.1.4, `mafft`,
+`famsa`, `muscle`, `clipkit`, `trimal`, `raxml-ng`, `FastTree`, `wastral`,
+`hyphy` 2.5.103, `codeml` (PAML 4.10.10), `macse`, `prank`, BLAST+ 2.17.0,
+`diamond`, `hmmer`, `mmseqs`, `orthofinder` 3.1.5, `featureCounts` (subread 2.1.1), `stringtie` 3.0.3, `miniprot`, `minimap2`, `samtools`/`bcftools`
+1.24, `seqkit` 2.14.0, `csvtk`, `taxonkit`, `datasets`/`dataformat`
+(NCBI), `efetch`/`esearch`, `gffread`, AGAT, utilitários UCSC (`twoBitToFa`,
+`liftOver`, `mafsInRegion`, `mafSpeciesSubset`, `bigWigAverageOverBed`),
+`jq`, `duckdb`, `parallel`, `nf-test`.
+Não procure nenhuma delas no PATH do Windows. Reaplicar tudo:
+`bash bootstrap/05_wsl_ferramentas.sh` (no WSL); conferir: `uv run --script
+tests/check_wsl_ferramentas.py`.
 
-Onde cada uma mora importa para a armadilha do PATH, logo abaixo:
-samtools/bcftools/bedtools/tabix vieram do apt e estão em `/usr/bin`; seqkit e
-nextflow são binários em `~/.local/bin`; nf-core veio por pipx.
+Onde cada uma mora importa para a armadilha do PATH, logo abaixo: as do
+pixi estão em `~/.pixi/bin`; bedtools e as antigas samtools/bcftools/tabix
+1.19 vieram do apt e estão em `/usr/bin`; nextflow é binário em
+`~/.local/bin`; nf-core veio por pipx. `~/.pixi/bin` vem **antes** de
+`/usr/bin` no PATH, então `samtools` responde 1.24, não 1.19 — de propósito:
+o htslib 1.19 do Ubuntu tem CVEs abertas no decodificador CRAM. Isso vale
+**só em shell de login**: fora dele (`bash -c`, cron, unidade systemd) o PATH
+não tem o `~/.pixi/bin` e responde o 1.19 do apt. Mais um motivo para a
+armadilha 3. Para eliminar o 1.19 de vez, `sudo apt remove samtools bcftools
+tabix && sudo apt autoremove` (é o autoremove que tira o `libhts3t64` 1.19,
+onde estão as CVEs) — decisão sua. Nada registrado no `provenance.jsonl`
+depende dele: as menções a 1.19 ali são de instalação, sondas `--version`,
+edições de documentação e relatórios de auditoria; nenhum comando
+registrado roda samtools, bcftools ou tabix sobre dado.
 
 ```bash
 wsl -d Ubuntu-24.04 -- bash -lc "samtools flagstat amostra.bam"
@@ -77,7 +108,9 @@ pequenos, que é exatamente o padrão de um pipeline Nextflow.
 >    não-interativa, que é exatamente o caso de `bash arquivo.sh`. O efeito é uma
 >    falha **parcial**: nextflow, nf-core e seqkit dão `command not found`
 >    enquanto samtools, bcftools, bedtools e tabix seguem funcionando porque
->    estão em `/usr/bin`. Isso tem cara de instalação incompleta e manda o leitor
+>    estão em `/usr/bin` — e samtools, bcftools e tabix respondem, sem aviso, o
+>    1.19 do apt em vez do 1.24 do pixi, porque o `~/.pixi/bin` também só entra
+>    no login. Isso tem cara de instalação incompleta e manda o leitor
 >    investigar a coisa errada. É a mais traiçoeira das três.
 
 **Docker é nativo dentro da distro** (instalado em 2026-10-10): `docker-ce`
@@ -111,6 +144,7 @@ de conda nem singularity.
 | plasmídeo, primer, códon, Golden Gate, CRISPR guide | `seq-designer` |
 | variante, VCF, ACMG, gnomAD, farmacogenômica | `variant-curator` |
 | perda gênica, pseudogene, estado ancestral, atavismo, evo-devo | `evo-devo` |
+| árvore filogenética, alinhamento múltiplo, IQ-TREE, suporte de ramo, concordância, árvore de espécies | `phylo-analyst` |
 | Nextflow, nf-core, Snakemake, cluster, container | `pipeline-engineer` |
 | revisão de literatura, estado da arte, precedente | `lit-scout` |
 | "onde nos meus PDFs fala sobre X" | `mcp__nvidia-nemo__library_search` |
@@ -174,14 +208,68 @@ consulte o log, não a memória da conversa.
 - `/nim` — estado dos endpoints NVIDIA
 - `/fold` — predição de estrutura
 - `/atavismo` — testa se um caráter foi perdido por gene ou por regulação
+- `/filogenia` — locos → IQ-TREE 3 (ML por loco, supermatriz, concordância, wASTRAL) → Métodos
 - `/metodos` — gera a seção de Métodos a partir do log
 - `/nvidia` — audita tudo que a chave NVIDIA destrava
+
+## Biofísica, biomecânica, morfologia e osteologia
+
+Camada de 2026-10-12. O catálogo completo, com as armadilhas medidas, está em
+[`docs/STACK.md`](docs/STACK.md) — leia antes de mexer. O resumo operacional:
+
+**Onde cada coisa vive, e por quê.** A regra única é que nada negocie `numpy`
+nem `scipy` com o venv do projeto, onde as duas estão travadas em versão exata
+por peso estatístico.
+
+| Camada | O que está lá | Como chamar |
+|---|---|---|
+| venv do projeto (Windows) | MDAnalysis, MuJoCo, febio-python, trimesh, PyVista, Open3D, gmsh, morphosource | `uv run python` |
+| `uv tool` (isolado) | TotalSegmentator, nnInteractive, DeepLabCut, SLEAP | `TotalSegmentator`, `dlc`, `sleap-train`, … |
+| `envs/<nome>/.venv` | BioEmu, BoneJ_Headless | `envs/bioemu/.venv/Scripts/python.exe` |
+| pixi global (WSL) | GROMACS, PyMOL, OpenMM, OpenSim 4.6 | `gmx`, `pymol`, `python-openmm`, `python-opensim` |
+| pixi em `~/envs` (WSL) | MyoConverter (OpenSim 4.4.1), opencap-processing (OpenSim 4.5) | `pixi run --manifest-path ~/envs/<nome>/pixi.toml python` |
+| aplicativo gráfico | 3D Slicer 5.12.4 + SlicerMorph, Fiji + BoneJ 7.2.2, Blender 5.2.1 | MCP `slicer`, `blender`, `chimerax` |
+
+**Há três OpenSim na máquina e isso é de propósito.** 4.6 no pixi global
+(com Moco dentro), 4.4.1 no `envs/myoconverter`, 4.5 build `py311np123` no
+`envs/opencap`. Cada upstream exige a sua, e as versões de numpy que elas
+arrastam são incompatíveis entre si. Não unifique.
+
+**Os MCP de ferramenta gráfica sobem com o programa fechado.** `slicer`,
+`blender` e `chimerax` respondem ao handshake e listam ferramentas mesmo sem o
+programa aberto; só a chamada falha. Um `mcp list` verde não quer dizer que a
+ponte está aberta — no Slicer é preciso iniciar o módulo Web Server, no Blender
+clicar Start MCP Server.
+
+**ChimeraX 1.12 e FEBio 4.13 entraram em 2026-10-12**, em
+`Program Files/ChimeraX 1.12` e `Program Files/FEBioStudio`. Duas consequências
+que mudam como se usa:
+
+- **Não rode `remotecontrol rest start` na mão.** O `chimerax-mcp` tem
+  `auto_launch=True`: ele acha o executável e sobe o ChimeraX com o REST na
+  8765 na primeira chamada. Verificado abrindo a lisozima 1AKI do PDB.
+- **`febio-python` 0.2.1 não lê o `.xplt` do FEBio 4.13** (`Incorrect XPLIT
+  file version: 53`). O `.feb` e o `run()` funcionam; para número em Python,
+  declare `<Output><logfile>` no `.feb` e leia o texto delimitado com pandas. O
+  plot binário serve só para a GUI do FEBio Studio. Detalhe e exemplo em
+  `docs/STACK.md`.
+- `C:/Program Files/FEBioStudio/bin` está no PATH do usuário — sem isso o
+  `febio_python.feb.run.run()` não acha o `febio4.exe`.
+
+**Reaplicar:** `uv sync` (Windows) · `Rscript r/instalar.R` (precisa de
+Rtools45) · `bash bootstrap/06_wsl_envs_biomec.sh` (no WSL) ·
+`bash vendor/clonar.sh`.
 
 ## Estrutura
 
 ```
 bootstrap/   instalação (rodar uma vez)
 servers/     servidor MCP da NVIDIA (código próprio)
+pipelines/   pipelines Nextflow próprios (filogenia/ — ver docs/FILOGENIA.md)
+scripts/     análises e invólucros (filogenia/filogenia.py roda o pipeline do Windows)
+r/           R 4.6 + Bioconductor (renv): filogenia comparativa, DE de referência
+envs/        ambientes isolados: requirements.in/pixi.toml versionados, .venv fora do git
+vendor/      clones de terceiros que não são pacote (reconstrói: vendor/clonar.sh)
 .claude/     agents, commands, hooks, settings
 data/raw/    dados brutos — protegidos por hook, nunca sobrescrever
 data/proc/   dados processados
