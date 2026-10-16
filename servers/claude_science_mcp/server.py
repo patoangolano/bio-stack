@@ -298,6 +298,12 @@ def _grava_cache(base: str, cookies: dict[str, str]) -> None:
 
 
 def _autentica(c: httpx.Client, base: str) -> None:
+    # Jar limpo antes do sign-in. Os cookies vindos do cache entram sem dominio;
+    # os que o daemon semeia agora vem com dominio 127.0.0.1. Os dois convivem no
+    # jar com o mesmo nome e cookies.get("operon_csrf") levanta CookieConflict —
+    # medido em 2026-10-16, quando a distro foi refeita e o daemon novo devolveu
+    # 401 para a sessao em cache. Quem chega aqui tem sessao morta: nada a perder.
+    c.cookies.clear()
     n = _nonce()
     c.get("/", params={"nonce": n})
     csrf = c.cookies.get("operon_csrf")
