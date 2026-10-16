@@ -27,9 +27,17 @@ set -euo pipefail
 # contra o header de input. O WSL nao tem linux-headers para o proprio kernel,
 # mas evdev so precisa do header de API de usuario, em linux-libc-dev, que
 # independe da versao do kernel. Idempotente.
+#
+# Quem instala e o 04b_wsl_base.sh, como root. Aqui so `sudo -n`: em
+# 2026-10-16 um `sudo` interativo ficou 19 min esperando a senha de um usuario
+# que nao tinha senha, sem erro e sem saida. Melhor falhar na hora.
 if [ ! -f /usr/include/linux/input-event-codes.h ]; then
   echo "== instalando linux-libc-dev (header de input, exigido por evdev) =="
-  sudo apt-get install -y -q linux-libc-dev
+  sudo -n apt-get install -y -q linux-libc-dev || {
+    echo "sem sudo sem senha; rode como root:" >&2
+    echo "  wsl -d Ubuntu-24.04 -u root -- bash /mnt/c/Users/Manec/bio-stack/bootstrap/04b_wsl_base.sh" >&2
+    exit 1
+  }
 fi
 
 projeto="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

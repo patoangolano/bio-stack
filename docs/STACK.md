@@ -151,7 +151,14 @@ o binário `gmsh` aparece no PATH da venv sem instalação separada.
 | `gromacs` | 2026.3 | `gmx` |
 | `pymol` | pymol-open-source 3.1.0 | `pymol` |
 | `openmm` | OpenMM 8.6.1 + python 3.11.14 | `python-openmm` |
-| `opensim` | OpenSim 4.6 + python 3.11 | `python-opensim` |
+| `opensim` | OpenSim 4.6 + python 3.13.16 (build `py313np24`; o ambiente não fixa python — esta linha dizia 3.11 até a medição de 2026-10-16) | `python-opensim` |
+
+> **Declarados em `bootstrap/pixi-global.toml` desde 2026-10-16.** Até lá
+> viviam só no manifesto do usuário, instalados por `pixi global install`
+> avulso — e o `05_wsl_ferramentas.sh` copia o manifesto versionado por cima e
+> roda `pixi global sync`, o que os apagaria em qualquer reexecução. A perda da
+> distro em 2026-10-16 expôs o buraco; agora o `05` reconstrói os quatro e o
+> snapshot cita build e sha256 deles.
 
 OpenMM enxerga a GPU: `Platform` lista `['Reference', 'CPU', 'CUDA']`. O
 **Moco já vem dentro do OpenSim 4.6** — `MocoStudy`, `MocoTrack` e

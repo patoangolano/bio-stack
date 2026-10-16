@@ -46,9 +46,11 @@ nnInteractive, DeepLabCut, SLEAP e BioEmu — todos em ambiente isolado com
 com `cuda.is_available()`.
 
 **Vive no WSL** (Ubuntu 24.04.5 LTS, distro `Ubuntu-24.04`, reinstalada em
-2026-10-10): `nextflow` 26.04.6, `nf-core` 4.1.0, `bedtools` 2.31.1,
-`docker` 29.9.0, Java 21 — e, desde 2026-10-11, a **camada pixi**: 37 ambientes
-de CLIs de bioinformática (um por ferramenta, ou grupo coeso), declaradas em
+2026-10-10 e outra vez em 2026-10-16): `nextflow` 26.04.6, `nf-core` 4.1.0,
+`bedtools` 2.31.1, `docker` 29.9.1, Java 21 — a **camada base**, reconstruída
+por `bootstrap/04b_wsl_base.sh` (como root) — e, desde 2026-10-11, a **camada
+pixi**: 41 ambientes, 37 de CLIs de bioinformática (um por ferramenta, ou grupo
+coeso) e 4 de biofísica (GROMACS, PyMOL, OpenMM, OpenSim), declarados em
 `bootstrap/pixi-global.toml` (versão exata) com build e sha256 em
 `bootstrap/pixi-global.snapshot.tsv`. Entre elas: `iqtree3` 3.1.4, `mafft`,
 `famsa`, `muscle`, `clipkit`, `trimal`, `raxml-ng`, `FastTree`, `wastral`,
@@ -58,24 +60,34 @@ de CLIs de bioinformática (um por ferramenta, ou grupo coeso), declaradas em
 (NCBI), `efetch`/`esearch`, `gffread`, AGAT, utilitários UCSC (`twoBitToFa`,
 `liftOver`, `mafsInRegion`, `mafSpeciesSubset`, `bigWigAverageOverBed`),
 `jq`, `duckdb`, `parallel`, `nf-test`.
-Não procure nenhuma delas no PATH do Windows. Reaplicar tudo:
-`bash bootstrap/05_wsl_ferramentas.sh` (no WSL); conferir: `uv run --script
-tests/check_wsl_ferramentas.py`.
+Não procure nenhuma delas no PATH do Windows. Reconstruir a distro inteira,
+na ordem, do Windows:
+
+```bash
+wsl --install -d Ubuntu-24.04 --no-launch --web-download
+wsl -d Ubuntu-24.04 -u root -- bash /mnt/c/Users/Manec/bio-stack/bootstrap/04b_wsl_base.sh
+wsl --terminate Ubuntu-24.04
+wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/bootstrap/05_wsl_ferramentas.sh
+wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/bootstrap/06_wsl_envs_biomec.sh
+wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/bootstrap/07_wsl_claude_science.sh
+```
+
+Conferir: `uv run --script tests/check_wsl_ferramentas.py`. O `04b` cria o
+usuário `manec` **sem senha** — o `-u root` do `wsl` dispensa senha, e o `sudo`
+só passa a valer depois de `wsl -d Ubuntu-24.04 -u root passwd manec`. O `07`
+deixa o daemon do Claude Science de pé na 8765, mas o login da conta é manual:
+`wsl -d Ubuntu-24.04 -- bash -lc "claude-science url"` dá um link de uso único.
+Nenhum script pede `sudo` interativo: o `06` travou 19 min num deles em
+2026-10-16, esperando a senha de um usuário que não tinha senha.
 
 Onde cada uma mora importa para a armadilha do PATH, logo abaixo: as do
-pixi estão em `~/.pixi/bin`; bedtools e as antigas samtools/bcftools/tabix
-1.19 vieram do apt e estão em `/usr/bin`; nextflow é binário em
-`~/.local/bin`; nf-core veio por pipx. `~/.pixi/bin` vem **antes** de
-`/usr/bin` no PATH, então `samtools` responde 1.24, não 1.19 — de propósito:
-o htslib 1.19 do Ubuntu tem CVEs abertas no decodificador CRAM. Isso vale
-**só em shell de login**: fora dele (`bash -c`, cron, unidade systemd) o PATH
-não tem o `~/.pixi/bin` e responde o 1.19 do apt. Mais um motivo para a
-armadilha 3. Para eliminar o 1.19 de vez, `sudo apt remove samtools bcftools
-tabix && sudo apt autoremove` (é o autoremove que tira o `libhts3t64` 1.19,
-onde estão as CVEs) — decisão sua. Nada registrado no `provenance.jsonl`
-depende dele: as menções a 1.19 ali são de instalação, sondas `--version`,
-edições de documentação e relatórios de auditoria; nenhum comando
-registrado roda samtools, bcftools ou tabix sobre dado.
+pixi estão em `~/.pixi/bin`; bedtools veio do apt e está em `/usr/bin`;
+nextflow é binário em `~/.local/bin`; nf-core veio por pipx. O apt **não**
+instala samtools, bcftools nem tabix desde a reconstrução de 2026-10-16 — o
+htslib 1.19 do Ubuntu tem CVEs abertas no decodificador CRAM, e quem responde
+é o 1.24 do pixi. Isso vale **só em shell de login**: fora dele (`bash -c`,
+cron, unidade systemd) o PATH não tem o `~/.pixi/bin` e `samtools` dá
+`command not found`. Mais um motivo para a armadilha 3.
 
 ```bash
 wsl -d Ubuntu-24.04 -- bash -lc "samtools flagstat amostra.bam"
@@ -106,15 +118,15 @@ pequenos, que é exatamente o padrão de um pipeline Nextflow.
 >    lido em shell de **login**. O `~/.bashrc` do Ubuntu não serve de substituto
 >    — ele abre com `case $- in *i*) ;; *) return;; esac` e desiste em shell
 >    não-interativa, que é exatamente o caso de `bash arquivo.sh`. O efeito é uma
->    falha **parcial**: nextflow, nf-core e seqkit dão `command not found`
->    enquanto samtools, bcftools, bedtools e tabix seguem funcionando porque
->    estão em `/usr/bin` — e samtools, bcftools e tabix respondem, sem aviso, o
->    1.19 do apt em vez do 1.24 do pixi, porque o `~/.pixi/bin` também só entra
->    no login. Isso tem cara de instalação incompleta e manda o leitor
->    investigar a coisa errada. É a mais traiçoeira das três.
+>    falha **parcial**: nextflow, nf-core e todas as CLIs do pixi (samtools,
+>    seqkit, tblastn…) dão `command not found` enquanto bedtools, Java e docker
+>    seguem funcionando porque estão em `/usr/bin`. Isso tem cara de instalação
+>    incompleta e manda o leitor investigar a coisa errada. É a mais traiçoeira
+>    das três.
 
-**Docker é nativo dentro da distro** (instalado em 2026-10-10): `docker-ce`
-29.9.0 do repositório oficial do Docker, daemon sob systemd
+**Docker é nativo dentro da distro** (instalado em 2026-10-10, refeito em
+2026-10-16 pelo `04b`): `docker-ce` 29.9.1 do repositório oficial do Docker,
+daemon sob systemd
 (`systemctl enable --now docker`), socket em `/var/run/docker.sock`, usuário
 `manec` no grupo `docker`. Não há Docker Desktop no Windows e não haverá — logo
 **não existe `docker` no PATH do Windows, e isso é o esperado, não lacuna**. Quem
@@ -257,8 +269,9 @@ que mudam como se usa:
   `febio_python.feb.run.run()` não acha o `febio4.exe`.
 
 **Reaplicar:** `uv sync` (Windows) · `Rscript r/instalar.R` (precisa de
-Rtools45) · `bash bootstrap/06_wsl_envs_biomec.sh` (no WSL) ·
-`bash vendor/clonar.sh`.
+Rtools45) · `bash bootstrap/05_wsl_ferramentas.sh` e
+`bash bootstrap/06_wsl_envs_biomec.sh` (no WSL; o `05` traz GROMACS, PyMOL,
+OpenMM e OpenSim desde 2026-10-16) · `bash vendor/clonar.sh`.
 
 ## Estrutura
 
