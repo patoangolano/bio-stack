@@ -1275,3 +1275,23 @@ nas aves a ~73% do nível dos crocodilianos, o ENAM a ~0%.
   referência positiva a escada nem começa: ausente em Sauropsida, fora do
   intervalo NRG1..LPL, ou divergente demais (o controle em *Xenopus* também
   falha: E = 1,6) — não se distingue.
+
+---
+
+# A14. Genoma inteiro e multiz (2026-10-17)
+
+Detalhe em `docs/METODO-RELIQUIAS.md` §10–11.
+
+- **ODAPH fora da posição nas aves: não sustentado.** Os melhores hits no genoma
+  inteiro do frango e do kakapo (32–33 bits, recíprocos à ODAPH do jacaré) não
+  são o mesmo locus nas duas aves (zero vizinho em comum). E a régua mostra que a
+  busca não tem poder: a ODAPH do jacaré acha a ODAPH **funcional** do *Anolis* a
+  36,6 bits e a do *Podarcis* a 26,9 — no ruído. A evidência sobre o ODAPH nas
+  aves é posicional (o espaço do gene não existe em 7 aves), não de sequência.
+- **ODAM sai do painel**: sem referência positiva em saurópsido com dente, nem no
+  genoma inteiro do jacaré (os hits de 34–38 bits são recíprocos a proteínas
+  quaisquer).
+- **multiz100way**: 9 das 14 aves sem nenhuma base alinhada nos éxons de
+  ENAM/AMBN/AMTN; répteis com dente 74–86% do ENAM, tartarugas 56–63%. Mesmo
+  padrão por método independente. A contagem de frameshift pelo multiz reprovou
+  no controle e não é usada.

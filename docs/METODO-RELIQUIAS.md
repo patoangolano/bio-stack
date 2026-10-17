@@ -169,3 +169,49 @@ para essa classe de proteína; a queda do ENAM não cabe nisso.
 uma sessão do Table Browser; TOGA exige cadeias lastz genoma × genoma. Os dois
 validariam por alinhamento de genoma inteiro o que o s29/s31 já mostram por
 outro caminho; ficam para quando houver espaço em disco e tempo de CPU para isso.
+
+## 10. Busca no genoma inteiro (2026-10-17, terceira rodada)
+
+`s35_genomas.sh` (frango, kakapo, jacaré em `~/genomas` no WSL),
+`s35_busca_genoma.sh/.py`, `s35_sintenia_odaph.py`, `s35_regua_odaph.sh`.
+
+**O e-value não serve em genoma inteiro.** A 1e-2, só a proteína do próprio
+jacaré se achou; o mesmo bitscore que dava e = 3e-6 numa janela passa de 1e-2
+num banco de 2,3 Gb. Decisão por bitscore, como no s26.
+
+**ODAPH**: no jacaré, as consultas de outras espécies (lagartixa, humano,
+gambá) **não acham o ODAPH do próprio jacaré** no genoma inteiro. Nas duas aves
+o melhor hit da ODAPH do jacaré é recíproco a ela — frango NC_052546.1:3,02 Mb
+(chr15), kakapo NC_044279.2:31,6 Mb — mas a 32–33 bits, e os dois loci **não
+têm um vizinho em comum** (±400 kb; pontos aleatórios do controle também zero):
+não são o mesmo locus em duas linhagens; é recíproco por acaso no piso.
+
+**Régua**: a ODAPH do jacaré acha a ODAPH funcional do *Anolis* com 36,6 bits e
+a do *Podarcis* com 26,9 — a ~280 Ma, um gene **funcional** cai na faixa do
+ruído. Busca de sequência no genoma inteiro não tem poder para o ODAPH a
+distância das aves. A evidência que vale é **posicional** (s32): em 7 aves o
+CDKL2 encosta no RCHY1, sem o espaço onde ODAPH e THAP6 ficam no jacaré.
+
+**ODAM**: a consulta de *Xenopus* acha dezenas de trechos do chr1 do jacaré a
+34–38 bits; o recíproco de cada um é uma proteína qualquer (FERM, TANC1,
+IFT140, ...). Composição de baixa complexidade, não ODAM. Sem referência
+positiva em saurópsido com dente, o ODAM sai do painel.
+
+## 11. Validação por alinhamento de genoma inteiro — multiz100way (`s36_multiz`)
+
+O Table Browser do UCSC bloqueia acesso automatizado (Cloudflare Turnstile) e o
+PECAN de amniotas do Ensembl só traz primatas na região; foi o MAF do chr4
+inteiro (4,6 GB), recortado nos 29 éxons codificantes de ENAM/AMBN/AMTN do hg38
+(73 blocos).
+
+- **Frameshift pelo multiz: descartado.** O controle reprova — o ENAM funcional
+  do jacaré sai com 54 contra o humano.
+- **Cobertura (presença)**: jacaré 53 blocos (ENAM 86%), *Anolis* 29 (74%);
+  *Chelonia* 38 (56%), *Chrysemys* 19 (63%), *Pelodiscus* 0; das **14 aves** do
+  multiz100way, **9 sem nenhuma base alinhada** (galGal4, melGal1, anaPla1,
+  taeGut2, melUnd1, colLiv1, geoFor1, pseHum1, araMac1) e 5 com fragmentos
+  (amaVit1 17 blocos, ENAM 41%; falcões, *Ficedula* e *Zonotrichia* 3–4).
+
+Método independente (cadeias lastz + multiz, humano como referência), mesmo
+padrão: répteis com dente > tartarugas > aves, e o frango sem nada — coerente com
+o miniprot (s29), que também não alinhou o ENAM do frango.
