@@ -1,7 +1,7 @@
 # Relíquias dos genes do esmalte em aves e tartarugas: localização no GRCg7b, lesões compartilhadas e os limites da detecção por similaridade
 
 % Matheus Lima
-% [AFILIAÇÃO A PREENCHER]
+% Faculdade Senac, Brasil
 % Manuscrito de trabalho, 17 de outubro de 2026. Não revisado por pares.
 
 :::resumo Resumo

@@ -292,7 +292,7 @@ Ensembl.
    âncoras.
 7. **Assistência de IA**: confirmar se a instituição ou a revista exige
    declaração em formato próprio.
-8. **Repositório**: o paper cita github.com/patoangolano/bio-stack como
-   disponibilidade de código; confirmar que ele está público (ou trocar por um
-   depósito com DOI, como Zenodo) antes de circular o texto.
-9. **Afiliação do autor** no cabeçalho do paper (`[AFILIAÇÃO A PREENCHER]`).
+8. ~~**Repositório**~~: resolvido em 2026-10-17 — github.com/patoangolano/bio-stack
+   é público (`gh repo view`). Um depósito com DOI (Zenodo) continua sendo
+   melhor para a versão submetida.
+9. ~~**Afiliação do autor**~~: resolvido em 2026-10-17 — Faculdade Senac, Brasil.
