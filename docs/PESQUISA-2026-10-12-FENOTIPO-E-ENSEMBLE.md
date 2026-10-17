@@ -800,7 +800,8 @@ magnitude do viés de ML (−1,5 kcal/mol) · métricas de ensemble aceitas ·
 veredito sobre BioEmu · posição das âncoras no jacaré e no frango.
 
 **Sobraram, e estas ficaram com o Claude Science** (daemon de pé na porta 8765,
-pendente de login no navegador):
+pendente de login no navegador). *Respondidas em 2026-10-17 por lit-scout, depois
+de o Claude Science travar duas vezes — ver §A11.*
 
 1. `ODAPH`/`C4orf26` em aves — estado não localizado.
 2. `AMELX` em *Gallus*: não anotado em nenhum assembly. Onde cai o Ψ-AMEL, então?
@@ -1117,3 +1118,57 @@ denominador do conjunto (200 bits, contra 173 do próprio jacaré). O efeito é
 conservador — reduz o índice do frango, que já é o menor. A separação entre os
 grupos é grande o bastante para não depender da escolha de normalização, mas
 antes de publicar vale refazer com soma de todos os HSPs em vez do melhor.
+
+---
+
+# A11. O resto do painel e as quatro pendências (2026-10-17)
+
+## O painel por intervalo — `s27`
+
+O s26 só procura no intervalo NRG1..LPL (chr3 do jacaré). AMELX e MMP20 estão
+no chr1, DSPP no chr2, ACP4 no chr5: rodados ali dariam zero sem significado.
+`scripts/atavismo/s27_*` dá a cada gene o próprio intervalo sintênico, com três
+controles: âncoras (vizinho nomeado mais próximo de cada lado, exigido nas sem
+dente e no *Anolis*) como positivo; todas as proteínas do intervalo do jacaré
+como **competidoras** (um trecho só conta para o alvo se nenhum vizinho alinhar
+melhor ali); e **melhor hit recíproco** contra o proteoma inteiro do jacaré
+(GCF_030867095.1, 48.040 proteínas). 66 de 69 trechos confirmaram; os 3
+rejeitados eram parálogos de fora do intervalo.
+
+**MMP20** — fração recuperada (soma de bits dos trechos recíprocos ÷ jacaré):
+
+| *Alligator* | *Gavialis* | *Anolis* | *Chrysemys* | *Strigops* | *Gallus* |
+|---|---|---|---|---|---|
+| 100% (15) | 89% (13) | **57%** (9) | **30%** (7) | 9% (2) | 6% (1) |
+
+Âncoras DCUN1D5/TMEM123 a 75–124 bits nas aves e na tartaruga: o intervalo está
+certo. Mesma ordem do s26 num locus independente, em outro cromossomo.
+
+**Sem conclusão:** AMELX (nem o *Anolis* sai do ruído), DSPP (controle falha em
+*Gavialis* e *Anolis*; tartaruga tem 2 fragmentos recíprocos), ACP4 (sintenia
+não estabelecida nas aves). ODAM e ODAPH não rodados: zero genes com esses
+símbolos em Sauropsida no NCBI Gene.
+
+## Calibração com pseudogene conhecido — `s27_calibra_amelx.sh`
+
+O Ψ-AMEL da galinha (Sire 2008, GenBank EU340348) cai **dentro** do intervalo
+MSL3..MID1 do s27, a 100% de identidade, em
+**NC_052532.1:124.410.142–124.413.840** (fita −, GRCg7b) — primeira coordenada
+dele numa montagem atual. O tblastn do AMELX do jacaré deixou **zero** HSPs ali;
+com SEG desligado, 25,8 bits, indistinguível do ruído. Não é o filtro: é
+divergência somada a decaimento. **Um zero do s27 não vale como ausência sem
+controle positivo na mesma espécie.**
+
+## As quatro pendências
+
+| # | Resposta | Fonte | Confiança |
+|---|---|---|---|
+| 1. ODAPH em aves | Nada publicado sobre qualquer ave. Ortólogos em *Alligator* e *Anolis* (3 éxons; mamíferos perderam o éxon 2) achados por sintenia e RNA-seq, sem coordenada. Humano: RCHY1–THAP6–**ODAPH**–CDKL2–G3BP2 (4q21.1), fora dos clusters SCPP. Na galinha o bloco está quebrado; janela candidata chr4 ~33,6–34,2 Mb (consulta Ensembl, não dado publicado) | Liang et al. 2021, *Sci Rep*, PMID 33441959 | média |
+| 2. Ψ-AMEL | Existe: inserção de 4 nt no éxon 2, stop no éxon 6. Meredith 2013 acha em mais 4 aves, com deleção de 1 pb compartilhada. Coordenada GRCg7b medida aqui (acima) | Sire et al. 2008, PMID 18775069; Meredith et al. 2013, PMID 23342979 | alta |
+| 3. Recombinação do chrZ em 55,0–55,3 Mb | Sem taxa publicada nessa resolução. Melhor mapa: Elferink 2010, 1 marcador/50 kb no Z, 3,0 cM/Mb em média, só em macho, em galGal3 (janela ≈ 53,0–53,5 Mb ali). A janela fica no meio de Zq, longe de centrômero e telômero: espera-se taxa intermediária | Elferink et al. 2010, PMID 20141624 (Additional file 5, bins de ~500 kb); Groenen 2009, PMID 19088305 | média (inferida) |
+| 4. Potência de permulação vs nº de origens | Não existe curva publicada. Redlich 2024 mede só tempo de execução (7 s com 2 categorias → 4.933 s com 6). A única curva contra nº de perdas é de Forward Genomics: 2–4 origens ≈ 20–40% de sensibilidade a 90% de precisão, e a idade da perda pesa mais | Redlich 2024, PMID 39404101; Prudent 2016, PMID 27222536; Saputra 2021, PMID 33739420 | alta / média |
+
+**Correção à busca de 2026-10-16 do Claude Science:** PMID 30674270, que
+apareceu como único hit de "ODAPH", é sobre
+**ODAM** em 165 placentários (Springer et al. 2019, *BMC Evol Biol*). O de
+C4orf26 é Springer et al. 2016, *Mol Phylogenet Evol* 95:34–45, PMID 26596502.
