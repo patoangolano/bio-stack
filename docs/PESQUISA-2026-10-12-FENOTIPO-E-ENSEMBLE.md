@@ -1172,3 +1172,54 @@ controle positivo na mesma espécie.**
 apareceu como único hit de "ODAPH", é sobre
 **ODAM** em 165 placentários (Springer et al. 2019, *BMC Evol Biol*). O de
 C4orf26 é Springer et al. 2016, *Mol Phylogenet Evol* 95:34–45, PMID 26596502.
+
+---
+
+# A12. Correções e nível de evidência (2026-10-17)
+
+Depois da crítica externa (`docs/METODO-RELIQUIAS.md` §7) e das lesões do
+miniprot (`scripts/atavismo/s29_*`, `s30_*`). O texto das seções anteriores
+fica como estava; as correções valem a partir daqui.
+
+## Lesões — nível 3 da escada da skill `atavismo`
+
+| Gene | Espécie | Cobertura | Identidade | Frameshifts | Stops |
+|---|---|---|---|---|---|
+| ENAM | *Strigops* | 95% | 0,35 | 6 | 8 |
+| ENAM | *Chrysemys* | 83% | 0,50 | 11 | 4 |
+| ENAM | *Chelonia* | 66% | 0,55 | 8 | 3 |
+| AMBN | *Chrysemys* | 100% | 0,47 | 3 | 1 |
+| AMBN | *Chelonia* | 100% | 0,59 | 2 | 1 |
+| AMBN | *Dromaius* (paleognata) | 74% | 0,51 | 1 | 3 |
+
+Controle: 6 espécies com dente (*Alligator*, *Gavialis*, *Crocodylus*,
+*Anolis*, *Python*, *Podarcis*), identidade até 0,36 — 1 lesão em ~12 mil aa.
+No frango a relíquia está degradada demais para o miniprot (ENAM e MMP20 não
+alinham). **Lesão compartilhada (nível 4): não testável ainda** — nenhum par de
+aves com lesões dos dois lados numa região comum.
+
+**MMP20 da tartaruga**: 91% alinhado **sem lesão**. O "30% recuperado" do s27 é
+perda de identidade, não pseudogene demonstrado.
+
+## Afirmações corrigidas
+
+| Onde | Dizia | Passa a dizer |
+|---|---|---|
+| §A9/§A10 | reliquias "não anotadas por ninguém"; "a relíquia é de Neornithes" | Meredith et al. 2013 (*BMC Evol Biol* 13:20, PMID 23342979) já relatam frameshifts de ENAM, AMBN e AMEL em aves, compartilhados antes da divisão basal de Neognathae. O s25–s29 **replica e localiza no GRCg7b**; não inaugura |
+| §A10 | "a sintenia cai no chrZ em duas aves independentes" | o Z é ancestral das aves: é uma observação, não duas |
+| §A10 | "não é distância; é o caráter" | consistente com efeito do caráter; o contraste informativo é *Anolis* × *Chrysemys*, n = 1 × 1 |
+| §A10 | "apagamento independente por linhagem e por gene" (AMBN/AMTN invertidos entre frango e kakapo) | **retirada**: os valores (23,5 e 24,6 bits) estão no piso de ruído (LPL negativo: 22–30) |
+| §A10 | separação "não depende da escolha de normalização" | não testado |
+| §A10 | índice "pronto para método comparativo" | confundido com distância à consulta e com cegueira do tBLASTn para proteína desordenada (IBSP funcional recupera 23–37% nas aves) |
+| §A11 | MMP20 "replica o padrão num locus independente" | locus diferente, confundidores iguais (mesmas espécies, mesma consulta); e a tartaruga não tem lesão |
+
+## Recombinação na janela — `s28_recombinacao_z.py`
+
+Elferink 2010, Additional file 5, bins de ~500 kb, taxa de **macho** (o Z só
+recombina em ZZ). NRG1..LPL em galGal3, conferido no refGene do UCSC:
+52.836.615–53.408.327. Taxa ponderada na janela: **2,27 cM/Mb**; média do Z
+3,00; média autossômica 2,97; **percentil 54** entre os 122 bins do Z e entre
+os 1.697 autossômicos. Não é deserto de recombinação. Ressalva: a relíquia
+cai perto da fronteira entre o bin 1783 (0,68 cM/Mb; as duas populações
+divergem, 2,72 × 0,85) e o 1784 (3,94) — na resolução de 500 kb, uma taxa
+localmente baixa não fica excluída.
