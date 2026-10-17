@@ -69,6 +69,34 @@ TOML
     mudou=1
     echo "config.toml: bloco [sandbox] gravado"
 fi
+# Dominios somados a allowlist embutida da sandbox (a lista e aditiva; nao trava
+# nada). A embutida ja cobre NCBI, Ensembl, EBI, UniProt e a API REST do UCSC;
+# faltam os hosts de ARQUIVO. Sem eles cada acesso vira cartao de aprovacao na
+# interface web — em 2026-10-16 uma pesquisa ficou 70 min parada esperando
+# clique para o hgdownload, e morreu quando a distro desligou.
+#   hgdownload.*.ucsc.edu   cadeias de liftOver, tabelas do Genome Browser
+#   genome.animalgenome.org Animal QTLdb: mapas de ligacao de galinha
+#   zenodo, dryad, figshare tabelas suplementares (mapas de recombinacao)
+if grep -q '^\[sandbox\.network\]' "$CFG"; then
+    echo "config.toml ja tem [sandbox.network]"
+else
+    cat >> "$CFG" <<'TOML'
+
+[sandbox.network]
+allowed_domains = [
+  "hgdownload.soe.ucsc.edu",
+  "hgdownload.gi.ucsc.edu",
+  "genome.ucsc.edu",
+  "genome.animalgenome.org",
+  "zenodo.org",
+  "datadryad.org",
+  "figshare.com",
+  "ndownloader.figshare.com",
+]
+TOML
+    mudou=1
+    echo "config.toml: bloco [sandbox.network] gravado"
+fi
 python3 -c "import tomllib, sys; tomllib.load(open(sys.argv[1], 'rb')); print('config.toml valido')" "$CFG"
 
 # --- 3. daemon ---------------------------------------------------------------------
