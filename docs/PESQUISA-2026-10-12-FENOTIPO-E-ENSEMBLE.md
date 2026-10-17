@@ -1223,3 +1223,55 @@ os 1.697 autossômicos. Não é deserto de recombinação. Ressalva: a relíquia
 cai perto da fronteira entre o bin 1783 (0,68 cM/Mb; as duas populações
 divergem, 2,72 × 0,85) e o 1784 (3,94) — na resolução de 500 kb, uma taxa
 localmente baixa não fica excluída.
+
+---
+
+# A13. Segunda rodada: nível 4, controles do índice, ODAM e ODAPH (2026-10-17)
+
+Detalhe de método em `docs/METODO-RELIQUIAS.md` §9.
+
+## Nível 4 — ENAM em aves (`s31`)
+
+Relíquia do kakapo como consulta em nucleotídeo → trecho homólogo em pato,
+mandarim, ema, avestruz e kiwi. Lesões presentes nos dois alinhadores (MAFFT e
+MUSCLE), fora de homopolímero, congruentes com a árvore:
+
+- **Palaeognathae**: 4 stops compartilhados.
+- **Novaeratitae** (kiwi + ema): 3 stops + deleção de 10 nt.
+- **Psittacopasserae** (kakapo + mandarim): 1 stop.
+- **Neornithes**: nenhuma; as 3 candidatas que unem paleognata e neognata são
+  incongruentes com a árvore (homoplasia).
+
+Neste trecho de 2,4 kb do ENAM, o decaimento é rastreável até o ancestral das
+paleognatas e de Psittacopasserae, não até o de todas as aves. Isso **não**
+contradiz a perda única dos dentes (Meredith 2014): a função pode ter caído por
+outro gene, e o ENAM decaído depois, por linhagem.
+
+## O índice, corrigido
+
+Nulo por janela (20 embaralhadas, p95 = 26–32 bits). Com o jacaré como
+consulta, **há sobreposição** entre com e sem dente (tartaruga-verde 2,20 >
+píton 1,57). Com o *Anolis* como consulta — crocodilianos, tartarugas e aves à
+mesma distância dela —, crocodilianos 2,29–2,84, tartarugas 0–0,57, aves
+0–0,10. Controles: LPL funcional rende **mais** nas aves (162–172 bits) que nos
+crocodilianos (149–151); IBSP (desordenada, funcional nas aves) é recuperado
+nas aves a ~73% do nível dos crocodilianos, o ENAM a ~0%.
+
+## ODAPH e ODAM (`s32_odam_odaph`, agente `evo-devo`, conferido)
+
+- **ODAPH no jacaré** = LOC106740521 / XP_019349100.2 ("uncharacterized
+  protein"), entre CDKL2 e THAP6, NC_081825.1:164.672.404–164.676.187; 3 éxons
+  codificantes, motivo SSEE, como Liang 2021 descreve. Intacto em
+  *Crocodylus*, *Anolis* e *Podarcis* (ORF sem lesão; no *Podarcis* e no
+  *Anolis* o locus está anotado como lncRNA — artefato de anotação).
+- **Aves e tartarugas: nível 2** — não achado, com controle (as mesmas consultas
+  acham o ODAPH nas com dente, E ≤ 3e-6; âncoras E ≤ 1e-23).
+- **Sintenia**: nas 7 aves que não são o frango (4 paleognatas, 3 neognatas),
+  o CDKL2 encosta no RCHY1 (vão de 0,15–2,4 kb): ODAPH **e** THAP6 sumiram da
+  posição. No frango o vizinho é o SCLT1 e o THAP6 está a ~12 Mb. Compatível
+  com rearranjo anterior a Neornithes — mas o gene pode ter sido deslocado,
+  não perdido; não houve busca no genoma inteiro.
+- **ODAM**: não achado em nenhuma das 18 espécies, **nem nas com dente**. Sem
+  referência positiva a escada nem começa: ausente em Sauropsida, fora do
+  intervalo NRG1..LPL, ou divergente demais (o controle em *Xenopus* também
+  falha: E = 1,6) — não se distingue.

@@ -114,3 +114,58 @@ Pedida ao agente `evo-devo` em 2026-10-17 (fase de *red team* da skill
 3. **Controle de composição**: SPP1, IBSP, MEPE pelo mesmo pipeline; o "decaimento" do esmalte só conta na parte que excede o dos SCPP ósseos.
 4. **Segunda consulta** (*Anolis*) para tirar a circularidade do jacaré.
 5. multiz100way / TOGA como validação independente.
+
+## 9. Resultado dos pendentes (2026-10-17, segunda rodada)
+
+**Nível 4 em nucleotídeo** (`s31_aves_nt.sh`, `s31_nivel4.py`). A relíquia de
+ENAM do kakapo, como consulta em nucleotídeo (dc-megablast), acha o trecho
+homólogo em pato, mandarim e nas três paleognatas (66–73% de identidade); frango
+e tinamu: nada. Alinhamento múltiplo com três crocodilianos (quadro e
+polaridade) em MAFFT L-INS-i **e** MUSCLE 5; conta só lesão presente nos dois,
+fora de homopolímero, com o mesmo tipo, posição e tamanho. Datação = menor clado
+que contém as aves com a lesão, **exigindo** que toda ave que cobre a posição
+dentro desse clado também a tenha.
+
+| Clado | Lesões congruentes |
+|---|---|
+| Palaeognathae | 4 stops (códons 158, 389, 472, 539) |
+| Novaeratitae (*Apteryx* + *Dromaius*) | 3 stops + deleção de 10 nt |
+| Psittacopasserae (*Strigops* + *Taeniopygia*) | 1 stop |
+| Neornithes | **nenhuma** — 3 candidatas incongruentes com a árvore (homoplasia; 2 são TGG→TGA, 1 usa stops diferentes) |
+
+Controle: zero lesão nos crocodilianos nos dois alinhadores. Homoplasia medida:
+3 de 12 stops compartilhados contradizem a árvore — stops compartilhados valem
+menos que indel compartilhado.
+
+**Nulo por janela e segunda consulta** (`s33_indice_nulo.py`, `s33_alinhar.sh`):
+20 embaralhadas por proteína (semente 20261017); conta só o excesso sobre o
+percentil 95 do nulo (26–32 bits em todas as janelas).
+
+| Consulta | Com dente | Sem dente |
+|---|---|---|
+| jacaré | crocodilianos 12,3–15,0; escamados **1,45**–2,45 | tartarugas 0–**2,20**; aves 0–0,71 |
+| *Anolis* | crocodilianos **2,29**–2,84; escamados 4,2–6,6 | tartarugas 0–0,57; aves **0–0,10** |
+
+Com a consulta do jacaré, **há sobreposição** (tartaruga-verde 2,20 > píton
+1,57): a separação limpa do s26 era artefato de amostragem de espécies. Com a
+consulta do *Anolis*, crocodilianos, tartarugas e aves estão à **mesma
+distância** filogenética da consulta (Archelosauria × Lepidosauria), e a
+separação reaparece: crocodilianos 2,29–2,84 contra aves 0–0,10. Controle de
+taxa por linhagem: com a mesma consulta, o LPL funcional rende 162–172 bits
+nas aves e 149–151 nos crocodilianos.
+
+**Ainda pendente**: controle de composição com SPP1/IBSP/MEPE pela consulta do
+*Anolis*; multiz100way/TOGA; ODAM/ODAPH (agente `evo-devo` rodando).
+
+**Controle de composição** (`s34_composicao.py`, `s34_alinhar.sh`): IBSP do
+*Anolis* — sialoproteína óssea, desordenada como ENAM/AMBN, funcional nas aves —
+contra os intervalos do DSPP do s27 (onde o IBSP é âncora), mesmo nulo do s33.
+Excesso sobre o p95: crocodilianos 52–57, aves 39–41 (**~73%** do nível dos
+crocodilianos), *Chrysemys* 49. O ENAM, pela mesma consulta: crocodilianos
+229–254, aves 0–1,7 (**~0%**). O tBLASTn perde ~¼ da sensibilidade nas aves
+para essa classe de proteína; a queda do ENAM não cabe nisso.
+
+**Adiado, com motivo**: multiz100way do hg38 exige o MAF do chr4 (vários GB) ou
+uma sessão do Table Browser; TOGA exige cadeias lastz genoma × genoma. Os dois
+validariam por alinhamento de genoma inteiro o que o s29/s31 já mostram por
+outro caminho; ficam para quando houver espaço em disco e tempo de CPU para isso.
