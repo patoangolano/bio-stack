@@ -12,8 +12,14 @@ independentes de perda de dentição e TRES controles positivos:
         Chrysemys picta           GCF_011386835.1
     COM DENTE — controle positivo
         Alligator mississippiensis  consulta; os genes estao intactos nele
-        Gavialis gangeticus         GCA_030020295.1
+        Gavialis gangeticus         GCF_001723915.1 (GavGan_comp1)
         Anolis carolinensis         GCF_035594765.1
+
+O acesso NAO e escolhido aqui: gene_pos() pega a localizacao da anotacao
+RefSeq no NCBI Gene, e para o gavial (taxon 94835) ela esta na GavGan_comp1 de
+2016 (NW_017729024.1, contig N50 ~10 kb). O rGavGan2.hap2 do VGP
+(GCA_030020295.1, contig N50 84,2 Mb) e melhor, mas nao tem anotacao RefSeq e
+nao entra por este caminho. Conferido em 2026-10-17 (docs/metodos.md, pendencia 1).
 
 A tartaruga e a peca que vale mais: ela entrou no projeto como grupo externo
 para polarizar, mas por Meredith 2014 ela e um evento de perda independente.

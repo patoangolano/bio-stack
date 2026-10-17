@@ -66,15 +66,15 @@ O texto completo, com versões, parâmetros, datas de acesso e as tentativas que
 
 **Intervalos sintênicos.** No jacaré, o cluster fica no chr3 na ordem NRG1 → ENAM → AMBN → AMTN → LPL → PSD3. Em cada espécie extraímos o intervalo entre as âncoras NRG1 e LPL, com 60 kb de margem. Para AMELX, MMP20, DSPP e ACP4, que estão em outros cromossomos, cada gene recebeu o próprio intervalo, delimitado pelo vizinho nomeado mais próximo de cada lado.
 
-**Busca e índices.** As proteínas do jacaré foram buscadas nos intervalos com tBLASTn (BLAST+ 2.17.0; Camacho et al. 2009; e-value 10, filtro SEG). Decidimos pelo bitscore, que não depende do tamanho do banco. Um trecho só contou se (i) nenhuma outra proteína do intervalo o alinhou melhor (competição local) e (ii) o melhor hit dele no proteoma inteiro do jacaré (48.040 proteínas) foi a própria consulta (recíproco). O índice de retenção foi a soma dos bitscores de ENAM, AMBN e AMTN dividida pelo bitscore do LPL na mesma espécie. LPL é um gene funcional no mesmo intervalo e serve de controle positivo.
+**Busca e índices.** As consultas do jacaré foram ENAM (QOX06214.1, isoforma de 849 aa; as coordenadas de códon seguem essa numeração), AMBN (XP_019346386.1), AMTN (KYO35092.1), o controle positivo LPL (XP_019346320.1) e o controle negativo DSPP (XP_059578269.1). Elas foram buscadas nos intervalos com tBLASTn (BLAST+ 2.17.0; Camacho et al. 2009; e-value 10, filtro SEG). Decidimos pelo bitscore, que não depende do tamanho do banco. Um trecho só contou se (i) nenhuma outra proteína do intervalo o alinhou melhor (competição local) e (ii) o melhor hit dele no proteoma inteiro do jacaré (48.040 proteínas) foi a própria consulta (recíproco). O índice de retenção foi a soma dos bitscores de ENAM, AMBN e AMTN dividida pelo bitscore do LPL na mesma espécie. LPL é um gene funcional no mesmo intervalo e serve de controle positivo.
 
-**Nulo por janela, segunda consulta e composição.** Para cada proteína geramos 20 versões embaralhadas com a mesma composição (semente 20261017) e as buscamos no mesmo intervalo. No índice só entrou o excesso do bitscore sobre o percentil 95 desse nulo. Repetimos tudo com as proteínas do *Anolis*, que está à mesma distância de crocodilianos, tartarugas e aves (cerca de 281 Ma; Kumar et al. 2022). Como controle de composição usamos a IBSP do *Anolis*, uma proteína óssea desordenada como ENAM e AMBN que é funcional nas aves.
+**Nulo por janela, segunda consulta e composição.** Para cada proteína geramos 20 versões embaralhadas com a mesma composição (semente 20261017) e as buscamos no mesmo intervalo. No índice só entrou o excesso do bitscore sobre o percentil 95 desse nulo. Repetimos tudo com as proteínas RefSeq do *Anolis* (ENAM XP_062825318.1, AMBN NP_001315156.1, AMTN NP_001315157.1, LPL XP_062827593.1), que está à mesma distância de crocodilianos, tartarugas e aves (cerca de 281 Ma; Kumar et al. 2022). Como controle de composição usamos a IBSP do *Anolis*, uma proteína óssea desordenada como ENAM e AMBN que é funcional nas aves.
 
 **Lesões (nível 3).** As proteínas do jacaré foram alinhadas aos intervalos com miniprot 0.18-r281 (Li 2023), que modela íntrons e marca frameshifts e stops em quadro. A taxa de lesão do alinhador foi calibrada nas seis espécies com dente, incluindo três escamados cuja identidade ao jacaré no ENAM (0,36–0,39) está na mesma faixa das relíquias.
 
 **Lesões compartilhadas (nível 4).** A relíquia de ENAM do kakapo foi usada como consulta em nucleotídeo (dc-megablast) nas outras aves. Os trechos homólogos e o CDS de três crocodilianos foram alinhados com MAFFT L-INS-i (Katoh e Standley 2013) e com MUSCLE 5 (Edgar 2022). Uma lesão contou quando teve o mesmo tipo, posição e tamanho em duas ou mais aves, apareceu nos dois alinhadores e não estava em homopolímero (4 ou mais bases iguais). A lesão foi datada no menor clado que contém as aves que a têm, desde que toda ave desse clado que cobre a posição também a tivesse.
 
-**ODAPH, ODAM, recombinação e alinhamento de genoma inteiro.** Identificamos o ODAPH do jacaré por posição e estrutura de éxons (Liang et al. 2021) e o buscamos nos intervalos e nos genomas inteiros de frango, kakapo e jacaré. Medimos a sensibilidade dessa busca contra ODAPH funcionais de lagartos. A taxa de recombinação na janela foi lida do mapa de ligação do frango de Elferink et al. (2010), em bins de cerca de 500 kb (taxa de macho). A validação independente usou o alinhamento multiz100way do hg38 (Blanchette et al. 2004), recortado nos 29 éxons codificantes humanos de ENAM, AMBN e AMTN.
+**ODAPH, ODAM, recombinação e alinhamento de genoma inteiro.** Identificamos o ODAPH do jacaré por posição e estrutura de éxons (Liang et al. 2021) e o buscamos nos intervalos e nos genomas inteiros de frango, kakapo e jacaré. Medimos a sensibilidade dessa busca contra ODAPH funcionais de lagartos. A taxa de recombinação foi lida do mapa de ligação do frango de Elferink et al. (2010), em bins de cerca de 500 kb (taxa de macho), depois de ancorar a relíquia do GRCg7b no galGal3 por 32-meros de sequência únicos. A validação independente usou o alinhamento multiz100way do hg38 (Blanchette et al. 2004), recortado nos 29 éxons codificantes humanos de ENAM, AMBN e AMTN.
 
 **Estatística.** Não calculamos teste de hipótese. As espécies compartilham filogenia e o número de origens independentes de perda é dois, então todas as comparações são descritivas.
 
@@ -181,7 +181,9 @@ O ODAM não foi encontrado em nenhuma das 18 espécies, nem nas com dente. Sem r
 
 ### 3.8 Recombinação na janela da relíquia
 
-No mapa de Elferink et al. (2010), a janela NRG1–LPL do frango (galGal3, chrZ:52.836.615–53.408.327) tem taxa ponderada de 2,27 cM/Mb em machos. A média do Z é 3,00 e a autossômica 2,97, e a janela fica no percentil 54 entre os 122 bins do Z. Ela não é um deserto de recombinação. A taxa varia bastante ao longo de cada cromossomo do frango e se correlaciona com o conteúdo de GC (Groenen et al. 2009), e por isso a resolução importa. A relíquia, porém, cai perto da fronteira entre um bin de 0,68 cM/Mb (em que as duas populações do mapa divergem: 2,72 e 0,85) e um de 3,94 cM/Mb. Nessa resolução, uma taxa localmente baixa não fica excluída.
+No mapa de Elferink et al. (2010), a janela NRG1–LPL do frango tem taxa ponderada de 2,27 cM/Mb em machos (galGal3, chrZ:52.836.615–53.408.327). A média do Z é 3,00 e a autossômica 2,97, e a janela fica no percentil 54 entre os 122 bins do Z. Ela não é um deserto de recombinação.
+
+Ancoradas no galGal3 por 32-meros únicos, as relíquias de ENAM (chrZ:53.354.694; 4.380 de 4.380 âncoras na mesma diagonal) e de AMBN (53.367.714) caem no bin 1784, de 3,94 cM/Mb (3,58 e 3,94 nas duas populações do mapa), acima da média do Z. A borda com o bin vizinho, de 0,68 cM/Mb, fica a 3,0 kb da relíquia de ENAM. A taxa varia bastante ao longo de cada cromossomo do frango e se correlaciona com o conteúdo de GC (Groenen et al. 2009). Na escala de poucos kb, portanto, o mapa não diz de que lado da borda as recombinações aconteceram.
 
 ### 3.9 Validação por alinhamento de genoma inteiro
 
@@ -227,12 +229,13 @@ Em mamíferos sem dente, o ODAPH (C4orf26) está inativado (Springer et al. 2016
 - A relíquia do frango está degradada demais para o miniprot, e o nível 4 não inclui Galloanserae além do pato.
 - As lesões podem refletir erros de montagem. Lesões compartilhadas entre montagens independentes reduzem esse risco, mas o nível 3 numa única espécie não o elimina.
 - O alinhamento multiz100way usa montagens antigas (galGal4, por exemplo) e o humano como referência, a cerca de 319 Ma do jacaré (Kumar et al. 2022).
-- A taxa de recombinação vem de bins de 500 kb em galGal3, sem conversão de coordenadas da relíquia.
+- A taxa de recombinação vem de bins de cerca de 500 kb, e a relíquia de ENAM fica a 3 kb da borda entre um bin de 3,94 e um de 0,68 cM/Mb.
+- A consulta de ENAM (QOX06214.1, 849 aa) não inclui os 212 aa N-terminais nem os 17 C-terminais do modelo RefSeq atual (XP_019346377.1, 1.078 aa). Relíquias dessas regiões não foram procuradas.
 - O AMTN não foi detectado em nenhuma ave. Isso é nível 2 na melhor das hipóteses, com o ponto cego medido no Ψ-AMEL.
 
 ### 4.6 Próximos passos
 
-Três passos aumentam a precisão sem exigir dados novos: projeção de genes por alinhamento de genoma inteiro com o jacaré como referência (TOGA), para o ODAPH e o AMTN; o nível 4 para o AMBN e para as tartarugas; e um teste de seleção relaxada (RELAX, HyPhy) nos ramos sem dente, onde houver alinhamento de códons suficiente. Montagens de leitura longa de Galloanserae permitiriam incluir o frango no nível 4.
+O passo mais barato é repetir as buscas do ENAM com o modelo RefSeq completo (XP_019346377.1), que inclui os 212 aa N-terminais deixados de fora. Outros três passos aumentam a precisão sem exigir dados novos: projeção de genes por alinhamento de genoma inteiro com o jacaré como referência (TOGA), para o ODAPH e o AMTN; o nível 4 para o AMBN e para as tartarugas; e um teste de seleção relaxada (RELAX, HyPhy) nos ramos sem dente, onde houver alinhamento de códons suficiente. Montagens de leitura longa de Galloanserae permitiriam incluir o frango no nível 4.
 
 ## 5. Conclusão
 
@@ -242,7 +245,7 @@ As relíquias de ENAM e AMBN persistem no cromossomo Z do frango, no vão sintê
 
 Todos os genomas são públicos (NCBI RefSeq e UCSC). Está no repositório do projeto (github.com/patoangolano/bio-stack):
 
-- scripts de análise: `scripts/atavismo/s24`–`s36`;
+- scripts de análise: `scripts/atavismo/s24`–`s37`;
 - saídas tabulares: `runs/atavismo/`;
 - registro de proveniência de cada operação: `runs/provenance.jsonl`;
 - figuras e PDF: `scripts/paper_figuras.py` e `scripts/paper_pdf.py`;

@@ -4,7 +4,9 @@ Gerado em 2026-10-17 pela rotina `/metodos`, a partir de `runs/provenance.jsonl`
 (5.645 registros entre 2026-10-12T00:00Z e 2026-10-17T14:18Z: 2.316 comandos de
 shell, 1.911 execuções de análise, 539 edições de código, 88 consultas a bases),
 dos scripts `scripts/atavismo/s24`–`s36` e das versões lidas no ambiente. Duas
-linhas antigas do log não são JSON válido e foram ignoradas na contagem.
+linhas antigas do log não são JSON válido e foram ignoradas na contagem. As
+pendências 1–6 foram fechadas no mesmo dia com `s37_pendencias_metodos.py`
+(saídas em `runs/atavismo/pendencias/`).
 
 ## Registro e reprodutibilidade
 
@@ -47,6 +49,27 @@ pelo título do registro).
 | | *Apteryx rowi* | GCF_003343035.1 (aptRow1) | NW_020447342.1 |
 | | *Tinamus guttatus* | GCF_059628265.1 (ASM5962826v1) | NW_028288906.1 (só LPL) |
 
+As montagens não foram escolhidas à mão: o script pega a localização de cada
+gene na anotação RefSeq do NCBI Gene. Para o gavial, isso devolveu a
+GavGan_comp1 de 2016 (contig N50 de cerca de 10 kb), e não o rGavGan2.hap2 do
+VGP (GCA_030020295.1, contig N50 de 84,2 Mb), que não tem anotação RefSeq. O
+gavial serviu só de controle com dente (ENAM com identidade de 0,92 ao jacaré e
+zero lesão), papel para o qual a montagem antiga bastou.
+
+**Tabela M2.** Data de download (UTC, horário de modificação do arquivo que a
+análise leu; `s37_datas_acesso.tsv`).
+
+| Dado | Script | Baixado em (UTC) |
+|---|---|---|
+| intervalos NRG1..LPL de *Alligator*, *Gavialis*, *Anolis*, *Chrysemys*, *Gallus*, *Strigops* | `s26` | 2026-10-12 17:53–17:54 |
+| intervalos dos outros 12 (*Crocodylus*, *Python*, *Podarcis*, *Chelonia*, *Gopherus*, *Pelodiscus*, *Anas*, *Taeniopygia*, *Dromaius*, *Struthio*, *Apteryx*, *Tinamus*) | `s30` | 2026-10-17 03:09–03:11 |
+| 23 intervalos do painel (AMELX, MMP20, DSPP, ACP4) | `s27` | 2026-10-17 02:28–02:31 |
+| proteoma do jacaré (GCF_030867095.1) | `s27_reciproco` | 2026-10-17 01:35 |
+| genomas inteiros de jacaré, frango e kakapo | `s35` | 2026-10-17 11:57–11:59 |
+| multiz100way hg38, chr4 | `s36` | 2026-10-17 12:06 |
+| ncbiRefSeqCurated hg38 (API do UCSC) | `s36` | 2026-10-17 11:59 |
+| Elferink 2010, Additional file 5 (Europe PMC) | `s28` | 2026-10-17 03:02 |
+
 ## Proteínas de consulta
 
 As consultas principais foram as proteínas do jacaré: ENAM (QOX06214.1), AMBN
@@ -55,9 +78,22 @@ o controle negativo DSPP (XP_059578269.1). Para os genes do painel fora do
 cluster usamos AMELX (XP_014463267.1), MMP20 (XP_006272555.1), DSPP e ACP4
 (XP_019336727.1), além de todas as proteínas anotadas em ±1,5 Mb de cada alvo no
 jacaré, que serviram de competidoras. A segunda consulta usou as proteínas RefSeq
-de ENAM, AMBN, AMTN e LPL do *Anolis carolinensis*, a primeira isoforma da
-tabela de features de cada gene [ACESSO A CONFIRMAR]. O controle de composição
-usou a IBSP do *Anolis* (XP_003221343.2).
+do *Anolis carolinensis* ENAM (XP_062825318.1, 1.097 aa), AMBN (NP_001315156.1,
+377 aa), AMTN (NP_001315157.1, 334 aa) e LPL (XP_062827593.1, 476 aa). Refeita a
+mesma busca do `s33`, as quatro sequências baixadas são idênticas às que
+entraram na análise. O controle de composição usou a IBSP do *Anolis*
+(XP_003221343.2).
+
+Duas consultas do jacaré são registros GenBank, e não RefSeq. Comparadas por
+alinhamento global (BLOSUM62) ao modelo RefSeq da GCF_030867095.1, elas ficaram
+assim:
+- A ENAM QOX06214.1 (849 aa) tem 848 de 849 resíduos idênticos ao
+  XP_019346377.1 (1.078 aa). O RefSeq tem a mais 212 aa N-terminais e 17
+  C-terminais, então a consulta cobre os resíduos 213–1061 do modelo atual. As
+  coordenadas de códon do ENAM neste trabalho estão na numeração da QOX06214.1,
+  e o N-terminal do ENAM não foi buscado.
+- A AMTN KYO35092.1 (375 aa) contém o XP_014451634.1 (328 aa) inteiro, com 100%
+  de identidade, e tem a mais 47 aa N-terminais.
 
 ## Intervalos sintênicos
 
@@ -187,13 +223,25 @@ chrZ:52.836.615–53.408.327. A taxa da janela foi a média dos bins ponderada p
 sobreposição, comparada com a distribuição dos 122 bins do Z e dos 1.697 bins
 autossômicos.
 
+Para ler o bin da própria relíquia, ela foi posta no galGal3 por âncoras de
+sequência (`s37_pendencias_metodos.py`). Cada relíquia do GRCg7b, com 2 kb de
+flanco de cada lado, foi quebrada em 32-meros. Só contaram os 32-meros que
+ocorrem uma única vez no trecho chrZ:52,5–53,8 Mb do galGal3 (API do UCSC), e a
+posição foi a diagonal mediana entre os dois genomas. Para o ENAM, 4.380 de 4.380
+âncoras ficaram na mesma diagonal; para o AMBN, 1.893 de 2.650. A relíquia de
+ENAM caiu em galGal3 chrZ:53.354.694 e a de AMBN em 53.367.714, as duas no bin
+1784.
+
 ## Validação por alinhamento de genoma inteiro
 
 Baixamos o MAF do chr4 do multiz100way do hg38 (UCSC; 4,6 GB; Blanchette et al.
 2004) e o recortamos com `mafsInRegion` (kent 482) nos 29 éxons codificantes de
 ENAM, AMBN e AMTN humanos (RefSeq curado NM_031889.3, NM_016519.6 e NM_212557.4),
 o que deu 73 blocos (`s36_multiz.py/.sh`). Para cada gene e montagem, medimos a
-fração do CDS humano com base alinhada.
+fração do CDS humano com base alinhada. O arquivo `chr4.maf.gz` do UCSC tem
+Last-Modified de 6 de maio de 2015 e 4.627.971.825 bytes, o mesmo tamanho da
+cópia local. A trilha ncbiRefSeqCurated do hg38 tinha `dataTime` de 13 de agosto
+de 2025 na consulta de 2026-10-17.
 
 ## Tempos de divergência
 
@@ -275,23 +323,25 @@ Ensembl.
 
 ## Pendências
 
-1. **Montagem do gavial.** O docstring do `s26_relicto_comparativo.py` diz
-   GCA_030020295.1, mas a execução usou GCF_001723915.1 (GavGan_comp1,
-   NW_017729024.1). Corrigir o docstring ou refazer com a montagem nova.
-2. **Acessos das proteínas do *Anolis*** usadas como segunda consulta no `s33`:
-   o cabeçalho do FASTA não guardou o acesso. Recuperar e citar.
-3. **Proteínas de consulta GenBank.** ENAM (QOX06214.1) e AMTN (KYO35092.1) do
-   jacaré são GenBank, não RefSeq. Conferir se coincidem com os XP atuais da
-   GCF_030867095.1.
-4. **Datas de acesso por espécie.** O log permite datar cada download; o texto
-   dá o intervalo 2026-10-12 a 2026-10-17.
-5. **Versão do multiz100way** (data do arquivo baixado do UCSC) e versão da
-   montagem humana usada pelo RefSeq curado.
-6. **Coordenadas em galGal3** no `s28`: a relíquia foi mapeada em GRCg7b e a
-   taxa vem de galGal3. Não houve liftOver da relíquia; a janela é a do par de
-   âncoras.
-7. **Assistência de IA**: confirmar se a instituição ou a revista exige
-   declaração em formato próprio.
+As pendências 1–6 foram fechadas em 2026-10-17 com `s37_pendencias_metodos.py`;
+o resultado de cada uma está no corpo deste texto.
+
+1. ~~**Montagem do gavial**~~: o docstring do `s26` foi corrigido para
+   GCF_001723915.1 e explica por que o código chega a ela (anotação RefSeq). O
+   rGavGan2.hap2 fica como melhoria futura (seção Espécies).
+2. ~~**Acessos das proteínas do *Anolis***~~: recuperados e conferidos por
+   identidade de sequência (seção Proteínas de consulta).
+3. ~~**Proteínas de consulta GenBank**~~: comparadas ao RefSeq. O achado novo é
+   que o N-terminal do ENAM (212 aa) não foi buscado; isso entrou nas limitações
+   do paper.
+4. ~~**Datas de acesso**~~: Tabela M2.
+5. ~~**Versões do UCSC**~~: multiz100way de 2015-05-06; ncbiRefSeqCurated de
+   2025-08-13.
+6. ~~**Relíquia em galGal3**~~: ancorada por 32-meros. Ela cai no bin 1784
+   (3,94 cM/Mb), a 3,0 kb (ENAM) e 16,0 kb (AMBN) da borda com o bin 1783
+   (0,68 cM/Mb).
+7. **Assistência de IA** (continua aberta): o formato da declaração depende da
+   revista ou da instituição de destino, e o texto atual é genérico.
 8. ~~**Repositório**~~: resolvido em 2026-10-17 — github.com/patoangolano/bio-stack
    é público (`gh repo view`). Um depósito com DOI (Zenodo) continua sendo
    melhor para a versão submetida.
