@@ -12,9 +12,16 @@ Accipitriformes). Também mostra que os pés rapinantes surgiram três vezes de 
 
 A posição das corujas (irmãs de Accipitrimorphae ou de Coraciimorphae) continua sem solução.
 
-O mesmo trabalho está em forma de artigo científico, nas normas da ABNT (NBR 6022:2018), em
-[`reports/artigo/`](reports/artigo/): `.docx` editável e PDF. O artigo é gerado de `artigo.md` por
-`scripts/rapinantes/artigo/referencias.py` (citações e referências, a partir dos DOIs) e `gera_artigo.js`.
+## Artigo
+
+O mesmo trabalho em forma de artigo científico, nas normas da ABNT (NBR 6022:2018):
+
+- [PDF](reports/artigo/Posicao_filogenetica_aves_de_rapina_ABNT.pdf)
+- [Word (.docx), editável](reports/artigo/Posicao_filogenetica_aves_de_rapina_ABNT.docx)
+
+O artigo é gerado de [`reports/artigo/artigo.md`](reports/artigo/artigo.md) por
+`scripts/rapinantes/artigo/referencias.py` (citações e referências, a partir dos DOIs) e `gera_artigo.js`. Os
+recibos das 103 referências estão em `reports/artigo/recibos_referencias.tsv`.
 
 ## Estado em 19 de outubro de 2026
 
