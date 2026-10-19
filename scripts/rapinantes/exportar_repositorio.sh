@@ -15,7 +15,8 @@ CAMINHOS=(docs/metodos_rapinantes.md reports research_notes scripts/rapinantes r
 
 # Mirror, not merge: a file deleted in bio-stack must go here too. Only tracked files travel, so whatever bio-stack's
 # .gitignore keeps out (per-gene figures, third-party downloads, checkpoints) stays out of this repository as well.
-git -C "$DEST" rm -rq --ignore-unmatch .
+# -f: a previous run that died before its commit leaves files staged, and plain rm refuses to drop them.
+git -C "$DEST" rm -rqf --ignore-unmatch .
 git -C "$BIO" archive "$REV" -- "${CAMINHOS[@]}" | tar -x -C "$DEST"
 git -C "$BIO" show "$REV:scripts/rapinantes/repositorio/README.md" > "$DEST/README.md"
 printf '* text=auto eol=lf\n*.ps1 text eol=crlf\n' > "$DEST/.gitattributes"
