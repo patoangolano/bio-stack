@@ -16,6 +16,9 @@ refeita. Os passos seguintes (concordância e resumo) também rodaram fora do Ne
 | 2026-10-19 05:58 | Começa a nova execução com os 48 modelos fixos (`manual/020210/fixo/run`), com `-T 8`. |
 | 2026-10-19 09:41 | Teste numa cópia descartável (`fixo/teste_t18`): retomar o checkpoint da execução fixa com `-T 18` restaura a árvore inicial, os 1000 UFBoot, os parâmetros do modelo (LogL -2230241.611) e as árvores candidatas. A busca continua na iteração 74, sem reotimizar parâmetros. No teste com `-p`, descrito abaixo, o modelo mudava; aqui muda só o número de threads. |
 | 2026-10-19 09:42 | O FAMSA 112050 terminou e liberou os núcleos. A execução fixa é parada depois da iteração 76 (cópia do checkpoint em `fixo/ckp_antes_T18/`) e relançada com `-T 18`. Ela retoma na iteração 76. |
+| 2026-10-19 11:56 | A busca termina na iteração 183: a melhor árvore apareceu na iteração 82 (LogL -2230233.661) e a regra de parada pede 100 iterações sem melhora. Começa o refinamento dos 1000 UFBoot, a 15,7 s por amostra com `-T 18`. |
+| 2026-10-19 16:27 | O IQ-TREE termina com status 0. LogL final -2230233.545 depois da otimização final; 119 h 43 min de CPU; 6 h 45 min de relógio desde a troca para `-T 18`. |
+| 2026-10-19 16:28 | O `pos_concat_020210.sh` termina com status 0: publicação, gCF, sCFL (35 s) e RESUMO. A tarefa agendada é removida. |
 
 ## Por que a retomada foi abandonada
 
@@ -31,7 +34,7 @@ comando diferente (só avisa) e restaura os 1000 UFBoot e as 20 árvores candida
 (`Number of iterations: 0`, `OPTIMIZING CANDIDATE TREE SET`). Não economiza tempo, e misturaria bootstraps de duas
 buscas.
 
-## O que roda agora
+## O que rodou no lugar
 
 Execução nova e limpa, com o mesmo alinhamento, o mesmo esquema e os mesmos modelos que o ModelFinder escolheu na
 execução interrompida, a mesma semente e as mesmas opções. Só a busca de modelo fica de fora:
@@ -58,6 +61,14 @@ iqtree -p modelos_fixos.nex -B 1000 --bnni --alrt 1000 --abayes --seed 12345 -o 
   `-T 1`. Os valores podem diferir de uma execução com `-T 1` na mesma escala citada acima. O gCF só conta árvores e não
   muda.
 
+## A árvore final contra a da execução interrompida
+
+A execução interrompida chegou a gravar a melhor árvore da sua busca (`concatenado.treefile` de 2026-10-18 15:20, LogL
+-2230208.324 na iteração 2). Ela tem a **mesma topologia** da árvore final desta nota: distância de Robinson-Foulds 0
+em 108. Com a topologia igual, os 25,2 pontos de LogL a favor da execução interrompida vêm dos comprimentos de ramo e
+dos parâmetros do modelo, não da árvore. Os suportes da execução interrompida não existem para comparar: ela nunca
+terminou o refinamento dos UFBoot.
+
 ## Onde está cada coisa
 
 | O quê | Onde |
@@ -67,7 +78,7 @@ iqtree -p modelos_fixos.nex -B 1000 --bnni --alrt 1000 --abayes --seed 12345 -o 
 | Checkpoint antes da troca para `-T 18` | WSL `~/nf-work/filogenia/manual/020210/fixo/ckp_antes_T18/concatenado.ckp.gz` (09:41:28) |
 | Execução interrompida | WSL `~/nf-work/filogenia/work/81/e3fdfb681f0da353c2d65ff89f587d/`, com backups `*.ate_sighup_20261018` |
 | Log da retomada abandonada | WSL `~/nf-work/filogenia/retomada_concat_020210.log` |
-| Tarefa agendada | `\bio-stack\supermatriz_fixa_020210` (remover ao terminar) |
+| Tarefa agendada | `\bio-stack\supermatriz_fixa_020210`, removida em 2026-10-19 depois do fim |
 
 ## Consequência para os Métodos
 
