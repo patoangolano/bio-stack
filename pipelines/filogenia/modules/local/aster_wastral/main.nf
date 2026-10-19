@@ -25,10 +25,13 @@ process ASTER_WASTRAL {
     // O IQ-TREE escreve um rotulo "SH-aLRT/aBayes/UFBoot" (so os pedidos), e o
     // wASTRAL le em silencio so o PRIMEIRO numero — ponderaria pelo SH-aLRT
     // sem avisar (medido no v1.25). Fica so o campo escolhido.
+    // Com aBayes sem SH-aLRT a casa do SH-aLRT sai vazia ("/0.98", ver
+    // testAllBranches em tree/phylotree.cpp), e o wASTRAL -B aborta no stod
+    // (exit 134, medido): a barra inicial opcional sai junto.
     def n = rotulo.n as Integer
     def campo = '([0-9.eE+-]+)'
     def padrao = ([campo] * n).join('\\/')
-    def reescreve = n > 1 ? "sed -E 's/\\)${padrao}/)\\${rotulo.usar}/g'" : 'cat'
+    def reescreve = n > 0 ? "sed -E 's/\\)\\/?${padrao}/)\\${rotulo.usar}/g'" : 'cat'
     """
     cat ${arvores_genes.join(' ')} | ${reescreve} > ${prefix}.entrada.tre
 

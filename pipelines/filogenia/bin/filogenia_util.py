@@ -390,6 +390,9 @@ def suportes(newick: str, ordem: list[str]) -> list[dict[str, float]]:
     nos: list[dict[str, float]] = []
     for rot in _ROTULO.findall(newick):
         partes = rot.split("/")
+        # aBayes sem SH-aLRT: o IQ-TREE deixa a casa do SH-aLRT vazia ("/0.98").
+        if len(partes) > 1 and partes[0] == "":
+            partes = partes[1:]
         if not ordem or len(partes) != len(ordem):
             continue
         try:
