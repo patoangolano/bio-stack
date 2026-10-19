@@ -1,0 +1,103 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    Matheus (AVX2, FMA3, 15 GB RAM)
+Command: /home/manec/.pixi/envs/iqtree/bin/iqtree3 -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy -st MORPH -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/particoes.nex -te /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.treefile -z /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Bathornis/hipoteses.trees -n 0 -zb 10000 -zw -au --seed 20261017 -T 1 --prefix /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Bathornis/AU -redo --quiet
+Seed:    20261017 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Sat Oct 17 23:36:32 2026
+Kernel:  AVX+FMA - 1 threads (20 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 20 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading partition model file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/particoes.nex ...
+Partition file is in NEXUS format...
+Reading alignment file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy ... Phylip format detected
+Alignment most likely contains 4-state morphological data
+Constructing alignment: done in 0.000100851 secs
+Alignment has 13 sequences with 40 columns, 36 distinct patterns
+38 parsimony-informative, 2 singleton sites, 0 constant sites
+                Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 1.50204e-05 secs
+   1  Anhimidae         0.00%    failed      0.01%
+   2  Opisthocomidae    0.00%    failed      0.97%
+   3  Cathartidae       0.00%    failed      0.34%
+   4  Falconidae        0.00%    failed      0.38%
+   5  Paracrax         62.50%    passed     15.44%
+   6  Bathornis        25.00%    passed     61.88%
+   7  Ameghinornis     75.00%    passed     37.86%
+   8  Dynamopterus     37.50%    passed     65.67%
+   9  Elaphrocnemus    40.00%    passed     36.72%
+  10  Cariama           0.00%    passed     17.80%
+  11  Psilopterus      12.50%    failed      0.00%
+  12  Patagornis       17.50%    failed      0.00%
+  13  Llallawavis      22.50%    failed      0.01%
+WARNING: 2 sequences contain more than 50% gaps/ambiguity
+****  TOTAL            22.50%  7 sequences failed composition chi2 test (p-value<5%; df=3)
+Loading 2 partitions...
+Subset	Type	Seqs	Sites	Infor	Invar	Model	Name
+1	MORPH	13	37	36	0	MK+ASC+G4	k2
+2	MORPH	13	3	2	0	MK+ASC+G4	k3
+Degree of missing data: 0.000
+WARNING: State(s) 2, 3 rarely appear in partition 1 and may cause numerical problems
+Reading input tree file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.treefile ...
+
+NOTE: 0 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.010)
+Initial log-likelihood: -314.492
+Current log-likelihood at step 1: -306.000
+Current log-likelihood at step 2: -306.000
+Partition-specific rates:  0.994 1.069
+Parameters optimization took 1 rounds (0.004 sec)
+
+Wrote distance file to... 
+Partition information was printed to /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Bathornis/AU.best_model.nex
+BEST SCORE FOUND : -306.000
+Total tree length: 1.914
+
+Total number of iterations: 0
+CPU time used for tree search: 0.000 sec (0h:0m:0s)
+Wall-clock time used for tree search: 0.000 sec (0h:0m:0s)
+Total CPU time used: 0.012 sec (0h:0m:0s)
+Total wall-clock time used: 0.032 sec (0h:0m:0s)
+Reading trees in /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Bathornis/hipoteses.trees ...
+
+7 trees detected
+Note: 2.063 MB of RAM required!
+Creating 10000 bootstrap replicates...
+done
+Tree 1 / LogL: -306.000
+Tree 2 / LogL: -308.801
+Tree 3 / LogL: -310.195
+Tree 4 / LogL: -309.729
+Tree 5 / LogL: -318.019
+Tree 6 / LogL: -312.259
+Tree 7 / LogL: -306.751
+Performing RELL-BP test...
+Performing KH and SH test...
+Computing pairwise logl difference variance ...
+Performing WKH and WSH test...
+Performing ELW test...
+Performing approximately unbiased (AU) test...
+5 MB required for AU test
+Generating 10 x 10000 multiscale bootstrap replicates... 0.107 seconds
+TreeID	AU	RSS	d	c
+1	0.747	37.811	-0.060	0.604 !!!
+2	0.451	27.786	0.407	0.283 !!!
+3	0.295	17.358	0.959	0.421
+4	0.320	14.063	1.085	0.617
+5	0.075	15.631	1.714	0.274
+6	0.092	11.078	1.807	0.479
+7	0.492	11.130	0.264	0.243
+Time for AU test: 0.113 seconds
+Time for evaluating all trees: 0.146 sec.
+
+Analysis results written to: 
+  IQ-TREE report:                /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Bathornis/AU.iqtree
+  Maximum-likelihood tree:       /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Bathornis/AU.treefile
+  Evaluated user trees:          /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Bathornis/AU.trees
+  Screen log file:               /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Bathornis/AU.log
+
+Date and Time: Sat Oct 17 23:36:32 2026

@@ -1,0 +1,182 @@
+IQ-TREE 3.1.4 built Sep 29 2026
+
+Partition file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/particoes.nex
+Input file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy
+Type of analysis: ModelFinder + tree reconstruction + ultrafast bootstrap (1000 replicates)
+Random seed number: 20261017
+
+REFERENCES
+----------
+
+To cite IQ-TREE 3 please use:
+
+Thomas K.F. Wong, Nhan Ly-Trong, Huaiyan Ren, Piyumal Demotte, Hector Banos,
+Andrew J. Roger, Edward Susko, Chris Bielow, Nicola De Maio, Nick Goldman,
+Matthew W. Hahn, Mario dos Reis, Le Sy Vinh, Gavin Huttley, Robert Lanfear, Bui Quang Minh (2026)
+IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models.
+Molecular Biology and Evolution, msag117.
+https://doi.org/10.1093/molbev/msag117
+
+Since you used ModelFinder please also cite: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used ultrafast bootstrap (UFBoot) please also cite: 
+
+Diep Thi Hoang, Olga Chernomor, Arndt von Haeseler, Bui Quang Minh,
+and Le Sy Vinh (2018) UFBoot2: Improving the ultrafast bootstrap
+approximation. Mol. Biol. Evol., 35:518–522.
+https://doi.org/10.1093/molbev/msx281
+
+Since you used partition models please also cite:
+
+Olga Chernomor, Arndt von Haeseler, and Bui Quang Minh (2016)
+Terrace aware data structure for phylogenomic inference from
+supermatrices. Syst. Biol., 65:997-1008.
+https://doi.org/10.1093/sysbio/syw037
+
+SEQUENCE ALIGNMENT
+------------------
+
+NOTE: Alignment sequence type is auto-detected. If in doubt, specify it via -st option.
+Input data: 13 taxa with 2 partitions and 40 total sites (0% missing data)
+
+  ID	Type	Seq	Site	Unique	Infor	Invar	Const	Name
+   1	MORPH	13	37	33	36	0	0	k2
+   2	MORPH	13	3	3	2	0	0	k3
+
+Column meanings:
+  Unique: Number of unique site patterns
+  Infor:  Number of parsimony-informative sites
+  Invar:  Number of invariant sites
+  Const:  Number of constant sites (can be subset of invariant sites)
+
+SUBSTITUTION PROCESS
+--------------------
+
+Edge-linked-proportional partition model with separate substitution models and separate rates across sites
+
+  ID  Model           Speed  Parameters
+   1  MK+FQ+ASC+G4   0.8628  MK+FQ+ASC+G4{998.821}
+   2  MK+FQ+ASC+G4   2.6920  MK+FQ+ASC+G4{998.457}
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -304.4694 (s.e. 15.7291)
+Unconstrained log-likelihood (without tree): -131.3546
+Number of free parameters (#branches + #model parameters): 26
+Akaike information criterion (AIC) score: 660.9388
+Corrected Akaike information criterion (AICc) score: 768.9388
+Bayesian information criterion (BIC) score: 704.8496
+
+Marginal log-likelihood of the tree: -307.8832
+Marginal Akaike information criterion (mAIC) score: 667.7664
+
+Total tree length (sum of branch lengths): 2.1352
+Sum of internal branch lengths: 1.1556 (54.1188% of tree length)
+
+WARNING: 1 near-zero internal branches (<0.0250) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Anhimidae' is drawn at root
+Numbers in parentheses are SH-aLRT support (%) / ultrafast bootstrap support (%)
+
++--Anhimidae
+|
+|       +--Opisthocomidae
+|   +---| (57.7/47)
+|   |   |          +-------Paracrax
+|   |   +----------| (84.7/67)
+|   |              +**Elaphrocnemus
++---| (86.8/72)
+|   |                      +----Bathornis
+|   |                +-----| (84.9/48)
+|   |                |     +**Ameghinornis
+|   |             +--| (68.9/51)
+|   |             |  |                 +**Cariama
+|   |             |  +-----------------| (98.7/54)
+|   |             |                    |                      +**Psilopterus
+|   |             |                    |                   +**| (0/70)
+|   |             |                    |                   |  +**Patagornis
+|   |             |                    +-------------------| (100/94)
+|   |             |                                        +**Llallawavis
+|   +-------------| (97.5/85)
+|                 +**Dynamopterus
+|
+|  +--Cathartidae
++--| (43.4/57)
+   +-----------Falconidae
+
+Tree in newick format:
+
+(Anhimidae:0.0473872986,((Opisthocomidae:0.0509396528,(Paracrax:0.1533755941,Elaphrocnemus:0.0000026979)84.7/67:0.2084486247)57.7/47:0.0736116389,(((Bathornis:0.1028552721,Ameghinornis:0.0000010003)84.9/48:0.1107041911,(Cariama:0.0000024773,((Psilopterus:0.0000010003,Patagornis:0.0000010003)0/70:0.0000010003,Llallawavis:0.0000010003)100/94:0.3640175845)98.7/54:0.3268593419)68.9/51:0.0361855482,Dynamopterus:0.0000010003)97.5/85:0.2714642304)86.8/72:0.0898350512,(Cathartidae:0.0318188995,Falconidae:0.2292705219)43.4/57:0.0384625323);
+
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000 bootstrap trees
+Log-likelihood of consensus tree: -304.469810
+Robinson-Foulds distance between ML tree and consensus tree: 0
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
++--Anhimidae
+|
+|       +--Opisthocomidae
+|   +---| (47)
+|   |   |          +-------Paracrax
+|   |   +----------| (67)
+|   |              +--Elaphrocnemus
++---| (72)
+|   |                      +----Bathornis
+|   |                +-----| (48)
+|   |                |     +--Ameghinornis
+|   |             +--| (51)
+|   |             |  |                 +--Cariama
+|   |             |  +-----------------| (54)
+|   |             |                    |                      +--Psilopterus
+|   |             |                    |                   +--| (70)
+|   |             |                    |                   |  +--Patagornis
+|   |             |                    +-------------------| (94)
+|   |             |                                        +--Llallawavis
+|   +-------------| (85)
+|                 +--Dynamopterus
+|
+|  +--Cathartidae
++--| (57)
+   +-----------Falconidae
+
+
+Consensus tree in newick format: 
+
+(Anhimidae:0.0472606206,((Opisthocomidae:0.0513241790,(Paracrax:0.1531221886,Elaphrocnemus:0.0000025034)67:0.2077320541)47:0.0733987041,(((Bathornis:0.1025614863,Ameghinornis:0.0000027863)48:0.1103891361,(Cariama:0.0000029162,((Psilopterus:0.0000027863,Patagornis:0.0000027863)70:0.0000027863,Llallawavis:0.0000027863)94:0.3634232055)54:0.3268659056)51:0.0361660833,Dynamopterus:0.0000027863)85:0.2709919375)72:0.0898131218,(Cathartidae:0.0317874496,Falconidae:0.2291757139)57:0.0385584193);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/livre.treefile -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/livre.best_model.nex
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Sat Oct 17 23:22:42 2026
+Total CPU time used: 12.821702 seconds (0h:0m:12s)
+Total wall-clock time used: 6.746604919 seconds (0h:0m:6s)
+

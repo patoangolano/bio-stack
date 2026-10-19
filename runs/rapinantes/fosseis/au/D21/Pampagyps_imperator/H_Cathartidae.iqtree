@@ -1,0 +1,252 @@
+IQ-TREE 3.1.4 built Sep 29 2026
+
+Partition file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/D21/particoes.nex
+Input file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/D21/D21.phy
+Type of analysis: ModelFinder + tree reconstruction
+Random seed number: 20261017
+
+REFERENCES
+----------
+
+To cite IQ-TREE 3 please use:
+
+Thomas K.F. Wong, Nhan Ly-Trong, Huaiyan Ren, Piyumal Demotte, Hector Banos,
+Andrew J. Roger, Edward Susko, Chris Bielow, Nicola De Maio, Nick Goldman,
+Matthew W. Hahn, Mario dos Reis, Le Sy Vinh, Gavin Huttley, Robert Lanfear, Bui Quang Minh (2026)
+IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models.
+Molecular Biology and Evolution, msag117.
+https://doi.org/10.1093/molbev/msag117
+
+Since you used ModelFinder please also cite: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used partition models please also cite:
+
+Olga Chernomor, Arndt von Haeseler, and Bui Quang Minh (2016)
+Terrace aware data structure for phylogenomic inference from
+supermatrices. Syst. Biol., 65:997-1008.
+https://doi.org/10.1093/sysbio/syw037
+
+SEQUENCE ALIGNMENT
+------------------
+
+NOTE: Alignment sequence type is auto-detected. If in doubt, specify it via -st option.
+Input data: 72 taxa with 3 partitions and 204 total sites (0.0408497% missing data)
+
+  ID	Type	Seq	Site	Unique	Infor	Invar	Const	Name
+   1	MORPH	72	170	164	159	0	0	k2
+   2	MORPH	72	31	31	31	0	0	k3
+   3	MORPH	70	3	3	3	0	0	k4mais
+
+Column meanings:
+  Unique: Number of unique site patterns
+  Infor:  Number of parsimony-informative sites
+  Invar:  Number of invariant sites
+  Const:  Number of constant sites (can be subset of invariant sites)
+
+SUBSTITUTION PROCESS
+--------------------
+
+Edge-linked-proportional partition model with separate substitution models and separate rates across sites
+
+  ID  Model           Speed  Parameters
+   1  MK+FQ+ASC+G4   0.8369  MK+FQ+ASC+G4{2.46384}
+   2  MK+FQ+ASC+G4   1.8185  MK+FQ+ASC+G4{12.079}
+   3  MK+FQ+ASC+G4   1.7870  MK+FQ+ASC+G4{10.7719}
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -4312.9211 (s.e. 158.6474)
+Unconstrained log-likelihood (without tree): -973.1311
+Number of free parameters (#branches + #model parameters): 146
+Akaike information criterion (AIC) score: 8917.8422
+Corrected Akaike information criterion (AICc) score: 9670.8949
+Bayesian information criterion (BIC) score: 9402.2877
+
+Marginal log-likelihood of the tree: -4333.0980
+Marginal Akaike information criterion (mAIC) score: 8958.1960
+
+Total tree length (sum of branch lengths): 5.2548
+Sum of internal branch lengths: 3.2119 (61.1220% of tree length)
+
+WARNING: 3 near-zero internal branches (<0.0049) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Coragyps_atratus' is drawn at root
+
++--Coragyps_atratus
+|
+|        +**Sarcoramphus_papa
+|     +--|
+|     |  |   +--Vultur_gryphus
+|     |  +---|
+|     |      |  +--Gymnogyps_californianus
+|     |      +--|
+|     |         +----Dryornis_pampeanus
++-----|
+|     |                                                      +**Anastomus_lamelligerus
+|     |                                                   +--|
+|     |                                                   |  +**Anastomus_oscitans
+|     |                                                +--|
+|     |                                                |  |     +--Mycteria_leucocephalus
+|     |                                                |  |  +--|
+|     |                                                |  |  |  +--Mycteria_americana
+|     |                                                |  +--|
+|     |                                                |     |     +**Leptoptilos_javanicus
+|     |                                                |     |  +--|
+|     |                                                |     |  |  +**Leptoptilos_crumeniferus
+|     |                                                |     +--|
+|     |                                                |        +--Jabiru_mycteria
+|     |                                      +---------|
+|     |                                      |         |     +**Ephippiorhinchus_senegalensis
+|     |                                      |         |  +--|
+|     |                                      |         |  |  +**Ephippiorhinchus_asiaticus
+|     |                                      |         +--|
+|     |                                      |            |  +**Ciconia_ciconia
+|     |                                      |            +--|
+|     |                                      |               +**Ciconia_maguari
+|     |                                   +--|
+|     |                                   |  |         +------------Balaeniceps_rex
+|     |                                   |  |     +---|
+|     |                                   |  |     |   +----Scopus_umbretta
+|     |                                   |  |  +**|
+|     |                                   |  |  |  |                +---Cochlearius_cochlearius
+|     |                                   |  |  |  |             +--|
+|     |                                   |  |  |  |             |  |  +--Botaurus_lentiginosus
+|     |                                   |  |  |  |             |  +--|
+|     |                                   |  |  |  |             |     +--Ixobrychus_exilis
+|     |                                   |  |  |  |          +--|
+|     |                                   |  |  |  |          |  +--Ardea_alba
+|     |                                   |  |  |  +----------|
+|     |                                   |  |  |             +--Nycticorax_nycticorax
+|     |                                   |  +--|
+|     |                                   |     |        +--Platalea_ajaja
+|     |                                   |     +--------|
+|     |                                   |              |     +**Threskiornis_aethiopicus
+|     |                                   |              |  +--|
+|     |                                   |              |  |  +**Threskiornis_melanocephalus
+|     |                                   |              +--|
+|     |                                   |                 +--Plegadis_chihi
+|     |                             +-----|
+|     |                             |     |               +--Meleagris_gallopavo
+|     |                             |     |        +------|
+|     |                             |     |        |      +--Acrylium_vulturinum
+|     |                             |     +--------|
+|     |                             |              |         +--Anseranas_semipalmata
+|     |                             |              +---------|
+|     |                             |                        +--Dendrocygna_viduata
+|     |                          +--|
+|     |                          |  |                  +--Phalcoboenus_megalopterus
+|     |                          |  |               +--|
+|     |                          |  |               |  +--Caracara_cherwayi
+|     |                          |  |            +--|
+|     |                          |  |            |  |  +**Milvago_chimango
+|     |                          |  |            |  +--|
+|     |                          |  |            |     +**Milvago_chimachima
+|     |                          |  |         +**|
+|     |                          |  |         |  |  +**Falco_tinnunculus
+|     |                          |  |         |  +--|
+|     |                          |  |         |     +**Falco_peregrinus
+|     |                          |  +---------|
+|     |                          |            |  +--Herpetotheres_cachinnans
+|     |                          |            +--|
+|     |                          |               +**Mirastur_gilvicollis
+|     |  +-----------------------|
+|     |  |                       |  +-----------Sagittarius_serpentarius
+|     |  |                       +--|
+|     |  |                          |    +-----Pandion_haliaetus
+|     |  |                          +----|
+|     |  |                               |              +**Pernis_apivorus
+|     |  |                               |           +--|
+|     |  |                               |           |  +**Pernis_ptilorhinchus
+|     |  |                               |        +--|
+|     |  |                               |        |  +--Aviceda_subcristata
+|     |  |                               |     +--|
+|     |  |                               |     |  +--Leptodon_cayannensis
+|     |  |                               |  +--|
+|     |  |                               |  |  |   +--Polyboroides_typus
+|     |  |                               |  |  +---|
+|     |  |                               |  |      +--Geranospiza_caerulescens
+|     |  |                               +--|
+|     |  |                                  |     +--Elanus_caeruleus
+|     |  |                                  |  +--|
+|     |  |                                  |  |  +--Gampsonyx_swainsoni
+|     |  |                                  +--|
+|     |  |                                     |        +--Haliastur_indus
+|     |  |                                     |     +--|
+|     |  |                                     |     |  +**Milvus_migrans
+|     |  |                                     |  +--|
+|     |  |                                     |  |  +--Rostrhamus_sociabilis
+|     |  |                                     +--|
+|     |  |                                        |      +--Necrosyrtes_monachus
+|     |  |                                        |  +---|
+|     |  |                                        |  |   |  +--Gyps_africanus
+|     |  |                                        |  |   +--|
+|     |  |                                        |  |      +--Torgos_tracheliotus
+|     |  |                                        +--|
+|     |  |                                           |                 +--Gypaetus_barbatus
+|     |  |                                           |              +--|
+|     |  |                                           |              |  |  +--Neophron_percnopterus
+|     |  |                                           |              |  +--|
+|     |  |                                           |              |     +--Gypohierax_angolensis
+|     |  |                                           |           +--|
+|     |  |                                           |           |  |  +--Haliaetus_leucocephalus
+|     |  |                                           |           |  +--|
+|     |  |                                           |           |     +--Ichtyophaga
+|     |  |                                           |        +--|
+|     |  |                                           |        |  +--Circaetus
+|     |  |                                           |     +--|
+|     |  |                                           |     |  |  +--Buteo_swainsonii
+|     |  |                                           |     |  +--|
+|     |  |                                           |     |     +**Parabuteo_unicinctus
+|     |  |                                           |  +--|
+|     |  |                                           |  |  |     +---Accipiter_gentilis
+|     |  |                                           |  |  |  +--|
+|     |  |                                           |  |  |  |  +--Circus_cyaneus
+|     |  |                                           |  |  +--|
+|     |  |                                           |  |     +----Pithecophaga_jefferyi
+|     |  |                                           +--|
+|     |  |                                              |  +--Stephanoetus_coronatus
+|     |  |                                              +--|
+|     |  |                                                 +**Aquila_audax
+|     +**|
+|        +**Pampagyps_imperator
+|
+|         +--Cathartes_aura
+|      +--|
+|      |  +**Cathartes_burrovianus
++------|
+       +**Cathartes_melambrotus
+
+Tree in newick format:
+
+(Coragyps_atratus:0.0605743350,((Sarcoramphus_papa:0.0000024364,(Vultur_gryphus:0.0522945172,(Gymnogyps_californianus:0.0354867394,Dryornis_pampeanus:0.0864357204):0.0120522648):0.0814236490):0.0469601328,((((((((Anastomus_lamelligerus:0.0000010000,Anastomus_oscitans:0.0000010000):0.0211461905,((Mycteria_leucocephalus:0.0053842935,Mycteria_americana:0.0052947899):0.0264682006,((Leptoptilos_javanicus:0.0000010000,Leptoptilos_crumeniferus:0.0000010000):0.0572805799,Jabiru_mycteria:0.0057758625):0.0255014615):0.0231458079):0.0117813808,((Ephippiorhinchus_senegalensis:0.0000021930,Ephippiorhinchus_asiaticus:0.0000029383):0.0216314223,(Ciconia_ciconia:0.0000010000,Ciconia_maguari:0.0000010000):0.0164180142):0.0106152035):0.1765600037,(((Balaeniceps_rex:0.2265972761,Scopus_umbretta:0.0871397013):0.0675216235,(((Cochlearius_cochlearius:0.0707158926,(Botaurus_lentiginosus:0.0108604873,Ixobrychus_exilis:0.0124420416):0.0185151367):0.0186962687,Ardea_alba:0.0121960812):0.0135830285,Nycticorax_nycticorax:0.0133526778):0.1902011875):0.0006230172,(Platalea_ajaja:0.0272046319,((Threskiornis_aethiopicus:0.0000010000,Threskiornis_melanocephalus:0.0000010000):0.0109524072,Plegadis_chihi:0.0207532814):0.0212042707):0.1604388874):0.0153393072):0.0321344274,((Meleagris_gallopavo:0.0192001271,Acrylium_vulturinum:0.0084285998):0.1150852819,(Anseranas_semipalmata:0.0098239536,Dendrocygna_viduata:0.0228543141):0.1782242140):0.1483448222):0.1035228892,((((Phalcoboenus_megalopterus:0.0052569715,Caracara_cherwayi:0.0106284849):0.0106633215,(Milvago_chimango:0.0000010000,Milvago_chimachima:0.0000010000):0.0052634770):0.0215794652,(Falco_tinnunculus:0.0000010000,Falco_peregrinus:0.0000010000):0.0396746498):0.0029474627,(Herpetotheres_cachinnans:0.0106136507,Mirastur_gilvicollis:0.0000025079):0.0077667211):0.1669499840):0.0138306485,(Sagittarius_serpentarius:0.2037314834,(Pandion_haliaetus:0.1142806299,(((((Pernis_apivorus:0.0000010000,Pernis_ptilorhinchus:0.0000010000):0.0265182841,Aviceda_subcristata:0.0455335597):0.0123967140,Leptodon_cayannensis:0.0314631208):0.0205961125,(Polyboroides_typus:0.0159223028,Geranospiza_caerulescens:0.0156697601):0.0658099674):0.0283039332,((Elanus_caeruleus:0.0240661131,Gampsonyx_swainsoni:0.0365032060):0.0343780339,(((Haliastur_indus:0.0104192241,Milvus_migrans:0.0000024599):0.0159331624,Rostrhamus_sociabilis:0.0103387818):0.0332707036,((Necrosyrtes_monachus:0.0118649116,(Gyps_africanus:0.0539464223,Torgos_tracheliotus:0.0332504811):0.0496553676):0.0680563178,((((((Gypaetus_barbatus:0.0478559795,(Neophron_percnopterus:0.0103055124,Gypohierax_angolensis:0.0212391231):0.0219956817):0.0270355195,(Haliaetus_leucocephalus:0.0304613534,Ichtyophaga:0.0301657463):0.0243993774):0.0144448217,Circaetus:0.0404605344):0.0108965903,(Buteo_swainsonii:0.0155298862,Parabuteo_unicinctus:0.0000020080):0.0491256369):0.0135596642,((Accipiter_gentilis:0.0676092865,Circus_cyaneus:0.0520023177):0.0482897913,Pithecophaga_jefferyi:0.0866527761):0.0233594386):0.0059007959,(Stephanoetus_coronatus:0.0052086952,Aquila_audax:0.0000024226):0.0508796745):0.0210785772):0.0158837530):0.0055701368):0.0186931034):0.0633962848):0.0951170781):0.0070629444):0.4045141478,Pampagyps_imperator:0.0000021674):0.0000021954):0.1134016512,((Cathartes_aura:0.0099871120,Cathartes_burrovianus:0.0000010000):0.0097160046,Cathartes_melambrotus:0.0002719053):0.1174614380);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/D21/Pampagyps_imperator/H_Cathartidae.treefile -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/D21/Pampagyps_imperator/H_Cathartidae.best_model.nex
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/D21/D21.phy --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/D21/D21.phy --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Sun Oct 18 00:16:10 2026
+Total CPU time used: 66.7699 seconds (0h:1m:6s)
+Total wall-clock time used: 34.4408 seconds (0h:0m:34s)
+

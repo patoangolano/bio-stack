@@ -1,0 +1,298 @@
+IQ-TREE 3.1.4 built Sep 29 2026
+
+Partition file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/VZ26/particoes.nex
+Input file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/VZ26/VZ26.phy
+Type of analysis: ModelFinder + tree reconstruction + ultrafast bootstrap (1000 replicates)
+Random seed number: 20261017
+
+REFERENCES
+----------
+
+To cite IQ-TREE 3 please use:
+
+Thomas K.F. Wong, Nhan Ly-Trong, Huaiyan Ren, Piyumal Demotte, Hector Banos,
+Andrew J. Roger, Edward Susko, Chris Bielow, Nicola De Maio, Nick Goldman,
+Matthew W. Hahn, Mario dos Reis, Le Sy Vinh, Gavin Huttley, Robert Lanfear, Bui Quang Minh (2026)
+IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models.
+Molecular Biology and Evolution, msag117.
+https://doi.org/10.1093/molbev/msag117
+
+Since you used ModelFinder please also cite: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used ultrafast bootstrap (UFBoot) please also cite: 
+
+Diep Thi Hoang, Olga Chernomor, Arndt von Haeseler, Bui Quang Minh,
+and Le Sy Vinh (2018) UFBoot2: Improving the ultrafast bootstrap
+approximation. Mol. Biol. Evol., 35:518–522.
+https://doi.org/10.1093/molbev/msx281
+
+Since you used partition models please also cite:
+
+Olga Chernomor, Arndt von Haeseler, and Bui Quang Minh (2016)
+Terrace aware data structure for phylogenomic inference from
+supermatrices. Syst. Biol., 65:997-1008.
+https://doi.org/10.1093/sysbio/syw037
+
+SEQUENCE ALIGNMENT
+------------------
+
+NOTE: Alignment sequence type is auto-detected. If in doubt, specify it via -st option.
+Input data: 42 taxa with 2 partitions and 105 total sites (0% missing data)
+
+  ID	Type	Seq	Site	Unique	Infor	Invar	Const	Name
+   1	MORPH	42	97	96	95	0	0	k2
+   2	MORPH	42	8	8	7	0	0	k3
+
+Column meanings:
+  Unique: Number of unique site patterns
+  Infor:  Number of parsimony-informative sites
+  Invar:  Number of invariant sites
+  Const:  Number of constant sites (can be subset of invariant sites)
+
+SUBSTITUTION PROCESS
+--------------------
+
+Edge-linked-proportional partition model with separate substitution models and separate rates across sites
+
+  ID  Model           Speed  Parameters
+   1  MK+FQ+ASC+G4   0.9156  MK+FQ+ASC+G4{998.814}
+   2  MK+FQ+ASC+G4   2.0239  MK+FQ+ASC+G4{998.384}
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -1683.8363 (s.e. 62.9696)
+Unconstrained log-likelihood (without tree): -458.9962
+Number of free parameters (#branches + #model parameters): 84
+Akaike information criterion (AIC) score: 3535.6727
+Corrected Akaike information criterion (AICc) score: 4249.6727
+Bayesian information criterion (BIC) score: 3758.6054
+
+Marginal log-likelihood of the tree: -1693.6736
+Marginal Akaike information criterion (mAIC) score: 3555.3472
+
+Total tree length (sum of branch lengths): 4.1997
+Sum of internal branch lengths: 2.0419 (48.6202% of tree length)
+
+WARNING: 2 near-zero internal branches (<0.0095) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Anhimidae' is drawn at root
+Numbers in parentheses are SH-aLRT support (%) / ultrafast bootstrap support (%)
+
++-----------------------Anhimidae
+|
+|           +-----------Falconidae
+|     +-----| (87/74)
+|     |     +---------Strigiformes
+|  +--| (45.6/41)
+|  |  +-----Leptosomidae
++--| (30.6/12)
+|  |                                   +**Vastanavis
+|  |                               +---| (97.1/95)
+|  |                               |   +**Avolatavis
+|  |                 +-------------| (93.1/91)
+|  |                 |             +**Eurofluvioviridavis
+|  |      +----------| (89.5/62)
+|  |      |          |                   +**Pseudasturides
+|  |      |          |     +-------------| (93.7/52)
+|  |      |          |     |             |     +**Cyrilavis
+|  |      |          |     |             |  +--| (75.9/39)
+|  |      |          |     |             |  |  |  +--Serudaptus
+|  |      |          |     |             |  |  +--| (84.6/44)
+|  |      |          |     |             |  |     |          +--Messelastur
+|  |      |          |     |             |  |     +----------| (97.9/100)
+|  |      |          |     |             |  |                +**Tynskya
+|  |      |          |     |             +**| (0/20)
+|  |      |          |     |                +**Pulchrapollia
+|  |      |          +-----| (44.2/53)
+|  |      |                +**Scopsoides
+|  +------| (73.6/32)
+|         +---------------Sandcoleidae
+|
+|                              +**Psittaciformes
+|                   +----------| (90.5/79)
+|                   |          +------------------Quercypsitta
+|               +---| (78.4/47)
+|               |   +------Namapsitta
+|          +----| (77.2/23)
+|          |    +--------Eofringillirostrum
+|       +--| (45.5/6)
+|       |  |     +--------------------------Coliidae
+|       |  +-----| (87.2/18)
+|       |        |                     +----------Passeriformes
+|       |        |               +-----| (92.4/74)
+|       |        |               |     |   +**Zygodactylus
+|       |        |               |     +---| (76.3/53)
+|       |        |               |         |  +-------Primoscens
+|       |        |               |         +--| (75.4/49)
+|       |        |               |            +--Primozygodactylus
+|       |        |  +------------| (99.2/92)
+|       |        |  |            +**Minutornis
+|       |        +--| (78.8/63)
+|       |           |                   +-----Pumiliornis
+|       |           |             +-----| (86.7/83)
+|       |           |             |     |  +**Morsoravis
+|       |           |             |     +**| (0/77)
+|       |           |             |        +**Sororavis
+|       |           |   +---------| (95.9/96)
+|       |           |   |         +**Consoravis
+|       |           +---| (76.9/58)
+|       |               |   +**Psittacopes
+|       |               +---| (84.4/48)
+|       |                   |                  +--Parapsittacopes
+|       |                   +------------------| (100/99)
+|       |                                      +**Psittacomimus
+|  +----| (90.1/22)
+|  |    |  +----------------Trogonidae
+|  |    +--| (75.6/41)
+|  |       +-----Eocuculus
++--| (82/45)
+   |                       +-------Alcedinidae
+   |                  +----| (52/69)
+   |                  |    +--Momotidae
+   |        +---------| (95.8/96)
+   |        |         +--Meropidae
+   |     +--| (67.9/69)
+   |     |  +--Coraciidae
+   +-----| (94.9/60)
+         |              +---------------Upupidae
+         |  +-----------| (98.6/95)
+         |  |           +--Bucerotidae
+         +--| (74.6/45)
+            |        +--------------------Pici
+            +--------| (92.3/57)
+                     +------Galbulae
+
+Tree in newick format:
+
+(Anhimidae:0.1985806155,(((Falconidae:0.1048214302,Strigiformes:0.0841807342)87/74:0.0549192082,Leptosomidae:0.0497197986)45.6/41:0.0309261844,((((Vastanavis:0.0000024711,Avolatavis:0.0000010000)97.1/95:0.0345323985,Eurofluvioviridavis:0.0000020011)93.1/91:0.1188186958,((Pseudasturides:0.0000010000,((Cyrilavis:0.0000022042,(Serudaptus:0.0186879433,(Messelastur:0.0181220069,Tynskya:0.0000010000)97.9/100:0.0898636818)84.6/44:0.0289477753)75.9/39:0.0131839929,Pulchrapollia:0.0000010000)0/20:0.0000024409)93.7/52:0.1147558935,Scopsoides:0.0000025293)44.2/53:0.0510589445)89.5/62:0.0928225884,Sandcoleidae:0.1329514064)73.6/32:0.0572750800)30.6/12:0.0219845339,((((((Psittaciformes:0.0000022930,Quercypsitta:0.1565483751)90.5/79:0.0904014385,Namapsitta:0.0587949867)78.4/47:0.0403581785,Eofringillirostrum:0.0801743064)77.2/23:0.0418127661,(Coliidae:0.2221453317,(((Passeriformes:0.0967240994,(Zygodactylus:0.0000025055,(Primoscens:0.0683686249,Primozygodactylus:0.0306766668)75.4/49:0.0212117029)76.3/53:0.0340941145)92.4/74:0.0546914188,Minutornis:0.0000021949)99.2/92:0.1119399732,(((Pumiliornis:0.0560852076,(Morsoravis:0.0000026576,Sororavis:0.0000010000)0/77:0.0000025414)86.7/83:0.0525315403,Consoravis:0.0000025244)95.9/96:0.0867771330,(Psittacopes:0.0000020853,(Parapsittacopes:0.0233001462,Psittacomimus:0.0000027745)100/99:0.1605591666)84.4/48:0.0362519928)76.9/58:0.0337484630)78.8/63:0.0278642245)87.2/18:0.0515842940)45.5/6:0.0250403482,(Trogonidae:0.1420713554,Eocuculus:0.0540038712)75.6/41:0.0241108442)90.1/22:0.0406729099,((((Alcedinidae:0.0724030465,Momotidae:0.0274139351)52/69:0.0426069712,Meropidae:0.0219551136)95.8/96:0.0893927869,Coraciidae:0.0236598608)67.9/69:0.0310820985,((Upupidae:0.1327260654,Bucerotidae:0.0168256127)98.6/95:0.1006978763,(Pici:0.1711552725,Galbulae:0.0611221354)92.3/57:0.0766971924)74.6/45:0.0173941237)94.9/60:0.0521020140)82/45:0.0237097756);
+
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000 bootstrap trees
+Log-likelihood of consensus tree: -1688.794044
+Robinson-Foulds distance between ML tree and consensus tree: 14
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
++------------------Anhimidae
+|
+|         +----------Falconidae
+|   +-----| (74)
+|   |     +-------Strigiformes
++---| (41)
+|   +--Leptosomidae
+|
+|                            +--Psittaciformes
+|                  +---------| (79)
+|                  |         +---------------Quercypsitta
+|               +--| (47)
+|               |  +----Namapsitta
+|            +--| (23)
+|            |  +-----Eofringillirostrum
+|         +--| (8)
+|         |  |                                +--Vastanavis
+|         |  |                             +--| (95)
+|         |  |                             |  +--Avolatavis
+|         |  |             +---------------| (91)
+|         |  |             |               +--Eurofluvioviridavis
+|         |  +-------------| (62)
+|         |                |               +--Pseudasturides
+|         |                |            +--| (26)
+|         |                |            |  +--Pulchrapollia
+|         |                |  +---------| (52)
+|         |                |  |         |  +--Cyrilavis
+|         |                |  |         +--| (39)
+|         |                |  |            |  +--Serudaptus
+|         |                |  |            +--| (44)
+|         |                |  |               |        +--Messelastur
+|         |                |  |               +--------| (100)
+|         |                |  |                        +--Tynskya
+|         |                +--| (53)
+|         |                   +--Scopsoides
+|      +--| (1)
+|      |  |                        +---------Passeriformes
+|      |  |                   +----| (74)
+|      |  |                   |    |  +--Zygodactylus
+|      |  |                   |    +--| (53)
+|      |  |                   |       |  +------Primoscens
+|      |  |                   |       +--| (49)
+|      |  |                   |          +--Primozygodactylus
+|      |  |       +-----------| (92)
+|      |  |       |           +--Minutornis
+|      |  +-------| (63)
+|      |          |                +----Pumiliornis
+|      |          |           +----| (83)
+|      |          |           |    |  +--Morsoravis
+|      |          |           |    +--| (77)
+|      |          |           |       +--Sororavis
+|      |          |  +--------| (96)
+|      |          |  |        +--Consoravis
+|      |          +--| (58)
+|      |             |  +--Psittacopes
+|      |             +--| (48)
+|      |                |               +--Parapsittacopes
+|      |                +---------------| (99)
+|      |                                +--Psittacomimus
+|   +--| (14)
+|   |  |              +----------------Coliidae
+|   |  |  +-----------| (45)
+|   |  |  |           +--------Sandcoleidae
+|   |  +--| (6)
+|   |     |  +-------------Trogonidae
+|   |     +--| (41)
+|   |        +----Eocuculus
++---| (31)
+    |                    +------Alcedinidae
+    |                +---| (69)
+    |                |   +--Momotidae
+    |       +--------| (96)
+    |       |        +--Meropidae
+    |    +--| (69)
+    |    |  +--Coraciidae
+    +----| (60)
+         |            +-------------Upupidae
+         |  +---------| (95)
+         |  |         +--Bucerotidae
+         +--| (45)
+            |       +----------------Pici
+            +-------| (57)
+                    +-----Galbulae
+
+
+Consensus tree in newick format: 
+
+(Anhimidae:0.1798685922,((Falconidae:0.1079048255,Strigiformes:0.0830008892)74:0.0637102310,Leptosomidae:0.0357424824)41:0.0450654009,(((((((Psittaciformes:0.0000021328,Quercypsitta:0.1564425224)79:0.0987172951,Namapsitta:0.0520232096)47:0.0292816486,Eofringillirostrum:0.0574398612)23:0.0139459377,(((Vastanavis:0.0000029148,Avolatavis:0.0000022212)95:0.0337073833,Eurofluvioviridavis:0.0000022212)91:0.1548063376,(((Pseudasturides:0.0000022212,Pulchrapollia:0.0000022212)26:0.0000022212,(Cyrilavis:0.0000022212,(Serudaptus:0.0186595941,(Messelastur:0.0181007839,Tynskya:0.0000022084)100:0.0902432508)44:0.0290650265)39:0.0137717452)52:0.1015062399,Scopsoides:0.0000022212)53:0.0319784804)62:0.1380720743)8:0.0336630639,(((Passeriformes:0.1038483493,(Zygodactylus:0.0000022212,(Primoscens:0.0684127706,Primozygodactylus:0.0277254677)49:0.0189474545)53:0.0315926671)74:0.0558324254,Minutornis:0.0000022212)92:0.1169183584,(((Pumiliornis:0.0560420178,(Morsoravis:0.0000022212,Sororavis:0.0000029997)77:0.0000022966)83:0.0519997476,Consoravis:0.0000022212)96:0.0903103884,(Psittacopes:0.0000022084,(Parapsittacopes:0.0232885632,Psittacomimus:0.0000022084)99:0.1596392831)48:0.0344883258)58:0.0234151985)63:0.0817308504)1:0.0378269343,((Coliidae:0.1670730751,Sandcoleidae:0.0891156941)45:0.1163336879,(Trogonidae:0.1348496745,Eocuculus:0.0502884293)41:0.0335102455)6:0.0108578431)14:0.0345207182,((((Alcedinidae:0.0724059658,Momotidae:0.0273787619)69:0.0428406200,Meropidae:0.0217373315)96:0.0876213334,Coraciidae:0.0257504788)69:0.0305622383,((Upupidae:0.1326607228,Bucerotidae:0.0168710836)95:0.0994162011,(Pici:0.1701746424,Galbulae:0.0620006566)57:0.0770370390)45:0.0167889502)60:0.0525414181)31:0.0392505101);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/VZ26/livre.treefile -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/VZ26/livre.best_model.nex
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/VZ26/VZ26.phy --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/VZ26/VZ26.phy --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Sat Oct 17 23:23:38 2026
+Total CPU time used: 63.440685 seconds (0h:1m:3s)
+Total wall-clock time used: 32.69464779 seconds (0h:0m:32s)
+

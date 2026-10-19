@@ -1,0 +1,125 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    Matheus (AVX2, FMA3, 15 GB RAM)
+Command: /home/manec/.pixi/envs/iqtree/bin/iqtree3 -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy -st MORPH -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/particoes.nex -g /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Falconidae.nwk --seed 20261017 -T 1 --prefix /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Falconidae -redo --quiet
+Seed:    20261017 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Sat Oct 17 23:36:34 2026
+Kernel:  AVX+FMA - 1 threads (20 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 20 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading partition model file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/particoes.nex ...
+Partition file is in NEXUS format...
+Reading alignment file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy ... Phylip format detected
+Alignment most likely contains 4-state morphological data
+Constructing alignment: done in 0.000114202 secs
+Alignment has 13 sequences with 40 columns, 36 distinct patterns
+38 parsimony-informative, 2 singleton sites, 0 constant sites
+                Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 1.71661e-05 secs
+   1  Anhimidae         0.00%    failed      0.01%
+   2  Opisthocomidae    0.00%    failed      0.97%
+   3  Cathartidae       0.00%    failed      0.34%
+   4  Falconidae        0.00%    failed      0.38%
+   5  Paracrax         62.50%    passed     15.44%
+   6  Bathornis        25.00%    passed     61.88%
+   7  Ameghinornis     75.00%    passed     37.86%
+   8  Dynamopterus     37.50%    passed     65.67%
+   9  Elaphrocnemus    40.00%    passed     36.72%
+  10  Cariama           0.00%    passed     17.80%
+  11  Psilopterus      12.50%    failed      0.00%
+  12  Patagornis       17.50%    failed      0.00%
+  13  Llallawavis      22.50%    failed      0.01%
+WARNING: 2 sequences contain more than 50% gaps/ambiguity
+****  TOTAL            22.50%  7 sequences failed composition chi2 test (p-value<5%; df=3)
+Loading 2 partitions...
+Subset	Type	Seqs	Sites	Infor	Invar	Model	Name
+1	MORPH	13	37	36	0	MK+ASC+G4	k2
+2	MORPH	13	3	2	0	MK+ASC+G4	k3
+Degree of missing data: 0.000
+Reading constraint tree /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Falconidae.nwk...
+WARNING: Rooted constraint tree will be treated as unrooted tree
+WARNING: State(s) 2, 3 rarely appear in partition 1 and may cause numerical problems
+Creating fast initial parsimony tree by random order stepwise addition...
+0.002 seconds, parsimony score: 75 (based on 40 sites)
+
+NOTE: 0 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -335.654
+Current log-likelihood at step 1: -321.706
+Current log-likelihood at step 2: -321.533
+Current log-likelihood at step 3: -321.033
+Current log-likelihood at step 4: -321.018
+Partition-specific rates:  0.876 2.531
+Parameters optimization took 3 rounds (0.008 sec)
+
+Wrote distance file to... 
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 99 parsimony trees... 0.025 second
+Computing log-likelihood of 99 initial trees ... 0.038 seconds
+Current best score: -319.796
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -313.938
+Current log-likelihood at step 1: -313.665
+Current log-likelihood at step 2: -313.650
+Parameters optimization took 1 rounds (0.002 sec)
+
+BETTER TREE FOUND at iteration 1: -313.650
+Iteration 10 / LogL: -313.881 / Time: 0h:0m:0s
+Iteration 20 / LogL: -315.388 / Time: 0h:0m:0s
+Finish initializing candidate tree set (6)
+Current best tree score: -313.650 / CPU time: 0.194
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+BETTER TREE FOUND at iteration 22: -313.645
+Iteration 30 / LogL: -313.882 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 40 / LogL: -313.650 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -313.645
+Iteration 50 / LogL: -313.645 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 60 / LogL: -313.881 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -313.645
+Iteration 70 / LogL: -313.881 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -313.645
+Iteration 80 / LogL: -315.392 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 90 / LogL: -313.881 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 100 / LogL: -313.883 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 110 / LogL: -313.645 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 120 / LogL: -313.881 / Time: 0h:0m:0s (0h:0m:0s left)
+TREE SEARCH COMPLETED AFTER 123 ITERATIONS / Time: 0h:0m:0s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+Initial log-likelihood: -313.645
+Current log-likelihood at step 1: -313.643
+Partition-specific rates:  0.810 3.341
+Parameters optimization took 0 rounds (0.002 sec)
+
+Partition information was printed to /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Falconidae.best_model.nex
+BEST SCORE FOUND : -313.643
+Total tree length: 2.887
+
+Total number of iterations: 123
+CPU time used for tree search: 0.595 sec (0h:0m:0s)
+Wall-clock time used for tree search: 0.643 sec (0h:0m:0s)
+Total CPU time used: 0.609 sec (0h:0m:0s)
+Total wall-clock time used: 0.692 sec (0h:0m:0s)
+
+Analysis results written to: 
+  IQ-TREE report:                /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Falconidae.iqtree
+  Maximum-likelihood tree:       /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Falconidae.treefile
+  Screen log file:               /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Falconidae.log
+
+Date and Time: Sat Oct 17 23:36:35 2026

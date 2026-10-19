@@ -1,0 +1,237 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    2986b6b30993 (AVX2, FMA3, 15 GB RAM)
+Command: iqtree -m MFP -B 1000 --bnni --alrt 1000 --abayes --seed 12345 -o Gallus_gallus -st DNA -s SETMAR.entrada.fa -pre SETMAR -T 1 -mem 1GB
+Seed:    12345 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Sun Oct 18 13:40:37 2026
+Kernel:  AVX+FMA - 1 threads (20 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 20 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading alignment file SETMAR.entrada.fa ... Fasta format detected
+Reading fasta file: done in 0.000770807 secs using 99.9% CPU
+Alignment most likely contains DNA/RNA sequences
+Constructing alignment: done in 0.000465155 secs using 99.75% CPU
+Alignment has 54 sequences with 726 columns, 382 distinct patterns
+203 parsimony-informative, 177 singleton sites, 346 constant sites
+                          Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 5.38826e-05 secs using 94.65% CPU
+   1  Gallus_gallus              18.18%    failed      0.01%
+   2  Anas_platyrhynchos         21.21%    passed     93.72%
+   3  Columba_livia              20.11%    passed     99.42%
+   4  Tauraco_erythrolophus      19.28%    passed     73.85%
+   5  Chlamydotis_macqueenii     19.01%    passed     90.21%
+   6  Cuculus_canorus            19.83%    passed     58.05%
+   7  Calypte_anna               16.53%    passed     99.04%
+   8  Apus_apus                  17.36%    passed     72.96%
+   9  Antrostomus_carolinensis   26.72%    passed     89.03%
+  10  Opisthocomus_hoazin        19.01%    passed     96.79%
+  11  Grus_americana             19.01%    passed     96.28%
+  12  Rissa_tridactyla           18.46%    passed     88.77%
+  13  Eurypyga_helias            23.83%    passed     64.47%
+  14  Phaethon_lepturus          27.00%    passed     76.22%
+  15  Gavia_stellata             19.01%    passed     99.48%
+  16  Aptenodytes_patagonicus    19.83%    passed     94.18%
+  17  Fulmarus_glacialis         27.00%    passed     35.68%
+  18  Ciconia_boyciana           25.07%    passed     29.96%
+  19  Pelecanus_crispus          19.01%    passed     94.99%
+  20  Gymnogyps_californianus     5.51%    passed     27.91%
+  21  Sagittarius_serpentarius   19.01%    passed     99.78%
+  22  Pandion_haliaetus          26.17%    passed     41.14%
+  23  Elanus_axillaris           19.01%    passed     96.46%
+  24  Gypaetus_barbatus          19.01%    passed     98.52%
+  25  Leptodon_cayanensis        26.17%    passed     51.84%
+  26  Aegypius_monachus          19.01%    passed     98.80%
+  27  Pithecophaga_jefferyi      19.01%    passed     96.28%
+  28  Harpia_harpyja             19.83%    passed     78.74%
+  29  Aquila_chrysaetos          19.01%    passed     92.15%
+  30  Haliaeetus_albicilla       26.45%    passed     33.95%
+  31  Buteo_buteo                19.01%    passed     91.54%
+  32  Herpetotheres_cachinnans   19.83%    passed     64.94%
+  33  Ibycter_americanus         26.17%    passed     31.11%
+  34  Falco_peregrinus           19.83%    passed     81.53%
+  35  Falco_naumanni             20.11%    passed     83.30%
+  36  Tyto_alba                  19.83%    passed     96.76%
+  37  Strix_aluco                18.46%    passed     89.97%
+  38  Athene_noctua              18.18%    passed     98.80%
+  39  Ninox_strenua              24.79%    passed     54.93%
+  40  Cariama_cristata           27.00%    passed     57.16%
+  41  Strigops_habroptila        19.01%    passed     97.69%
+  42  Nestor_notabilis           27.00%    passed     44.80%
+  43  Melopsittacus_undulatus    19.01%    passed     93.24%
+  44  Acanthisitta_chloris       27.82%    passed     28.97%
+  45  Chiroxiphia_lanceolata     21.21%    failed      0.41%
+  46  Taeniopygia_guttata        17.08%    failed      0.15%
+  47  Corvus_cornix              20.66%    passed     15.04%
+  48  Colius_striatus            19.83%    passed     47.55%
+  49  Leptosomus_discolor        19.83%    passed     96.58%
+  50  Apaloderma_vittatum        17.63%    passed     85.07%
+  51  Buceros_rhinoceros         38.29%    passed     97.96%
+  52  Dryobates_pubescens        19.01%    failed      1.62%
+  53  Indicator_indicator         5.51%    failed      3.44%
+  54  Pogoniulus_pusillus        19.01%    passed     30.75%
+****  TOTAL                      20.70%  5 sequences failed composition chi2 test (p-value<5%; df=3)
+Checking for duplicate sequences: done in 0.000109911 secs using 99.17% CPU
+
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.002 seconds
+Perform fast likelihood tree search using GTR+I+G model...
+Estimate model parameters (epsilon = 5.000)
+Perform nearest neighbor interchange...
+Estimate model parameters (epsilon = 1.000)
+1. Initial log-likelihood: -6343.453
+Optimal log-likelihood: -6343.078
+Rate parameters:  A-C: 2.03022  A-G: 3.70077  A-T: 0.37473  C-G: 3.04515  C-T: 3.45378  G-T: 1.00000
+Base frequencies:  A: 0.257  C: 0.217  G: 0.288  T: 0.237
+Proportion of invariable sites: 0.248
+Gamma shape alpha: 0.774
+Parameters optimization took 1 rounds (0.026 sec)
+Time for fast ML tree search: 0.248 seconds
+
+NOTE: ModelFinder requires 8 MB RAM!
+ModelFinder will test up to 968 DNA models (sample size: 726 epsilon: 0.100) ...
+Akaike Information Criterion:           TVM+F+I+G4
+Corrected Akaike Information Criterion: TVM+F+I+G4
+Bayesian Information Criterion:         GTR+I+G4
+Best-fit model: GTR+I+G4 chosen according to BIC
+
+All model information printed to SETMAR.model.gz
+CPU time for ModelFinder: 2.519 seconds (0h:0m:2s)
+Wall-clock time for ModelFinder: 2.531 seconds (0h:0m:2s)
+Generating 1000 samples for ultrafast bootstrap (seed: 12345)...
+
+NOTE: 4 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+Thoroughly optimizing +I+G parameters from 10 start values...
+Init pinv, alpha: 0.000, 1.186 / Estimate: 0.000, 0.419 / LogL: -6352.960
+Init pinv, alpha: 0.053, 1.186 / Estimate: 0.303, 0.971 / LogL: -6341.681
+Init pinv, alpha: 0.106, 1.186 / Estimate: 0.302, 0.967 / LogL: -6341.700
+Init pinv, alpha: 0.159, 1.186 / Estimate: 0.304, 0.974 / LogL: -6341.672
+Init pinv, alpha: 0.212, 1.186 / Estimate: 0.303, 0.972 / LogL: -6341.679
+Init pinv, alpha: 0.265, 1.186 / Estimate: 0.303, 0.968 / LogL: -6341.691
+Init pinv, alpha: 0.318, 1.186 / Estimate: 0.324, 1.076 / LogL: -6341.370
+Init pinv, alpha: 0.371, 1.186 / Estimate: 0.354, 1.257 / LogL: -6341.375
+Init pinv, alpha: 0.424, 1.186 / Estimate: 0.356, 1.277 / LogL: -6341.422
+Init pinv, alpha: 0.477, 1.186 / Estimate: 0.356, 1.271 / LogL: -6341.403
+Optimal pinv,alpha: 0.324, 1.076 / LogL: -6341.370
+
+Parameters optimization took 2.223 sec
+Wrote distance file to... 
+Computing ML distances based on estimated model parameters...
+Calculating distance matrix: done in 0.00541711 secs using 100% CPU
+Computing ML distances took 0.005566 sec (of wall-clock time) 0.005568 sec (of CPU time)
+Setting up auxiliary I and S matrices: done in 0.000142097 secs using 99.93% CPU
+Constructing RapidNJ tree: done in 0.000212908 secs using 99.57% CPU
+Computing RapidNJ tree took 0.000423 sec (of wall-clock time) 0.000423 sec (of CPU time)
+Log-likelihood of RapidNJ tree: -6405.609
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 98 parsimony trees... 0.218 second
+Computing log-likelihood of 98 initial trees ... 0.412 seconds
+Current best score: -6341.370
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 1: -6341.345
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 2: -6337.410
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 3: -6337.144
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 6: -6333.267
+Iteration 10 / LogL: -6343.464 / Time: 0h:0m:6s
+Iteration 20 / LogL: -6343.974 / Time: 0h:0m:7s
+Finish initializing candidate tree set (20)
+Current best tree score: -6333.267 / CPU time: 3.151
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Iteration 30 / LogL: -6333.459 / Time: 0h:0m:9s (0h:0m:17s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 38: -6332.028
+Iteration 40 / LogL: -6333.746 / Time: 0h:0m:10s (0h:0m:20s left)
+Iteration 50 / LogL: -6332.110 / Time: 0h:0m:12s (0h:0m:17s left)
+Iteration 60 / LogL: -6337.607 / Time: 0h:0m:13s (0h:0m:14s left)
+Iteration 70 / LogL: -6332.028 / Time: 0h:0m:14s (0h:0m:12s left)
+UPDATE BEST LOG-LIKELIHOOD: -6332.027
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 76: -6331.736
+UPDATE BEST LOG-LIKELIHOOD: -6331.735
+Iteration 80 / LogL: -6332.702 / Time: 0h:0m:16s (0h:0m:16s left)
+Iteration 90 / LogL: -6335.482 / Time: 0h:0m:17s (0h:0m:14s left)
+Iteration 100 / LogL: -6333.013 / Time: 0h:0m:19s (0h:0m:12s left)
+Iteration 110 / LogL: -6334.910 / Time: 0h:0m:20s (0h:0m:10s left)
+Iteration 120 / LogL: -6331.735 / Time: 0h:0m:21s (0h:0m:8s left)
+Iteration 130 / LogL: -6331.735 / Time: 0h:0m:22s (0h:0m:7s left)
+UPDATE BEST LOG-LIKELIHOOD: -6331.735
+Iteration 140 / LogL: -6331.840 / Time: 0h:0m:24s (0h:0m:5s left)
+Iteration 150 / LogL: -6332.033 / Time: 0h:0m:25s (0h:0m:3s left)
+Iteration 160 / LogL: -6331.735 / Time: 0h:0m:26s (0h:0m:2s left)
+Iteration 170 / LogL: -6331.735 / Time: 0h:0m:27s (0h:0m:0s left)
+Refining ufboot trees with NNI 1 branch...
+100 samples done
+200 samples done
+300 samples done
+400 samples done
+500 samples done
+600 samples done
+700 samples done
+800 samples done
+900 samples done
+1000 samples done
+Total 1000 ufboot trees refined
+TREE SEARCH COMPLETED AFTER 177 ITERATIONS / Time: 0h:0m:56s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -6331.735
+Optimal log-likelihood: -6331.733
+Rate parameters:  A-C: 2.01900  A-G: 3.69181  A-T: 0.36948  C-G: 2.96191  C-T: 3.42017  G-T: 1.00000
+Base frequencies:  A: 0.257  C: 0.217  G: 0.288  T: 0.237
+Proportion of invariable sites: 0.332
+Gamma shape alpha: 1.126
+Parameters optimization took 1 rounds (0.014 sec)
+BEST SCORE FOUND : -6331.733
+
+Testing tree branches by SH-like aLRT with 1000 replicates...
+Testing tree branches by aBayes parametric test...
+0.573 sec.
+Creating bootstrap support values...
+Split supports printed to NEXUS file SETMAR.splits.nex
+Total tree length: 2.719
+
+Total number of iterations: 177
+CPU time used for tree search: 52.121 sec (0h:0m:52s)
+Wall-clock time used for tree search: 52.023 sec (0h:0m:52s)
+Total CPU time used: 57.638 sec (0h:0m:57s)
+Total wall-clock time used: 57.526 sec (0h:0m:57s)
+UFBoot trees printed to SETMAR.ufboot
+
+Computing bootstrap consensus tree...
+Reading input file SETMAR.splits.nex...
+54 taxa and 3216 splits.
+Consensus tree written to SETMAR.contree
+Reading input trees file SETMAR.contree
+Log-likelihood of consensus tree: -6332.465
+
+Analysis results written to: 
+  IQ-TREE report:                SETMAR.iqtree
+  Maximum-likelihood tree:       SETMAR.treefile
+  Likelihood distances:          SETMAR.mldist
+
+Ultrafast bootstrap approximation results written to:
+  Split support values:          SETMAR.splits.nex
+  Consensus tree:                SETMAR.contree
+  UFBoot trees:                  SETMAR.ufboot
+  Screen log file:               SETMAR.log
+
+Date and Time: Sun Oct 18 13:41:35 2026

@@ -1,0 +1,121 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    Matheus (AVX2, FMA3, 15 GB RAM)
+Command: /home/manec/.pixi/envs/iqtree/bin/iqtree3 -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/MK22/MK22.phy -st MORPH -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/MK22/particoes.nex -g /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/H_Falconidae_Cariama.nwk --seed 20261017 -T 4 --prefix /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/H_Falconidae_Cariama -redo --quiet
+Seed:    20261017 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Sat Oct 17 23:28:09 2026
+Kernel:  AVX+FMA - 4 threads (20 CPU cores detected)
+
+Reading partition model file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/MK22/particoes.nex ...
+Partition file is in NEXUS format...
+Reading alignment file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/MK22/MK22.phy ... Phylip format detected
+Alignment most likely contains 3-state morphological data
+Constructing alignment: done in 6.8903e-05 secs
+Alignment has 10 sequences with 42 columns, 37 distinct patterns
+39 parsimony-informative, 3 singleton sites, 0 constant sites
+               Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 1.19209e-05 secs
+   1  Anhimidae        0.00%    failed      0.00%
+   2  Falconidae       0.00%    passed      8.77%
+   3  Masillaraptor   23.81%    failed      2.56%
+   4  Danielsraptor   23.81%    passed     31.83%
+   5  Bathornis       23.81%    passed     25.28%
+   6  Dynamopterus    40.48%    passed     49.53%
+   7  Cariama          0.00%    passed     48.92%
+   8  Psilopterus     14.29%    failed      0.02%
+   9  Patagornis      16.67%    failed      0.04%
+  10  Llallawavis     21.43%    failed      0.02%
+****  TOTAL           16.43%  5 sequences failed composition chi2 test (p-value<5%; df=2)
+Loading 1 partitions...
+Subset	Type	Seqs	Sites	Infor	Invar	Model	Name
+1	MORPH	10	42	39	0	MK+ASC+G4	k2
+Degree of missing data: 0.000
+Info: multi-threading strategy over partitions and number of threads is changed to 1
+Reading constraint tree /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/H_Falconidae_Cariama.nwk...
+WARNING: Rooted constraint tree will be treated as unrooted tree
+Creating fast initial parsimony tree by random order stepwise addition...
+0.002 seconds, parsimony score: 66 (based on 42 sites)
+
+NOTE: 0 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -241.038
+Current log-likelihood at step 1: -234.423
+Current log-likelihood at step 2: -234.291
+Current log-likelihood at step 3: -234.291
+Partition-specific rates:  1.000
+Parameters optimization took 2 rounds (0.003 sec)
+
+Wrote distance file to... 
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 99 parsimony trees... 0.016 second
+Computing log-likelihood of 81 initial trees ... 0.013 seconds
+Current best score: -234.291
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -234.176
+Current log-likelihood at step 1: -234.175
+Parameters optimization took 0 rounds (0.001 sec)
+
+BETTER TREE FOUND at iteration 1: -234.175
+UPDATE BEST LOG-LIKELIHOOD: -234.175
+UPDATE BEST LOG-LIKELIHOOD: -234.175
+UPDATE BEST LOG-LIKELIHOOD: -234.175
+UPDATE BEST LOG-LIKELIHOOD: -234.175
+Iteration 10 / LogL: -234.175 / Time: 0h:0m:0s
+UPDATE BEST LOG-LIKELIHOOD: -234.175
+Iteration 20 / LogL: -234.175 / Time: 0h:0m:0s
+Finish initializing candidate tree set (2)
+Current best tree score: -234.175 / CPU time: 0.077
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+UPDATE BEST LOG-LIKELIHOOD: -234.175
+UPDATE BEST LOG-LIKELIHOOD: -234.175
+Iteration 30 / LogL: -234.175 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 40 / LogL: -234.292 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 50 / LogL: -234.175 / Time: 0h:0m:0s (0h:0m:0s left)
+WARNING: NNI search needs unusual large number of steps (10) to converge!
+UPDATE BEST LOG-LIKELIHOOD: -234.175
+Iteration 60 / LogL: -234.396 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -234.175
+Iteration 70 / LogL: -238.147 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 80 / LogL: -234.175 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 90 / LogL: -234.175 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -234.175
+UPDATE BEST LOG-LIKELIHOOD: -234.175
+Iteration 100 / LogL: -234.197 / Time: 0h:0m:0s (0h:0m:0s left)
+TREE SEARCH COMPLETED AFTER 102 ITERATIONS / Time: 0h:0m:0s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+Initial log-likelihood: -234.175
+Current log-likelihood at step 1: -234.175
+Partition-specific rates:  1.000
+Parameters optimization took 0 rounds (0.001 sec)
+
+Partition information was printed to /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/H_Falconidae_Cariama.best_model.nex
+BEST SCORE FOUND : -234.175
+Total tree length: 1.907
+
+Total number of iterations: 102
+CPU time used for tree search: 0.763 sec (0h:0m:0s)
+Wall-clock time used for tree search: 0.291 sec (0h:0m:0s)
+Total CPU time used: 0.842 sec (0h:0m:0s)
+Total wall-clock time used: 0.325 sec (0h:0m:0s)
+
+Analysis results written to: 
+  IQ-TREE report:                /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/H_Falconidae_Cariama.iqtree
+  Maximum-likelihood tree:       /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/H_Falconidae_Cariama.treefile
+  Screen log file:               /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/H_Falconidae_Cariama.log
+
+Date and Time: Sat Oct 17 23:28:10 2026

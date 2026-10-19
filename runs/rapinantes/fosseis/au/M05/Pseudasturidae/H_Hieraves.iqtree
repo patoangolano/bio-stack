@@ -1,0 +1,152 @@
+IQ-TREE 3.1.4 built Sep 29 2026
+
+Partition file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M05/particoes.nex
+Input file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M05/M05.phy
+Type of analysis: ModelFinder + tree reconstruction
+Random seed number: 20261017
+
+REFERENCES
+----------
+
+To cite IQ-TREE 3 please use:
+
+Thomas K.F. Wong, Nhan Ly-Trong, Huaiyan Ren, Piyumal Demotte, Hector Banos,
+Andrew J. Roger, Edward Susko, Chris Bielow, Nicola De Maio, Nick Goldman,
+Matthew W. Hahn, Mario dos Reis, Le Sy Vinh, Gavin Huttley, Robert Lanfear, Bui Quang Minh (2026)
+IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models.
+Molecular Biology and Evolution, msag117.
+https://doi.org/10.1093/molbev/msag117
+
+Since you used ModelFinder please also cite: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used partition models please also cite:
+
+Olga Chernomor, Arndt von Haeseler, and Bui Quang Minh (2016)
+Terrace aware data structure for phylogenomic inference from
+supermatrices. Syst. Biol., 65:997-1008.
+https://doi.org/10.1093/sysbio/syw037
+
+SEQUENCE ALIGNMENT
+------------------
+
+NOTE: Alignment sequence type is auto-detected. If in doubt, specify it via -st option.
+Input data: 23 taxa with 2 partitions and 110 total sites (0% missing data)
+
+  ID	Type	Seq	Site	Unique	Infor	Invar	Const	Name
+   1	MORPH	23	99	96	93	0	0	k2
+   2	MORPH	23	11	11	11	0	0	k3
+
+Column meanings:
+  Unique: Number of unique site patterns
+  Infor:  Number of parsimony-informative sites
+  Invar:  Number of invariant sites
+  Const:  Number of constant sites (can be subset of invariant sites)
+
+SUBSTITUTION PROCESS
+--------------------
+
+Edge-linked-proportional partition model with separate substitution models and separate rates across sites
+
+  ID  Model           Speed  Parameters
+   1  MK+FQ+ASC+G4   0.9509  MK+FQ+ASC+G4{8.0178}
+   2  MK+FQ+ASC+G4   1.4421  MK+FQ+ASC+G4{998.651}
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -1883.2987 (s.e. 60.1008)
+Unconstrained log-likelihood (without tree): -475.7485
+Number of free parameters (#branches + #model parameters): 46
+Akaike information criterion (AIC) score: 3858.5975
+Corrected Akaike information criterion (AICc) score: 3927.2324
+Bayesian information criterion (BIC) score: 3982.8196
+
+Marginal log-likelihood of the tree: -1886.5414
+Marginal Akaike information criterion (mAIC) score: 3865.0828
+
+Total tree length (sum of branch lengths): 5.0531
+Sum of internal branch lengths: 1.2724 (25.1808% of tree length)
+
+WARNING: 3 near-zero internal branches (<0.0091) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Tinamidae' is drawn at root
+
++------------------Tinamidae
+|
++----Galliformes
+|
+|                +-------------------Opisthocomidae
+|             +--|
+|             |  |  +---------------Ciconiidae
+|             |  +**|
+|             |     |           +---------------Steatornithidae
+|             |     +-----------|
+|             |                 +--Aegothelidae
+|        +----|
+|        |    |     +------------------Cariamidae
+|        |    |  +**|
+|        |    |  |  |   +------------Falconidae
+|        |    |  |  +---|
+|        |    |  |      +--------------------Psittacidae
+|        |    +--|
+|        |       |         +---------Strigiformes
+|        |       |      +--|
+|        |       |      |  |     +--------Accipitridae
+|        |       |      |  |  +--|
+|        |       |      |  |  |  +--------------Sagittariidae
+|        |       |      |  +--|
+|        |       |      |     +--------Cathartidae
+|        |       |  +---|
+|        |       |  |   |                 +**Messelastur
+|        |       |  |   |             +---|
+|        |       |  |   |             |   +------------------Tynskya
+|        |       |  |   +-------------|
+|        |       |  |                 +-----------Pseudasturidae
+|        |       +**|
+|        |          |     +--------------Coliidae
+|        |          +-----|
+|        |                |  +--------------Trogonidae
+|        |                +--|
+|        |                   +--Coraciidae
++--------|
+         |            +-------------Cuculidae
+         |  +---------|
+         |  |         +---------Musophagidae
+         +--|
+            |    +------Pteroclidae
+            +----|
+                 +----Columbidae
+
+Tree in newick format:
+
+(Tinamidae:0.2532957827,Galliformes:0.0742227252,(((Opisthocomidae:0.2768694362,(Ciconiidae:0.2203090500,(Steatornithidae:0.2188240968,Aegothelidae:0.0471495175):0.1654695505):0.0000022263):0.0238285662,((Cariamidae:0.2662747661,(Falconidae:0.1848734630,Psittacidae:0.2854907057):0.0617371546):0.0047799854,(((Strigiformes:0.1349665676,((Accipitridae:0.1265552305,Sagittariidae:0.2004272977):0.0313963405,Cathartidae:0.1201693277):0.0287392262):0.0458090758,((Messelastur:0.0000010000,Tynskya:0.2563254996):0.0563269199,Pseudasturidae:0.1659824391):0.1921862375):0.0657362790,(Coliidae:0.2078363373,(Trogonidae:0.2010391625,Coraciidae:0.0320791756):0.0460225382):0.0898409545):0.0000024971):0.0363597071):0.0719832531,((Cuculidae:0.1869187286,Musophagidae:0.1420347681):0.1385421940,(Pteroclidae:0.0997787407,Columbidae:0.0793033554):0.0780045081):0.0155574400):0.1200965924);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M05/Pseudasturidae/H_Hieraves.treefile -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M05/Pseudasturidae/H_Hieraves.best_model.nex
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M05/M05.phy --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M05/M05.phy --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Sat Oct 17 23:36:17 2026
+Total CPU time used: 0.501269 seconds (0h:0m:0s)
+Total wall-clock time used: 0.649797 seconds (0h:0m:0s)
+

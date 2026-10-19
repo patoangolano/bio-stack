@@ -1,0 +1,189 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    Matheus (AVX2, FMA3, 15 GB RAM)
+Command: /home/manec/.pixi/envs/iqtree/bin/iqtree3 -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M05/M05.phy -st MORPH -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M05/particoes.nex -B 1000 --bnni -alrt 1000 -wbt --seed 20261017 -T 4 -o Tinamidae --prefix /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre -redo --quiet
+Seed:    20261017 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Sat Oct 17 23:24:06 2026
+Kernel:  AVX+FMA - 4 threads (20 CPU cores detected)
+
+Reading partition model file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M05/particoes.nex ...
+Partition file is in NEXUS format...
+Reading alignment file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M05/M05.phy ... Phylip format detected
+Alignment most likely contains 5-state morphological data
+Constructing alignment: done in 0.000164986 secs using 263.7% CPU
+Alignment has 23 sequences with 110 columns, 107 distinct patterns
+104 parsimony-informative, 6 singleton sites, 0 constant sites
+                 Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 2.09808e-05 secs using 61.96% CPU
+   1  Tinamidae          2.73%    failed      0.00%
+   2  Galliformes        4.55%    failed      4.31%
+   3  Opisthocomidae     3.64%    passed     43.57%
+   4  Cariamidae        20.00%    passed     87.26%
+   5  Strigiformes       7.27%    passed     90.52%
+   6  Messelastur       70.91%    passed     92.90%
+   7  Tynskya           80.91%    failed      0.00%
+   8  Accipitridae       7.27%    passed     63.83%
+   9  Falconidae         4.55%    passed     45.02%
+  10  Sagittariidae      4.55%    passed     92.29%
+  11  Cuculidae         15.45%    passed     85.43%
+  12  Musophagidae      14.55%    passed     97.32%
+  13  Cathartidae        4.55%    passed     98.94%
+  14  Ciconiidae        10.00%    passed     22.95%
+  15  Pteroclidae       20.00%    passed     98.40%
+  16  Columbidae         8.18%    passed     79.55%
+  17  Steatornithidae    9.09%    passed     70.31%
+  18  Pseudasturidae    55.45%    passed     93.55%
+  19  Psittacidae       10.00%    failed      0.07%
+  20  Coliidae           6.36%    passed     35.64%
+  21  Trogonidae        11.82%    passed     37.78%
+  22  Aegothelidae      10.00%    passed     56.55%
+  23  Coraciidae         6.36%    passed     98.16%
+WARNING: 3 sequences contain more than 50% gaps/ambiguity
+****  TOTAL             16.88%  4 sequences failed composition chi2 test (p-value<5%; df=4)
+Loading 2 partitions...
+Subset	Type	Seqs	Sites	Infor	Invar	Model	Name
+1	MORPH	23	99	93	0	MK+ASC+G4	k2
+2	MORPH	23	11	11	0	MK+ASC+G4	k3
+Degree of missing data: 0.000
+Info: multi-threading strategy over partitions and number of threads is changed to 2
+WARNING: State(s) 2, 3, 4 rarely appear in partition 1 and may cause numerical problems
+Creating fast initial parsimony tree by random order stepwise addition...
+0.004 seconds, parsimony score: 360 (based on 110 sites)
+Generating 1000 samples for ultrafast bootstrap (seed: 20261017)...
+
+NOTE: 0 MB RAM (0 GB) is required!
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -1809.489
+Current log-likelihood at step 1: -1769.322
+Current log-likelihood at step 2: -1766.139
+Current log-likelihood at step 3: -1766.033
+Current log-likelihood at step 4: -1766.031
+Partition-specific rates:  0.921 1.713
+Parameters optimization took 3 rounds (0.021 sec)
+
+Wrote distance file to... 
+Computing ML distances based on estimated model parameters...
+Calculating distance matrix: done in 6.38962e-05 secs using 330.2% CPU
+Computing ML distances took 0.001049 sec (of wall-clock time) 0.003111 sec (of CPU time)
+Setting up auxiliary I and S matrices: done in 5.10216e-05 secs using 262.6% CPU
+Constructing RapidNJ tree: done in 0.000200033 secs using 207% CPU
+Computing RapidNJ tree took 0.001130 sec (of wall-clock time) 0.002731 sec (of CPU time)
+Log-likelihood of RapidNJ tree: -2028.598
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 98 parsimony trees... 0.031 second
+Computing log-likelihood of 98 initial trees ... 0.288 seconds
+Current best score: -1766.031
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -1718.563
+Current log-likelihood at step 1: -1718.548
+Parameters optimization took 0 rounds (0.004 sec)
+
+BETTER TREE FOUND at iteration 1: -1718.548
+Iteration 10 / LogL: -1732.387 / Time: 0h:0m:0s
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -1718.353
+Current log-likelihood at step 1: -1718.318
+Parameters optimization took 0 rounds (0.003 sec)
+
+BETTER TREE FOUND at iteration 15: -1718.318
+Iteration 20 / LogL: -1723.214 / Time: 0h:0m:1s
+Finish initializing candidate tree set (19)
+Current best tree score: -1718.318 / CPU time: 1.289
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -1718.232
+Current log-likelihood at step 1: -1718.223
+Parameters optimization took 0 rounds (0.004 sec)
+
+BETTER TREE FOUND at iteration 21: -1718.223
+Iteration 30 / LogL: -1718.352 / Time: 0h:0m:1s (0h:0m:5s left)
+Iteration 40 / LogL: -1724.823 / Time: 0h:0m:2s (0h:0m:4s left)
+Iteration 50 / LogL: -1720.452 / Time: 0h:0m:2s (0h:0m:3s left)
+UPDATE BEST LOG-LIKELIHOOD: -1718.223
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -1716.898
+Current log-likelihood at step 1: -1716.852
+Parameters optimization took 0 rounds (0.005 sec)
+
+BETTER TREE FOUND at iteration 60: -1716.852
+Iteration 60 / LogL: -1716.852 / Time: 0h:0m:2s (0h:0m:4s left)
+Iteration 70 / LogL: -1716.877 / Time: 0h:0m:2s (0h:0m:3s left)
+Iteration 80 / LogL: -1717.889 / Time: 0h:0m:3s (0h:0m:3s left)
+Iteration 90 / LogL: -1719.534 / Time: 0h:0m:3s (0h:0m:2s left)
+Iteration 100 / LogL: -1718.431 / Time: 0h:0m:3s (0h:0m:2s left)
+Iteration 110 / LogL: -1718.421 / Time: 0h:0m:3s (0h:0m:1s left)
+Iteration 120 / LogL: -1716.889 / Time: 0h:0m:4s (0h:0m:1s left)
+Iteration 130 / LogL: -1717.891 / Time: 0h:0m:4s (0h:0m:1s left)
+Iteration 140 / LogL: -1716.884 / Time: 0h:0m:4s (0h:0m:0s left)
+Iteration 150 / LogL: -1718.418 / Time: 0h:0m:5s (0h:0m:0s left)
+Iteration 160 / LogL: -1718.088 / Time: 0h:0m:5s (0h:0m:0s left)
+Refining ufboot trees with NNI 5 branches...
+100 samples done
+200 samples done
+300 samples done
+400 samples done
+500 samples done
+600 samples done
+700 samples done
+800 samples done
+900 samples done
+1000 samples done
+Total 894 ufboot trees refined
+TREE SEARCH COMPLETED AFTER 161 ITERATIONS / Time: 0h:0m:19s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+Initial log-likelihood: -1716.852
+Current log-likelihood at step 1: -1716.851
+Partition-specific rates:  0.924 1.686
+Parameters optimization took 0 rounds (0.005 sec)
+
+Partition information was printed to /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre.best_model.nex
+BEST SCORE FOUND : -1716.851
+
+Testing tree branches by SH-like aLRT with 1000 replicates...
+0.028 sec.
+Creating bootstrap support values...
+Split supports printed to NEXUS file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre.splits.nex
+Total tree length: 3.898
+
+Total number of iterations: 161
+CPU time used for tree search: 39.133 sec (0h:0m:39s)
+Wall-clock time used for tree search: 19.589 sec (0h:0m:19s)
+Total CPU time used: 39.813 sec (0h:0m:39s)
+Total wall-clock time used: 20.012 sec (0h:0m:20s)
+UFBoot trees printed to /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre.ufboot
+
+Computing bootstrap consensus tree...
+Reading input file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre.splits.nex...
+23 taxa and 465 splits.
+Consensus tree written to /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre.contree
+Reading input trees file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre.contree
+Log-likelihood of consensus tree: -1721.394
+
+Analysis results written to: 
+  IQ-TREE report:                /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre.iqtree
+  Maximum-likelihood tree:       /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre.treefile
+  Likelihood distances:          /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre.mldist
+
+Ultrafast bootstrap approximation results written to:
+  Split support values:          /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre.splits.nex
+  Consensus tree:                /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre.contree
+  UFBoot trees:                  /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre.ufboot
+  Screen log file:               /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M05/livre.log
+
+Date and Time: Sat Oct 17 23:24:26 2026

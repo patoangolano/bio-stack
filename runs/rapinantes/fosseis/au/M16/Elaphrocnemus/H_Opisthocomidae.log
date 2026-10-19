@@ -1,0 +1,152 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    Matheus (AVX2, FMA3, 15 GB RAM)
+Command: /home/manec/.pixi/envs/iqtree/bin/iqtree3 -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy -st MORPH -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/particoes.nex -g /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Opisthocomidae.nwk --seed 20261017 -T 1 --prefix /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Opisthocomidae -redo --quiet
+Seed:    20261017 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Sat Oct 17 23:36:36 2026
+Kernel:  AVX+FMA - 1 threads (20 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 20 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading partition model file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/particoes.nex ...
+Partition file is in NEXUS format...
+Reading alignment file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy ... Phylip format detected
+Alignment most likely contains 4-state morphological data
+Constructing alignment: done in 0.000110149 secs using 97.14% CPU
+Alignment has 13 sequences with 40 columns, 36 distinct patterns
+38 parsimony-informative, 2 singleton sites, 0 constant sites
+                Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 1.81198e-05 secs using 93.82% CPU
+   1  Anhimidae         0.00%    failed      0.01%
+   2  Opisthocomidae    0.00%    failed      0.97%
+   3  Cathartidae       0.00%    failed      0.34%
+   4  Falconidae        0.00%    failed      0.38%
+   5  Paracrax         62.50%    passed     15.44%
+   6  Bathornis        25.00%    passed     61.88%
+   7  Ameghinornis     75.00%    passed     37.86%
+   8  Dynamopterus     37.50%    passed     65.67%
+   9  Elaphrocnemus    40.00%    passed     36.72%
+  10  Cariama           0.00%    passed     17.80%
+  11  Psilopterus      12.50%    failed      0.00%
+  12  Patagornis       17.50%    failed      0.00%
+  13  Llallawavis      22.50%    failed      0.01%
+WARNING: 2 sequences contain more than 50% gaps/ambiguity
+****  TOTAL            22.50%  7 sequences failed composition chi2 test (p-value<5%; df=3)
+Loading 2 partitions...
+Subset	Type	Seqs	Sites	Infor	Invar	Model	Name
+1	MORPH	13	37	36	0	MK+ASC+G4	k2
+2	MORPH	13	3	2	0	MK+ASC+G4	k3
+Degree of missing data: 0.000
+Reading constraint tree /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Opisthocomidae.nwk...
+WARNING: Rooted constraint tree will be treated as unrooted tree
+WARNING: State(s) 2, 3 rarely appear in partition 1 and may cause numerical problems
+Creating fast initial parsimony tree by random order stepwise addition...
+0.002 seconds, parsimony score: 73 (based on 40 sites)
+
+NOTE: 0 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -324.882
+Current log-likelihood at step 1: -310.203
+Current log-likelihood at step 2: -309.755
+Current log-likelihood at step 3: -309.755
+Partition-specific rates:  0.900 2.234
+Parameters optimization took 2 rounds (0.006 sec)
+
+Wrote distance file to... 
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 99 parsimony trees... 0.025 second
+Computing log-likelihood of 96 initial trees ... 0.037 seconds
+Current best score: -308.955
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -308.212
+Current log-likelihood at step 1: -308.208
+Parameters optimization took 0 rounds (0.002 sec)
+
+BETTER TREE FOUND at iteration 1: -308.208
+Iteration 10 / LogL: -309.758 / Time: 0h:0m:0s
+UPDATE BEST LOG-LIKELIHOOD: -308.208
+UPDATE BEST LOG-LIKELIHOOD: -308.208
+Iteration 20 / LogL: -308.208 / Time: 0h:0m:0s
+Finish initializing candidate tree set (9)
+Current best tree score: -308.208 / CPU time: 0.145
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Iteration 30 / LogL: -308.208 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 40 / LogL: -309.758 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -308.208
+Iteration 50 / LogL: -308.208 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 60 / LogL: -309.684 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -308.208
+UPDATE BEST LOG-LIKELIHOOD: -308.208
+UPDATE BEST LOG-LIKELIHOOD: -308.208
+Iteration 70 / LogL: -309.685 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 80 / LogL: -308.208 / Time: 0h:0m:0s (0h:0m:0s left)
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -307.249
+Current log-likelihood at step 1: -306.522
+Current log-likelihood at step 2: -306.516
+Parameters optimization took 1 rounds (0.003 sec)
+
+BETTER TREE FOUND at iteration 81: -306.516
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -306.002
+Current log-likelihood at step 1: -306.002
+Parameters optimization took 0 rounds (0.002 sec)
+
+BETTER TREE FOUND at iteration 88: -306.002
+Iteration 90 / LogL: -308.808 / Time: 0h:0m:0s (0h:0m:0s left)
+BETTER TREE FOUND at iteration 94: -306.002
+UPDATE BEST LOG-LIKELIHOOD: -306.002
+Iteration 100 / LogL: -308.807 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 110 / LogL: -308.807 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -306.002
+Iteration 120 / LogL: -319.755 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 130 / LogL: -306.002 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -306.002
+Iteration 140 / LogL: -306.013 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 150 / LogL: -308.808 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 160 / LogL: -306.002 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -306.002
+Iteration 170 / LogL: -308.808 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 180 / LogL: -308.808 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -306.002
+UPDATE BEST LOG-LIKELIHOOD: -306.002
+Iteration 190 / LogL: -306.002 / Time: 0h:0m:0s (0h:0m:0s left)
+TREE SEARCH COMPLETED AFTER 195 ITERATIONS / Time: 0h:0m:0s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+Initial log-likelihood: -306.002
+Current log-likelihood at step 1: -306.002
+Partition-specific rates:  0.801 3.451
+Parameters optimization took 0 rounds (0.002 sec)
+
+Partition information was printed to /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Opisthocomidae.best_model.nex
+BEST SCORE FOUND : -306.002
+Total tree length: 2.375
+
+Total number of iterations: 195
+CPU time used for tree search: 0.891 sec (0h:0m:0s)
+Wall-clock time used for tree search: 0.966 sec (0h:0m:0s)
+Total CPU time used: 0.911 sec (0h:0m:0s)
+Total wall-clock time used: 1.016 sec (0h:0m:1s)
+
+Analysis results written to: 
+  IQ-TREE report:                /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Opisthocomidae.iqtree
+  Maximum-likelihood tree:       /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Opisthocomidae.treefile
+  Screen log file:               /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Elaphrocnemus/H_Opisthocomidae.log
+
+Date and Time: Sat Oct 17 23:36:37 2026

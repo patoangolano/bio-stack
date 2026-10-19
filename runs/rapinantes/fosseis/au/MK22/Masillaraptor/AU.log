@@ -1,0 +1,91 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    Matheus (AVX2, FMA3, 15 GB RAM)
+Command: /home/manec/.pixi/envs/iqtree/bin/iqtree3 -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/MK22/MK22.phy -st MORPH -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/MK22/particoes.nex -te /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/MK22/livre.treefile -z /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/hipoteses.trees -n 0 -zb 10000 -zw -au --seed 20261017 -T 1 --prefix /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/AU -redo --quiet
+Seed:    20261017 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Sat Oct 17 23:36:27 2026
+Kernel:  AVX+FMA - 1 threads (20 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 20 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading partition model file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/MK22/particoes.nex ...
+Partition file is in NEXUS format...
+Reading alignment file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/MK22/MK22.phy ... Phylip format detected
+Alignment most likely contains 3-state morphological data
+Constructing alignment: done in 0.00012207 secs using 49.15% CPU
+Alignment has 10 sequences with 42 columns, 37 distinct patterns
+39 parsimony-informative, 3 singleton sites, 0 constant sites
+               Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 1.90735e-05 secs using 47.19% CPU
+   1  Anhimidae        0.00%    failed      0.00%
+   2  Falconidae       0.00%    passed      8.77%
+   3  Masillaraptor   23.81%    failed      2.56%
+   4  Danielsraptor   23.81%    passed     31.83%
+   5  Bathornis       23.81%    passed     25.28%
+   6  Dynamopterus    40.48%    passed     49.53%
+   7  Cariama          0.00%    passed     48.92%
+   8  Psilopterus     14.29%    failed      0.02%
+   9  Patagornis      16.67%    failed      0.04%
+  10  Llallawavis     21.43%    failed      0.02%
+****  TOTAL           16.43%  5 sequences failed composition chi2 test (p-value<5%; df=2)
+Loading 1 partitions...
+Subset	Type	Seqs	Sites	Infor	Invar	Model	Name
+1	MORPH	10	42	39	0	MK+ASC+G4	k2
+Degree of missing data: 0.000
+Reading input tree file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/MK22/livre.treefile ...
+
+NOTE: 0 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.010)
+Initial log-likelihood: -233.292
+Current log-likelihood at step 1: -231.277
+Current log-likelihood at step 2: -231.277
+Partition-specific rates:  1.000
+Parameters optimization took 1 rounds (0.002 sec)
+
+Wrote distance file to... 
+Partition information was printed to /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/AU.best_model.nex
+BEST SCORE FOUND : -231.277
+Total tree length: 1.793
+
+Total number of iterations: 0
+CPU time used for tree search: 0.000 sec (0h:0m:0s)
+Wall-clock time used for tree search: 0.000 sec (0h:0m:0s)
+Total CPU time used: 0.009 sec (0h:0m:0s)
+Total wall-clock time used: 0.037 sec (0h:0m:0s)
+Reading trees in /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/hipoteses.trees ...
+
+4 trees detected
+Note: 1.871 MB of RAM required!
+Creating 10000 bootstrap replicates...
+done
+Tree 1 / LogL: -231.277
+Tree 2 / LogL: -234.349
+Tree 3 / LogL: -231.277
+Tree 4 / LogL: -234.175
+Performing RELL-BP test...
+Performing KH and SH test...
+Computing pairwise logl difference variance ...
+Performing WKH and WSH test...
+Performing ELW test...
+Performing approximately unbiased (AU) test...
+3 MB required for AU test
+Generating 10 x 10000 multiscale bootstrap replicates... 0.077 seconds
+TreeID	AU	RSS	d	c
+1	0.580	3.289	0.046	0.247
+2	0.103	20.505	1.585	0.321 !!!
+3	0.653	7.765	-0.087	0.305
+4	0.247	18.425	0.806	0.123
+Time for AU test: 0.080 seconds
+Time for evaluating all trees: 0.101 sec.
+
+Analysis results written to: 
+  IQ-TREE report:                /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/AU.iqtree
+  Maximum-likelihood tree:       /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/AU.treefile
+  Evaluated user trees:          /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/AU.trees
+  Screen log file:               /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MK22/Masillaraptor/AU.log
+
+Date and Time: Sat Oct 17 23:36:27 2026

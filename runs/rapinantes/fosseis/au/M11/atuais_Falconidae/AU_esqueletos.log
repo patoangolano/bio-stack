@@ -1,0 +1,119 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    Matheus (AVX2, FMA3, 15 GB RAM)
+Command: /home/manec/.pixi/envs/iqtree/bin/iqtree3 -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M11/M11.phy -st MORPH -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M11/particoes.nex -te /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M11/esqueleto.treefile -z /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M11/atuais_Falconidae/esqueletos.trees -n 0 -zb 10000 -zw -au --seed 20261017 -T 1 --prefix /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M11/atuais_Falconidae/AU_esqueletos -redo --quiet
+Seed:    20261017 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Sat Oct 17 23:40:30 2026
+Kernel:  AVX+FMA - 1 threads (20 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 20 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading partition model file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M11/particoes.nex ...
+Partition file is in NEXUS format...
+Reading alignment file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M11/M11.phy ... Phylip format detected
+Alignment most likely contains 8-state morphological data
+Constructing alignment: done in 0.000262976 secs using 19.39% CPU
+Alignment has 33 sequences with 100 columns, 96 distinct patterns
+98 parsimony-informative, 2 singleton sites, 0 constant sites
+                                    Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 6.10352e-05 secs using 18.02% CPU
+   1  Tinamidae                             3.00%    failed      0.28%
+   2  Anseriformes                          5.00%    failed      0.07%
+   3  Opisthocomidae                        3.00%    passed     36.11%
+   4  Falconidae                            3.00%    passed     60.94%
+   5  Accipitridae                          5.00%    passed     94.68%
+   6  Strigidae_slash_Tytonidae             6.00%    passed     95.02%
+   7  Sagittariidae                         2.00%    passed      5.20%
+   8  Cathartidae                           3.00%    passed     16.47%
+   9  Psittacidae                           6.00%    failed      0.00%
+  10  Cuculidae                             8.00%    passed     99.99%
+  11  Musophagidae                          3.00%    passed     46.71%
+  12  Coliidae                              3.00%    passed     90.65%
+  13  Leptosomidae                          5.00%    passed     77.40%
+  14  Alcedinidae                           3.00%    passed     83.42%
+  15  Meropidae                             2.00%    passed     91.12%
+  16  Momotidae                             2.00%    passed     96.98%
+  17  Coraciidae_slash_Brachypteraciidae    3.00%    passed     97.06%
+  18  Steatornithidae                       2.00%    passed     99.60%
+  19  Podargidae                            7.00%    passed     95.14%
+  20  Caprimulgidae                         1.00%    passed     99.99%
+  21  Nyctibiidae                           4.00%    passed     99.98%
+  22  Aegothelidae                          2.00%    passed     80.39%
+  23  Apodidae_slash_Hemiprocnidae          5.00%    passed     12.26%
+  24  Trochilidae                           3.00%    passed     10.56%
+  25  Upupidae_slash_Phoeniculidae          5.00%    passed     12.26%
+  26  Bucerotidae                           4.00%    passed     61.10%
+  27  Passeriformes                         7.00%    failed      0.00%
+  28  Pici                                  7.00%    failed      0.76%
+  29  Galbulae                              4.00%    failed      2.01%
+  30  Trogonidae                            1.00%    failed      0.00%
+  31  Halcyornithidae                      38.00%    passed     18.43%
+  32  Sandcoleidae                         31.00%    passed     98.52%
+  33  Messelasturidae                      46.00%    passed     45.49%
+****  TOTAL                                 7.03%  7 sequences failed composition chi2 test (p-value<5%; df=7)
+Loading 3 partitions...
+Subset	Type	Seqs	Sites	Infor	Invar	Model	Name
+1	MORPH	33	92	90	0	MK+ASC+G4	k2
+2	MORPH	33	5	5	0	MK+ASC+G4	k3
+3	MORPH	33	3	3	0	MK+ASC+G4	k4mais
+Degree of missing data: 0.000
+WARNING: State(s) 2, 3, 4, 5, 6, 7 rarely appear in partition 1 and may cause numerical problems
+WARNING: State(s) 3, 4, 5, 6, 7 rarely appear in partition 2 and may cause numerical problems
+Reading input tree file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M11/esqueleto.treefile ...
+
+NOTE: 1 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.010)
+Initial log-likelihood: -2315.698
+Current log-likelihood at step 1: -2299.275
+Current log-likelihood at step 2: -2295.101
+Current log-likelihood at step 3: -2295.101
+Partition-specific rates:  0.948 2.049 0.851
+Parameters optimization took 2 rounds (0.109 sec)
+
+Wrote distance file to... 
+Partition information was printed to /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M11/atuais_Falconidae/AU_esqueletos.best_model.nex
+BEST SCORE FOUND : -2295.101
+Total tree length: 4.190
+
+Total number of iterations: 0
+CPU time used for tree search: 0.000 sec (0h:0m:0s)
+Wall-clock time used for tree search: 0.000 sec (0h:0m:0s)
+Total CPU time used: 0.139 sec (0h:0m:0s)
+Total wall-clock time used: 0.210 sec (0h:0m:0s)
+Reading trees in /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M11/atuais_Falconidae/esqueletos.trees ...
+
+4 trees detected
+Note: 4.124 MB of RAM required!
+Creating 10000 bootstrap replicates...
+done
+Tree 1 / LogL: -2295.101
+Tree 2 / LogL: -2231.533
+Tree 3 / LogL: -2265.522
+Tree 4 / LogL: -2274.205
+Performing RELL-BP test...
+Performing KH and SH test...
+Computing pairwise logl difference variance ...
+Performing WKH and WSH test...
+Performing ELW test...
+Performing approximately unbiased (AU) test...
+3 MB required for AU test
+Generating 10 x 10000 multiscale bootstrap replicates... 0.282 seconds
+TreeID	AU	RSS	d	c
+1	0.002	1.245	3.418	0.482
+2	0.985	16.319	-2.195	-0.012
+3	0.019	21.445	2.141	0.070 !!!
+4	0.003	8.560	2.958	0.173
+Time for AU test: 0.293 seconds
+Time for evaluating all trees: 0.438 sec.
+
+Analysis results written to: 
+  IQ-TREE report:                /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M11/atuais_Falconidae/AU_esqueletos.iqtree
+  Maximum-likelihood tree:       /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M11/atuais_Falconidae/AU_esqueletos.treefile
+  Evaluated user trees:          /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M11/atuais_Falconidae/AU_esqueletos.trees
+  Screen log file:               /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M11/atuais_Falconidae/AU_esqueletos.log
+
+Date and Time: Sat Oct 17 23:40:31 2026

@@ -1,0 +1,190 @@
+IQ-TREE 3.1.4 built Sep 29 2026
+
+Partition file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/VZ26/particoes.nex
+Input file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/VZ26/VZ26.phy
+Type of analysis: ModelFinder + tree reconstruction
+Random seed number: 20261017
+
+REFERENCES
+----------
+
+To cite IQ-TREE 3 please use:
+
+Thomas K.F. Wong, Nhan Ly-Trong, Huaiyan Ren, Piyumal Demotte, Hector Banos,
+Andrew J. Roger, Edward Susko, Chris Bielow, Nicola De Maio, Nick Goldman,
+Matthew W. Hahn, Mario dos Reis, Le Sy Vinh, Gavin Huttley, Robert Lanfear, Bui Quang Minh (2026)
+IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models.
+Molecular Biology and Evolution, msag117.
+https://doi.org/10.1093/molbev/msag117
+
+Since you used ModelFinder please also cite: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used partition models please also cite:
+
+Olga Chernomor, Arndt von Haeseler, and Bui Quang Minh (2016)
+Terrace aware data structure for phylogenomic inference from
+supermatrices. Syst. Biol., 65:997-1008.
+https://doi.org/10.1093/sysbio/syw037
+
+SEQUENCE ALIGNMENT
+------------------
+
+NOTE: Alignment sequence type is auto-detected. If in doubt, specify it via -st option.
+Input data: 42 taxa with 2 partitions and 105 total sites (0% missing data)
+
+  ID	Type	Seq	Site	Unique	Infor	Invar	Const	Name
+   1	MORPH	42	97	96	95	0	0	k2
+   2	MORPH	42	8	8	7	0	0	k3
+
+Column meanings:
+  Unique: Number of unique site patterns
+  Infor:  Number of parsimony-informative sites
+  Invar:  Number of invariant sites
+  Const:  Number of constant sites (can be subset of invariant sites)
+
+SUBSTITUTION PROCESS
+--------------------
+
+Edge-linked-proportional partition model with separate substitution models and separate rates across sites
+
+  ID  Model           Speed  Parameters
+   1  MK+FQ+ASC+G4   0.9194  MK+FQ+ASC+G4{21.3426}
+   2  MK+FQ+ASC+G4   1.9771  MK+FQ+ASC+G4{50.9163}
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -1725.0362 (s.e. 65.1261)
+Unconstrained log-likelihood (without tree): -458.9962
+Number of free parameters (#branches + #model parameters): 84
+Akaike information criterion (AIC) score: 3618.0724
+Corrected Akaike information criterion (AICc) score: 4332.0724
+Bayesian information criterion (BIC) score: 3841.0051
+
+Marginal log-likelihood of the tree: -1732.4729
+Marginal Akaike information criterion (mAIC) score: 3632.9457
+
+Total tree length (sum of branch lengths): 4.3646
+Sum of internal branch lengths: 2.1022 (48.1650% of tree length)
+
+WARNING: 7 near-zero internal branches (<0.0095) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Anhimidae' is drawn at root
+
++--------------------------Anhimidae
+|
+|       +------------Falconidae
+|  +----|
+|  |    |                            +**Vastanavis
+|  |    |                         +--|
+|  |    |                         |  +**Avolatavis
+|  |    |           +-------------|
+|  |    |           |             +**Eurofluvioviridavis
+|  |    |        +--|
+|  |    |        |  |               +**Pseudasturides
+|  |    |        |  |            +**|
+|  |    |        |  |            |  |  +**Cyrilavis
+|  |    |        |  |            |  +--|
+|  |    |        |  |            |     |  +--Serudaptus
+|  |    |        |  |            |     +--|
+|  |    |        |  |            |        |        +--Messelastur
+|  |    |        |  |            |        +--------|
+|  |    |        |  |            |                 +**Tynskya
+|  |    |        |  +------------|
+|  |    |        |               +**Pulchrapollia
+|  |    +--------|
+|  |             +**Scopsoides
++**|
+|  |                       +--Psittaciformes
+|  |             +---------|
+|  |             |         +------------Quercypsitta
+|  |         +---|
+|  |         |   +--Namapsitta
+|  +---------|
+|            |                                  +-----------Passeriformes
+|            |                           +------|
+|            |                           |      |  +**Zygodactylus
+|            |                           |      +--|
+|            |                           |         |  +------Primoscens
+|            |                           |         +--|
+|            |                           |            +--Primozygodactylus
+|            |             +-------------|
+|            |             |             +**Minutornis
+|            |      +------|
+|            |      |      |                 +-----Pumiliornis
+|            |      |      |            +----|
+|            |      |      |            |    |  +**Morsoravis
+|            |      |      |            |    +**|
+|            |      |      |            |       +**Sororavis
+|            |      |      |  +---------|
+|            |      |      |  |         +**Consoravis
+|            |      |      +--|
+|            |      |         |  +**Psittacopes
+|            |      |         +--|
+|            |      |            |                  +--Parapsittacopes
+|            |      |            +------------------|
+|            |      |                               +**Psittacomimus
+|            |  +---|
+|            |  |   +------Eocuculus
+|            +--|
+|               +-----Eofringillirostrum
+|
+|  +--------------Strigiformes
++**|
+   |                +-----------------------Coliidae
+   |  +-------------|
+   |  |             +---Sandcoleidae
+   +**|
+      |  +------Leptosomidae
+      +--|
+         |                      +-----Alcedinidae
+         |               +------|
+         |               |      +---Momotidae
+         |            +--|
+         |            |  |  +--------Meropidae
+         |            |  +**|
+         |            |     +----Coraciidae
+         |         +**|
+         |         |  |         +------------------Pici
+         |         |  +---------|
+         |         |            +-----Galbulae
+         |    +----|
+         |    |    |          +-------------Upupidae
+         |    |    +----------|
+         |    |               +--Bucerotidae
+         +----|
+              +------------------Trogonidae
+
+Tree in newick format:
+
+(Anhimidae:0.2470503982,((Falconidae:0.1199820461,((((Vastanavis:0.0000010004,Avolatavis:0.0000010004):0.0294114424,Eurofluvioviridavis:0.0000010004):0.1339097014,((Pseudasturides:0.0000010004,(Cyrilavis:0.0000022021,(Serudaptus:0.0189483298,(Messelastur:0.0181251006,Tynskya:0.0000010004):0.0895385100):0.0287182917):0.0137782106):0.0000024312,Pulchrapollia:0.0000010004):0.1193615724):0.0339200345,Scopsoides:0.0000025811):0.0815330157):0.0515958370,(((Psittaciformes:0.0185162187,Quercypsitta:0.1252432358):0.0960005022,Namapsitta:0.0236297474):0.0432385119,(((((Passeriformes:0.1123864341,(Zygodactylus:0.0000010004,(Primoscens:0.0681738757,Primozygodactylus:0.0281615454):0.0199993184):0.0235893456):0.0644679925,Minutornis:0.0000021392):0.1352627708,(((Pumiliornis:0.0559352118,(Morsoravis:0.0000010004,Sororavis:0.0000010004):0.0000010004):0.0527124558,Consoravis:0.0000020298):0.0942897308,(Psittacopes:0.0000025509,(Parapsittacopes:0.0255357064,Psittacomimus:0.0000021956):0.1754680556):0.0214898382):0.0227677771):0.0713080642,Eocuculus:0.0657810126):0.0435046743,Eofringillirostrum:0.0591368773):0.0188986676):0.0964616341):0.0000020852,(Strigiformes:0.1423650987,((Coliidae:0.2202028684,Sandcoleidae:0.0373642194):0.1302691893,(Leptosomidae:0.0660397074,(((((Alcedinidae:0.0563272519,Momotidae:0.0430957022):0.0688377597,(Meropidae:0.0822857656,Coraciidae:0.0475905990):0.0082198758):0.0347806899,(Pici:0.1729198106,Galbulae:0.0598916750):0.0991482720):0.0000026520,(Upupidae:0.1282298454,Bucerotidae:0.0166066112):0.1064523407):0.0452291024,Trogonidae:0.1734221792):0.0531927331):0.0242492305):0.0000020417):0.0000029082);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/VZ26/Pseudasturides/H_Falconidae.treefile -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/VZ26/Pseudasturides/H_Falconidae.best_model.nex
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/VZ26/VZ26.phy --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/VZ26/VZ26.phy --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Sat Oct 17 23:36:10 2026
+Total CPU time used: 3.79145 seconds (0h:0m:3s)
+Total wall-clock time used: 3.94951 seconds (0h:0m:3s)
+

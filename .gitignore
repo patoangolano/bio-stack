@@ -123,6 +123,20 @@ runs/filogenia/*/main.nf
 runs/filogenia/*/README.md
 runs/filogenia/*/pipeline_info/*.html
 runs/filogenia/*/nextflow_console.log
+# Rapinantes (300 locos): uma figura por arvore de gene, em PNG e SVG, sao 600
+# arquivos e ~170 MB por execucao. Ficam a arvore de especies e a concatenada;
+# as de gene saem de 04_arvores_genes com `filogenia.py desenhar`.
+runs/filogenia/*rapinantes*/figuras/*
+!runs/filogenia/*rapinantes*/figuras/especies.*
+!runs/filogenia/*rapinantes*/figuras/concatenado.*
+
+# Rapinantes: dados de terceiros baixados (AVONET, EltonTraits, ERDA/B10K, Kuhl
+# 2021, Prum 2015) nao sao redistribuidos aqui, como data/raw/. O manifesto tem
+# URL de origem e md5 de cada arquivo, o que basta para baixar de novo e conferir.
+runs/rapinantes/ancestral/downloads/**
+!runs/rapinantes/ancestral/downloads/MANIFESTO_downloads.tsv
+# Checkpoints binarios do IQ-TREE: so servem para retomar uma execucao.
+runs/rapinantes/**/*.ckp.gz
 
 # capturas de navegador deixadas por agentes (Playwright MCP)
 .playwright-mcp/

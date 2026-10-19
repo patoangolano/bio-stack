@@ -1,0 +1,514 @@
+IQ-TREE 3.1.4 built Sep 29 2026
+
+Input file name: SERAC1.entrada.fa
+Type of analysis: ModelFinder + tree reconstruction + ultrafast bootstrap (1000 replicates)
+Random seed number: 12345
+
+REFERENCES
+----------
+
+To cite IQ-TREE 3 please use:
+
+Thomas K.F. Wong, Nhan Ly-Trong, Huaiyan Ren, Piyumal Demotte, Hector Banos,
+Andrew J. Roger, Edward Susko, Chris Bielow, Nicola De Maio, Nick Goldman,
+Matthew W. Hahn, Mario dos Reis, Le Sy Vinh, Gavin Huttley, Robert Lanfear, Bui Quang Minh (2026)
+IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models.
+Molecular Biology and Evolution, msag117.
+https://doi.org/10.1093/molbev/msag117
+
+Since you used ModelFinder please also cite: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used ultrafast bootstrap (UFBoot) please also cite: 
+
+Diep Thi Hoang, Olga Chernomor, Arndt von Haeseler, Bui Quang Minh,
+and Le Sy Vinh (2018) UFBoot2: Improving the ultrafast bootstrap
+approximation. Mol. Biol. Evol., 35:518–522.
+https://doi.org/10.1093/molbev/msx281
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 55 sequences with 1374 nucleotide sites
+Number of constant sites: 899 (= 65.4294% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 899 (= 65.4294% of all sites)
+Number of parsimony informative sites: 199
+Number of distinct site patterns: 450
+
+ModelFinder
+-----------
+
+Best-fit model according to BIC: TIM3+F+I+R2
+
+List of models sorted by BIC scores: 
+
+Model                  LogL         AIC      w-AIC        AICc     w-AICc         BIC      w-BIC
+TIM3+F+I+R2       -7092.114   14416.229 +   0.0955   14437.823 +     0.13   15022.384 +    0.231
+TIM3+I+R2         -7103.800   14433.601 - 1.61e-05   14454.048 - 3.91e-05   15024.080 +   0.0989
+TIM3e+I+R2        -7103.805   14433.611 -  1.6e-05   14454.058 - 3.89e-05   15024.090 +   0.0984
+TIM3e+I+R2        -7103.805   14433.611 -  1.6e-05   14454.058 - 3.89e-05   15024.090 +   0.0984
+TIM3+F+R3         -7089.610   14413.219 +     0.43   14435.203 +    0.483   15024.601 +   0.0762
+TIM2+I+R2         -7104.748   14435.497 - 6.25e-06   14455.944 - 1.51e-05   15025.976 -   0.0383
+TIM2e+I+R2        -7104.766   14435.531 - 6.14e-06   14455.979 - 1.49e-05   15026.011 -   0.0377
+TIM2e+I+R2        -7104.766   14435.531 - 6.14e-06   14455.979 - 1.49e-05   15026.011 -   0.0377
+GTR+I+R2          -7098.160   14426.320 - 0.000614   14447.529 -  0.00102   15027.251 -   0.0203
+SYM+I+R2          -7098.162   14426.323 - 0.000613   14447.532 -  0.00102   15027.254 -   0.0202
+SYM+I+R2          -7098.162   14426.323 - 0.000613   14447.532 -  0.00102   15027.254 -   0.0202
+TPM3u+F+I+R2      -7098.274   14426.547 - 0.000548   14447.756 - 0.000909   15027.478 -   0.0181
+TN+I+R2           -7109.176   14442.353 - 2.03e-07   14462.425 - 5.93e-07   15027.606 -    0.017
+TNe+I+R2          -7109.189   14442.378 -    2e-07   14462.451 - 5.85e-07   15027.632 -   0.0167
+TNe+I+R2          -7109.189   14442.378 -    2e-07   14462.451 - 5.85e-07   15027.632 -   0.0167
+TIM3+R3           -7101.974   14431.948 - 3.69e-05   14452.774 - 7.39e-05   15027.653 -   0.0166
+TIM3e+R3          -7101.975   14431.951 - 3.68e-05   14452.777 - 7.38e-05   15027.656 -   0.0166
+TIM3e+R3          -7101.975   14431.951 - 3.68e-05   14452.777 - 7.38e-05   15027.656 -   0.0166
+TPM3u+F+R3        -7094.789   14421.578 -  0.00658   14443.172 -  0.00899   15027.734 -   0.0159
+TIM3+F+R2         -7099.124   14428.248 - 0.000234   14449.456 - 0.000388   15029.179 -  0.00773
+TIM+I+R2          -7106.535   14439.071 - 1.05e-06   14459.518 - 2.54e-06   15029.550 -  0.00642
+TIMe+I+R2         -7106.539   14439.079 - 1.04e-06   14459.526 - 2.53e-06   15029.558 -  0.00639
+TIMe+I+R2         -7106.539   14439.079 - 1.04e-06   14459.526 - 2.53e-06   15029.558 -  0.00639
+TIM2+R3           -7103.106   14434.211 - 1.19e-05   14455.037 - 2.38e-05   15029.916 -  0.00535
+TIM2e+R3          -7103.133   14434.266 - 1.16e-05   14455.092 - 2.32e-05   15029.971 -   0.0052
+TIM2e+R3          -7103.133   14434.266 - 1.16e-05   14455.092 - 2.32e-05   15029.971 -   0.0052
+TN+F+I+R2         -7099.620   14429.240 - 0.000143   14450.449 - 0.000236   15030.171 -  0.00471
+TIM3+R2           -7110.911   14445.822 - 3.58e-08   14465.895 - 1.05e-07   15031.076 -  0.00299
+TIM3e+R2          -7110.911   14445.822 - 3.58e-08   14465.895 - 1.05e-07   15031.076 -  0.00299
+TIM3e+R2          -7110.911   14445.822 - 3.58e-08   14465.895 - 1.05e-07   15031.076 -  0.00299
+TN+R3             -7107.362   14440.724 - 4.58e-07   14461.172 - 1.11e-06   15031.204 -  0.00281
+TNe+R3            -7107.389   14440.777 - 4.46e-07   14461.225 - 1.08e-06   15031.257 -  0.00273
+TNe+R3            -7107.389   14440.777 - 4.46e-07   14461.225 - 1.08e-06   15031.257 -  0.00273
+GTR+R3            -7096.553   14425.106 -  0.00113   14446.700 -  0.00154   15031.261 -  0.00273
+SYM+R3            -7096.601   14425.201 -  0.00108   14446.796 -  0.00147   15031.357 -   0.0026
+SYM+R3            -7096.601   14425.201 -  0.00108   14446.796 -  0.00147   15031.357 -   0.0026
+TIM+F+I+R2        -7096.904   14425.809 - 0.000794   14447.403 -  0.00108   15031.964 -  0.00192
+TN+F+R3           -7097.208   14426.416 - 0.000586   14448.011 -   0.0008   15032.572 -  0.00142
+GTR+F+I+R2        -7090.166   14416.331 +   0.0907   14438.709 +   0.0837   15032.938 -  0.00118
+TIM+R3            -7104.863   14437.725 - 2.05e-06   14458.551 - 4.11e-06   15033.430 - 0.000922
+TIMe+R3           -7104.912   14437.825 - 1.95e-06   14458.651 - 3.91e-06   15033.530 - 0.000878
+TIMe+R3           -7104.912   14437.825 - 1.95e-06   14458.651 - 3.91e-06   15033.530 - 0.000878
+TIM2+R2           -7112.182   14448.365 -    1e-08   14468.437 - 2.93e-08   15033.618 - 0.000839
+TIM2e+R2          -7112.191   14448.382 - 9.95e-09   14468.455 - 2.91e-08   15033.636 - 0.000832
+TIM2e+R2          -7112.191   14448.382 - 9.95e-09   14468.455 - 2.91e-08   15033.636 - 0.000832
+TIM+F+R3          -7094.541   14423.082 -   0.0031   14445.066 -  0.00349   15034.464 -  0.00055
+TPM3u+F+R2        -7105.380   14438.760 - 1.22e-06   14459.586 - 2.45e-06   15034.465 -  0.00055
+GTR+R2            -7105.408   14438.815 - 1.19e-06   14459.641 - 2.38e-06   15034.520 - 0.000535
+SYM+R2            -7105.409   14438.819 - 1.19e-06   14459.645 - 2.38e-06   15034.524 - 0.000534
+SYM+R2            -7105.409   14438.819 - 1.19e-06   14459.645 - 2.38e-06   15034.524 - 0.000534
+TN+R2             -7116.467   14454.934 - 3.76e-10   14474.636 - 1.32e-09   15034.963 - 0.000429
+TNe+R2            -7116.467   14454.934 - 3.76e-10   14474.636 - 1.32e-09   15034.963 - 0.000429
+TNe+R2            -7116.467   14454.934 - 3.76e-10   14474.636 - 1.32e-09   15034.963 - 0.000429
+GTR+F+R3          -7087.787   14413.574 +     0.36   14436.349 +    0.272   15035.406 - 0.000343
+HKY+F+I+R2        -7106.007   14440.013 - 6.53e-07   14460.839 - 1.31e-06   15035.718 - 0.000294
+TIM2+F+I+R2       -7098.880   14429.761 -  0.00011   14451.355 -  0.00015   15035.917 - 0.000266
+HKY+F+R3          -7102.764   14435.528 - 6.15e-06   14456.736 - 1.02e-05   15036.458 - 0.000203
+TIM+R2            -7113.928   14451.856 - 1.75e-09   14471.929 - 5.12e-09   15037.110 - 0.000146
+TIMe+R2           -7113.929   14451.859 - 1.75e-09   14471.932 - 5.11e-09   15037.113 - 0.000146
+TIMe+R2           -7113.929   14451.859 - 1.75e-09   14471.932 - 5.11e-09   15037.113 - 0.000146
+TN+F+R2           -7106.738   14441.475 - 3.14e-07   14462.301 - 6.31e-07   15037.180 - 0.000141
+K3Pu+F+I+R2       -7103.157   14436.314 - 4.15e-06   14457.522 - 6.88e-06   15037.244 - 0.000137
+TVM+F+I+R2        -7096.267   14426.534 - 0.000552   14448.518 - 0.000621   15037.915 - 9.79e-05
+K3Pu+F+R3         -7100.036   14432.072 - 3.46e-05   14453.666 - 4.73e-05   15038.228 - 8.38e-05
+TVM+F+R3          -7092.996   14421.992 -  0.00535   14444.369 -  0.00494   15038.598 - 6.96e-05
+TIM2+F+R3         -7096.630   14427.260 - 0.000384   14449.244 - 0.000432   15038.641 - 6.81e-05
+TIM+F+R2          -7104.064   14438.129 - 1.68e-06   14459.337 - 2.78e-06   15039.059 - 5.53e-05
+GTR+F+R2          -7097.196   14428.392 - 0.000218   14450.377 - 0.000245   15039.774 - 3.87e-05
+TPM2u+F+I+R2      -7105.165   14440.331 - 5.57e-07   14461.539 - 9.23e-07   15041.261 - 1.84e-05
+TPM2u+F+R3        -7102.109   14436.219 - 4.36e-06   14457.813 - 5.95e-06   15042.375 - 1.05e-05
+HKY+F+R2          -7113.034   14452.069 - 1.57e-09   14472.517 - 3.82e-09   15042.548 - 9.66e-06
+TPM3u+I+R2        -7116.737   14457.474 - 1.06e-10   14477.547 - 3.09e-10   15042.728 - 8.83e-06
+TPM3+I+R2         -7116.777   14457.554 - 1.01e-10   14477.627 - 2.96e-10   15042.808 - 8.48e-06
+TPM3+I+R2         -7116.777   14457.554 - 1.01e-10   14477.627 - 2.96e-10   15042.808 - 8.48e-06
+TIM2+F+R2         -7106.034   14442.069 - 2.34e-07   14463.277 - 3.87e-07   15042.999 - 7.71e-06
+TPM3u+R3          -7113.671   14453.342 - 8.33e-10   14473.790 - 2.02e-09   15043.822 - 5.11e-06
+TPM3+R3           -7113.672   14453.344 - 8.32e-10   14473.792 - 2.02e-09   15043.824 -  5.1e-06
+TPM3+R3           -7113.672   14453.344 - 8.32e-10   14473.792 - 2.02e-09   15043.824 -  5.1e-06
+K3Pu+F+R2         -7110.343   14448.685 - 8.55e-09   14469.511 - 1.71e-08   15044.390 - 3.85e-06
+TVM+F+R2          -7103.481   14438.962 -  1.1e-06   14460.556 - 1.51e-06   15045.118 - 2.67e-06
+TPM2u+I+R2        -7118.070   14460.140 - 2.78e-11   14480.213 - 8.13e-11   15045.394 - 2.33e-06
+TPM2+I+R2         -7118.110   14460.220 - 2.67e-11   14480.293 - 7.82e-11   15045.474 - 2.24e-06
+TPM2+I+R2         -7118.110   14460.220 - 2.67e-11   14480.293 - 7.82e-11   15045.474 - 2.24e-06
+TVM+I+R2          -7111.292   14450.583 - 3.31e-09   14471.409 - 6.64e-09   15046.288 - 1.49e-06
+TVMe+I+R2         -7111.316   14450.632 - 3.23e-09   14471.458 - 6.48e-09   15046.337 - 1.45e-06
+TVMe+I+R2         -7111.316   14450.632 - 3.23e-09   14471.458 - 6.48e-09   15046.337 - 1.45e-06
+HKY+I+R2          -7122.248   14466.496 - 1.16e-12   14486.198 - 4.08e-12   15046.524 - 1.32e-06
+K2P+I+R2          -7122.303   14466.607 -  1.1e-12   14486.309 - 3.86e-12   15046.635 - 1.25e-06
+K2P+I+R2          -7122.303   14466.607 -  1.1e-12   14486.309 - 3.86e-12   15046.635 - 1.25e-06
+TPM2u+R3          -7115.285   14456.570 - 1.66e-10   14477.017 - 4.02e-10   15047.049 - 1.02e-06
+TPM2+R3           -7115.286   14456.572 - 1.66e-10   14477.020 - 4.02e-10   15047.051 - 1.02e-06
+TPM2+R3           -7115.286   14456.572 - 1.66e-10   14477.020 - 4.02e-10   15047.051 - 1.02e-06
+HKY+R3            -7119.263   14462.527 - 8.44e-12   14482.600 - 2.47e-11   15047.781 - 7.06e-07
+K2P+R3            -7119.284   14462.567 - 8.27e-12   14482.640 - 2.42e-11   15047.821 - 6.92e-07
+K2P+R3            -7119.284   14462.567 - 8.27e-12   14482.640 - 2.42e-11   15047.821 - 6.92e-07
+TVM+R3            -7108.532   14447.063 - 1.92e-08   14468.272 - 3.19e-08   15047.994 - 6.35e-07
+TVMe+R3           -7108.553   14447.105 - 1.88e-08   14468.313 - 3.12e-08   15048.035 - 6.21e-07
+TVMe+R3           -7108.553   14447.105 - 1.88e-08   14468.313 - 3.12e-08   15048.035 - 6.21e-07
+K3Pu+I+R2         -7119.499   14462.998 - 6.67e-12   14483.071 - 1.95e-11   15048.252 - 5.58e-07
+K3P+I+R2          -7119.539   14463.077 - 6.41e-12   14483.150 - 1.87e-11   15048.331 - 5.36e-07
+K3P+I+R2          -7119.539   14463.077 - 6.41e-12   14483.150 - 1.87e-11   15048.331 - 5.36e-07
+TPM2u+F+R2        -7112.384   14452.767 - 1.11e-09   14473.593 - 2.23e-09   15048.472 -    5e-07
+K3Pu+R3           -7116.672   14459.344 - 4.15e-11   14479.791 -    1e-10   15049.823 - 2.54e-07
+K3P+R3            -7116.685   14459.371 - 4.09e-11   14479.818 - 9.91e-11   15049.850 - 2.51e-07
+K3P+R3            -7116.685   14459.371 - 4.09e-11   14479.818 - 9.91e-11   15049.850 - 2.51e-07
+TPM3u+R2          -7124.024   14470.047 - 1.96e-13   14489.749 - 6.91e-13   15050.076 - 2.24e-07
+TPM3+R2           -7124.024   14470.048 - 1.96e-13   14489.750 - 6.91e-13   15050.076 - 2.24e-07
+TPM3+R2           -7124.024   14470.048 - 1.96e-13   14489.750 - 6.91e-13   15050.076 - 2.24e-07
+TPM2u+R2          -7125.731   14473.462 - 3.56e-14   14493.164 - 1.25e-13   15053.490 - 4.06e-08
+TPM2+R2           -7125.732   14473.464 - 3.56e-14   14493.166 - 1.25e-13   15053.492 - 4.06e-08
+TPM2+R2           -7125.732   14473.464 - 3.56e-14   14493.166 - 1.25e-13   15053.492 - 4.06e-08
+K2P+R2            -7129.521   14479.042 - 2.19e-15   14498.377 - 9.25e-15   15053.845 -  3.4e-08
+K2P+R2            -7129.521   14479.042 - 2.19e-15   14498.377 - 9.25e-15   15053.845 -  3.4e-08
+HKY+R2            -7129.521   14479.043 - 2.19e-15   14498.378 - 9.25e-15   15053.846 -  3.4e-08
+TVM+R2            -7119.010   14464.020 -    4e-12   14484.467 - 9.69e-12   15054.499 - 2.45e-08
+TVMe+R2           -7119.018   14464.035 - 3.97e-12   14484.483 - 9.62e-12   15054.515 - 2.43e-08
+TVMe+R2           -7119.018   14464.035 - 3.97e-12   14484.483 - 9.62e-12   15054.515 - 2.43e-08
+K3P+R2            -7126.958   14475.917 - 1.04e-14   14495.619 - 3.67e-14   15055.945 - 1.19e-08
+K3P+R2            -7126.958   14475.917 - 1.04e-14   14495.619 - 3.67e-14   15055.945 - 1.19e-08
+K3Pu+R2           -7126.958   14475.917 - 1.04e-14   14495.619 - 3.67e-14   15055.945 - 1.19e-08
+F81+F+I+R2        -7240.287   14706.574 - 8.55e-65   14727.022 - 2.07e-64   15297.054 - 5.24e-61
+F81+F+R3          -7236.722   14701.443 - 1.11e-63   14722.269 - 2.23e-63   15297.148 -    5e-61
+F81+F+R2          -7247.308   14718.615 - 2.08e-67   14738.688 - 6.07e-67   15303.869 - 1.74e-62
+F81+I+R2          -7259.403   14738.806 - 8.57e-72   14758.141 - 3.62e-71   15313.609 - 1.33e-64
+JC+I+R2           -7259.559   14739.118 - 7.33e-72   14758.453 -  3.1e-71   15313.921 - 1.14e-64
+JC+I+R2           -7259.559   14739.118 - 7.33e-72   14758.453 -  3.1e-71   15313.921 - 1.14e-64
+F81+R3            -7256.253   14734.506 - 7.36e-71   14754.208 - 2.59e-70   15314.535 - 8.39e-65
+JC+R3             -7256.397   14734.793 - 6.37e-71   14754.496 - 2.24e-70   15314.822 - 7.27e-65
+JC+R3             -7256.397   14734.793 - 6.37e-71   14754.496 - 2.24e-70   15314.822 - 7.27e-65
+F81+R2            -7266.341   14750.681 - 2.26e-74   14769.653 - 1.15e-73   15320.259 -  4.8e-66
+JC+R2             -7266.355   14750.710 - 2.23e-74   14769.681 - 1.13e-73   15320.287 - 4.73e-66
+JC+R2             -7266.355   14750.710 - 2.23e-74   14769.681 - 1.13e-73   15320.287 - 4.73e-66
+JC+I+R3           -7258.052   14740.104 - 4.48e-72   14760.177 - 1.31e-71   15325.358 - 3.75e-67
+JC+R4             -7256.267   14738.534 - 9.82e-72   14758.982 - 2.38e-71   15329.014 - 6.02e-68
+JC+I+G4           -7277.976   14773.952 -    2e-79   14792.923 - 1.01e-78   15343.529 - 4.24e-71
+JC+G4             -7285.202   14786.405 - 3.95e-82   14805.017 -  2.4e-81   15350.757 - 1.14e-72
+JC+I              -7327.221   14870.442 - 2.23e-100   14889.053 - 1.35e-99   15434.794 - 6.46e-91
+JC                -7536.086   15286.172 - 1.19e-190   15304.428 - 8.6e-190   15845.298 - 4.68e-180
+
+AIC, w-AIC   : Akaike information criterion scores and weights.
+AICc, w-AICc : Corrected AIC scores and weights.
+BIC, w-BIC   : Bayesian information criterion scores and weights.
+
+Plus signs denote the 95% confidence sets.
+Minus signs denote significant exclusion.
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: TIM3+F+I+R2
+
+Rate parameter R:
+
+  A-C: 1.5306
+  A-G: 4.6953
+  A-T: 1.0000
+  C-G: 1.5306
+  C-T: 3.0909
+  G-T: 1.0000
+
+State frequencies: (empirical counts from alignment)
+
+  pi(A) = 0.3048
+  pi(C) = 0.221
+  pi(G) = 0.2321
+  pi(T) = 0.2421
+
+Rate matrix Q:
+
+  A    -1.032     0.209    0.6734    0.1496
+  C    0.2883   -0.9702    0.2195    0.4624
+  G    0.8845     0.209    -1.243    0.1496
+  T    0.1884    0.4221    0.1434   -0.7539
+
+Model of rate heterogeneity: Invar+FreeRate with 2 categories
+Proportion of invariable sites: 0.4118
+Site proportion and rates:  (0.5055,0.9933) (0.08274,6.018)
+
+ Category  Relative_rate  Proportion
+  0         0              0.4118
+  1         0.9933         0.5055
+  2         6.018          0.08274
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -7080.3680 (s.e. 221.1778)
+Unconstrained log-likelihood (without tree): -6036.4574
+Number of free parameters (#branches + #model parameters): 116
+Akaike information criterion (AIC) score: 14392.7361
+Corrected Akaike information criterion (AICc) score: 14414.3304
+Bayesian information criterion (BIC) score: 14998.8919
+
+Total tree length (sum of branch lengths): 0.7863
+Sum of internal branch lengths: 0.1466 (18.6430% of tree length)
+
+WARNING: 21 near-zero internal branches (<0.0007) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Gallus_gallus' is drawn at root
+Numbers in parentheses are SH-aLRT support (%) / aBayes support / ultrafast bootstrap support (%)
+
++------Gallus_gallus
+|
++-------Anas_platyrhynchos
+|
+|       +------------------------------------Columba_livia
++-------| (99.7/1/100)
+        |                    +---------Tauraco_erythrolophus
+        |                 +**| (65/0.385/20)
+        |                 |  +---Eurypyga_helias
+        |              +--| (77.8/0.944/19)
+        |              |  |  +---Antrostomus_carolinensis
+        |              |  +--| (84.2/0.942/57)
+        |              |     +----Buceros_rhinoceros
+        |           +**| (0/0.333/6)
+        |           |  |           +------Calypte_anna
+        |           |  |        +--| (82.7/0.972/61)
+        |           |  |        |  +------Apus_apus
+        |           |  |     +**| (0/0.333/3)
+        |           |  |     |  |     +-----Opisthocomus_hoazin
+        |           |  |     |  |  +**| (72.9/0.508/43)
+        |           |  |     |  |  |  +--Gavia_stellata
+        |           |  |     |  +--| (85.5/0.947/39)
+        |           |  |     |     +--Astur_gentilis
+        |           |  |  +**| (0/0.333/7)
+        |           |  |  |  |     +--Aptenodytes_patagonicus
+        |           |  |  |  |  +--| (84.5/0.96/37)
+        |           |  |  |  |  |  |  +--Fulmarus_glacialis
+        |           |  |  |  |  |  +**| (0/0.333/22)
+        |           |  |  |  |  |     |  +--Pelecanus_crispus
+        |           |  |  |  |  |     +--| (75.9/0.943/51)
+        |           |  |  |  |  |        |  +----Colius_striatus
+        |           |  |  |  |  |        +--| (70.1/0.898/62)
+        |           |  |  |  |  |           +-----Merops_nubicus
+        |           |  |  |  +**| (0/0.333/4)
+        |           |  |  |     |        +--Ciconia_boyciana
+        |           |  |  |     |     +**| (0/0.333/14)
+        |           |  |  |     |     |  |        +----Tyto_alba
+        |           |  |  |     |     |  |     +--| (74.3/0.665/50)
+        |           |  |  |     |     |  |     |  +-----Apaloderma_vittatum
+        |           |  |  |     |     |  |  +--| (86.1/0.991/70)
+        |           |  |  |     |     |  |  |  |         +----Strigops_habroptila
+        |           |  |  |     |     |  |  |  |  +------| (99.8/1/100)
+        |           |  |  |     |     |  |  |  |  |      +-------Melopsittacus_undulatus
+        |           |  |  |     |     |  |  |  +--| (71.7/0.648/52)
+        |           |  |  |     |     |  |  |     |  +------Acanthisitta_chloris
+        |           |  |  |     |     |  |  |     +--| (94.9/1/96)
+        |           |  |  |     |     |  |  |        |   +-----Taeniopygia_guttata
+        |           |  |  |     |     |  |  |        +---| (98.5/1/100)
+        |           |  |  |     |     |  |  |            +---Corvus_cornix
+        |           |  |  |     |     |  +--| (75.2/0.789/39)
+        |           |  |  |     |     |     +--Athene_noctua
+        |           |  |  |     |  +**| (0/0.333/11)
+        |           |  |  |     |  |  |  +--Herpetotheres_cachinnans
+        |           |  |  |     |  |  +--| (93.5/1/88)
+        |           |  |  |     |  |     |  +--Ibycter_americanus
+        |           |  |  |     |  |     +--| (94.7/1/99)
+        |           |  |  |     |  |        |  +**Falco_peregrinus
+        |           |  |  |     |  |        +--| (93.5/1/100)
+        |           |  |  |     |  |           +--Falco_naumanni
+        |           |  |  |     +**| (0/0.333/1)
+        |           |  |  |        +--Strix_aluco
+        |           |  +--| (86.2/0.996/15)
+        |           |     |                   +----Rissa_tridactyla
+        |           |     |     +-------------| (100/1/78)
+        |           |     |     |             |           +--Sagittarius_serpentarius
+        |           |     |     |             |        +**| (0/0.334/46)
+        |           |     |     |             |        |  |        +**Harpia_harpyja
+        |           |     |     |             |        |  |     +**| (0/0.333/29)
+        |           |     |     |             |        |  |     |  +--Aquila_chrysaetos
+        |           |     |     |             |        |  |  +**| (0/0.333/54)
+        |           |     |     |             |        |  |  |  +--Buteo_buteo
+        |           |     |     |             |        |  +--| (76/0.671/78)
+        |           |     |     |             |        |     +--Haliaeetus_albicilla
+        |           |     |     |             |     +--| (75/0.926/71)
+        |           |     |     |             |     |  |        +-------------------------------Pandion_haliaetus
+        |           |     |     |             |     |  |     +--| (75.6/0.561/75)
+        |           |     |     |             |     |  |     |  +--Elanus_axillaris
+        |           |     |     |             |     |  |  +**| (0/0.333/34)
+        |           |     |     |             |     |  |  |  +--Gypaetus_barbatus
+        |           |     |     |             |     |  +**| (0/0.333/26)
+        |           |     |     |             |     |     +**Pithecophaga_jefferyi
+        |           |     |     |             |  +--| (86.1/0.987/91)
+        |           |     |     |             |  |  +--Aegypius_monachus
+        |           |     |     |             +**| (0/0.34/47)
+        |           |     |     |                +-----------Chiroxiphia_lanceolata
+        |           |     |  +**| (0/0.333/21)
+        |           |     |  |  |     +--Gymnogyps_californianus
+        |           |     |  |  |  +--| (97/1/98)
+        |           |     |  |  |  |  +**Sarcoramphus_papa
+        |           |     |  |  +**| (0/0.334/52)
+        |           |     |  |     +--Ninox_strenua
+        |           |     +--| (0/0.334/19)
+        |           |        +--Cariama_cristata
+        |        +**| (0/0.333/3)
+        |        |  |  +--Grus_americana
+        |        |  +**| (0/0.333/12)
+        |        |     +--Phaethon_lepturus
+        |     +**| (64.8/0.374/24)
+        |     |  |  +--Chlamydotis_macqueenii
+        |     |  +--| (74.4/0.6/15)
+        |     |     |      +-----Dryobates_pubescens
+        |     |     |   +--| (89.6/0.997/98)
+        |     |     |   |  +--Indicator_indicator
+        |     |     +---| (99/1/99)
+        |     |         +-----Pogoniulus_pusillus
+        |  +--| (73.5/0.643/28)
+        |  |  +--Leptosomus_discolor
+        +--| (59.2/0.578/60)
+           +-----Cuculus_canorus
+
+Tree in newick format:
+
+(Gallus_gallus:0.0177172848,Anas_platyrhynchos:0.0206783839,(Columba_livia:0.0893242437,(((((((Tauraco_erythrolophus:0.0259626310,Eurypyga_helias:0.0111178117)65/0.385/20:0.0004648807,(Antrostomus_carolinensis:0.0099247353,Buceros_rhinoceros:0.0133055226)84.2/0.942/57:0.0015764143)77.8/0.944/19:0.0008077846,((((Calypte_anna:0.0191671900,Apus_apus:0.0173876234)82.7/0.972/61:0.0036483559,((Opisthocomus_hoazin:0.0160881727,Gavia_stellata:0.0066764111)72.9/0.508/43:0.0006743332,Astur_gentilis:0.0032527101)85.5/0.947/39:0.0015866426)0/0.333/3:0.0000025638,((Aptenodytes_patagonicus:0.0032351436,(Fulmarus_glacialis:0.0053165596,(Pelecanus_crispus:0.0029689545,(Colius_striatus:0.0138070491,Merops_nubicus:0.0146309081)70.1/0.898/62:0.0026765750)75.9/0.943/51:0.0010733641)0/0.333/22:0.0000024875)84.5/0.96/37:0.0008024617,(((Ciconia_boyciana:0.0056755412,(((Tyto_alba:0.0132805554,Apaloderma_vittatum:0.0167989941)74.3/0.665/50:0.0011665075,((Strigops_habroptila:0.0121468047,Melopsittacus_undulatus:0.0199792374)99.8/1/100:0.0170109030,(Acanthisitta_chloris:0.0171245129,(Taeniopygia_guttata:0.0152164070,Corvus_cornix:0.0112047650)98.5/1/100:0.0101501297)94.9/1/96:0.0065503879)71.7/0.648/52:0.0009114557)86.1/0.991/70:0.0024469049,Athene_noctua:0.0032679436)75.2/0.789/39:0.0011824205)0/0.333/14:0.0000021981,(Herpetotheres_cachinnans:0.0015990161,(Ibycter_americanus:0.0024288842,(Falco_peregrinus:0.0000010189,Falco_naumanni:0.0008026426)93.5/1/100:0.0032572537)94.7/1/99:0.0033159145)93.5/1/88:0.0024445834)0/0.333/11:0.0000023216,Strix_aluco:0.0016063511)0/0.333/1:0.0000010849)0/0.333/4:0.0000020556)0/0.333/7:0.0000021720,(((Rissa_tridactyla:0.0132086342,((((Sagittarius_serpentarius:0.0079184279,(((Harpia_harpyja:0.0000010189,Aquila_chrysaetos:0.0007764050)0/0.333/29:0.0000021506,Buteo_buteo:0.0007774898)0/0.333/54:0.0000021036,Haliaeetus_albicilla:0.0031187494)76/0.671/78:0.0007780980)0/0.334/46:0.0000024532,(((Pandion_haliaetus:0.0784248994,Elanus_axillaris:0.0066499964)75.6/0.561/75:0.0013442853,Gypaetus_barbatus:0.0023505961)0/0.333/34:0.0000020879,Pithecophaga_jefferyi:0.0000010189)0/0.333/26:0.0000020306)75/0.926/71:0.0007740586,Aegypius_monachus:0.0007841485)86.1/0.987/91:0.0018320777,Chiroxiphia_lanceolata:0.0291523883)0/0.34/47:0.0002128681)100/1/78:0.0344925128,((Gymnogyps_californianus:0.0024134035,Sarcoramphus_papa:0.0000021034)97/1/98:0.0032379849,Ninox_strenua:0.0016177553)0/0.334/52:0.0000020401)0/0.333/21:0.0000013343,Cariama_cristata:0.0017033025)0/0.334/19:0.0008074367)86.2/0.996/15:0.0011653027)0/0.333/6:0.0000020444,(Grus_americana:0.0073084089,Phaethon_lepturus:0.0039382637)0/0.333/12:0.0000025814)0/0.333/3:0.0000021814,(Chlamydotis_macqueenii:0.0082419674,((Dryobates_pubescens:0.0147608288,Indicator_indicator:0.0069012884)89.6/0.997/98:0.0036034581,Pogoniulus_pusillus:0.0166719537)99/1/99:0.0101479206)74.4/0.6/15:0.0007481235)64.8/0.374/24:0.0006034449,Leptosomus_discolor:0.0052785431)73.5/0.643/28:0.0016032707,Cuculus_canorus:0.0160000654)59.2/0.578/60:0.0032172290)99.7/1/100:0.0202350864);
+
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000 bootstrap trees
+Log-likelihood of consensus tree: -7082.430698
+Robinson-Foulds distance between ML tree and consensus tree: 22
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
++------Gallus_gallus
+|
++-------Anas_platyrhynchos
+|
+|       +-----------------------------------Columba_livia
++-------| (100)
+        |                 +---------Tauraco_erythrolophus
+        |              +--| (23)
+        |              |  +--Chlamydotis_macqueenii
+        |           +--| (30)
+        |           |  +-----Cuculus_canorus
+        |        +--| (1)
+        |        |  |                 +------Calypte_anna
+        |        |  |              +--| (61)
+        |        |  |              |  +------Apus_apus
+        |        |  |           +--| (16)
+        |        |  |           |  +--Strix_aluco
+        |        |  |        +--| (9)
+        |        |  |        |  |     +--Aptenodytes_patagonicus
+        |        |  |        |  |  +--| (37)
+        |        |  |        |  |  |  |  +--Fulmarus_glacialis
+        |        |  |        |  |  |  +--| (22)
+        |        |  |        |  |  |     |  +--Pelecanus_crispus
+        |        |  |        |  |  |     +--| (51)
+        |        |  |        |  |  |        |  +----Colius_striatus
+        |        |  |        |  |  |        +--| (62)
+        |        |  |        |  |  |           +-----Merops_nubicus
+        |        |  |        |  +--| (9)
+        |        |  |        |     |     +--Ciconia_boyciana
+        |        |  |        |     |  +--| (14)
+        |        |  |        |     |  |  |        +----Tyto_alba
+        |        |  |        |     |  |  |     +--| (50)
+        |        |  |        |     |  |  |     |  +-----Apaloderma_vittatum
+        |        |  |        |     |  |  |  +--| (70)
+        |        |  |        |     |  |  |  |  |         +----Strigops_habroptila
+        |        |  |        |     |  |  |  |  |  +------| (100)
+        |        |  |        |     |  |  |  |  |  |      +-------Melopsittacus_undulatus
+        |        |  |        |     |  |  |  |  +--| (52)
+        |        |  |        |     |  |  |  |     |  +------Acanthisitta_chloris
+        |        |  |        |     |  |  |  |     +--| (96)
+        |        |  |        |     |  |  |  |        |   +-----Taeniopygia_guttata
+        |        |  |        |     |  |  |  |        +---| (100)
+        |        |  |        |     |  |  |  |            +---Corvus_cornix
+        |        |  |        |     |  |  +--| (39)
+        |        |  |        |     |  |     +--Athene_noctua
+        |        |  |        |     +--| (11)
+        |        |  |        |        |  +--Herpetotheres_cachinnans
+        |        |  |        |        +--| (88)
+        |        |  |        |           |  +--Ibycter_americanus
+        |        |  |        |           +--| (99)
+        |        |  |        |              |  +--Falco_peregrinus
+        |        |  |        |              +--| (100)
+        |        |  |        |                 +--Falco_naumanni
+        |        |  |     +--| (7)
+        |        |  |     |  |     +-----Opisthocomus_hoazin
+        |        |  |     |  |  +--| (43)
+        |        |  |     |  |  |  +--Gavia_stellata
+        |        |  |     |  +--| (39)
+        |        |  |     |     +--Astur_gentilis
+        |        |  |  +--| (15)
+        |        |  |  |  |                   +----Rissa_tridactyla
+        |        |  |  |  |     +-------------| (78)
+        |        |  |  |  |     |             |           +--Sagittarius_serpentarius
+        |        |  |  |  |     |             |        +--| (46)
+        |        |  |  |  |     |             |        |  |        +--Harpia_harpyja
+        |        |  |  |  |     |             |        |  |     +--| (29)
+        |        |  |  |  |     |             |        |  |     |  +--Aquila_chrysaetos
+        |        |  |  |  |     |             |        |  |  +--| (54)
+        |        |  |  |  |     |             |        |  |  |  +--Buteo_buteo
+        |        |  |  |  |     |             |        |  +--| (78)
+        |        |  |  |  |     |             |        |     +--Haliaeetus_albicilla
+        |        |  |  |  |     |             |     +--| (71)
+        |        |  |  |  |     |             |     |  |        +-------------------------------Pandion_haliaetus
+        |        |  |  |  |     |             |     |  |     +--| (75)
+        |        |  |  |  |     |             |     |  |     |  +--Elanus_axillaris
+        |        |  |  |  |     |             |     |  |  +--| (34)
+        |        |  |  |  |     |             |     |  |  |  +--Gypaetus_barbatus
+        |        |  |  |  |     |             |     |  +--| (26)
+        |        |  |  |  |     |             |     |     +--Pithecophaga_jefferyi
+        |        |  |  |  |     |             |  +--| (91)
+        |        |  |  |  |     |             |  |  +--Aegypius_monachus
+        |        |  |  |  |     |             +--| (47)
+        |        |  |  |  |     |                +-----------Chiroxiphia_lanceolata
+        |        |  |  |  |  +--| (21)
+        |        |  |  |  |  |  |     +--Gymnogyps_californianus
+        |        |  |  |  |  |  |  +--| (98)
+        |        |  |  |  |  |  |  |  +--Sarcoramphus_papa
+        |        |  |  |  |  |  +--| (52)
+        |        |  |  |  |  |     +--Ninox_strenua
+        |        |  |  |  +--| (19)
+        |        |  |  |     +--Cariama_cristata
+        |        |  +--| (6)
+        |        |     |  +--Antrostomus_carolinensis
+        |        |     +--| (57)
+        |        |        +----Buceros_rhinoceros
+        |     +--| (5)
+        |     |  |     +--Grus_americana
+        |     |  |  +--| (22)
+        |     |  |  |  |      +-----Dryobates_pubescens
+        |     |  |  |  |   +--| (98)
+        |     |  |  |  |   |  +--Indicator_indicator
+        |     |  |  |  +---| (99)
+        |     |  |  |      +-----Pogoniulus_pusillus
+        |     |  +--| (10)
+        |     |     +--Leptosomus_discolor
+        |  +--| (19)
+        |  |  +----Eurypyga_helias
+        +--| (60)
+           +--Phaethon_lepturus
+
+
+Consensus tree in newick format: 
+
+(Gallus_gallus:0.0187843812,Anas_platyrhynchos:0.0201573543,(Columba_livia:0.0892780658,((((((Tauraco_erythrolophus:0.0267154857,Chlamydotis_macqueenii:0.0082378167)23:0.0000024013,Cuculus_canorus:0.0169571927)30:0.0008654061,((((((Calypte_anna:0.0193809200,Apus_apus:0.0175876317)61:0.0036849876,Strix_aluco:0.0016228617)16:0.0000024209,((Aptenodytes_patagonicus:0.0032712952,(Fulmarus_glacialis:0.0053698300,(Pelecanus_crispus:0.0030014977,(Colius_striatus:0.0139582080,Merops_nubicus:0.0147764662)62:0.0027083864)51:0.0010866176)22:0.0000024209)37:0.0008121301,((Ciconia_boyciana:0.0057369790,(((Tyto_alba:0.0134763733,Apaloderma_vittatum:0.0169814638)50:0.0011867735,((Strigops_habroptila:0.0122662162,Melopsittacus_undulatus:0.0201940054)100:0.0172295751,(Acanthisitta_chloris:0.0173127452,(Taeniopygia_guttata:0.0153847772,Corvus_cornix:0.0113258171)100:0.0102623945)96:0.0066193663)52:0.0009214998)70:0.0024827423,Athene_noctua:0.0033046228)39:0.0011999192)14:0.0000028121,(Herpetotheres_cachinnans:0.0016166500,(Ibycter_americanus:0.0024557129,(Falco_peregrinus:0.0000024209,Falco_naumanni:0.0008122006)100:0.0032932285)99:0.0033539841)88:0.0024718421)11:0.0000028121)9:0.0000028121)9:0.0000028121,((Opisthocomus_hoazin:0.0162667368,Gavia_stellata:0.0067491521)43:0.0006833701,Astur_gentilis:0.0032886525)39:0.0016052476)7:0.0000028121,(((Rissa_tridactyla:0.0133604449,((((Sagittarius_serpentarius:0.0080094576,(((Harpia_harpyja:0.0000024209,Aquila_chrysaetos:0.0007858138)29:0.0000024209,Buteo_buteo:0.0007868994)54:0.0000024209,Haliaeetus_albicilla:0.0031544816)78:0.0007875586)46:0.0000024209,(((Pandion_haliaetus:0.0793927242,Elanus_axillaris:0.0067370369)75:0.0013575552,Gypaetus_barbatus:0.0023772896)34:0.0000024209,Pithecophaga_jefferyi:0.0000024209)26:0.0000024209)71:0.0007831162,Aegypius_monachus:0.0007935834)91:0.0018519193,Chiroxiphia_lanceolata:0.0294907970)47:0.0002152280)78:0.0349012118,((Gymnogyps_californianus:0.0024410012,Sarcoramphus_papa:0.0000024209)98:0.0032752320,Ninox_strenua:0.0016372107)52:0.0001644701)21:0.0001121903,Cariama_cristata:0.0017245336)19:0.0005430959)15:0.0000025218,(Antrostomus_carolinensis:0.0092486925,Buceros_rhinoceros:0.0144174868)57:0.0023602649)6:0.0011809905)1:0.0000024439,((Grus_americana:0.0066704316,((Dryobates_pubescens:0.0149227671,Indicator_indicator:0.0069780659)98:0.0036345272,Pogoniulus_pusillus:0.0168355195)99:0.0103477153)22:0.0007238993,Leptosomus_discolor:0.0057600342)10:0.0000024209)5:0.0000025357,Eurypyga_helias:0.0125998234)19:0.0008673250,Phaethon_lepturus:0.0034003452)60:0.0039999559)100:0.0210175455);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t SERAC1.treefile -m "TIM3{1.53059,4.69527,3.09095}+F{0.30484,0.221003,0.232085,0.242071}+I{0.411778}+R2{0.505481,0.993296,0.0827408,6.01768}" --length 1374
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s SERAC1.entrada.fa --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s SERAC1.entrada.fa --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Sun Oct 18 13:40:36 2026
+Total CPU time used: 102.07775 seconds (0h:1m:42s)
+Total wall-clock time used: 102.184622 seconds (0h:1m:42s)
+

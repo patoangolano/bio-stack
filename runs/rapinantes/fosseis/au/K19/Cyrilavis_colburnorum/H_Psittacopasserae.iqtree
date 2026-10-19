@@ -1,0 +1,232 @@
+IQ-TREE 3.1.4 built Sep 29 2026
+
+Partition file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/K19/particoes.nex
+Input file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/K19/K19.phy
+Type of analysis: ModelFinder + tree reconstruction
+Random seed number: 20261017
+
+REFERENCES
+----------
+
+To cite IQ-TREE 3 please use:
+
+Thomas K.F. Wong, Nhan Ly-Trong, Huaiyan Ren, Piyumal Demotte, Hector Banos,
+Andrew J. Roger, Edward Susko, Chris Bielow, Nicola De Maio, Nick Goldman,
+Matthew W. Hahn, Mario dos Reis, Le Sy Vinh, Gavin Huttley, Robert Lanfear, Bui Quang Minh (2026)
+IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models.
+Molecular Biology and Evolution, msag117.
+https://doi.org/10.1093/molbev/msag117
+
+Since you used ModelFinder please also cite: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used partition models please also cite:
+
+Olga Chernomor, Arndt von Haeseler, and Bui Quang Minh (2016)
+Terrace aware data structure for phylogenomic inference from
+supermatrices. Syst. Biol., 65:997-1008.
+https://doi.org/10.1093/sysbio/syw037
+
+SEQUENCE ALIGNMENT
+------------------
+
+NOTE: Alignment sequence type is auto-detected. If in doubt, specify it via -st option.
+Input data: 62 taxa with 3 partitions and 146 total sites (0.0552364% missing data)
+
+  ID	Type	Seq	Site	Unique	Infor	Invar	Const	Name
+   1	MORPH	62	118	118	115	0	0	k2
+   2	MORPH	62	23	23	23	0	0	k3
+   3	MORPH	61	5	5	5	0	0	k4mais
+
+Column meanings:
+  Unique: Number of unique site patterns
+  Infor:  Number of parsimony-informative sites
+  Invar:  Number of invariant sites
+  Const:  Number of constant sites (can be subset of invariant sites)
+
+SUBSTITUTION PROCESS
+--------------------
+
+Edge-linked-proportional partition model with separate substitution models and separate rates across sites
+
+  ID  Model           Speed  Parameters
+   1  MK+FQ+ASC+G4   0.8093  MK+FQ+ASC+G4{3.94531}
+   2  MK+FQ+ASC+G4   1.7532  MK+FQ+ASC+G4{42.5254}
+   3  MK+FQ+ASC+G4   2.0352  MK+FQ+ASC+G4{998.436}
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -3882.5606 (s.e. 156.3427)
+Unconstrained log-likelihood (without tree): -643.1043
+Number of free parameters (#branches + #model parameters): 126
+Akaike information criterion (AIC) score: 8017.1213
+Corrected Akaike information criterion (AICc) score: 9701.5423
+Bayesian information criterion (BIC) score: 8393.0557
+
+Marginal log-likelihood of the tree: -3906.5720
+Marginal Akaike information criterion (mAIC) score: 8065.1440
+
+Total tree length (sum of branch lengths): 5.6688
+Sum of internal branch lengths: 3.0449 (53.7124% of tree length)
+
+WARNING: 5 near-zero internal branches (<0.0068) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Eudromia_elegans' is drawn at root
+
++------Eudromia_elegans
+|
++------Dendrocygna_bicolor
+|
+|                                 +--Psittacus_erithacus
+|                              +--|
+|                              |  +--Cacatua_sulphurea
+|                    +---------|
+|                    |         +--Nestor_meridionalis
+|                 +--|
+|                 |  |                                          +--Tyrannus_tyrannus
+|                 |  |                                       +--|
+|                 |  |                                       |  +--Pitta_erythrogaster
+|                 |  |                                    +--|
+|                 |  |                                    |  +---Wieslochia_weissi
+|                 |  |                                 +--|
+|                 |  |                                 |  |  +--Corvus_brachyrhynchos
+|                 |  |                                 |  +--|
+|                 |  |                                 |     |  +--Spinus_pinus
+|                 |  |                                 |     +--|
+|                 |  |                                 |        +--Gracula_religiosa
+|                 |  |                       +---------|
+|                 |  |                       |         +----Acanthisitta_chloris
+|                 |  |                    +--|
+|                 |  |                    |  +**Eozygodactylus_americanus
+|                 |  |                 +--|
+|                 |  |                 |  +**Zygodactylus_luberonensis
+|                 |  |       +---------|
+|                 |  |       |         +--Primozygodactylus_quintus
+|                 |  |    +--|
+|                 |  |    |  +----Eocuculus_cherpinae
+|                 |  +----|
+|                 |       |                    +**Eofringillirostrum_boudreauxi
+|                 |       |           +--------|
+|                 |       |           |        +**Eofringillirostrum_parvulus
+|                 |       |       +---|
+|                 |       |       |   +--Pumiliornis_tessellatus
+|                 |       |    +--|
+|                 |       |    |  |  +**Morsoravis_sedilis
+|                 |       |    |  +--|
+|                 |       |    |     +**Morsoravis_sp
+|                 |       +----|
+|                 |            +**Psittacopes_lepidus
+|            +----|
+|            |    |     +--Cyrilavis_colburnorum
+|            |    +-----|
+|            |          +**Pseudasturides_macrocephalus
+|         +--|
+|         |  +-------------Falco_peregrinus
+|      +**|
+|      |  +-----Cariama_cristata
++------|
+       |           +-----Buteo_jamaicensis
+       |        +--|
+       |        |  +---Sagittarius_serpentarius
+       |     +--|
+       |     |  +----Cathartes_aurea
+       |  +--|
+       |  |  |       +--Tyto_alba
+       |  |  +-------|
+       |  |          +---Bubo_virginianus
+       +--|
+          |                         +**Anneavis_anneae
+          |                      +**|
+          |                      |  +----Tsidiiyazhi_abini
+          |               +------|
+          |               |      +--Sandcoleus_copiosus
+          |       +-------|
+          |       |       |                     +--------Oligocolius_psittacocephalon
+          |       |       |                  +--|
+          |       |       |                  |  +--Urocolius_indicus
+          |       |       |     +------------|
+          |       |       |     |            +**Colius_striatus
+          |       |       |  +--|
+          |       |       |  |  +--Selmes_absurdipes
+          |       |       +--|
+          |       |          |   +--Masillacolius_brevidactylus
+          |       |          +---|
+          |       |              +**Chascacocolius_oscitans
+          +-------|
+                  |         +--Leptosomus_discolor
+                  |      +--|
+                  |      |  +--Plesiocathartes_wyomingensis
+                  |  +---|
+                  |  |   +**Plesiocathartes_kelleri
+                  +--|
+                     |                          +--Paracoracias_occidentalis
+                     |                       +**|
+                     |                       |  +**Eocoracias_brachyptera
+                     |                    +--|
+                     |                    |  |  +**Coracias_caudatus
+                     |                    |  +--|
+                     |                    |     +--Atelornis_pittoides
+                     |                 +--|
+                     |                 |  +---Merops_ornatus
+                     |           +-----|
+                     |           |     |        +--Megaceryle_alcyon
+                     |           |     |     +--|
+                     |           |     |     |  +--Dacelo_novaeguineae
+                     |           |     |  +**|
+                     |           |     |  |  +--Momotus_momota
+                     |           |     +--|
+                     |           |        |   +**Palaeotodus_itardiensis
+                     |           |        +---|
+                     |           |            +--Todus_subulatus
+                     |        +**|
+                     |        |  |                +--Rupelramphastoides_knopfi
+                     |        |  |       +--------|
+                     |        |  |       |        +--Dryocopus_pileatus
+                     |        |  +-------|
+                     |        |          +-----Galbula_albirostris
+                     |     +--|
+                     |     |  |     +-------Upupa_epops
+                     |     |  +-----|
+                     |     |        +---Tockus_camurus
+                     |  +--|
+                     |  |  +------Messelirrisor_halcyrostris
+                     +--|
+                        |          +--Harpactes_erythrocephalus
+                        |       +--|
+                        |       |  +--Trogon_melanurus
+                        +-------|
+                                +--Primotrogon_wintersteini
+
+Tree in newick format:
+
+(Eudromia_elegans:0.0943164861,Dendrocygna_bicolor:0.0918076077,(((((((Psittacus_erithacus:0.0147822976,Cacatua_sulphurea:0.0346905378):0.0197677231,Nestor_meridionalis:0.0235855629):0.1306262908,(((((((((Tyrannus_tyrannus:0.0359831563,Pitta_erythrogaster:0.0230236857):0.0284303005,Wieslochia_weissi:0.0631970658):0.0453443992,(Corvus_brachyrhynchos:0.0418234320,(Spinus_pinus:0.0395147526,Gracula_religiosa:0.0494568633):0.0137107342):0.0271784679):0.0247453081,Acanthisitta_chloris:0.0730893895):0.1420049673,Eozygodactylus_americanus:0.0000020235):0.0166384692,Zygodactylus_luberonensis:0.0000021857):0.0199554721,Primozygodactylus_quintus:0.0154362970):0.1368768411,Eocuculus_cherpinae:0.0677012791):0.0325248924,((((Eofringillirostrum_boudreauxi:0.0000026703,Eofringillirostrum_parvulus:0.0000026076):0.1240386447,Pumiliornis_tessellatus:0.0239648454):0.0546834386,(Morsoravis_sedilis:0.0000010000,Morsoravis_sp:0.0000010000):0.0369598156):0.0440482336,Psittacopes_lepidus:0.0000022359):0.0759995063):0.0708363288):0.0316307593,(Cyrilavis_colburnorum:0.0419340507,Pseudasturides_macrocephalus:0.0000020748):0.0809101995):0.0742435469,Falco_peregrinus:0.1813206137):0.0151466737,Cariama_cristata:0.0860715125):0.0058892172,((((Buteo_jamaicensis:0.0854110044,Sagittarius_serpentarius:0.0622307225):0.0402199754,Cathartes_aurea:0.0722985681):0.0312889533,(Tyto_alba:0.0292754716,Bubo_virginianus:0.0639756758):0.1076344408):0.0463021593,((((Anneavis_anneae:0.0000023055,Tsidiiyazhi_abini:0.0701222167):0.0020197051,Sandcoleus_copiosus:0.0307426502):0.0953498220,((((Oligocolius_psittacocephalon:0.1236198748,Urocolius_indicus:0.0163675805):0.0348431335,Colius_striatus:0.0062832493):0.1757572922,Selmes_absurdipes:0.0238688973):0.0368319537,(Masillacolius_brevidactylus:0.0505148486,Chascacocolius_oscitans:0.0000010000):0.0574692083):0.0379105412):0.1056965711,(((Leptosomus_discolor:0.0384742274,Plesiocathartes_wyomingensis:0.0265847429):0.0186885425,Plesiocathartes_kelleri:0.0000026778):0.0571819466,((((((((Paracoracias_occidentalis:0.0137550412,Eocoracias_brachyptera:0.0000028533):0.0000026066,(Coracias_caudatus:0.0000010000,Atelornis_pittoides:0.0412189590):0.0399382636):0.0505105675,Merops_ornatus:0.0579203565):0.0380449700,(((Megaceryle_alcyon:0.0358436831,Dacelo_novaeguineae:0.0273262548):0.0493885055,Momotus_momota:0.0276817773):0.0000023250,(Palaeotodus_itardiensis:0.0000026219,Todus_subulatus:0.0337195337):0.0522773257):0.0128823594):0.0823364122,((Rupelramphastoides_knopfi:0.0512158700,Dryocopus_pileatus:0.0438066179):0.1292428109,Galbula_albirostris:0.0903780172):0.1052032824):0.0000021484,(Upupa_epops:0.1098629232,Tockus_camurus:0.0602197633):0.0824194259):0.0296273386,Messelirrisor_halcyrostris:0.0975275585):0.0241076065,((Harpactes_erythrocephalus:0.0284314187,Trogon_melanurus:0.0196539520):0.0325145601,Primotrogon_wintersteini:0.0229044983):0.1075734944):0.0375148193):0.0152718495):0.1050199129):0.0164941975):0.0961009232);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/K19/Cyrilavis_colburnorum/H_Psittacopasserae.treefile -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/K19/Cyrilavis_colburnorum/H_Psittacopasserae.best_model.nex
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/K19/K19.phy --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/K19/K19.phy --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Sat Oct 17 23:38:16 2026
+Total CPU time used: 18.2437 seconds (0h:0m:18s)
+Total wall-clock time used: 18.4522 seconds (0h:0m:18s)
+

@@ -1,0 +1,420 @@
+IQ-TREE 3.1.4 built Sep 29 2026
+
+Partition file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/D21/particoes.nex
+Input file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/D21/D21.phy
+Type of analysis: ModelFinder + tree reconstruction + ultrafast bootstrap (1000 replicates)
+Random seed number: 20261017
+
+REFERENCES
+----------
+
+To cite IQ-TREE 3 please use:
+
+Thomas K.F. Wong, Nhan Ly-Trong, Huaiyan Ren, Piyumal Demotte, Hector Banos,
+Andrew J. Roger, Edward Susko, Chris Bielow, Nicola De Maio, Nick Goldman,
+Matthew W. Hahn, Mario dos Reis, Le Sy Vinh, Gavin Huttley, Robert Lanfear, Bui Quang Minh (2026)
+IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models.
+Molecular Biology and Evolution, msag117.
+https://doi.org/10.1093/molbev/msag117
+
+Since you used ModelFinder please also cite: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used ultrafast bootstrap (UFBoot) please also cite: 
+
+Diep Thi Hoang, Olga Chernomor, Arndt von Haeseler, Bui Quang Minh,
+and Le Sy Vinh (2018) UFBoot2: Improving the ultrafast bootstrap
+approximation. Mol. Biol. Evol., 35:518–522.
+https://doi.org/10.1093/molbev/msx281
+
+Since you used partition models please also cite:
+
+Olga Chernomor, Arndt von Haeseler, and Bui Quang Minh (2016)
+Terrace aware data structure for phylogenomic inference from
+supermatrices. Syst. Biol., 65:997-1008.
+https://doi.org/10.1093/sysbio/syw037
+
+SEQUENCE ALIGNMENT
+------------------
+
+NOTE: Alignment sequence type is auto-detected. If in doubt, specify it via -st option.
+Input data: 72 taxa with 3 partitions and 204 total sites (0.0408497% missing data)
+
+  ID	Type	Seq	Site	Unique	Infor	Invar	Const	Name
+   1	MORPH	72	170	164	159	0	0	k2
+   2	MORPH	72	31	31	31	0	0	k3
+   3	MORPH	70	3	3	3	0	0	k4mais
+
+Column meanings:
+  Unique: Number of unique site patterns
+  Infor:  Number of parsimony-informative sites
+  Invar:  Number of invariant sites
+  Const:  Number of constant sites (can be subset of invariant sites)
+
+SUBSTITUTION PROCESS
+--------------------
+
+Edge-linked-proportional partition model with separate substitution models and separate rates across sites
+
+  ID  Model           Speed  Parameters
+   1  MK+FQ+ASC+G4   0.8369  MK+FQ+ASC+G4{2.46546}
+   2  MK+FQ+ASC+G4   1.8182  MK+FQ+ASC+G4{12.1227}
+   3  MK+FQ+ASC+G4   1.7883  MK+FQ+ASC+G4{10.7533}
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -4312.7571 (s.e. 158.6495)
+Unconstrained log-likelihood (without tree): -973.1311
+Number of free parameters (#branches + #model parameters): 146
+Akaike information criterion (AIC) score: 8917.5143
+Corrected Akaike information criterion (AICc) score: 9670.5669
+Bayesian information criterion (BIC) score: 9401.9598
+
+Marginal log-likelihood of the tree: -4332.9116
+Marginal Akaike information criterion (mAIC) score: 8957.8233
+
+Total tree length (sum of branch lengths): 5.2517
+Sum of internal branch lengths: 3.2079 (61.0822% of tree length)
+
+WARNING: 3 near-zero internal branches (<0.0049) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Meleagris_gallopavo' is drawn at root
+Numbers in parentheses are SH-aLRT support (%) / ultrafast bootstrap support (%)
+
+                                                    +--Coragyps_atratus
+                                              +-----| (95.7/93)
+                                              |     |        +--Cathartes_aura
+                                              |     |     +--| (86.4/61)
+                                              |     |     |  +**Cathartes_burrovianus
+                                              |     +-----| (99.9/100)
+                                              |           +**Cathartes_melambrotus
+                       +----------------------| (100/100)
+                       |                      |  +**Sarcoramphus_papa
+                       |                      +--| (48.3/31)
+                       |                         |      +--Vultur_gryphus
+                       |                         |  +---| (43/20)
+                       |                         |  |   |  +--Gymnogyps_californianus
+                       |                         |  |   +--| (10/25)
+                       |                         |  |      +----Dryornis_pampeanus
+                       |                         +**| (0/33)
+                       |                            +**Pampagyps_imperator
+                    +--| (100/100)
+                    |  |  +----------Sagittarius_serpentarius
+                    |  +--| (100/100)
+                    |     |    +-----Pandion_haliaetus
+                    |     +----| (100/100)
+                    |          |              +**Pernis_apivorus
+                    |          |           +--| (93.5/100)
+                    |          |           |  +**Pernis_ptilorhinchus
+                    |          |        +--| (83.1/68)
+                    |          |        |  +--Aviceda_subcristata
+                    |          |     +--| (80.6/68)
+                    |          |     |  +--Leptodon_cayannensis
+                    |          |  +--| (59.1/49)
+                    |          |  |  |  +--Polyboroides_typus
+                    |          |  |  +--| (98.8/96)
+                    |          |  |     +--Geranospiza_caerulescens
+                    |          +--| (100/100)
+                    |             |     +--Elanus_caeruleus
+                    |             |  +--| (95.7/95)
+                    |             |  |  +--Gampsonyx_swainsoni
+                    |             +--| (85.3/49)
+                    |                |        +--Haliastur_indus
+                    |                |     +--| (89.5/92)
+                    |                |     |  +**Milvus_migrans
+                    |                |  +--| (97.9/90)
+                    |                |  |  +--Rostrhamus_sociabilis
+                    |                +--| (75.4/22)
+                    |                   |     +--Necrosyrtes_monachus
+                    |                   |  +--| (99.4/100)
+                    |                   |  |  |  +--Gyps_africanus
+                    |                   |  |  +--| (98.1/99)
+                    |                   |  |     +--Torgos_tracheliotus
+                    |                   +--| (81.7/38)
+                    |                      |                 +--Gypaetus_barbatus
+                    |                      |              +--| (94.9/88)
+                    |                      |              |  |  +--Neophron_percnopterus
+                    |                      |              |  +--| (91.2/98)
+                    |                      |              |     +--Gypohierax_angolensis
+                    |                      |           +--| (84.3/70)
+                    |                      |           |  |  +--Haliaetus_leucocephalus
+                    |                      |           |  +--| (93.5/93)
+                    |                      |           |     +--Ichtyophaga
+                    |                      |        +--| (34.4/36)
+                    |                      |        |  +--Circaetus
+                    |                      |     +--| (49/30)
+                    |                      |     |  |  +--Buteo_swainsonii
+                    |                      |     |  +--| (98.9/94)
+                    |                      |     |     +**Parabuteo_unicinctus
+                    |                      |  +--| (37.2/14)
+                    |                      |  |  |     +--Accipiter_gentilis
+                    |                      |  |  |  +--| (96.1/97)
+                    |                      |  |  |  |  +--Circus_cyaneus
+                    |                      |  |  +--| (87.5/49)
+                    |                      |  |     +----Pithecophaga_jefferyi
+                    |                      +--| (62.1/48)
+                    |                         |  +--Stephanoetus_coronatus
+                    |                         +--| (99/96)
+                    |                            +**Aquila_audax
+              +-----| (100/100)
+              |     |                 +--Phalcoboenus_megalopterus
+              |     |              +--| (88/90)
+              |     |              |  +--Caracara_cherwayi
+              |     |           +--| (100/100)
+              |     |           |  |  +**Milvago_chimango
+              |     |           |  +--| (76.8/99)
+              |     |           |     +**Milvago_chimachima
+              |     |        +**| (100/100)
+              |     |        |  |  +**Falco_tinnunculus
+              |     |        |  +--| (100/100)
+              |     |        |     +**Falco_peregrinus
+              |     +--------| (100/100)
+              |              |  +--Herpetotheres_cachinnans
+              |              +--| (100/100)
+              |                 +**Mirastur_gilvicollis
+      +-------| (100/100)
+      |       |                  +**Anastomus_lamelligerus
+      |       |               +--| (89.7/100)
+      |       |               |  +**Anastomus_oscitans
+      |       |            +--| (76.9/57)
+      |       |            |  |     +--Mycteria_leucocephalus
+      |       |            |  |  +--| (91.8/96)
+      |       |            |  |  |  +--Mycteria_americana
+      |       |            |  +--| (76.9/72)
+      |       |            |     |     +**Leptoptilos_javanicus
+      |       |            |     |  +--| (99.9/100)
+      |       |            |     |  |  +**Leptoptilos_crumeniferus
+      |       |            |     +--| (89.5/82)
+      |       |            |        +--Jabiru_mycteria
+      |       |  +---------| (100/100)
+      |       |  |         |     +**Ephippiorhinchus_senegalensis
+      |       |  |         |  +--| (94.7/100)
+      |       |  |         |  |  +**Ephippiorhinchus_asiaticus
+      |       |  |         +--| (16/40)
+      |       |  |            |  +**Ciconia_ciconia
+      |       |  |            +--| (89.9/100)
+      |       |  |               +**Ciconia_maguari
+      |       +--| (100/100)
+      |          |        +------------Balaeniceps_rex
+      |          |     +--| (100/100)
+      |          |     |  +----Scopus_umbretta
+      |          |  +**| (100/100)
+      |          |  |  |                +---Cochlearius_cochlearius
+      |          |  |  |             +--| (83.6/69)
+      |          |  |  |             |  |  +--Botaurus_lentiginosus
+      |          |  |  |             |  +--| (88.9/98)
+      |          |  |  |             |     +--Ixobrychus_exilis
+      |          |  |  |          +--| (28.7/32)
+      |          |  |  |          |  +--Ardea_alba
+      |          |  |  +----------| (100/100)
+      |          |  |             +--Nycticorax_nycticorax
+      |          +--| (100/100)
+      |             |        +--Platalea_ajaja
+      |             +--------| (100/100)
+      |                      |     +**Threskiornis_aethiopicus
+      |                      |  +--| (85.9/100)
+      |                      |  |  +**Threskiornis_melanocephalus
+      |                      +--| (86/80)
+      |                         +--Plegadis_chihi
++-----| (100/100)
+|     |         +--Anseranas_semipalmata
+|     +---------| (100/100)
+|               +--Dendrocygna_viduata
+|
++--Meleagris_gallopavo
+|
++--Acrylium_vulturinum
+
+Tree in newick format:
+
+(((((((Coragyps_atratus:0.0616406538,((Cathartes_aura:0.0099860926,Cathartes_burrovianus:0.0000010078)86.4/61:0.0099780643,Cathartes_melambrotus:0.0000026361)99.9/100:0.1169858976)95.7/93:0.1100230019,(Sarcoramphus_papa:0.0000027649,((Vultur_gryphus:0.0522813556,(Gymnogyps_californianus:0.0354750545,Dryornis_pampeanus:0.0863714198)10/25:0.0120578230)43/20:0.0814012136,Pampagyps_imperator:0.0000022420)0/33:0.0000022487)48.3/31:0.0505937927)100/100:0.4019151618,(Sagittarius_serpentarius:0.2034856584,(Pandion_haliaetus:0.1149762533,(((((Pernis_apivorus:0.0000010078,Pernis_ptilorhinchus:0.0000010078)93.5/100:0.0265186477,Aviceda_subcristata:0.0455201718)83.1/68:0.0123911367,Leptodon_cayannensis:0.0314550786)80.6/68:0.0208105260,(Polyboroides_typus:0.0159173304,Geranospiza_caerulescens:0.0156695668)98.8/96:0.0655348356)59.1/49:0.0283052423,((Elanus_caeruleus:0.0238865444,Gampsonyx_swainsoni:0.0366618374)95.7/95:0.0343881893,(((Haliastur_indus:0.0104176930,Milvus_migrans:0.0000010078)89.5/92:0.0159298662,Rostrhamus_sociabilis:0.0103376691)97.9/90:0.0331355728,((Necrosyrtes_monachus:0.0118579285,(Gyps_africanus:0.0539363414,Torgos_tracheliotus:0.0332441470)98.1/99:0.0496501463)99.4/100:0.0682339345,((((((Gypaetus_barbatus:0.0478408071,(Neophron_percnopterus:0.0103048295,Gypohierax_angolensis:0.0212360713)91.2/98:0.0220015044)94.9/88:0.0270278276,(Haliaetus_leucocephalus:0.0304395631,Ichtyophaga:0.0301775291)93.5/93:0.0243957334)84.3/70:0.0144312382,Circaetus:0.0404616819)34.4/36:0.0110630661,(Buteo_swainsonii:0.0155279962,Parabuteo_unicinctus:0.0000010078)98.9/94:0.0489368672)49/30:0.0135596772,((Accipiter_gentilis:0.0675782110,Circus_cyaneus:0.0520162514)96.1/97:0.0482795901,Pithecophaga_jefferyi:0.0866215529)87.5/49:0.0232112917)37.2/14:0.0059054204,(Stephanoetus_coronatus:0.0052088592,Aquila_audax:0.0000022784)99/96:0.0509136309)62.1/48:0.0210555938)81.7/38:0.0158527768)75.4/22:0.0055335568)85.3/49:0.0186700092)100/100:0.0627185804)100/100:0.0950539213)100/100:0.0071840804)100/100:0.0136857430,((((Phalcoboenus_megalopterus:0.0052565970,Caracara_cherwayi:0.0106278435)88/90:0.0106626821,(Milvago_chimango:0.0000010078,Milvago_chimachima:0.0000010078)76.8/99:0.0052637690)100/100:0.0215752393,(Falco_tinnunculus:0.0000010078,Falco_peregrinus:0.0000010078)100/100:0.0396668211)100/100:0.0030989279,(Herpetotheres_cachinnans:0.0106126096,Mirastur_gilvicollis:0.0000022164)100/100:0.0075403526)100/100:0.1674956264)100/100:0.1031158756,((((Anastomus_lamelligerus:0.0000010078,Anastomus_oscitans:0.0000010078)89.7/100:0.0211426142,((Mycteria_leucocephalus:0.0053840702,Mycteria_americana:0.0052947119)91.8/96:0.0264645792,((Leptoptilos_javanicus:0.0000010078,Leptoptilos_crumeniferus:0.0000010078)99.9/100:0.0572690970,Jabiru_mycteria:0.0057760218)89.5/82:0.0254951856)76.9/72:0.0231433442)76.9/57:0.0117752016,((Ephippiorhinchus_senegalensis:0.0000010078,Ephippiorhinchus_asiaticus:0.0000010078)94.7/100:0.0216241516,(Ciconia_ciconia:0.0000010078,Ciconia_maguari:0.0000010078)89.9/100:0.0164180714)16/40:0.0106161333)100/100:0.1764346062,(((Balaeniceps_rex:0.2265065148,Scopus_umbretta:0.0871784851)100/100:0.0674993601,(((Cochlearius_cochlearius:0.0707021465,(Botaurus_lentiginosus:0.0108588969,Ixobrychus_exilis:0.0124403672)88.9/98:0.0185111782)83.6/69:0.0186928553,Ardea_alba:0.0121947945)28.7/32:0.0135752325,Nycticorax_nycticorax:0.0133550242)100/100:0.1901694602)100/100:0.0006494441,(Platalea_ajaja:0.0272051726,((Threskiornis_aethiopicus:0.0000010078,Threskiornis_melanocephalus:0.0000010078)85.9/100:0.0109513409,Plegadis_chihi:0.0207504061)86/80:0.0211977201)100/100:0.1603332421)100/100:0.0153412084)100/100:0.0323907561)100/100:0.1480282513,(Anseranas_semipalmata:0.0098110630,Dendrocygna_viduata:0.0228643366)100/100:0.1782721102)100/100:0.1149900348,Meleagris_gallopavo:0.0191956611,Acrylium_vulturinum:0.0084293874);
+
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000 bootstrap trees
+Log-likelihood of consensus tree: -4315.350664
+Robinson-Foulds distance between ML tree and consensus tree: 14
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
+                                                         +--Coragyps_atratus
+                                                    +----| (93)
+                                                    |    |        +--Cathartes_aura
+                                                    |    |     +--| (61)
+                                                    |    |     |  +--Cathartes_burrovianus
+                                                    |    +-----| (100)
+                                                    |          +--Cathartes_melambrotus
+                                                 +--| (40)
+                                                 |  +--Dryornis_pampeanus
+                                              +--| (17)
+                                              |  |  +--Vultur_gryphus
+                                              |  +--| (41)
+                                              |     +--Gymnogyps_californianus
+                                           +--| (26)
+                                           |  +--Pampagyps_imperator
+                    +----------------------| (100)
+                    |                      +--Sarcoramphus_papa
+                 +--| (100)
+                 |  |  +---------Sagittarius_serpentarius
+                 |  +--| (100)
+                 |     |   +----Pandion_haliaetus
+                 |     +---| (100)
+                 |         |              +--Pernis_apivorus
+                 |         |           +--| (100)
+                 |         |           |  +--Pernis_ptilorhinchus
+                 |         |        +--| (68)
+                 |         |        |  +--Aviceda_subcristata
+                 |         |     +--| (68)
+                 |         |     |  +--Leptodon_cayannensis
+                 |         |  +--| (49)
+                 |         |  |  |  +--Polyboroides_typus
+                 |         |  |  +--| (96)
+                 |         |  |     +--Geranospiza_caerulescens
+                 |         +--| (100)
+                 |            |        +--Elanus_caeruleus
+                 |            |     +--| (95)
+                 |            |     |  +--Gampsonyx_swainsoni
+                 |            |  +--| (34)
+                 |            |  |  |     +--Haliastur_indus
+                 |            |  |  |  +--| (92)
+                 |            |  |  |  |  +--Milvus_migrans
+                 |            |  |  +--| (90)
+                 |            |  |     +--Rostrhamus_sociabilis
+                 |            +--| (49)
+                 |               |     +--Necrosyrtes_monachus
+                 |               |  +--| (100)
+                 |               |  |  |  +--Gyps_africanus
+                 |               |  |  +--| (99)
+                 |               |  |     +--Torgos_tracheliotus
+                 |               +--| (38)
+                 |                  |                 +--Gypaetus_barbatus
+                 |                  |              +--| (88)
+                 |                  |              |  |  +--Neophron_percnopterus
+                 |                  |              |  +--| (98)
+                 |                  |              |     +--Gypohierax_angolensis
+                 |                  |           +--| (70)
+                 |                  |           |  |  +--Haliaetus_leucocephalus
+                 |                  |           |  +--| (93)
+                 |                  |           |     +--Ichtyophaga
+                 |                  |        +--| (36)
+                 |                  |        |  +--Circaetus
+                 |                  |     +--| (30)
+                 |                  |     |  |  +--Buteo_swainsonii
+                 |                  |     |  +--| (94)
+                 |                  |     |     +--Parabuteo_unicinctus
+                 |                  |  +--| (14)
+                 |                  |  |  |     +--Accipiter_gentilis
+                 |                  |  |  |  +--| (97)
+                 |                  |  |  |  |  +--Circus_cyaneus
+                 |                  |  |  +--| (49)
+                 |                  |  |     +---Pithecophaga_jefferyi
+                 |                  +--| (48)
+                 |                     |  +--Stephanoetus_coronatus
+                 |                     +--| (96)
+                 |                        +--Aquila_audax
+            +----| (100)
+            |    |               +--Phalcoboenus_megalopterus
+            |    |            +--| (90)
+            |    |            |  +--Caracara_cherwayi
+            |    |         +--| (100)
+            |    |         |  |  +--Milvago_chimango
+            |    |         |  +--| (99)
+            |    |         |     +--Milvago_chimachima
+            |    |      +--| (100)
+            |    |      |  |  +--Falco_tinnunculus
+            |    |      |  +--| (100)
+            |    |      |     +--Falco_peregrinus
+            |    +------| (100)
+            |           |  +--Herpetotheres_cachinnans
+            |           +--| (100)
+            |              +--Mirastur_gilvicollis
+     +------| (100)
+     |      |                    +--Anastomus_lamelligerus
+     |      |                 +--| (100)
+     |      |                 |  +--Anastomus_oscitans
+     |      |              +--| (57)
+     |      |              |  |     +--Mycteria_leucocephalus
+     |      |              |  |  +--| (96)
+     |      |              |  |  |  +--Mycteria_americana
+     |      |              |  +--| (72)
+     |      |              |     |     +--Leptoptilos_javanicus
+     |      |              |     |  +--| (100)
+     |      |              |     |  |  +--Leptoptilos_crumeniferus
+     |      |              |     +--| (82)
+     |      |              |        +--Jabiru_mycteria
+     |      |           +--| (50)
+     |      |           |  |  +--Ephippiorhinchus_senegalensis
+     |      |           |  +--| (100)
+     |      |           |     +--Ephippiorhinchus_asiaticus
+     |      |  +--------| (100)
+     |      |  |        |  +--Ciconia_ciconia
+     |      |  |        +--| (100)
+     |      |  |           +--Ciconia_maguari
+     |      +--| (100)
+     |         |        +----------Balaeniceps_rex
+     |         |     +--| (100)
+     |         |     |  +---Scopus_umbretta
+     |         |  +--| (100)
+     |         |  |  |              +--Cochlearius_cochlearius
+     |         |  |  |           +--| (69)
+     |         |  |  |           |  |  +--Botaurus_lentiginosus
+     |         |  |  |           |  +--| (98)
+     |         |  |  |           |     +--Ixobrychus_exilis
+     |         |  |  |        +--| (39)
+     |         |  |  |        |  +--Nycticorax_nycticorax
+     |         |  |  +--------| (100)
+     |         |  |           +--Ardea_alba
+     |         +--| (100)
+     |            |       +--Platalea_ajaja
+     |            +-------| (100)
+     |                    |     +--Threskiornis_aethiopicus
+     |                    |  +--| (100)
+     |                    |  |  +--Threskiornis_melanocephalus
+     |                    +--| (80)
+     |                       +--Plegadis_chihi
++----| (100)
+|    |       +--Anseranas_semipalmata
+|    +-------| (100)
+|            +--Dendrocygna_viduata
+|
++--Meleagris_gallopavo
+|
++--Acrylium_vulturinum
+
+
+Consensus tree in newick format: 
+
+((((((((((Coragyps_atratus:0.0434552108,((Cathartes_aura:0.0099971116,Cathartes_burrovianus:0.0000020139)61:0.0050716033,Cathartes_melambrotus:0.0048940871)100:0.1305722321)93:0.1104414289,Dryornis_pampeanus:0.0724430862)40:0.0457927888,(Vultur_gryphus:0.0528567133,Gymnogyps_californianus:0.0470515417)41:0.0542899939)17:0.0239361937,Pampagyps_imperator:0.0000022325)26:0.0031069754,Sarcoramphus_papa:0.0000022356)100:0.4644779550,(Sagittarius_serpentarius:0.2073629366,(Pandion_haliaetus:0.1045041507,(((((Pernis_apivorus:0.0000020139,Pernis_ptilorhinchus:0.0000020139)100:0.0265282097,Aviceda_subcristata:0.0455188779)68:0.0123952742,Leptodon_cayannensis:0.0315262788)68:0.0187036596,(Polyboroides_typus:0.0159532895,Geranospiza_caerulescens:0.0156617964)96:0.0677726365)49:0.0265295047,(((Elanus_caeruleus:0.0249356934,Gampsonyx_swainsoni:0.0356919256)95:0.0371290951,((Haliastur_indus:0.0104268370,Milvus_migrans:0.0000020139)92:0.0155480620,Rostrhamus_sociabilis:0.0107365991)90:0.0355688894)34:0.0035527478,((Necrosyrtes_monachus:0.0119279616,(Gyps_africanus:0.0540176623,Torgos_tracheliotus:0.0332661252)99:0.0496179136)100:0.0650823369,((((((Gypaetus_barbatus:0.0479420375,(Neophron_percnopterus:0.0103142183,Gypohierax_angolensis:0.0212526905)98:0.0219549649)88:0.0270956910,(Haliaetus_leucocephalus:0.0305767792,Ichtyophaga:0.0301042884)93:0.0244099316)70:0.0145327812,Circaetus:0.0403848920)36:0.0086041304,(Buteo_swainsonii:0.0155398870,Parabuteo_unicinctus:0.0000020139)94:0.0517051172)30:0.0135435619,((Accipiter_gentilis:0.0681837283,Circus_cyaneus:0.0515048964)97:0.0482759687,Pithecophaga_jefferyi:0.0872928520)49:0.0253215827)14:0.0059661738,(Stephanoetus_coronatus:0.0052145912,Aquila_audax:0.0000020139)96:0.0499560893)48:0.0213353336)38:0.0169188782)49:0.0230972561)100:0.0731084132)100:0.0951094330)100:0.0061571205)100:0.0157090360,((((Phalcoboenus_megalopterus:0.0052613426,Caracara_cherwayi:0.0106368708)90:0.0106693463,(Milvago_chimango:0.0000020139,Milvago_chimachima:0.0000020139)99:0.0052668119)100:0.0215744134,(Falco_tinnunculus:0.0000020139,Falco_peregrinus:0.0000020139)100:0.0395864139)100:0.0000025863,(Herpetotheres_cachinnans:0.0106203942,Mirastur_gilvicollis:0.0000020139)100:0.0107066971)100:0.1575326878)100:0.1058233579,(((((Anastomus_lamelligerus:0.0000020139,Anastomus_oscitans:0.0000020139)100:0.0167076890,((Mycteria_leucocephalus:0.0053733469,Mycteria_americana:0.0053058836)96:0.0239204520,((Leptoptilos_javanicus:0.0000020139,Leptoptilos_crumeniferus:0.0000020139)100:0.0579014156,Jabiru_mycteria:0.0057597593)82:0.0274617204)72:0.0260823875)57:0.0237659861,(Ephippiorhinchus_senegalensis:0.0000020139,Ephippiorhinchus_asiaticus:0.0000020139)100:0.0186806569)50:0.0137908573,(Ciconia_ciconia:0.0000020139,Ciconia_maguari:0.0000020139)100:0.0062081714)100:0.1810190882,(((Balaeniceps_rex:0.2315393002,Scopus_umbretta:0.0825052074)100:0.0581914642,(((Cochlearius_cochlearius:0.0737448531,(Botaurus_lentiginosus:0.0108663857,Ixobrychus_exilis:0.0125339928)98:0.0154214516)69:0.0185670637,Nycticorax_nycticorax:0.0238177295)39:0.0102380652,Ardea_alba:0.0057883889)100:0.1887157818)100:0.0143455812,(Platalea_ajaja:0.0271478186,((Threskiornis_aethiopicus:0.0000020139,Threskiornis_melanocephalus:0.0000020139)100:0.0109753433,Plegadis_chihi:0.0207470413)80:0.0212966754)100:0.1599687787)100:0.0150966141)100:0.0239044656)100:0.1546511251,(Anseranas_semipalmata:0.0098496939,Dendrocygna_viduata:0.0228124354)100:0.1750666789)100:0.1182613188,Meleagris_gallopavo:0.0191334348,Acrylium_vulturinum:0.0084756915);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/D21/esqueleto.treefile -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/D21/esqueleto.best_model.nex
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/D21/D21.phy --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/D21/D21.phy --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Sun Oct 18 00:09:48 2026
+Total CPU time used: 274.235743 seconds (0h:4m:34s)
+Total wall-clock time used: 141.651665 seconds (0h:2m:21s)
+

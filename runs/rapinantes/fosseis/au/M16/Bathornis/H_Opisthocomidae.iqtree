@@ -1,0 +1,132 @@
+IQ-TREE 3.1.4 built Sep 29 2026
+
+Partition file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/particoes.nex
+Input file name: /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy
+Type of analysis: ModelFinder + tree reconstruction
+Random seed number: 20261017
+
+REFERENCES
+----------
+
+To cite IQ-TREE 3 please use:
+
+Thomas K.F. Wong, Nhan Ly-Trong, Huaiyan Ren, Piyumal Demotte, Hector Banos,
+Andrew J. Roger, Edward Susko, Chris Bielow, Nicola De Maio, Nick Goldman,
+Matthew W. Hahn, Mario dos Reis, Le Sy Vinh, Gavin Huttley, Robert Lanfear, Bui Quang Minh (2026)
+IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models.
+Molecular Biology and Evolution, msag117.
+https://doi.org/10.1093/molbev/msag117
+
+Since you used ModelFinder please also cite: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used partition models please also cite:
+
+Olga Chernomor, Arndt von Haeseler, and Bui Quang Minh (2016)
+Terrace aware data structure for phylogenomic inference from
+supermatrices. Syst. Biol., 65:997-1008.
+https://doi.org/10.1093/sysbio/syw037
+
+SEQUENCE ALIGNMENT
+------------------
+
+NOTE: Alignment sequence type is auto-detected. If in doubt, specify it via -st option.
+Input data: 13 taxa with 2 partitions and 40 total sites (0% missing data)
+
+  ID	Type	Seq	Site	Unique	Infor	Invar	Const	Name
+   1	MORPH	13	37	33	36	0	0	k2
+   2	MORPH	13	3	3	2	0	0	k3
+
+Column meanings:
+  Unique: Number of unique site patterns
+  Infor:  Number of parsimony-informative sites
+  Invar:  Number of invariant sites
+  Const:  Number of constant sites (can be subset of invariant sites)
+
+SUBSTITUTION PROCESS
+--------------------
+
+Edge-linked-proportional partition model with separate substitution models and separate rates across sites
+
+  ID  Model           Speed  Parameters
+   1  MK+FQ+ASC+G4   0.8073  MK+FQ+ASC+G4{998.443}
+   2  MK+FQ+ASC+G4   3.3768  MK+FQ+ASC+G4{998.438}
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -306.7509 (s.e. 16.0983)
+Unconstrained log-likelihood (without tree): -131.3546
+Number of free parameters (#branches + #model parameters): 26
+Akaike information criterion (AIC) score: 665.5019
+Corrected Akaike information criterion (AICc) score: 773.5019
+Bayesian information criterion (BIC) score: 709.4127
+
+Marginal log-likelihood of the tree: -312.0800
+Marginal Akaike information criterion (mAIC) score: 676.1600
+
+Total tree length (sum of branch lengths): 2.4422
+Sum of internal branch lengths: 1.8028 (73.8171% of tree length)
+
+WARNING: 2 near-zero internal branches (<0.0250) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Anhimidae' is drawn at root
+
++--Anhimidae
+|
+|    +---Opisthocomidae
++----|
+|    |     +--Paracrax
+|    |  +--|
+|    |  |  +---Elaphrocnemus
+|    +--|
+|       |       +-------Bathornis
+|       +-------|
+|               +--Dynamopterus
+|
+|  +--Cathartidae
++--|
+   |         +**Falconidae
+   +---------|
+             |                                          +--Ameghinornis
+             |                         +----------------|
+             |                         |                |     +**Psilopterus
+             |                         |                |  +**|
+             |                         |                |  |  +**Patagornis
+             |                         |                +**|
+             |                         |                   +**Llallawavis
+             +-------------------------|
+                                       +**Cariama
+
+Tree in newick format:
+
+(Anhimidae:0.0354174194,(Opisthocomidae:0.1049672544,((Paracrax:0.0696515567,Elaphrocnemus:0.1011351008):0.0896984807,(Bathornis:0.1837757270,Dynamopterus:0.0479235623):0.2032875972):0.0838293221):0.1299953913,(Cathartidae:0.0309523535,(Falconidae:0.0000020104,((Ameghinornis:0.0656117775,((Psilopterus:0.0000010006,Patagornis:0.0000010006):0.0000010006,Llallawavis:0.0000010006):0.0000010006):0.3990347597,Cariama:0.0000026828):0.5982309219):0.2439635116):0.0547356782);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Bathornis/H_Opisthocomidae.treefile -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/M16/Bathornis/H_Opisthocomidae.best_model.nex
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Sat Oct 17 23:36:32 2026
+Total CPU time used: 0.397191 seconds (0h:0m:0s)
+Total wall-clock time used: 0.509807 seconds (0h:0m:0s)
+

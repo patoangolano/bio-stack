@@ -1,0 +1,162 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    Matheus (AVX2, FMA3, 15 GB RAM)
+Command: /home/manec/.pixi/envs/iqtree/bin/iqtree3 -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy -st MORPH -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/particoes.nex -g /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/esqueleto_stiller.nwk -B 1000 --bnni -alrt 1000 -wbt --seed 20261017 -T 4 -o Anhimidae --prefix /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto -redo --quiet
+Seed:    20261017 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Sat Oct 17 23:22:42 2026
+Kernel:  AVX+FMA - 4 threads (20 CPU cores detected)
+
+Reading partition model file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/particoes.nex ...
+Partition file is in NEXUS format...
+Reading alignment file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/M16.phy ... Phylip format detected
+Alignment most likely contains 4-state morphological data
+Constructing alignment: done in 9.20296e-05 secs using 201% CPU
+Alignment has 13 sequences with 40 columns, 36 distinct patterns
+38 parsimony-informative, 2 singleton sites, 0 constant sites
+                Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 1.5974e-05 secs using 43.82% CPU
+   1  Anhimidae         0.00%    failed      0.01%
+   2  Opisthocomidae    0.00%    failed      0.97%
+   3  Cathartidae       0.00%    failed      0.34%
+   4  Falconidae        0.00%    failed      0.38%
+   5  Paracrax         62.50%    passed     15.44%
+   6  Bathornis        25.00%    passed     61.88%
+   7  Ameghinornis     75.00%    passed     37.86%
+   8  Dynamopterus     37.50%    passed     65.67%
+   9  Elaphrocnemus    40.00%    passed     36.72%
+  10  Cariama           0.00%    passed     17.80%
+  11  Psilopterus      12.50%    failed      0.00%
+  12  Patagornis       17.50%    failed      0.00%
+  13  Llallawavis      22.50%    failed      0.01%
+WARNING: 2 sequences contain more than 50% gaps/ambiguity
+****  TOTAL            22.50%  7 sequences failed composition chi2 test (p-value<5%; df=3)
+Loading 2 partitions...
+Subset	Type	Seqs	Sites	Infor	Invar	Model	Name
+1	MORPH	13	37	36	0	MK+ASC+G4	k2
+2	MORPH	13	3	2	0	MK+ASC+G4	k3
+Degree of missing data: 0.000
+Info: multi-threading strategy over partitions and number of threads is changed to 2
+Reading constraint tree /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/M16/esqueleto_stiller.nwk...
+WARNING: Rooted constraint tree will be treated as unrooted tree
+INFO: Constraint tree will be applied to ML tree and all bootstrap trees.
+WARNING: State(s) 2, 3 rarely appear in partition 1 and may cause numerical problems
+Creating fast initial parsimony tree by random order stepwise addition...
+0.002 seconds, parsimony score: 73 (based on 40 sites)
+Generating 1000 samples for ultrafast bootstrap (seed: 20261017)...
+
+NOTE: 0 MB RAM (0 GB) is required!
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -329.070
+Current log-likelihood at step 1: -316.498
+Current log-likelihood at step 2: -315.334
+Current log-likelihood at step 3: -315.332
+Partition-specific rates:  0.863 2.684
+Parameters optimization took 2 rounds (0.003 sec)
+
+Wrote distance file to... 
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 99 parsimony trees... 0.016 second
+Computing log-likelihood of 98 initial trees ... 0.041 seconds
+Current best score: -312.254
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -311.912
+Current log-likelihood at step 1: -311.831
+Parameters optimization took 0 rounds (0.001 sec)
+
+BETTER TREE FOUND at iteration 1: -311.831
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -306.568
+Current log-likelihood at step 1: -306.009
+Current log-likelihood at step 2: -306.002
+Parameters optimization took 1 rounds (0.002 sec)
+
+BETTER TREE FOUND at iteration 2: -306.002
+Iteration 10 / LogL: -308.775 / Time: 0h:0m:0s
+Iteration 20 / LogL: -318.432 / Time: 0h:0m:0s
+Finish initializing candidate tree set (14)
+Current best tree score: -306.002 / CPU time: 0.169
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+UPDATE BEST LOG-LIKELIHOOD: -306.002
+Iteration 30 / LogL: -308.855 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 40 / LogL: -308.775 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 50 / LogL: -306.002 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -306.002
+Iteration 60 / LogL: -306.002 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 70 / LogL: -308.866 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -306.002
+UPDATE BEST LOG-LIKELIHOOD: -306.002
+Iteration 80 / LogL: -308.774 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 90 / LogL: -308.776 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 100 / LogL: -308.782 / Time: 0h:0m:0s (0h:0m:0s left)
+Refining ufboot trees with NNI 5 branches...
+100 samples done
+200 samples done
+300 samples done
+400 samples done
+WARNING: NNI search needs unusual large number of steps (13) to converge!
+500 samples done
+600 samples done
+700 samples done
+800 samples done
+900 samples done
+1000 samples done
+Total 981 ufboot trees refined
+TREE SEARCH COMPLETED AFTER 103 ITERATIONS / Time: 0h:0m:5s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+Initial log-likelihood: -306.002
+Current log-likelihood at step 1: -306.002
+Partition-specific rates:  0.802 3.444
+Parameters optimization took 0 rounds (0.002 sec)
+
+Partition information was printed to /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.best_model.nex
+BEST SCORE FOUND : -306.002
+
+Testing tree branches by SH-like aLRT with 1000 replicates...
+WARNING: Branch where both NNIs violate constraint tree will show 100% SH-aLRT support
+WARNING: Branch where both NNIs violate constraint tree will show 100% SH-aLRT support
+0.006 sec.
+Creating bootstrap support values...
+Split supports printed to NEXUS file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.splits.nex
+Total tree length: 2.375
+
+Total number of iterations: 103
+CPU time used for tree search: 10.686 sec (0h:0m:10s)
+Wall-clock time used for tree search: 5.232 sec (0h:0m:5s)
+Total CPU time used: 10.920 sec (0h:0m:10s)
+Total wall-clock time used: 5.362 sec (0h:0m:5s)
+UFBoot trees printed to /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.ufboot
+
+Computing bootstrap consensus tree...
+Reading input file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.splits.nex...
+13 taxa and 105 splits.
+Consensus tree written to /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.contree
+Reading input trees file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.contree
+Log-likelihood of consensus tree: -306.510
+
+Analysis results written to: 
+  IQ-TREE report:                /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.iqtree
+  Maximum-likelihood tree:       /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.treefile
+
+Ultrafast bootstrap approximation results written to:
+  Split support values:          /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.splits.nex
+  Consensus tree:                /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.contree
+  UFBoot trees:                  /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.ufboot
+  Screen log file:               /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/arvores/M16/esqueleto.log
+
+Date and Time: Sat Oct 17 23:22:48 2026

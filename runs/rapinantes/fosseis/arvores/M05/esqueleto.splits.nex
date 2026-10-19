@@ -1,0 +1,114 @@
+#nexus
+
+BEGIN Taxa;
+DIMENSIONS ntax=23;
+TAXLABELS
+[1] 'Tinamidae'
+[2] 'Galliformes'
+[3] 'Opisthocomidae'
+[4] 'Cariamidae'
+[5] 'Strigiformes'
+[6] 'Messelastur'
+[7] 'Tynskya'
+[8] 'Accipitridae'
+[9] 'Falconidae'
+[10] 'Sagittariidae'
+[11] 'Cuculidae'
+[12] 'Musophagidae'
+[13] 'Cathartidae'
+[14] 'Ciconiidae'
+[15] 'Pteroclidae'
+[16] 'Columbidae'
+[17] 'Steatornithidae'
+[18] 'Pseudasturidae'
+[19] 'Psittacidae'
+[20] 'Coliidae'
+[21] 'Trogonidae'
+[22] 'Aegothelidae'
+[23] 'Coraciidae'
+;
+END; [Taxa]
+
+BEGIN Splits;
+DIMENSIONS ntax=23 nsplits=76;
+FORMAT labels=no weights=yes confidences=no intervals=no;
+MATRIX
+	100	 2,
+	100	 3,
+	100	 14,
+	100	 17,
+	100	 22,
+	100	 17 22,
+	100	 14 17 22,
+	100	 3 14 17 22,
+	100	 4,
+	100	 6,
+	100	 7,
+	55	 6 7,
+	100	 18,
+	100	 19,
+	45	 18 19,
+	59	 6 7 18 19,
+	100	 9,
+	99	 6 7 9 18 19,
+	100	 4 6 7 9 18 19,
+	100	 5,
+	100	 8,
+	100	 10,
+	100	 8 10,
+	100	 13,
+	100	 8 10 13,
+	100	 5 8 10 13,
+	100	 20,
+	100	 21,
+	100	 23,
+	100	 21 23,
+	100	 20 21 23,
+	100	 5 8 10 13 20 21 23,
+	100	 1 2 3 11 12 14 15 16 17 22,
+	100	 1 2 11 12 15 16,
+	100	 11,
+	100	 12,
+	100	 11 12,
+	100	 15,
+	100	 16,
+	100	 15 16,
+	100	 11 12 15 16,
+	100	 1 2,
+	100	 1,
+	38	 6 7 18,
+	6	 6 18,
+	18	 7 18,
+	16	 7 18 19,
+	6	 6 9,
+	22	 6 7 9,
+	2	 6 7 9 19,
+	0	 4 6 7 9 19,
+	11	 7 9,
+	5	 6 7 9 18,
+	10	 6 18 19,
+	3	 6 19,
+	1	 6 7 19,
+	2	 7 9 18 19,
+	0	 6 9 18 19,
+	0	 4 7 18,
+	1	 6 9 19,
+	0	 7 19,
+	0	 4 6 9 19,
+	0	 9 19,
+	0	 4 9 19,
+	0	 18 20,
+	0	 6 7 18 20,
+	0	 6 7 18 20 21 23,
+	0	 5 6 7 8 10 13 18 20 21 23,
+	0	 1 2 3 11 12 14 15 16 17 18 22,
+	0	 1 2 11 12 15 16 18,
+	0	 15 16 18,
+	0	 11 12 15 16 18,
+	0	 4 6,
+	0	 4 18,
+	0	 4 7 9 18 19,
+	0	 1 2 3 6 11 12 14 15 16 17 22,
+;
+END; [Splits]
+

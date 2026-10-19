@@ -1,0 +1,161 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    Matheus (AVX2, FMA3, 15 GB RAM)
+Command: /home/manec/.pixi/envs/iqtree/bin/iqtree3 -s /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/MC03/MC03.phy -st MORPH -p /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/MC03/particoes.nex -g /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MC03/atuais_Falconidae/H_Falconidae_com_Hieraves.nwk --seed 20261017 -T 1 --prefix /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MC03/atuais_Falconidae/H_Falconidae_com_Hieraves -redo --quiet
+Seed:    20261017 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Sat Oct 17 23:35:38 2026
+Kernel:  AVX+FMA - 1 threads (20 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 20 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading partition model file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/MC03/particoes.nex ...
+Partition file is in NEXUS format...
+Reading alignment file /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/matrizes/MC03/MC03.phy ... Phylip format detected
+Alignment most likely contains 8-state morphological data
+Constructing alignment: done in 0.000169992 secs using 99.42% CPU
+Alignment has 46 sequences with 148 columns, 144 distinct patterns
+147 parsimony-informative, 1 singleton sites, 0 constant sites
+                   Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 1.50204e-05 secs using 93.21% CPU
+   1  Apsaravis           66.89%    passed     14.64%
+   2  Hesperornis         37.84%    failed      0.02%
+   3  Ichthyornis         46.62%    failed      0.64%
+   4  Rheidae             20.95%    passed      9.61%
+   5  Apterygidae         10.81%    passed     26.41%
+   6  Tinamidae            1.35%    failed      0.64%
+   7  Galliformes          2.70%    passed     82.69%
+   8  Anhimidae           16.89%    passed     52.57%
+   9  Anatidae             8.11%    passed     99.69%
+  10  Opisthocomidae       2.03%    passed     90.49%
+  11  Podicipedidae        3.38%    passed     31.38%
+  12  Phoenicopteridae     1.35%    passed      8.01%
+  13  Threskiornithidae    0.68%    passed     92.44%
+  14  Cariamidae          16.89%    passed     98.47%
+  15  Strigiformes         4.05%    passed     99.89%
+  16  Recurvirostridae    16.22%    passed     99.88%
+  17  Burhinidae          16.22%    passed     90.87%
+  18  Accipitridae         4.05%    passed     97.75%
+  19  Falconidae           2.03%    passed     97.12%
+  20  Sagittariidae        4.05%    passed     74.96%
+  21  Cuculidae           10.81%    passed     95.73%
+  22  Musophagidae        12.16%    passed     99.91%
+  23  Cathartidae          3.38%    passed     78.66%
+  24  Gaviidae             2.03%    passed     69.65%
+  25  Spheniscidae         6.76%    passed     97.06%
+  26  Phaethontidae       15.54%    passed     96.62%
+  27  Fregatidae           4.05%    passed     28.99%
+  28  Phalacrocoracidae    6.08%    passed     23.33%
+  29  Balaenicipitidae     5.41%    passed     72.87%
+  30  Eurypygidae         17.57%    passed     95.43%
+  31  Ardeidae             3.38%    passed     98.30%
+  32  Ciconiidae           8.11%    passed     84.98%
+  33  Procellariidae       3.38%    passed     98.38%
+  34  Otididae            16.89%    passed     90.60%
+  35  Pteroclidae         15.54%    passed     99.90%
+  36  Columbidae           4.05%    passed     99.78%
+  37  Rallidae             4.05%    passed     47.84%
+  38  Psophiidae          16.22%    passed     46.17%
+  39  Gruidae              2.03%    passed     60.14%
+  40  Steatornithidae      6.08%    passed     97.68%
+  41  Psittaciformes       6.76%    failed      0.00%
+  42  Coliidae             4.73%    passed     34.39%
+  43  Trogonidae           9.46%    failed      0.00%
+  44  Aegothelidae         6.76%    passed     92.41%
+  45  Coraciidae           3.38%    passed     60.93%
+  46  Passeriformes        5.41%    failed      0.00%
+WARNING: 1 sequences contain more than 50% gaps/ambiguity
+****  TOTAL               10.50%  6 sequences failed composition chi2 test (p-value<5%; df=7)
+Loading 2 partitions...
+Subset	Type	Seqs	Sites	Infor	Invar	Model	Name
+1	MORPH	46	138	137	0	MK+ASC+G4	k2
+2	MORPH	46	10	10	0	MK+ASC+G4	k3
+Degree of missing data: 0.000
+Reading constraint tree /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MC03/atuais_Falconidae/H_Falconidae_com_Hieraves.nwk...
+WARNING: Rooted constraint tree will be treated as unrooted tree
+WARNING: State(s) 2, 3, 4, 5, 6, 7 rarely appear in partition 1 and may cause numerical problems
+Creating fast initial parsimony tree by random order stepwise addition...
+0.003 seconds, parsimony score: 835 (based on 148 sites)
+
+NOTE: 1 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -4624.916
+Current log-likelihood at step 1: -4554.008
+Current log-likelihood at step 2: -4553.410
+Current log-likelihood at step 3: -4553.387
+Partition-specific rates:  0.989 1.157
+Parameters optimization took 2 rounds (0.106 sec)
+
+Wrote distance file to... 
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 99 parsimony trees... 0.134 second
+Computing log-likelihood of 57 initial trees ... 0.379 seconds
+Current best score: -4548.875
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+Initial log-likelihood: -4543.674
+Current log-likelihood at step 1: -4543.514
+Current log-likelihood at step 2: -4543.506
+Parameters optimization took 1 rounds (0.046 sec)
+
+BETTER TREE FOUND at iteration 1: -4543.506
+Iteration 10 / LogL: -4543.557 / Time: 0h:0m:0s
+Iteration 20 / LogL: -4558.735 / Time: 0h:0m:1s
+Finish initializing candidate tree set (3)
+Current best tree score: -4543.506 / CPU time: 0.911
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+UPDATE BEST LOG-LIKELIHOOD: -4543.506
+UPDATE BEST LOG-LIKELIHOOD: -4543.506
+UPDATE BEST LOG-LIKELIHOOD: -4543.506
+Iteration 30 / LogL: -4543.506 / Time: 0h:0m:1s (0h:0m:2s left)
+UPDATE BEST LOG-LIKELIHOOD: -4543.506
+Iteration 40 / LogL: -4558.619 / Time: 0h:0m:1s (0h:0m:1s left)
+UPDATE BEST LOG-LIKELIHOOD: -4543.506
+UPDATE BEST LOG-LIKELIHOOD: -4543.506
+Iteration 50 / LogL: -4558.601 / Time: 0h:0m:1s (0h:0m:1s left)
+UPDATE BEST LOG-LIKELIHOOD: -4543.506
+UPDATE BEST LOG-LIKELIHOOD: -4543.506
+Iteration 60 / LogL: -4543.506 / Time: 0h:0m:1s (0h:0m:1s left)
+UPDATE BEST LOG-LIKELIHOOD: -4543.506
+Iteration 70 / LogL: -4543.729 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 80 / LogL: -4558.601 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 90 / LogL: -4558.349 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 100 / LogL: -4543.678 / Time: 0h:0m:2s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -4543.506
+TREE SEARCH COMPLETED AFTER 102 ITERATIONS / Time: 0h:0m:2s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+Initial log-likelihood: -4543.506
+Current log-likelihood at step 1: -4543.505
+Partition-specific rates:  0.988 1.168
+Parameters optimization took 0 rounds (0.020 sec)
+
+Partition information was printed to /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MC03/atuais_Falconidae/H_Falconidae_com_Hieraves.best_model.nex
+BEST SCORE FOUND : -4543.505
+Total tree length: 5.862
+
+Total number of iterations: 102
+CPU time used for tree search: 1.945 sec (0h:0m:1s)
+Wall-clock time used for tree search: 1.994 sec (0h:0m:1s)
+Total CPU time used: 2.085 sec (0h:0m:2s)
+Total wall-clock time used: 2.163 sec (0h:0m:2s)
+
+Analysis results written to: 
+  IQ-TREE report:                /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MC03/atuais_Falconidae/H_Falconidae_com_Hieraves.iqtree
+  Maximum-likelihood tree:       /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MC03/atuais_Falconidae/H_Falconidae_com_Hieraves.treefile
+  Screen log file:               /mnt/c/Users/Manec/bio-stack/runs/rapinantes/fosseis/au/MC03/atuais_Falconidae/H_Falconidae_com_Hieraves.log
+
+Date and Time: Sat Oct 17 23:35:40 2026
