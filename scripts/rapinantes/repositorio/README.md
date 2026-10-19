@@ -12,6 +12,10 @@ Accipitriformes). Também mostra que os pés rapinantes surgiram três vezes de 
 
 A posição das corujas (irmãs de Accipitrimorphae ou de Coraciimorphae) continua sem solução.
 
+O mesmo trabalho está em forma de artigo científico, nas normas da ABNT (NBR 6022:2018), em
+[`reports/artigo/`](reports/artigo/): `.docx` editável e PDF. O artigo é gerado de `artigo.md` por
+`scripts/rapinantes/artigo/referencias.py` (citações e referências, a partir dos DOIs) e `gera_artigo.js`.
+
 ## Estado em 19 de outubro de 2026
 
 | Frente | Onde | Estado |
@@ -76,7 +80,7 @@ A posição de *Apus* + *Calypte* muda com o alinhador. No FAMSA e no DNA12 eles
 
 | Pasta | Conteúdo |
 |---|---|
-| `reports/` | relatório |
+| `reports/` | relatório; em `artigo/`, o artigo ABNT com figuras, recibos das referências e o cache de metadados dos DOIs |
 | `research_notes/` | notas de pesquisa por frente, com as fontes |
 | `docs/metodos_rapinantes.md` | Métodos |
 | `scripts/rapinantes/` | código de cada frente; `filogenomica/retomada_020210/` refaz a supermatriz MAFFT |
