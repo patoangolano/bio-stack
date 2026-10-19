@@ -453,3 +453,192 @@ nenhuma --tipo-seq DNA`, mesmos suportes e semente. Tabelas:
   ponto, a supermatriz AA corre risco de morrer ao gravar a saída final.
   Nada foi apagado por aqui (o hook de `raw/` bloqueia, e os outros itens não
   são deste braço).
+
+## Resultados — supermatriz AA, concordância e testes de topologia (2026-10-19)
+
+A supermatriz da execução `20261018-020210-rapinantes_AA_mafft_clipkit` morreu por
+SIGHUP às 21:09 de 2026-10-18, no refinamento dos UFBoot. Foi refeita com os 48 modelos
+que o ModelFinder tinha escolhido, fixados, e terminou às 16:27 de 2026-10-19. A
+história completa está no `RETOMADA_MANUAL.md` da execução e na seção 4.7 do
+`docs/metodos_rapinantes.md`.
+
+- **Matriz:** 57 táxons, 215 366 sítios (99 768 informativos por parcimônia), 48
+  grupos de partições.
+- **Resultado:** lnL −2 230 233,545; UFBoot médio de 89,4, com 72 % dos 54 ramos
+  internos em ≥ 95.
+- **Comparação com a execução interrompida:** a topologia é idêntica à da melhor
+  árvore da busca interrompida (Robinson-Foulds 0).
+
+Tabelas:
+
+- `runs/rapinantes/filogenomica/nos_chave_AA.tsv` (`f08_nos_chave.py`);
+- `scfl_alternativas_AA.tsv` (`f08d`/`f08e`): o sCF de cada alternativa NNI, medido
+  na árvore restrita que a força;
+- `splits_genes.tsv` (`f08f`): as bipartições concorrentes contadas nas 300 árvores
+  de genes das três execuções;
+- `topologia_AA/` (`f07_hipoteses.py`, `f07b_topologia.sh`): as buscas restritas e o
+  `au.iqtree`.
+
+Figura: `runs/filogenia/20261018-020210-rapinantes_AA_mafft_clipkit/figuras/concatenado.png`.
+
+### Topologia da supermatriz
+
+Telluraves = Australaves + Afroaves, com a ordem interna que Jarvis et al. 2014
+(TENT) e a concatenação do B10K dão.
+
+- **Australaves:** (*Cariama*, (Falconiformes, Psittacopasserae)). Australaves tem
+  SH-aLRT/aBayes/UFBoot 100/1/96; Eufalconimorphae, 99/1/95.
+- **Afroaves:** (Accipitrimorphae, (Strigiformes, Coraciimorphae)). Afroaves tem
+  98,6/1/93; Strigiformes + Coraciimorphae, 93,8/1/90. *Leptosomus* é o primeiro ramo
+  de Coraciimorphae (99,8/1/53). A ordem interna de Cavitaves é fraca (UFBoot 47–55).
+- **Accipitrimorphae:** (Cathartidae, (*Sagittarius*, (*Pandion*, Accipitridae))). Em
+  Accipitridae, *Elanus* sai primeiro, seguido de (*Gypaetus*, *Leptodon*), depois
+  (*Aegypius*, *Pithecophaga*), depois *Aquila*, depois *Harpia*, e por fim (*Astur*,
+  (*Buteo*, *Haliaeetus*)). Todos os ramos têm 100/1/100. É a espinha de Catanach et
+  al. 2024.
+- **Falconidae:** *Herpetotheres* irmão de (*Ibycter*, *Falco*), com 100/1/100.
+- **Strigiformes:** *Tyto* irmão de Strigidae (100/1/100). Dentro de Strigidae,
+  (*Ninox*, *Strix*) tem só 76,3/1/79; Salter et al. 2020 põem *Ninox* junto de
+  *Athene*.
+- **Grupo-irmão de Telluraves:** o clado aquático (Aequornithes, Phaethontimorphae,
+  *Grus*, *Rissa*), com UFBoot 63. Está aberto, como esperado da amostragem.
+
+### Concordância nos nós profundos
+
+| Nó | SH-aLRT/aBayes/UFBoot | gCF (N/gN) | sCF / sDF1 / sDF2 | p(sDF1 = sDF2) | wASTRAL (localPP) |
+|---|---|---|---|---|---|
+| Telluraves | 100/1/100 | 0,7 % (2/300) | 45,7 / 19,6 / 34,7 | 1,7 × 10⁻⁶ | sim (0,939) |
+| Australaves | 100/1/96 | 0,4 % (1/258) | 53,1 / 20,9 / 26,0 | 0,14 | não |
+| Eufalconimorphae | 99/1/95 | 2,3 % (6/258) | 41,8 / 28,8 / 29,5 | 0,81 | não |
+| Afroaves | 98,6/1/93 | 0 (0/300) | 33,7 / 34,2 / 32,1 | 0,56 | não |
+| Strigiformes + Coraciimorphae | 93,8/1/90 | 0,3 % (1/300) | 43,1 / 24,5 / 32,5 | 0,0095 | não |
+| Accipitrimorphae | 100/1/100 | 7,7 % (23/300) | 51,7 / 24,7 / 23,7 | 0,76 | sim (1,00) |
+| Psittacopasserae | 100/1/98 | 7,7 % (23/299) | 51,9 / 26,1 / 22,1 | 0,044 | sim (0,999) |
+| Accipitriformes s.s. | 100/1/100 | 39,6 % (110/278) | 74,9 / 10,4 / 14,8 | 0,0098 | sim (1,00) |
+| *Pandion* + Accipitridae | 100/1/100 | 45,8 % (104/227) | 72,5 / 11,6 / 15,9 | 0,040 | sim (1,00) |
+| Strigiformes | 100/1/100 | 33,8 % (100/296) | 67,5 / 16,7 / 15,8 | 0,62 | sim (1,00) |
+| Falconiformes | 100/1/100 | 66,0 % (184/279) | 84,1 / 5,9 / 10,1 | 3,9 × 10⁻⁶ | sim (1,00) |
+
+**Quais são as alternativas.** O `.cf.stat` não dá o nome das alternativas NNI.
+Elas foram identificadas por dois caminhos:
+
+- **sDF:** o sCFL de cada árvore restrita (`f08d`/`f08e`) reproduz o sDF do ramo
+  correspondente da ML.
+- **gDF:** pelo número de árvores de genes que contêm cada bipartição (`f08f`).
+
+**Eufalconimorphae.** O ramo separa quatro linhagens: Falconiformes,
+Psittacopasserae, *Cariama* e o resto.
+
+- O sCF de *Cariama* + Falconiformes (árvore H7b) é 29,6 e o de *Cariama* +
+  Psittacopasserae é 28,6: as duas alternativas empatam nos sítios.
+- Nas árvores de genes, a alternativa *Cariama* + Falconiformes é o gDF2: 14 árvores,
+  contra 6 concordantes e 0 para *Cariama* + Psittacopasserae (p = 0,0002).
+- Contada solta, sem condicionar nas quatro linhagens, a bipartição *Cariama* +
+  Falconiformes aparece em 41–45 das 300 árvores de genes nas três execuções. Em 23
+  delas o ramo é forte (MAFFT e DNA 1+2). Eufalconimorphae aparece em 6–10 árvores, e
+  *Cariama* + Psittacopasserae em 3–6.
+
+**Base de Afroaves.** O ramo separa Strigiformes, Coraciimorphae, Accipitrimorphae e o
+resto. Os sítios se dividem em 43,1 % para corujas + Coraciimorphae, 32,5 % para
+Hieraves (sCF da árvore H2: 32,6) e 24,5 % para Accipitrimorphae + Coraciimorphae
+(sCF da H1b: 24,2). As duas minoritárias são desiguais (p = 0,0095), com excesso para
+Hieraves. As árvores de genes quase nunca contêm qualquer um desses três clados
+(0–3 de 300).
+
+### Testes de topologia (KH, SH, AU; RELL 10 000)
+
+| Árvore | Hipótese | ΔlnL | p-KH | p-SH | p-AU |
+|---|---|---|---|---|---|
+| ML | — | 0 | 0,887 | 1 | 1 |
+| H2 | Strigiformes + Accipitrimorphae (Hieraves) | 34,8 | 0,113 | 0,857 | **0,130** |
+| H7b | *Cariama* + Falconiformes | 55,1 | 0,020 | 0,777 | **0,019** |
+| H1b | Accipitrimorphae + Coraciimorphae | 88,1 | 0,0004 | 0,579 | < 0,001 |
+| wASTRAL | árvore de espécies inteira | 455,0 | 0,0005 | 0,008 | 0,0007 |
+| H4 | Falconidae + Accipitrimorphae | 391,7 | 0 | 0,005 | < 0,001 |
+| H4b | Falconidae + Accipitriformes s.s. | 604,1 | 0 | 0 | < 0,001 |
+| H5 | Strigiformes + Caprimulgidae | 418,0 | 0 | 0,003 | < 0,001 |
+| H6 | Cathartidae + Ciconiiformes | 1544,3 | 0 | 0 | < 0,001 |
+| S2 | *Sagittarius* + Accipitridae | 1095,7 | 0 | 0 | < 0,001 |
+| S3 | *Sagittarius* + *Pandion* | 1084,4 | 0 | 0 | < 0,001 |
+
+H1, H3, H7a e S1 já estão na árvore ML e não têm busca. Os p-AU muito pequenos saem do
+ajuste do bootstrap multiescala (H1b dá 4 × 10⁻⁸⁹ com ΔlnL 88). Por isso estão escritos
+só como < 0,001.
+
+### Leitura
+
+1. **Concatenação e coalescente divergem justamente onde a literatura diverge.** A
+   supermatriz dá Australaves, Eufalconimorphae e Afroaves com Accipitrimorphae na
+   base. O wASTRAL dos mesmos 300 locos dá *Cariama* + Falconiformes, junta todas as
+   linhagens de rapinantes num clado e não tem Afroaves nem Australaves. O teste AU
+   rejeita a árvore do wASTRAL inteira (p = 0,0007) e rejeita *Cariama* +
+   Falconiformes (p = 0,019).
+2. **O sinal *Cariama* + Falconiformes está nas árvores de genes, não nos sítios.**
+   Nas árvores de genes ele é forte e assimétrico: 41–45 contra 3–6 para a outra
+   alternativa, nas três execuções, com MAFFT, com FAMSA e em DNA 1+2. No sCFL, que
+   pontua sítios sobre quartetos da supermatriz com o modelo particionado, as duas
+   alternativas empatam (29,6 × 28,6) e Eufalconimorphae vence (41,8). O padrão é o
+   que §5 previa para éxons: o mesmo artefato de dado codificante descrito por Jarvis
+   2014, Kuhl 2021 e nos éxons do B10K (relatório v1). Nas árvores de genes, ele não
+   se separa de atração do ramo longo de *Cariama*, um táxon só.
+3. **A base de Afroaves continua aberta.** A concatenação prefere corujas +
+   Coraciimorphae (UFBoot 90; 43 % dos sítios), mas o AU não rejeita Hieraves
+   (ΔlnL 34,8; p = 0,13). O sCF de Afroaves é 33,7, contra 34,2 e 32,1 nas
+   alternativas, o que significa que nenhum sítio decide se Accipitrimorphae fica
+   dentro ou fora do clado.
+
+   As duas alternativas minoritárias são desiguais, com excesso para Hieraves
+   (p = 0,0095), na mesma direção do B10K e do excesso de retroelementos de Gatesy &
+   Springer 2022. Isso é compatível com reticulação entre a linhagem das corujas e a
+   dos gaviões, mas não a demonstra.
+4. **O que fica decidido.** Este conjunto sustenta dez resultados:
+   - Accipitrimorphae;
+   - Accipitriformes s.s.;
+   - *Sagittarius* irmão de *Pandion* + Accipitridae, com S2 e S3 rejeitadas por mais
+     de 1000 unidades de lnL;
+   - *Elanus* na base de Accipitridae;
+   - Falconiformes, com *Herpetotheres* primeiro;
+   - Strigiformes;
+   - a rejeição de Falconiformes s.l. (H4, H4b);
+   - a rejeição de corujas + bacuraus (H5);
+   - a rejeição de urubus + cegonhas (H6);
+   - Australaves com *Cariama* fora de Eufalconimorphae, pelo AU, e não pelas árvores
+     de genes.
+5. **gCF baixo com sCF mais alto.** Nos nós profundos, o gCF fica entre 0 e 8 %, com
+   gDFP de 84 a 100 %. O sCF fica entre 34 e 53 %. Como §5 previa, isso aponta árvores
+   de genes mal estimadas, não conflito biológico. A exceção é o excesso *Cariama* +
+   Falconiformes do item 2, que é sistemático.
+
+## Sensibilidade ao alinhador (FAMSA) — wASTRAL (2026-10-19)
+
+Execução `20261018-112050-rapinantes_AA_famsa_clipkit`: as mesmas proteínas, com FAMSA
+2.4.1 e ClipKIT, árvores de genes só com aBayes e sem supermatriz. Terminou às 09:37.
+Os clados foram lidos com `f07a_clados_wastral.py` e os grupos-irmãos com
+`f07b_irmaos_wastral.py`, na árvore enraizada em *Gallus*. A tabela dá a localPP.
+
+| Clado | FAMSA | MAFFT | DNA 1+2 |
+|---|---|---|---|
+| Accipitriformes, Accipitrimorphae, Strigiformes, Falconiformes | 1,00 | 1,00 | 1,00 |
+| Strigiformes + Accipitrimorphae | 0,69 | 0,74 | não (*Leptosomus* + Strigiformes 0,61) |
+| + *Leptosomus* | 0,59 | 0,56 | 0,90 |
+| Falconiformes + *Cariama* | 0,77 | 0,73 | 0,61 |
+| todos os rapinantes + *Cariama* + *Leptosomus* | 0,83 | 0,92 | 0,66 |
+| Australaves / Eufalconimorphae | não | não | não |
+| Psittacopasserae | 0,91 | 1,00 | 1,00 |
+
+O alinhador não muda nada nos nós de rapinantes. Muda *Apus* + *Calypte*: irmãos de
+Psittacopasserae no FAMSA (0,59) e no DNA 1+2 (0,67), na base de Neoaves no MAFFT
+(1,00). Nas árvores de genes do FAMSA, *Cariama* + Falconiformes aparece em 43 das 300,
+contra 6 para Eufalconimorphae e 6 para *Cariama* + Psittacopasserae
+(`splits_genes.tsv`). É o mesmo padrão do MAFFT.
+
+### Status (2026-10-19, 17:10)
+
+| Etapa | Estado |
+|---|---|
+| Árvores de genes e wASTRAL: AA MAFFT, AA FAMSA, DNA 1+2 | feito |
+| Supermatriz AA MAFFT (48 modelos fixos), gCF, sCFL | feito |
+| χ² gDF1 × gDF2 e sDF1 × sDF2; nomes das alternativas | feito |
+| AU/KH/SH (13 hipóteses + wASTRAL) na supermatriz AA | feito |
+| Supermatriz DNA 1+2, supermatriz FAMSA, trimAl | **pendente** |
+| Reanálise sem os ramos terminais anômalos | **pendente** |

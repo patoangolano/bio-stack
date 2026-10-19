@@ -15,8 +15,9 @@ O trabalho teve quatro braços computacionais: (1) reanálise das árvores de ge
 publicadas pelo B10K e síntese das árvores depositadas na Open Tree of Life; (2)
 posicionamento de fósseis em matrizes morfológicas publicadas; (3) reconstrução do
 estado ancestral do hábito rapinante sob topologias alternativas; e (4) um conjunto
-filogenômico novo, com 57 táxons e 300 locos, cuja inferência ainda está em
-execução. Uma síntese de literatura (NotebookLM, agentes do Claude Science e buscas
+filogenômico novo, com 57 táxons e 300 locos. As seções 4.7–4.11 do braço 4 foram
+acrescentadas em 2026-10-19, depois do fim das execuções, a partir dos logs e dos
+scripts que elas citam. Uma síntese de literatura (NotebookLM, agentes do Claude Science e buscas
 na Europe PMC e na web) orientou a escolha das hipóteses. Ela está em
 `research_notes/Posição filogenética das aves de rapina/` e não é descrita aqui.
 
@@ -680,7 +681,8 @@ do ClipKIT da execução descrita abaixo, e está em `locos_dna12/`. O script:
 2. aplicou a mesma máscara de colunas do ClipKIT;
 3. removeu a 3ª posição do códon.
 
-A matriz DNA 1+2 ainda não foi analisada.
+A matriz DNA 1+2 foi analisada na execução `20261018-084205-rapinantes_DNA12`
+(seção 4.8).
 
 ### 4.6 Pipeline de inferência (parâmetros como lançados)
 
@@ -695,9 +697,9 @@ Nextflow 26.04.6, o Docker 29.9.1 (`-profile docker`) e o diretório de trabalho
 A configuração `scripts/rapinantes/filogenomica/limite_10cpus.config`, passada com
 `-c`, limitou o executor local a 10 CPUs e 13 GB e baixou os pedidos de memória ao
 uso medido. Ela não altera nenhum argumento das ferramentas. As versões abaixo são
-as dos contêineres, e não as do pixi. Para as etapas já concluídas, foram lidas do
-`.command.env` das tarefas e da imagem registrada no `trace.tsv`. Para as etapas
-ainda não submetidas, vêm da imagem declarada no módulo.
+as dos contêineres, e não as do pixi. Foram lidas do `.command.env` das tarefas e
+da imagem registrada no `trace.tsv`, e conferidas em 2026-10-19 contra o
+`pipeline_info/versoes.yml` de cada execução.
 
 1. **Preparação.** PREPARA_LOCO, em Python 3.12.12, com `--tipo AA --nome-taxon
    primeiro`. O mínimo foi de 4 táxons por loco.
@@ -721,31 +723,121 @@ ainda não submetidas, vêm da imagem declarada no módulo.
      variar 1–2 pontos entre execuções.
    - O módulo omite `-mem` com modelo particionado, porque o IQ-TREE o recusa nesse
      caso. O teto de memória é o do contêiner, 9 GB, e o tempo máximo é de 144 h.
+   - Esta execução foi interrompida depois do ModelFinder. A árvore que entra nos
+     resultados vem de uma segunda corrida com o mesmo esquema e os mesmos modelos
+     fixados (seção 4.7).
 6. **Concordância.** O gCF foi calculado das árvores de genes sobre a árvore da
    supermatriz (`-T 1`). O sCFL usou 100 quartetos (`--scfl 100`; Mo et al. 2023),
-   com o modelo por partição escolhido na supermatriz (`-p`) e `--seed 12345`.
-7. **Árvore de espécies.** ASTER 1.25 (contêiner hc52dbad_1). O wASTRAL usou o
+   com o modelo por partição escolhido na supermatriz (`-p`) e `--seed 12345`. Na
+   execução AA com MAFFT, o sCFL rodou fora do Nextflow com `-T 8` (o módulo usa
+   `-T 1`; seção 4.7).
+7. **Árvore de espécies.** ASTER 1.25.3.8 (contêiner hc52dbad_1). O wASTRAL usou o
    preset de ponderação por aBayes (`-B`; Zhang & Mirarab 2022), `-t 2`, `--root
    Gallus_gallus` e `--seed 12345`, com mínimo de 3 locos. Só o campo aBayes do
    rótulo "SH-aLRT/aBayes/UFBoot" do IQ-TREE é passado ao wASTRAL.
 
-### 4.7 Estado da execução
+### 4.7 Interrupção da supermatriz e nova corrida com modelos fixos
 
-Às 07:08 UTC de 2026-10-18 (`pipeline_info/trace.tsv` e `.nextflow.log`, lidos sem
-alterar a execução), o estado era este:
+As árvores de genes e o wASTRAL da execução AA com MAFFT terminaram em 2026-10-18,
+às 08:41 (horário de Brasília). O ModelFinder da supermatriz agrupou as 300 partições
+em 48 grupos (BIC 4467486,907; lnL -2230458,528; 535 parâmetros), e a busca de árvore
+terminou às 17:16. Às 21:09, durante o refinamento dos UFBoot, o processo morreu por
+SIGHUP, quando a sessão que tinha lançado o Nextflow foi fechada.
 
-- PREPARA_LOCO, MAFFT e ClipKIT tinham terminado os 300 locos;
-- 75 árvores de genes tinham sido submetidas e 63 estavam concluídas, com 7–25 min
-  por árvore em 1 thread;
-- CONCATENA, a supermatriz, a concordância e o wASTRAL ainda não tinham sido
-  submetidos.
+A retomada pelo checkpoint foi abandonada. Com `-m MFP+MERGE`, o IQ-TREE 3.1.4 voltou
+a testar as partições isoladas com o conjunto completo de modelos (~32 h previstas).
+O cache `concatenado.model.gz` só guardava, para elas, os dois modelos da fase de
+agrupamento.
 
-**As árvores de genes, a supermatriz, o gCF/sCFL e o wASTRAL estão em execução — a
-incorporar.** A execução da matriz DNA 1+2 também está pendente
-(`--alinhador nenhum --limpeza nenhuma`). O mesmo vale para os testes de topologia
-AU/KH/SH das hipóteses H1–H7 e S1–S3 (`f07_hipoteses.py`, `f07b_topologia.sh`), para
-os testes de qui-quadrado gDF1 × gDF2 e sDF1 × sDF2 por ramo (`f08_nos_chave.py`) e
-para a sensibilidade da matriz de aminoácidos com FAMSA e trimAl.
+A supermatriz que entra nos resultados foi refeita do zero, sem a busca de modelo:
+
+- `modelos_48.py` reconstruiu do `concatenado.model.gz` o modelo de menor BIC de cada
+  um dos 48 grupos do `best_scheme.nex`. A soma reproduz o lnL e os graus de
+  liberdade do ModelFinder.
+- A corrida usou `iqtree -p modelos_fixos.nex -B 1000 --bnni --alrt 1000 --abayes
+  --seed 12345 -o Gallus_gallus -st AA` na mesma imagem do pipeline.
+- Rodou com `-T 8` até a iteração 76 da busca e com `-T 18` daí em diante, retomando
+  do próprio checkpoint. Antes da troca, um teste numa cópia confirmou que a retomada
+  restaura a árvore, os 1000 UFBoot e os parâmetros sem recalcular nada.
+- A corrida terminou em 2026-10-19, às 16:27, com lnL -2230233,545. A topologia é
+  idêntica à da melhor árvore da busca interrompida (distância de Robinson-Foulds 0).
+
+A publicação, a concordância e o resumo foram replicados fora do Nextflow por
+`pos_concat_020210.sh`, com os contêineres e argumentos do pipeline. A única
+diferença é o sCFL com `-T 8`. Os scripts estão em
+`scripts/rapinantes/filogenomica/retomada_020210/`, e o registro detalhado em
+`runs/filogenia/20261018-020210-rapinantes_AA_mafft_clipkit/RETOMADA_MANUAL.md`. O
+`metodos.md` gerado pelo RESUMO descreve o comando original (MFP+MERGE) e deve ser
+lido com essa ressalva.
+
+### 4.8 Matriz DNA 1+2
+
+Execução `20261018-084205-rapinantes_DNA12`, com a matriz da seção 4.5 e `--alinhador
+nenhum --limpeza nenhuma --tipo_seq DNA --concatenar false` (2 CPUs,
+`limite_2cpus.config`). Foram feitas árvores de genes no IQ-TREE 3.1.4, com ModelFinder
+de nucleotídeos e os mesmos suportes e semente da seção 4.6, e wASTRAL. Esta matriz
+não tem supermatriz nem concordância. Como vem dos mesmos genes e do mesmo
+alinhamento da execução AA, ela testa o efeito do tipo de dado, não replica a análise
+de forma independente.
+
+### 4.9 Sensibilidade ao alinhador
+
+Execução `20261018-112050-rapinantes_AA_famsa_clipkit`: as mesmas proteínas, alinhadas
+com FAMSA 2.4.1 (argumentos padrão do módulo nf-core) e limpas com ClipKIT
+`smart-gap`. Por custo, as árvores de genes rodaram só com aBayes (`--ufboot 0 --alrt
+0`), sem supermatriz (`--concatenar false`, 8 CPUs, `limite_8cpus.config`). O wASTRAL
+usou os mesmos argumentos. A limpeza com trimAl não foi executada.
+
+Nas três árvores de espécies, a monofilia e a probabilidade local dos clados
+relevantes foram lidas, com a raiz em *Gallus*, por `f07a_clados_wastral.py`. O
+grupo-irmão dos clados focais foi lido por `f07b_irmaos_wastral.py`.
+
+### 4.10 Nós-chave, concordância e assimetria
+
+`f08_nos_chave.py` lê cada nó-chave como bipartição, de modo que a raiz não importa,
+e reúne quatro coisas:
+
+- os suportes da supermatriz;
+- gCF, gDF1, gDF2 e gDFP;
+- sCF, sDF1 e sDF2 (sCFL);
+- a probabilidade local do wASTRAL.
+
+Os ramos do `.cf.stat` são casados com a árvore `.cf.tree` pelo rótulo e pelo
+comprimento. A assimetria entre as duas alternativas NNI foi testada por
+qui-quadrado (`scipy.stats.chisquare`) sobre gDF1_N × gDF2_N e sDF1_N × sDF2_N. Sob
+ILS pura, as duas têm a mesma frequência esperada (Minh, Hahn & Lanfear 2020).
+
+O script também conta as árvores de genes que contêm o clado, restrito aos táxons do
+gene, com SH-aLRT ≥ 80 e UFBoot ≥ 95, e as que têm um ramo nesse critério
+incompatível com ele.
+
+Para saber qual alternativa NNI corresponde a gDF1 e qual a gDF2, as bipartições
+concorrentes foram contadas diretamente nas árvores de genes. Para sDF1 e sDF2, o
+sCFL foi calculado nas árvores restritas da seção 4.11 que forçam cada alternativa.
+
+### 4.11 Testes de topologia
+
+`f07_hipoteses.py` escreve, para cada hipótese, duas árvores:
+
+- a árvore de restrição do IQ-TREE (`-g`), multifurcada, com os clados exigidos;
+- uma árvore inicial compatível, obtida por SPR sobre a árvore ML da supermatriz: o
+  clado X é podado e reenxertado como irmão de Y.
+
+As 13 hipóteses são H1, H1b, H2, H3, H4, H4b, H5, H6, H7a, H7b, S1, S2 e S3, descritas
+em `runs/rapinantes/filogenomica/topologia_AA/hipoteses.tsv`. Quando a árvore ML já
+satisfaz uma hipótese, a melhor árvore restrita é a própria ML e a busca não roda.
+
+`f07b_topologia.sh` faz as buscas restritas sobre a supermatriz AA:
+
+- comando `iqtree3 -s supermatriz.fa -p concatenado.best_model.nex -g <restrição> -t
+  <inicial> --fast --seed 12345 -T 18`;
+- IQ-TREE 3.1.4 do pixi, a mesma versão do contêiner;
+- o modelo particionado vem com os parâmetros estimados na supermatriz.
+
+As árvores candidatas são a ML, a árvore do wASTRAL e as melhores árvores restritas.
+Elas foram comparadas com `-z candidatos.nwk -n 0 -zb 10000 -au`, isto é, KH, SH e
+AU [CITAÇÃO A CONFIRMAR] com 10 000 réplicas RELL. A execução foi lançada como tarefa
+agendada por `lanca_topologia.ps1` e `roda_topologia.sh`.
 
 ## Uso de inteligência artificial
 
@@ -819,17 +911,15 @@ sem DOI conferido no repositório está marcado nas Pendências.
 
 ## Pendências
 
-1. **Resultados do pipeline do braço 4: em execução — a incorporar.** Às 07:08 UTC
-   havia 63 de 300 árvores de genes prontas. A supermatriz (IQTREE_CONCAT), o
-   gCF/sCFL e o wASTRAL ainda não tinham sido submetidos. Quando a execução
-   terminar, copie as versões do `metodos.md` gerado por ela e confira os
-   parâmetros da seção 4.6 contra os `.command.sh` reais da supermatriz e do
-   wASTRAL.
-2. **Análises do braço 4 ainda não rodadas.** São elas a matriz DNA 1+2, os testes
-   AU/KH/SH (H1–H7, S1–S3), os testes de qui-quadrado gDF/sDF por ramo
-   (`f08_nos_chave.py`) e a sensibilidade com FAMSA e trimAl. As versões
-   configuradas no pipeline são FAMSA 2.4.1 e trimAl 1.5.0, mas não foram usadas
-   ainda.
+1. **Braço 4: conferência feita em 2026-10-19.** As versões da seção 4.6 batem com
+   o `pipeline_info/versoes.yml` das três execuções. Os argumentos do wASTRAL foram
+   conferidos contra o `.command.sh` real das três. Os da supermatriz são os da
+   corrida com modelos fixos (seção 4.7).
+2. **Análises do braço 4 ainda não rodadas.** Ainda faltam quatro análises:
+   - a supermatriz e a concordância da matriz DNA 1+2;
+   - a limpeza com trimAl (trimAl 1.5.0, configurado e não usado);
+   - a supermatriz da execução FAMSA;
+   - uma reanálise sem os ramos terminais anômalos (poda à maneira do TreeShrink).
 3. **Citações a confirmar.** Faltam DOIs conferidos no repositório para ape,
    phangorn, DendroPy, DIAMOND, gffread, SeqKit, TaxonKit, NCBI Datasets, o modelo
    Mk para morfologia, o teste AU, a distância MORD, a distância de Gower, a
