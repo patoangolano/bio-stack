@@ -1,0 +1,43 @@
+# bio-stack — ambiente isolado dos modelos de linguagem de proteina abertos
+# da EvolutionaryScale, 2026-10-22.
+#
+# Por que este ambiente existe: em 2026-10-21 os endpoints `esmfold`,
+# `alphafold2` e `alphafold2_multimer` responderam 410 na chave da NVIDIA e
+# sairam do catalogo (`nim_list_models` devolve 11 modelos, sem os tres).
+# Nao ha slug novo. O nicho que o ESMFold ocupava — estrutura a partir de
+# sequencia, sem MSA — fica sem endpoint hospedado aqui.
+#
+# O que entra no lugar, local: `esm3_sm_open_v1`, 1,4 B parametros, o unico
+# checkpoint de pesos abertos da familia ESM3, licenca MIT. Em bf16 os pesos
+# dao ~2,8 GB, o que cabe nos 8151 MiB da RTX 5070 Laptop. Os irmaos de 7 B e
+# 98 B ficam atras da API Forge e nao sao pesos abertos.
+#
+# ESM3 e generativo e multimodal (sequencia, estrutura, funcao) — nao e um
+# preditor no molde do AlphaFold2. Para dobramento fiel de monomero use o
+# Protenix-v1 (6,1 GB de pico a 500 tokens) ou o `openfold3` hospedado; para
+# complexo com afinidade, `boltz2`. Este ambiente serve embedding,
+# verossimilhanca de mutacao e geracao condicionada.
+#
+# Por que venv separada e nao um grupo do pyproject.toml: o pacote `esm`
+# arrasta a propria arvore de torch e de tokenizer. Resolver isso junto com o
+# venv do projeto poria numpy e scipy em negociacao, e as duas estao travadas
+# em versao exata (numpy==2.4.6, scipy==1.17.1) porque sustentam afirmacao de
+# Metodos. E a mesma razao de `envs/bioemu` e `envs/bonej-headless`.
+#
+# Por que venv e nao `uv tool install`: o uso e por modulo e por API Python
+# (`from esm.models.esm3 import ESM3`), nao por console script.
+#
+# O ESM3 exige aceitar a licenca no Hugging Face e um token. Sem o token o
+# `from_pretrained` falha em 401, nao em erro de rede:
+#   huggingface-cli login
+#
+# Reconstruir:
+#   uv venv envs/esm3/.venv --python 3.11
+#   uv pip install --python envs/esm3/.venv --torch-backend cu128 \
+#       -r envs/esm3/requirements.in
+#
+# Conferir com kernel real, nunca com cuda.is_available() — um wheel errado
+# instala calado e so falha no primeiro kernel:
+#   envs/esm3/.venv/Scripts/python.exe -c "import torch; a=torch.randn(256,256,device='cuda'); (a@a).sum(); torch.cuda.synchronize(); print(torch.cuda.get_device_capability(0))"
+esm
+huggingface-hub
