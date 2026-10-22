@@ -3,6 +3,10 @@
 Tudo nesta página foi **testado ao vivo em 2026-09-12**, desta máquina, com as
 credenciais desta conta. Código HTTP real, não documentação.
 
+As linhas da `NVIDIA_API_KEY` e da `NCBI_API_KEY` foram **remedidas em
+2026-10-22**, e as duas mudaram de estado desde a medição original — ver
+*Estado atual* e *O incidente do `NCBI_API_KEY`*.
+
 Reverifique com `/bio-doctor` — endpoints mudam.
 
 ---
@@ -11,8 +15,8 @@ Reverifique com `/bio-doctor` — endpoints mudam.
 
 | Chave | Estado | Impacto |
 |---|---|---|
-| `NVIDIA_API_KEY` | **OK** | NIMs de biologia, embeddings, 3 LLMs, login no `nvcr.io` |
-| `NCBI_API_KEY` | **removida em 2026-09-12** | estava com o valor da chave NVIDIA — o NCBI devolvia `400 API key invalid` |
+| `NVIDIA_API_KEY` | **OK** · **rotacionada em 2026-10-22** | NIMs de biologia, embeddings, 3 LLMs, login no `nvcr.io` |
+| `NCBI_API_KEY` | **OK** — remedida em 2026-10-22 | 36 hex, **não** começa com `nvapi-`; E-utilities devolve `200`. O incidente abaixo está fechado |
 | `S2_API_KEY` | ausente — **e nenhum código lê** | ver abaixo: a variável é passada ao `biomcp`, que não a consome |
 | `OPENFDA_API_KEY` | ausente | openFDA responde `200` sem chave; só sobe o teto |
 | `HF_TOKEN` | ausente | download anônimo de modelo não-gated funciona (`307`) |
@@ -32,6 +36,35 @@ NCBI. Duas consequências:
 
 O valor inválido foi removido. **Rotacione a chave NVIDIA** em
 <https://build.nvidia.com> — considere-a exposta.
+
+### Fechamento, 2026-10-22
+
+Os dois lados do incidente estão resolvidos, e os dois foram medidos:
+
+- **`NCBI_API_KEY` reposta.** 36 caracteres hexadecimais, não começa com
+  `nvapi-`, e `einfo.fcgi` com ela na query string devolve `200`. A seção
+  *"reposição (prioridade alta)"* abaixo já não é pendência.
+- **`NVIDIA_API_KEY` rotacionada.** Chave nova gravada no ambiente de usuário,
+  70 caracteres. Autenticação confirmada por sondagem: `boltz2` devolve `422`
+  (erro de validação de corpo vazio), não `401` nem `403`.
+
+**A rotação não restaura modelo aposentado, e isso foi medido.** `esmfold`,
+`alphafold2` e `alphafold2_multimer` devolvem `410` na chave nova exatamente
+como na antiga. São aposentadorias upstream da NVIDIA, sem slug substituto —
+não limite de licença da conta. Quem rotacionar a chave esperando recuperá-los
+vai gastar tempo à toa. A superfície real e o que usar no lugar estão em
+[`MODELOS-BIO.md`](MODELOS-BIO.md).
+
+Duas consequências operacionais da rotação:
+
+1. **Reinicie o Claude Code.** Os servidores MCP leem o ambiente na partida.
+   Até reiniciar, o `nim_config` segue reportando o prefixo da chave **antiga**
+   e as ferramentas `mcp__nvidia-bio__*` continuam usando ela.
+2. **O hook protege o log, o transcript não.** O `provenance.py` tem um
+   `redact()` com a regex `nvapi-[A-Za-z0-9_\-]{10,}` aplicada ao `input` antes
+   de gravar, então `runs/provenance.jsonl` guarda `[REDACTED]`. Chave colada
+   em conversa, porém, fica no transcript da sessão em texto claro. Prefira
+   `bootstrap/01_setup_keys.ps1`, que lê por `SecureString`.
 
 ---
 
@@ -58,7 +91,10 @@ melhor no "polite pool", e é boa educação.
 
 Todas gratuitas, todas em minutos.
 
-### 1. `NCBI_API_KEY` — reposição (prioridade alta)
+### 1. `NCBI_API_KEY` — ~~reposição (prioridade alta)~~ **já reposta**
+
+Resolvida: medida em 2026-10-22, válida, `200` no E-utilities. Fica aqui como
+referência de formato, não como tarefa.
 
 <https://account.ncbi.nlm.nih.gov/settings/> → *API Key Management*.
 Sobe o E-utilities de 3 para 10 requisições por segundo. Formato: 36 caracteres
