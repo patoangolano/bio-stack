@@ -89,6 +89,8 @@ SONDAS: dict[str, tuple[str, str]] = {
     "jq": ("jq --version", "1.8.2"),
     "duckdb": ("duckdb --version", "1.5.6"),
     "parallel": ("parallel --version", "20260922"),
+    "rclone": ("rclone version", "v1.75.2"),
+    "pigz": ("pigz --version", "2.8"),
     "nf-test": ("nf-test version", "0.9.5"),
     # kent v482 nao imprime versao; a linha de uso prova que o binario carrega.
     "twoBitToFa": ("twoBitToFa", "Convert all or part of .2bit"),

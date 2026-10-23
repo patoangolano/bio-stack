@@ -193,6 +193,19 @@ channels = ["conda-forge", "bioconda"]
 dependencies = { parallel = "==20260922" }
 exposed = { env_parallel = "env_parallel", "env_parallel.ash" = "env_parallel.ash", "env_parallel.dash" = "env_parallel.dash", "env_parallel.mksh" = "env_parallel.mksh", "env_parallel.pdksh" = "env_parallel.pdksh", niceload = "niceload", parallel = "parallel", parcat = "parcat", parset = "parset", parsort = "parsort", sem = "sem", sql = "sql" }
 
+# Backup no Google Drive (bootstrap/backup_drive.sh): tar | pigz | rclone rcat.
+# Entraram no manifesto em 2026-10-23 porque um `pixi global install` avulso
+# some no proximo `pixi global sync` do 05, que copia este arquivo por cima.
+[envs.rclone]
+channels = ["conda-forge"]
+dependencies = { rclone = "==1.75.2" }
+exposed = { rclone = "rclone" }
+
+[envs.pigz]
+channels = ["conda-forge"]
+dependencies = { pigz = "==2.8" }
+exposed = { pigz = "pigz", unpigz = "unpigz" }
+
 [envs.nf-test]
 channels = ["conda-forge", "bioconda"]
 dependencies = { nf-test = "==0.9.5" }

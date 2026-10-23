@@ -19,7 +19,7 @@ projeto tem via institucional própria e não passa por aqui.
 ```
 GPU:    NVIDIA GeForce RTX 5070 Laptop
 VRAM:   8 GB (8151 MiB)
-CUDA:   13.4 (driver 617.42)
+CUDA:   13.5 (driver 621.01, medido em 2026-10-23; era 13.4 no 617.42)
 Arch:   Blackwell, sm_120 (compute 12.0)  → PyTorch precisa de wheels cu128+
 Torch:  2.11.0+cu128 · torch.version.cuda 12.8 · cuda.is_available() True
 SO:     Windows 11 · WSL2 com Ubuntu-24.04 (20 núcleos, 15 GB RAM; disco: ver abaixo)
@@ -31,7 +31,7 @@ livre em C: — 98 GB de 476 GB em 2026-10-12, dividido com o Windows. Meça
 com `df -h /c` no Git Bash antes de baixar genomas.
 
 O par `cu128` / `torch.version.cuda 12.8` é o que torna a exigência de wheels
-cu128+ verificável: o driver 617.42 expõe CUDA 13.4, mas não existe wheel
+cu128+ verificável: o driver 621.01 expõe CUDA 13.5, mas não existe wheel
 oficial de PyTorch para sm_120 abaixo de cu128 — um wheel cu121 instala sem
 reclamar e só falha no primeiro kernel.
 
@@ -46,11 +46,11 @@ nnInteractive, DeepLabCut, SLEAP e BioEmu — todos em ambiente isolado com
 com `cuda.is_available()`.
 
 **Vive no WSL** (Ubuntu 24.04.5 LTS, distro `Ubuntu-24.04`, reinstalada em
-2026-10-10 e outra vez em 2026-10-16): `nextflow` 26.04.6, `nf-core` 4.1.0,
-`bedtools` 2.31.1, `docker` 29.9.1, Java 21 — a **camada base**, reconstruída
+2026-10-10, 2026-10-16 e 2026-10-23): `nextflow` 26.04.6, `nf-core` 4.1.0,
+`bedtools` 2.31.1, `docker` 29.9.2, Java 21 — a **camada base**, reconstruída
 por `bootstrap/04b_wsl_base.sh` (como root) — e, desde 2026-10-11, a **camada
-pixi**: 41 ambientes, 37 de CLIs de bioinformática (um por ferramenta, ou grupo
-coeso) e 4 de biofísica (GROMACS, PyMOL, OpenMM, OpenSim), declarados em
+pixi**: 43 ambientes, 39 de CLIs (um por ferramenta, ou grupo coeso; `rclone` e
+`pigz`, do backup, desde 2026-10-23) e 4 de biofísica (GROMACS, PyMOL, OpenMM, OpenSim), declarados em
 `bootstrap/pixi-global.toml` (versão exata) com build e sha256 em
 `bootstrap/pixi-global.snapshot.tsv`. Entre elas: `iqtree3` 3.1.4, `mafft`,
 `famsa`, `muscle`, `clipkit`, `trimal`, `raxml-ng`, `FastTree`, `wastral`,
@@ -59,9 +59,18 @@ coeso) e 4 de biofísica (GROMACS, PyMOL, OpenMM, OpenSim), declarados em
 1.24, `seqkit` 2.14.0, `csvtk`, `taxonkit`, `datasets`/`dataformat`
 (NCBI), `efetch`/`esearch`, `gffread`, AGAT, utilitários UCSC (`twoBitToFa`,
 `liftOver`, `mafsInRegion`, `mafSpeciesSubset`, `bigWigAverageOverBed`),
-`jq`, `duckdb`, `parallel`, `nf-test`.
+`jq`, `duckdb`, `parallel`, `nf-test`, `rclone`, `pigz`.
 Não procure nenhuma delas no PATH do Windows. Reconstruir a distro inteira,
-na ordem, do Windows:
+de uma vez e fora da árvore de processos da sessão (são horas, e job do Bash
+tool morre de SIGHUP quando a sessão fecha):
+
+```powershell
+.\bootstrap\tarefa_longa.ps1 -Nome reconstruir-wsl -Script bootstrap\09_wsl_reconstruir.sh
+```
+
+O `09` faz, na ordem e sem nenhum passo que espere teclado, o mesmo que os
+comandos abaixo, mais `wsl --set-default Ubuntu-24.04` e a conferência. Log e
+código de saída em `runs/bootstrap/`. A mão, do Windows:
 
 ```bash
 wsl --install -d Ubuntu-24.04 --no-launch --web-download
@@ -79,6 +88,14 @@ deixa o daemon do Claude Science de pé na 8765, mas o login da conta é manual:
 `wsl -d Ubuntu-24.04 -- bash -lc "claude-science url"` dá um link de uso único.
 Nenhum script pede `sudo` interativo: o `06` travou 19 min num deles em
 2026-10-16, esperando a senha de um usuário que não tinha senha.
+
+O lado Windows tem o par equivalente. O `bootstrap/08_windows_uv.sh` refaz o
+`.venv`, os `envs/` isolados e as seis uv tools, com kernel real em `sm_120`
+em cada uma. O `bootstrap/restaura_drive.sh` traz de volta do backup no Google
+Drive o que o git não guarda (`runs/`, `data/`, `~/rapinantes`, `~/nf-work`),
+conferindo o md5 antes de extrair e sem sobrescrever nada que já exista. Os
+dois rodam por `tarefa_longa.ps1`. Foi assim que a stack voltou em 2026-10-23,
+depois de um `wsl --unregister` e de um re-clone do repositório feitos a mão.
 
 Onde cada uma mora importa para a armadilha do PATH, logo abaixo: as do
 pixi estão em `~/.pixi/bin`; bedtools veio do apt e está em `/usr/bin`;
@@ -130,7 +147,10 @@ daemon sob systemd
 (`systemctl enable --now docker`), socket em `/var/run/docker.sock`, usuário
 `manec` no grupo `docker`. Não há Docker Desktop no Windows e não haverá — logo
 **não existe `docker` no PATH do Windows, e isso é o esperado, não lacuna**. Quem
-procura o binário do lado Windows conclui errado que falta instalar.
+procura o binário do lado Windows conclui errado que falta instalar. Ele entrou
+uma vez, em 2026-10-21, e saiu em 2026-10-23 (`winget uninstall --id
+Docker.DockerDesktop`): virou a distro padrão do WSL, e a WSL integration dele
+disputa o `/var/run/docker.sock` com o docker-ce da distro.
 
 Verificado com o pipeline inteiro, não só com `docker info`: o `info` prova
 apenas que o daemon responde, enquanto o pipeline exercita pull de imagem, bind
