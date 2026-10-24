@@ -107,6 +107,25 @@ PROFUNDIDADE = {"arc_vcc_25": 2016.0, "replogle": 46.0, "jiang": 13.0, "orion": 
 MIN_PERTS_CONTEXTO = 40
 # Genes em comum exigidos para uma comparacao valer.
 MIN_GENES_COMPARAVEIS = 500
+# Status de p53 de cada contexto doador. A resposta media agrupada e dominada por
+# ativacao de p53 (KEGG p53 adj p 9,9e-12; alvos de TP53 por ChIP no topo), e
+# Nadig 2025 (10.1038/s41588-025-02169-3) mostra respostas de Perturb-seq
+# agrupando por status de p53 -- que as medias destes doadores replicam:
+# K562-Jurkat 0,64, RPE1-HepG2 0,85, cruzado 0,44-0,49. Os esquemas `mesmo_p53*`
+# testam se agrupar so doadores do mesmo status transfere melhor.
+#   selvagem: H1 (hESC), HCT116, HepG2, hTERT-RPE1
+#   defeituoso: K562 (nulo), Jurkat (mutante), HEK293T (inativado pelo antigeno T
+#   grande do SV40 -- o gene e selvagem, a proteina nao funciona)
+P53_SELVAGEM = {
+    "arc_vcc_25_ARC_H1": True,
+    "arc_vcc_25_ARC_H1_VAL": True,
+    "orion_hct116": True,
+    "replogle_hepg2": True,
+    "replogle_rpe1": True,
+    "orion_hek293t": False,
+    "replogle_k562": False,
+    "replogle_jurkat": False,
+}
 
 
 def ganho_sem_intercepto(previsto: np.ndarray, real: np.ndarray) -> tuple[float, float, float]:
@@ -213,7 +232,18 @@ def main() -> None:
     if len(rotulos) < 3:
         raise ValueError("menos de 3 contextos: deixar-um-de-fora nao diz nada")
 
-    esquemas = ("atual", "profundidade", "concordancia", "uniforme", "amostra")
+    esquemas = (
+        "atual",
+        "profundidade",
+        "concordancia",
+        "uniforme",
+        "amostra",
+        "mesmo_p53",
+        "mesmo_p53_uniforme",
+    )
+    sem_status = [r for r in medias if r not in P53_SELVAGEM]
+    if sem_status:
+        raise ValueError(f"contexto(s) sem status de p53 declarado: {sem_status}")
     resultados: dict[str, list[dict[str, float | str]]] = {e: [] for e in esquemas}
 
     print(f"\n== deixar-um-de-fora sobre {len(rotulos)} contextos ==")
@@ -245,6 +275,10 @@ def main() -> None:
                     pesos[doador] = max(0.0, concordancia.get(doador, 0.0))
                 elif esquema == "uniforme":
                     pesos[doador] = 1.0
+                elif esquema in ("mesmo_p53", "mesmo_p53_uniforme"):
+                    mesmo = P53_SELVAGEM[doador] == P53_SELVAGEM[retido]
+                    base = info["profundidade"] if esquema == "mesmo_p53" else 1.0
+                    pesos[doador] = base if mesmo else 0.0
                 else:
                     pesos[doador] = info["perts"]
             pesos_por_esquema[esquema] = pesos
