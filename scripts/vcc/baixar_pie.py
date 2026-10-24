@@ -14,6 +14,10 @@ registrados da execucao anterior:
   * PIE_splits baixa completo (1,7 MB) -- `replogle_xdataset/train.json` e o
     que define os 157 alvos com evidencia doadora, contra os 161 que aparecem
     em algum `pert_to_id`.
+  * PIE_sources: SO os metadados (1,27 MB de um repositorio de 44 GB). O
+    `eixo_18262.py` le a lista de chaves (`meta.json`) e os aliases de cinco
+    fontes para saber quais alvos cada uma cobre; os embeddings nao entram em
+    nada daqui -- os 143 alvos sem evidencia deram R2 negativo com eles.
 
 Os quatro repositorios sao publicos (HTTP 200 sem token, medido 2026-10-23).
 
@@ -45,6 +49,10 @@ DOADORES = {
 
 PADROES_ACEITOS = ["preprocessed/*"]
 PADROES_RECUSADOS = ["*lfc_true*"]
+
+# As cinco fontes cujas chaves o `eixo_18262.py` consulta.
+FONTES = ("gene_text", "esm2", "depmap_gene_effect", "string_space", "perturbation_text")
+PADROES_FONTES = [f"{f}/{arq}" for f in FONTES for arq in ("meta.json", "aliases.yaml")]
 
 
 def tamanho_previsto(api: HfApi) -> int:
@@ -84,6 +92,17 @@ def baixar() -> None:
         repo_type="dataset",
         local_dir=DESTINO.parent / "PIE_splits",
     )
+    baixar_fontes()
+
+
+def baixar_fontes() -> None:
+    print("--- PIE_sources (so metadados)", flush=True)
+    snapshot_download(
+        repo_id="arcinstitute/PIE_sources",
+        repo_type="dataset",
+        local_dir=DESTINO.parent / "PIE_sources",
+        allow_patterns=PADROES_FONTES,
+    )
 
 
 def main() -> int:
@@ -93,7 +112,17 @@ def main() -> int:
         action="store_true",
         help="lista o que seria baixado e soma o tamanho, sem transferir nada",
     )
+    ap.add_argument(
+        "--so-fontes",
+        action="store_true",
+        help="baixa so os metadados do PIE_sources, sem tocar nos 4,2 GB de arrays",
+    )
     args = ap.parse_args()
+    if args.so_fontes:
+        baixar_fontes()
+        presentes = sorted((DESTINO.parent / "PIE_sources").rglob("*.*"))
+        print(f"{len([p for p in presentes if '.cache' not in p.parts])} arquivos de metadados")
+        return 0
 
     api = HfApi()
     if args.conferir:
