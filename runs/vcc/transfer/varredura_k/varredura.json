@@ -1,15 +1,16 @@
 {
   "escalas_do_desvio": [
-    1.0,
-    1.5,
-    2.0,
-    3.0,
-    4.0,
-    5.0,
-    6.0,
-    8.0
+    4.0
+  ],
+  "alphas": [
+    1.5
   ],
   "escala_da_media": 1.0,
+  "constante_de_variancia_por_braco": {
+    "k4_a1.5_D": 1.0076030214142497,
+    "k4_a1.5_E": 1.0093104364706527,
+    "k4_a1.5_F": 1.0070308764727485
+  },
   "decomposicao": {
     "D": {
       "norma_da_media": 1.9645913805835689,
@@ -28,6 +29,7 @@
     }
   },
   "onde_o_k_se_aplica": "em log2 da razao de proporcao, nao no delta",
+  "o_que_alpha_faz": "k_g = k_desvio * c(alpha) * peso_g**alpha, com peso de encolhimento.py (media geometrica 1) e c preservando a soma de quadrados do desvio. alpha=0 da c=1 e reproduz o braco escalar bit a bit; alpha=1 aplica a forma medida inteira. O nivel NAO se move com alpha, de proposito: sem c os dois efeitos viriam somados.",
   "por_que_a_media_nao_e_varrida": "A verdade do avaliador_proxy e Orion/HCT116 transplantado, que contem o desvio especifico e NAO contem a resposta media de D. Provado: a correcao do vies de selecao mudou a magnitude da media de 0,063 para 0,019 e moveu avg_score em +0,0028, dentro do ruido. Varrer k_media neste instrumento mediria nada.",
   "alvo_da_varredura": "direction_fidelity, em 0,022 de um teto de 0,828 — 3% do alcancavel. Direcao por perturbacao e a parcela do desvio especifico, que o beta de minimos quadrados encolhe a ~0,22.",
   "aviso": "A contagem por limiar e aproximacao declarada. So o avaliador decide: emitir cada k e pontuar, registrando os SEIS membros separados."

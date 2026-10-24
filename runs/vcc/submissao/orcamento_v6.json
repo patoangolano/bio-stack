@@ -1,0 +1,64 @@
+{
+  "submissao": "runs\\vcc\\submissao\\submissao_v6.h5ad",
+  "chunk": 512,
+  "bulk_target_sum": 50000.0,
+  "pred_trace_cap_k": 1.0,
+  "flag": 0.7,
+  "chamadas_do_cell_eval2": [
+    "moments.jackknife_correction",
+    "metrics.delta._exclusion_cols",
+    "metrics.delta._row_weights",
+    "metrics.delta._across_pert_budget"
+  ],
+  "o_limite_e_de_um_lado_so": "O pedido do avaliador usa C_p ja limitado por min(C_p, K*C_p_real), e real_tn nao existe para D/E/F. Limitar reduz o pedido e portanto AUMENTA a razao, entao a razao medida aqui e um limite inferior da do avaliador: razao >= 1 certifica r = 1; razao < 0,7 diz 'em risco', nao 'sinalizado'.",
+  "laudos": [
+    {
+      "contexto": "D",
+      "grupos": 300,
+      "genes": 18533,
+      "alvos_pontuados": 300,
+      "alvos_com_alvo_resolvido": 300,
+      "orcamento": 0.9274375600555581,
+      "pedido_sem_limite": 0.23370139506707094,
+      "razao_sem_limite": 3.9684725022261373,
+      "r_sem_limite": 1.0,
+      "flag": 0.7,
+      "veredito": "paga por inteiro (r = 1,0 garantido, pois o limite so aumenta a razao)",
+      "jk_mediano": 14.425831880967493,
+      "jk_min": 12.57346527305478,
+      "jk_max": 16.09846201938793
+    },
+    {
+      "contexto": "E",
+      "grupos": 300,
+      "genes": 18533,
+      "alvos_pontuados": 300,
+      "alvos_com_alvo_resolvido": 300,
+      "orcamento": 0.912663451719725,
+      "pedido_sem_limite": 0.2501214331894715,
+      "razao_sem_limite": 3.648881425640824,
+      "r_sem_limite": 1.0,
+      "flag": 0.7,
+      "veredito": "paga por inteiro (r = 1,0 garantido, pois o limite so aumenta a razao)",
+      "jk_mediano": 15.259947930718448,
+      "jk_min": 13.863267161603146,
+      "jk_max": 24.863015924908243
+    },
+    {
+      "contexto": "F",
+      "grupos": 300,
+      "genes": 18533,
+      "alvos_pontuados": 300,
+      "alvos_com_alvo_resolvido": 300,
+      "orcamento": 0.896100624743839,
+      "pedido_sem_limite": 0.2387991429668426,
+      "razao_sem_limite": 3.7525286465046617,
+      "r_sem_limite": 1.0,
+      "flag": 0.7,
+      "veredito": "paga por inteiro (r = 1,0 garantido, pois o limite so aumenta a razao)",
+      "jk_mediano": 14.683724847444061,
+      "jk_min": 13.470786067176416,
+      "jk_max": 17.354102953851125
+    }
+  ]
+}

@@ -1,0 +1,898 @@
+{
+  "direcoes": [
+    "orion.hct116->replogle.hepg2",
+    "orion.hct116->replogle.jurkat",
+    "orion.hct116->replogle.k562",
+    "orion.hct116->replogle.rpe1",
+    "replogle.hepg2->replogle.jurkat",
+    "replogle.jurkat->replogle.hepg2",
+    "replogle.hepg2->replogle.k562",
+    "replogle.k562->replogle.hepg2",
+    "replogle.hepg2->replogle.rpe1",
+    "replogle.rpe1->replogle.hepg2",
+    "replogle.jurkat->replogle.k562",
+    "replogle.k562->replogle.jurkat",
+    "replogle.jurkat->replogle.rpe1",
+    "replogle.rpe1->replogle.jurkat",
+    "replogle.k562->replogle.rpe1",
+    "replogle.rpe1->replogle.k562"
+  ],
+  "gate_do_alvo": {
+    "repos": [
+      "replogle",
+      "arc_vcc_25"
+    ],
+    "min_perts": 400,
+    "por_que": "A variancia real do alvo e o denominador. Num alvo raso ela e dominada por ruido de amostragem, o que a infla e deflaciona k_g: mediria a profundidade do ensaio, nao a atenuacao do preditor."
+  },
+  "min_entradas_por_gene": 50,
+  "k_encolhimento": 50.0,
+  "teto_relativo": 8.0,
+  "sha256_do_pesos_por_gene_npz": "91a87964cdf31d91e3222ad476857fe68d213f4801b532c23d1880e04740e115",
+  "diagnostico": {
+    "k_global_mediano_entre_direcoes": 5.614850395531166,
+    "k_global_min": 3.397774480774148,
+    "k_global_max": 8.68708275138429,
+    "genes_medidos": 6290.0,
+    "genes_no_painel": 18533.0,
+    "peso_p05": 0.5314522909336759,
+    "peso_p50": 1.0136355319145793,
+    "peso_p95": 1.7900345499798869
+  },
+  "concordancia_entre_direcoes": {
+    "pares_disjuntos": 36,
+    "rho_disjunto_mediano": 0.5427562001156089,
+    "rho_disjunto_min": 0.4249877055451267,
+    "rho_disjunto_max": 0.6834478616771057,
+    "rho_compartilhado_mediano": 0.6289701880394549,
+    "por_par": [
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "orion.hct116->replogle.jurkat",
+        "genes": 6160,
+        "rho": 0.6341131045964602,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "orion.hct116->replogle.k562",
+        "genes": 6160,
+        "rho": 0.6555258107797955,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "orion.hct116->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.8345605774121081,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "replogle.hepg2->replogle.jurkat",
+        "genes": 6160,
+        "rho": 0.6017510151356898,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "replogle.hepg2->replogle.k562",
+        "genes": 6160,
+        "rho": 0.5977080108815782,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "replogle.hepg2->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.6355641567081541,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "replogle.jurkat->replogle.hepg2",
+        "genes": 6160,
+        "rho": 0.511393116631653,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "replogle.jurkat->replogle.k562",
+        "genes": 6160,
+        "rho": 0.45484096563896886,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "replogle.jurkat->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.4598557563229593,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "replogle.k562->replogle.hepg2",
+        "genes": 6160,
+        "rho": 0.510668655172342,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "replogle.k562->replogle.jurkat",
+        "genes": 6160,
+        "rho": 0.4462622787749583,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "replogle.k562->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.4376441302739198,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "replogle.rpe1->replogle.hepg2",
+        "genes": 6160,
+        "rho": 0.7030762487449125,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6160,
+        "rho": 0.5585421221288163,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.hepg2",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6160,
+        "rho": 0.5426643017985389,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "orion.hct116->replogle.k562",
+        "genes": 6160,
+        "rho": 0.8069111940676255,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "orion.hct116->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.5827469288643679,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "replogle.hepg2->replogle.jurkat",
+        "genes": 6160,
+        "rho": 0.6711178173066322,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "replogle.hepg2->replogle.k562",
+        "genes": 6160,
+        "rho": 0.5973357796338294,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "replogle.hepg2->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.5180539142262688,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "replogle.jurkat->replogle.hepg2",
+        "genes": 6160,
+        "rho": 0.558999253114966,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "replogle.jurkat->replogle.k562",
+        "genes": 6160,
+        "rho": 0.5754539504674204,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "replogle.jurkat->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.5662653319291919,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "replogle.k562->replogle.hepg2",
+        "genes": 6160,
+        "rho": 0.561789280175863,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "replogle.k562->replogle.jurkat",
+        "genes": 6160,
+        "rho": 0.6740951751623542,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "replogle.k562->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.5553470131854241,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "replogle.rpe1->replogle.hepg2",
+        "genes": 6160,
+        "rho": 0.5350581361141598,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6160,
+        "rho": 0.6785288594953438,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.jurkat",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6160,
+        "rho": 0.5790062337817995,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.k562",
+        "b": "orion.hct116->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.5841360005322972,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.k562",
+        "b": "replogle.hepg2->replogle.jurkat",
+        "genes": 6160,
+        "rho": 0.5792961792691484,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.k562",
+        "b": "replogle.hepg2->replogle.k562",
+        "genes": 6160,
+        "rho": 0.6730283829506799,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.k562",
+        "b": "replogle.hepg2->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.5033782287370667,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.k562",
+        "b": "replogle.jurkat->replogle.hepg2",
+        "genes": 6160,
+        "rho": 0.5241477237336125,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.k562",
+        "b": "replogle.jurkat->replogle.k562",
+        "genes": 6160,
+        "rho": 0.6265375949491174,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.k562",
+        "b": "replogle.jurkat->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.5146737191916699,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.k562",
+        "b": "replogle.k562->replogle.hepg2",
+        "genes": 6160,
+        "rho": 0.5689376175497569,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.k562",
+        "b": "replogle.k562->replogle.jurkat",
+        "genes": 6160,
+        "rho": 0.5820992076837953,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.k562",
+        "b": "replogle.k562->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.5485134175115535,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.k562",
+        "b": "replogle.rpe1->replogle.hepg2",
+        "genes": 6160,
+        "rho": 0.5535481442891338,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.k562",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6160,
+        "rho": 0.5900313298074881,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.k562",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6160,
+        "rho": 0.6742020169761671,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.rpe1",
+        "b": "replogle.hepg2->replogle.jurkat",
+        "genes": 6160,
+        "rho": 0.5636800474148924,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.rpe1",
+        "b": "replogle.hepg2->replogle.k562",
+        "genes": 6160,
+        "rho": 0.5428480984326789,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.rpe1",
+        "b": "replogle.hepg2->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.6686866681149259,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.rpe1",
+        "b": "replogle.jurkat->replogle.hepg2",
+        "genes": 6160,
+        "rho": 0.43253244677650576,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.rpe1",
+        "b": "replogle.jurkat->replogle.k562",
+        "genes": 6160,
+        "rho": 0.4249877055451267,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.rpe1",
+        "b": "replogle.jurkat->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.5398493367293543,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.rpe1",
+        "b": "replogle.k562->replogle.hepg2",
+        "genes": 6160,
+        "rho": 0.4332220443805875,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.rpe1",
+        "b": "replogle.k562->replogle.jurkat",
+        "genes": 6160,
+        "rho": 0.4294910854509742,
+        "disjunto": true
+      },
+      {
+        "a": "orion.hct116->replogle.rpe1",
+        "b": "replogle.k562->replogle.rpe1",
+        "genes": 6160,
+        "rho": 0.5171639993103003,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.rpe1",
+        "b": "replogle.rpe1->replogle.hepg2",
+        "genes": 6160,
+        "rho": 0.5997844394543362,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.rpe1",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6160,
+        "rho": 0.5561107382196792,
+        "disjunto": false
+      },
+      {
+        "a": "orion.hct116->replogle.rpe1",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6160,
+        "rho": 0.5269739499003201,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.jurkat",
+        "b": "replogle.hepg2->replogle.k562",
+        "genes": 6290,
+        "rho": 0.8287360581843252,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.jurkat",
+        "b": "replogle.hepg2->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.7484455930108964,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.jurkat",
+        "b": "replogle.jurkat->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.6630307366757511,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.jurkat",
+        "b": "replogle.jurkat->replogle.k562",
+        "genes": 6290,
+        "rho": 0.5771449755115026,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.jurkat",
+        "b": "replogle.jurkat->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.5861876910191632,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.jurkat",
+        "b": "replogle.k562->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.5956403852821496,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.jurkat",
+        "b": "replogle.k562->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.6529910409068904,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.jurkat",
+        "b": "replogle.k562->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.5476870764455803,
+        "disjunto": true
+      },
+      {
+        "a": "replogle.hepg2->replogle.jurkat",
+        "b": "replogle.rpe1->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.6375432989755756,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.jurkat",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.7440216555859297,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.jurkat",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6290,
+        "rho": 0.618829654596733,
+        "disjunto": true
+      },
+      {
+        "a": "replogle.hepg2->replogle.k562",
+        "b": "replogle.hepg2->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.7366516834354165,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.k562",
+        "b": "replogle.jurkat->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.5921869356320671,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.k562",
+        "b": "replogle.jurkat->replogle.k562",
+        "genes": 6290,
+        "rho": 0.6155276557833864,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.k562",
+        "b": "replogle.jurkat->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.5638705812841303,
+        "disjunto": true
+      },
+      {
+        "a": "replogle.hepg2->replogle.k562",
+        "b": "replogle.k562->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.6789628894899518,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.k562",
+        "b": "replogle.k562->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.572656958891605,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.k562",
+        "b": "replogle.k562->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.5944516423572496,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.k562",
+        "b": "replogle.rpe1->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.652539764992323,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.k562",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.6616057062582734,
+        "disjunto": true
+      },
+      {
+        "a": "replogle.hepg2->replogle.k562",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6290,
+        "rho": 0.7406965546509755,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.rpe1",
+        "b": "replogle.jurkat->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.4844341279566679,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.rpe1",
+        "b": "replogle.jurkat->replogle.k562",
+        "genes": 6290,
+        "rho": 0.45515071419609976,
+        "disjunto": true
+      },
+      {
+        "a": "replogle.hepg2->replogle.rpe1",
+        "b": "replogle.jurkat->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.5850867562256338,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.rpe1",
+        "b": "replogle.k562->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.49981848872917045,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.rpe1",
+        "b": "replogle.k562->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.47231227540936654,
+        "disjunto": true
+      },
+      {
+        "a": "replogle.hepg2->replogle.rpe1",
+        "b": "replogle.k562->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.5891553281687949,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.rpe1",
+        "b": "replogle.rpe1->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.7278385997259861,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.rpe1",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.6314027811297923,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.hepg2->replogle.rpe1",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6290,
+        "rho": 0.6018538066258308,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.hepg2",
+        "b": "replogle.jurkat->replogle.k562",
+        "genes": 6290,
+        "rho": 0.8044472584905503,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.hepg2",
+        "b": "replogle.jurkat->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.7888651380484076,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.hepg2",
+        "b": "replogle.k562->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.7813405850857184,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.hepg2",
+        "b": "replogle.k562->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.6639608232715764,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.hepg2",
+        "b": "replogle.k562->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.6532214238799381,
+        "disjunto": true
+      },
+      {
+        "a": "replogle.jurkat->replogle.hepg2",
+        "b": "replogle.rpe1->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.5349808538670574,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.hepg2",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.57091233281071,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.hepg2",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6290,
+        "rho": 0.5480560405157995,
+        "disjunto": true
+      },
+      {
+        "a": "replogle.jurkat->replogle.k562",
+        "b": "replogle.jurkat->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.6906180307773091,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.k562",
+        "b": "replogle.k562->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.6324256886879361,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.k562",
+        "b": "replogle.k562->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.7577817390146124,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.k562",
+        "b": "replogle.k562->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.5802943514470864,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.k562",
+        "b": "replogle.rpe1->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.48961350508609913,
+        "disjunto": true
+      },
+      {
+        "a": "replogle.jurkat->replogle.k562",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.5539898810346013,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.k562",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6290,
+        "rho": 0.6409719042105271,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.rpe1",
+        "b": "replogle.k562->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.6834478616771057,
+        "disjunto": true
+      },
+      {
+        "a": "replogle.jurkat->replogle.rpe1",
+        "b": "replogle.k562->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.6035647828427396,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.rpe1",
+        "b": "replogle.k562->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.7937333565606828,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.rpe1",
+        "b": "replogle.rpe1->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.49715520019759607,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.rpe1",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.7051701356611582,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.jurkat->replogle.rpe1",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6290,
+        "rho": 0.6050523405351117,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.k562->replogle.hepg2",
+        "b": "replogle.k562->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.774096823372242,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.k562->replogle.hepg2",
+        "b": "replogle.k562->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.8319658349963523,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.k562->replogle.hepg2",
+        "b": "replogle.rpe1->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.5582476058659152,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.k562->replogle.hepg2",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.562957989134148,
+        "disjunto": true
+      },
+      {
+        "a": "replogle.k562->replogle.hepg2",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6290,
+        "rho": 0.5877196637429386,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.k562->replogle.jurkat",
+        "b": "replogle.k562->replogle.rpe1",
+        "genes": 6290,
+        "rho": 0.7149379982949244,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.k562->replogle.jurkat",
+        "b": "replogle.rpe1->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.49256968694031333,
+        "disjunto": true
+      },
+      {
+        "a": "replogle.k562->replogle.jurkat",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.635218356545717,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.k562->replogle.jurkat",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6290,
+        "rho": 0.5622187484389188,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.k562->replogle.rpe1",
+        "b": "replogle.rpe1->replogle.hepg2",
+        "genes": 6290,
+        "rho": 0.5056681045551302,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.k562->replogle.rpe1",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.6173262027434501,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.k562->replogle.rpe1",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6290,
+        "rho": 0.6674973731186257,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.rpe1->replogle.hepg2",
+        "b": "replogle.rpe1->replogle.jurkat",
+        "genes": 6290,
+        "rho": 0.7212268501179073,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.rpe1->replogle.hepg2",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6290,
+        "rho": 0.7321630389880619,
+        "disjunto": false
+      },
+      {
+        "a": "replogle.rpe1->replogle.jurkat",
+        "b": "replogle.rpe1->replogle.k562",
+        "genes": 6290,
+        "rho": 0.8024660653361564,
+        "disjunto": false
+      }
+    ]
+  },
+  "forma_mistura_vs_diagonal": {
+    "direcoes": 16.0,
+    "rho_mediano": 0.8624108702348724,
+    "rho_min": 0.7946984718388999
+  },
+  "onde_o_peso_e_aplicado": "Aqui so se mede a FORMA, com media geometrica 1. O nivel continua sendo k_desvio. varredura_k.py aplica k_g = k_desvio * c(alpha) * peso**alpha, com c(alpha) preservando a variancia total da parcela de desvio no contexto; alpha=0 reproduz o braco escalar bit a bit.",
+  "leitura": "rho disjunto e a evidencia que importa: sem doador nem alvo em comum, uma correlacao positiva so pode vir do gene. Se ela caisse a zero, a forma seria ruido de par e o escalar ficaria como esta."
+}

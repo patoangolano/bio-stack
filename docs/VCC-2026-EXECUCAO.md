@@ -581,3 +581,324 @@ bate a faixa que o memorando reporta para o top 10 da validação (`jac` escalad
 ≤ 0,09). Se até o oráculo fica ali, DE é difícil para todo mundo — o que
 reforça que é DE que separa.
 
+
+## 19. A curva de `k_desvio`, reproduzida numa cadeia inteiramente reconstruída
+
+O código perdido no re-clone de 2026-10-23 voltou por replay dos transcripts, e
+a primeira coisa que ele tinha de provar era que voltou **certo**. A varredura de
+`k_desvio` é o teste que prova três coisas de uma vez e nenhuma isoladamente: o
+`transfer_fit` recuperado produz o mesmo delta, o gerador de transporte novo
+emite o que o `emissor_400` perdido emitia, e o avaliador remontado no WSL
+pontua igual. Se qualquer um dos três divergisse, a curva não fecharia.
+
+Seis braços contra um bundle real novo (`proxy-vcc-D-orion-k40-s0`, 40 alvos do
+painel, orion/hct116 gerando o lado real, 34.400 células por braço):
+
+```
+membro        k=1     k=2     k=3    [k=4]    k=5     k=6
+fidelity     0,062   0,452   0,781   0,834   0,823   0,802
+jaccard      0,084   0,401   0,532   0,554   0,551   0,541
+reach        0,343   0,620   0,715   0,756   0,779   0,790
+lfc_nmae     0,101   0,238   0,351   0,425   0,439   0,401
+expr_mse     0,232   0,385   0,447   0,395   0,179   0,000
+pds_cosine   0,995   0,995   0,995   0,994   0,994   0,993
+AVG_SCORE    0,303   0,515   0,637   0,660   0,628   0,588
+registrado   0,275   0,460   0,590   0,647   0,627   0,587
+```
+
+Ótimo em k=4, confirmado. k=5 e k=6 batem o registro em **0,0005 e 0,0008**;
+k=4 em 0,0127.
+
+**O que a curva diz de novo, e não estava no registro: os seis membros têm
+ótimos DIFERENTES.** `expr_mse` pica em k=3 e cai para 0,395 em k=4, 0,179 em
+k=5 e 0 em k=6 — este último é corte de escala, então o `avg_score` de k=6 está
+otimista, como o registro já avisava. `lfc_nmae` pica em k=5. `reach` sobe
+monotonicamente até k=6. `fidelity` e `jaccard` picam em k=4.
+
+Então **k=4 é um compromisso e não um ótimo compartilhado**, e a assimetria
+aponta onde atacar: o único membro que PERDE indo de k=3 para k=4 é o
+`expr_mse`, justamente um dos dois de erro que concentram 60% do que falta para
+o oráculo. `pds_cosine` não se move em toda a varredura (0,995 → 0,993),
+confirmando que é invariante a escala.
+
+Duas coisas que o caminho ensinou. `arc_vcc_25` não serve como gerador do lado
+real com rótulos do painel: tem 12 alvos do VCC e só 11 passam o gate de 200
+genes moventes, de 32 pedidos; o orion tem 148. A profundidade rasa dele
+(mediana de 2 genes significativos por perturbação) não importa aqui, porque ele
+gera o lado REAL e não doa efeito à predição — o que o avaliador precisa é de
+estrutura de DE com os rótulos certos, e é o número de alvos que manda. E script
+com CRLF faz o bash do WSL abortar com `set: pipefail: invalid option name`,
+porque ele lê `set -euo pipefail\r`; os `.sh` escritos no Windows saem com CRLF, e
+isso está fixado em `.gitattributes`.
+
+Custo medido, que é o que torna a varredura viável: `prep-real-bundle` custa
+527 s e depende SÓ do lado real, então o `avaliador_varredura.sh` o constrói uma
+vez e reusa; cada braço depois é recorte 7 s + run 107 s + score 1,3 s. Pico de
+RSS: baseline 11,7 GiB, bundle 8,8 GiB, run 8,8 GiB — não cabe nos ~10 GiB
+livres do host Windows e cabe nos 14 GiB dedicados da VM do WSL. É por isso que
+este ambiente mora lá, e é a única peça do projeto de VCC em que o WSL ganha: a
+emissão da submissão roda a 34 MB/s num processo só, limitada por I/O de disco,
+igual dos dois lados.
+
+---
+
+## 20. O encolhimento POR GENE: o primeiro ganho em que nenhum membro perde
+
+A seção 19 deixou o diagnóstico pronto. Um escalar tem **um** grau de liberdade
+e a discordância entre os seis membros tem **dois**: os membros de direção querem
+que o gene sub-movido ande, e `expr_mse` quer que o gene bem determinado não seja
+esticado. Mas isso não é desacordo sobre o NÍVEL — é sobre QUAIS GENES. São
+conjuntos diferentes, e um fator por gene os separa.
+
+### A medida: atenuação por gene contra verdade retida
+
+`scripts/vcc/encolhimento.py` mede, em cada direção doador → alvo:
+
+```
+a_g = sd_p(previsto[.,g]) / sd_p(real[.,g])        k_g = 1 / a_g
+```
+
+com `previsto` reproduzindo o preditor de produção (0,5 diagonal + 0,5
+programas, ver `transfer_fit.ajustar`). Só direção com **alvo profundo** entra —
+alvo em (replogle, arc_vcc_25) com ≥ 400 perturbações, o mesmo gate do
+`politica_de_beta` e pela mesma razão: a variância real do alvo é o denominador,
+e num alvo raso ela é dominada por ruído de amostragem, o que a infla e
+deflaciona `k_g`. Mediria a profundidade do ensaio e não a atenuação do preditor.
+Sobram 16 direções.
+
+**Quatro medidas deram direito de aplicar:**
+
+1. **A atenuação GLOBAL cai em 3,40 a 8,69, mediana 5,615.** Isso corrobora o
+   `k_desvio = 4` por um instrumento independente — o escalar veio de varredura
+   no avaliador, este número vem de verdade retida — e explica a diferença sem
+   apelar a erro: casar variância pede 5 a 6, que é exatamente onde `reach` (6) e
+   `lfc_nmae` (5) picam na tabela da seção 19, e `expr_mse` pede 3 porque erro
+   quadrático é minimizado pela média a posteriori, que é ENCOLHIDA e não
+   calibrada. Os dois instrumentos concordam; o que difere é o funcional.
+
+2. **O fator por gene varia 6 a 7 vezes** entre p05 e p95 numa direção (0,5× a
+   3,5× o global). Um escalar joga tudo isso fora.
+
+3. **E transfere.** Spearman de `k_g` em **36 pares TOTALMENTE DISJUNTOS** — sem
+   doador em comum, sem alvo em comum — dá mediana **+0,543**, faixa +0,425 a
+   +0,683. Com um lado em comum sobe a +0,629. Par disjunto é a única evidência
+   de que a forma é propriedade do GENE: num par que compartilha um lado, a
+   correlação poderia vir do lado compartilhado.
+
+4. **Não é artefato de cobertura.** `rho(k_g, n_válido) = -0,092` contra
+   `rho(k_g, var_prevista) = -0,806`. O que dirige o fator é quanto o preditor
+   MOVE o gene: ele concentra movimento em poucos genes e sub-move o resto. Se o
+   driver fosse a contagem de entradas válidas, o fator seria sobre a qualidade
+   da medida e não sobre a predição, e não teria por que transferir.
+
+### Duas verificações que o resultado exigia antes de ser legível
+
+**O peso não é `1/sd_prev` disfarçado.** Se fosse, aplicá-lo igualaria a
+magnitude de todo gene e destruiria a estrutura de que `pds_cosine` e `expr_mse`
+vivem. Medido contra o `sd_prev` da predição em D/E/F: `r(log w, log sd_prev) =
+-0,44`, R² **0,19**, e inclinação **-0,26** — a tautologia "iguale todo gene"
+seria -1,0. `sd(log w) = 0,368`, dos quais **0,332 sobram** depois de remover a
+componente de `sd_prev`. E a ordem de magnitude por gene sobrevive:
+`spearman(sd_prev, sd_aplicado)` = +0,98 em alpha=0,5 e +0,91 em alpha=1.
+
+Por que a correlação dentro de uma direção era -0,806 e aqui é -0,44: dentro de
+uma direção, `k_g = sd_real/sd_prev` tem acoplamento mecânico com o próprio
+`sd_prev` daquela direção. Agrupando 16 direções e medindo contra o `sd_prev` de
+OUTRO preditor, a parte mecânica cancela e sobra a propriedade do gene — o que o
+rho de +0,543 nos pares disjuntos já implicava.
+
+**Não há vazamento do orion.** O proxy gera a verdade a partir do orion, e 4 das
+16 direções têm orion como doador. Se o peso codificasse a magnitude por gene do
+orion, ele encolheria justamente os genes que a verdade do proxy move, e o
+veredito viria pessimista por construção. Tirar as quatro direções move o peso em
+Spearman **+0,9936** (r em log +0,9939), com a razão `peso_tudo/peso_sem` entre
+0,938 e 1,074 nos percentis 5–95, e o k global de 5,615 para 5,538. As doze
+direções replogle→replogle dominam porque carregam ~1.000 perturbações cada
+contra 480–608 do orion.
+
+**Limite declarado.** 6.290 dos 18.533 genes do painel têm medida — 63,6% do
+universo de DE de D e **53,8% da variância do delta**. O resto fica em peso 1,0 e
+herda o escalar, não é imputado. Então `alpha = 1` remodela **metade da massa**,
+e não "toda a predição reescalada por gene".
+
+### A aplicação: um eixo só, com o escalar como caso especial exato
+
+`varredura_k.py --alphas` emite `k_g = k_desvio * c(alpha) * peso_g**alpha`.
+
+`c(alpha)` resolve `sum (c * peso**alpha * d)² == sum d²`, em forma fechada. Sem
+ele, subir `alpha` aumentaria a magnitude TOTAL do desvio ao mesmo tempo que a
+redistribui — a cauda direita do peso pesa mais na soma de quadrados que a
+esquerda — e a varredura mediria a soma dos dois efeitos sem poder separá-los.
+Com `c`, `alpha` é redistribuição pura e o nível continua sendo `k_desvio`.
+
+Em `alpha = 0` isso dá `c = 1` e `fator = 1` exatamente, então o braço reproduz o
+escalar **bit a bit** — o mesmo papel que `k=1` reproduzir o `delta_previsto` tem
+na varredura escalar. Conferido nos dois lugares: por `np.array_equal` no teste, e
+na emissão real, onde `delta_kd4_a0.npz` produz 682.368.320 não nulos, o mesmo
+número do `kd4` da seção 19.
+
+### O resultado
+
+```
+membro        a=0    a=0,25   a=0,5   a=0,75   a=1     a=1,5
+fidelity     0,8340  0,8350  0,8361  0,8362  0,8353  0,8299
+jaccard      0,5542  0,5585  0,5622  0,5634  0,5640  0,5581
+reach        0,7557  0,7607  0,7625  0,7634  0,7632  0,7532
+lfc_nmae     0,4249  0,4417  0,4520  0,4576  0,4602  0,4563
+expr_mse     0,3953  0,4516  0,4788  0,4931  0,4994  0,4944
+pds_cosine   0,9939  0,9951  0,9951  0,9951  0,9951  0,9951
+AVG_SCORE    0,6597  0,6738  0,6811  0,6848  0,6862  0,6812
+delta vs a=0 +0,0000 +0,0141 +0,0215 +0,0251 +0,0266 +0,0215
+```
+
+**Nenhum membro perde.** É isso que o escalar não conseguia, porque mover `k`
+trocava membro por membro — a dimensão que o fator por gene usa estava
+simplesmente inexplorada.
+
+Os dois membros de ERRO ganham mais, e os dois **passam o melhor que qualquer `k`
+escalar alcançou**: `expr_mse` vai a 0,4994 contra os 0,4466 de k=3, e
+`lfc_nmae` a 0,4602 contra os 0,4390 de k=5. Era onde a seção 19 dizia que o
+ganho estava.
+
+`pds_cosine` SOBE (0,9939 → 0,9951) em vez de cair, que é o que a verificação de
+`spearman(sd_prev, sd_aplicado) = +0,91` previa. Se o peso tivesse achatado a
+estrutura por gene, ele desabaria.
+
+**O ótimo está entre parênteses e cai exatamente em alpha=1.** A curva é
+unimodal: 0,6597 → 0,6738 → 0,6811 → 0,6848 → **0,6862** → 0,6812. O braço de
+alpha=1,5 existe por isso — "melhor dos testados" é mais fraco que "o ótimo está
+aqui", a mesma lição que a seção 19 registrou sobre o grid de `k` parar em 4
+subindo. E `alpha = 1` significa "aplique a forma medida uma vez, inteira": o
+ótimo cair ali, e não em 0,5 nem em 2, é evidência de que a medida está certa —
+forma forte demais poria o ótimo abaixo de 1, fraca demais acima.
+
+---
+
+## 21. Os dois auditores, que CHAMAM o `cell-eval2` em vez de reimplementá-lo
+
+Os dois riscos abertos do registro, fechados com o motor que vai pontuar. A regra
+em comum: `moments.jackknife_correction`, `metrics.delta._across_pert_budget`,
+`_row_weights`, `_exclusion_cols`, `de_compute.compute_de`, `de.prep_de_side` e
+`de.rank_de_side` são CHAMADOS de `envs/cell-eval2`, nunca portados. Uma
+reimplementação concordaria com o original até o dia em que o original mudasse, e
+o erro apareceria como um número plausível e errado. Por isso os dois módulos
+rodam no python daquele ambiente, e por isso `pytest` entrou no `requirements.in`
+dele: sem pytest lá os testes só conseguiriam PULAR, e um teste que sempre pula
+não é um teste.
+
+### `orcamento.py` — a razão `orçamento/pedido` do `expr_mse`
+
+`expr_mse_unbiased_capped_norm` subtrai da distância uma correção de amostragem
+`C_p`, mas a correção é **limitada** (issue #348): o avaliador compara o que a
+submissão pede com um orçamento derivado da própria submissão, e escala por
+`r = min(1, orçamento/pedido)`. Abaixo de
+`PRED_CORRECTION_BUDGET_FLAG_RATIO = 0,7` registra aviso.
+
+Medido na v6:
+
+```
+contexto   orçamento   pedido   razão    r
+D            0,9274    0,2337   3,969   1,0
+E            0,9127    0,2501   3,649   1,0
+F            0,8961    0,2388   3,753   1,0
+```
+
+Todos os 300 alvos resolvem o próprio gene nos três contextos — taxa de câmbio
+única no `_row_weights`, nada farmável. Contra o registro: v4 (k=1) dava **0,179**,
+abaixo do flag; v5 (k=4) dava 2,854. O risco está fechado, e a mesma escolha de
+`k_desvio` que resolveu `fidelity` resolveu isto de lado: subir a dispersão ENTRE
+perturbações sobe o orçamento e não sobe `C_p`, que depende do espalhamento
+DENTRO do grupo.
+
+**O certificado é de um lado só, e é o lado que importa.** O pedido do avaliador
+usa `C_p` já limitado por `min(C_p, PRED_TRACE_CAP_K * C_p_real)`, e `C_p_real` é
+do lado REAL, retido em D/E/F. Mas limitar só pode REDUZIR o pedido, e reduzir o
+pedido AUMENTA a razão. Logo `razão_sem_limite ≤ razão_do_avaliador`, e
+`razão ≥ 1` certifica `r = 1` sem o lado real. Abaixo de 0,7 o veredito é "em
+risco" e não "sinalizado", porque o limite ainda pode resgatar — e o relatório
+diz qual dos dois.
+
+**Memória: um grupo por vez, e é exato.** O jackknife é `O(n·G)` DENSO em blocos
+e a submissão tem 682 milhões de não nulos por contexto, 5,5 GB em CSR. Varrer
+grupo a grupo dá o MESMO vetor, verificado idêntico **bit a bit** contra a chamada
+com todos os grupos juntos. Cada grupo é ~18 MB. O `chunk` fica no padrão 512
+embora o próprio docstring do pacote meça 32 como mais rápido E menor: o objetivo
+é reproduzir o número que o avaliador vai calcular, e ele usa o padrão.
+Fidelidade antes de velocidade quando o produto é uma auditoria.
+
+### `auditoria.py` — e o proxy de limiar estava errado por 4,8× para o lado contrário
+
+A `varredura_k.py` conta `|delta| > 0,01` e chama o número de aproximação
+declarada: 5.532 em k=4, "2,02× os 2.739 reais". Mas `|delta|` não é o teste de
+DE. O motor de verdade dá **mediana 1.154, 0,42×**.
+
+Confirmação independente de que o instrumento está certo: o gate de CPM dá
+**9.633** genes em D, exatamente o universo registrado em `ctrl_bulk`.
+
+E a medida é EXATA, não proxy, por três propriedades do preset:
+
+1. **`control_source: real`** — o lado de controle do teste vem do dado REAL, e
+   os controles de D/E/F estão publicados em `controls-final`. Não há lado retido
+   nesta conta: são nossas 400 células preditas contra os 18.400 controles reais.
+2. **`fdr_scope: per_pert`** — `de._bh_per_target` refaz o BH dentro de cada alvo
+   sobre os p-valores dele, então o `nsig` de um alvo não depende de quais outros
+   entraram. Amostrar alvos é EXATO para os amostrados, e é o que torna a
+   auditoria viável: 900 testes de Wilcoxon contra 18.400 células são horas.
+3. **`filter_gene_min_cpm_cell: 5,0` com UM conjunto de genes para todos os
+   alvos** (#351) — o gate é a média aritmética do CPM por célula da REFERÊNCIA,
+   que é o controle real. Universo fixo por contexto, independente da nossa
+   predição. Um gate que dependesse da predição poderia ser movido por ela.
+
+**E a divisão é BINÁRIA** (contexto D, amostra de 40 alvos):
+
+```
+classe            n   mediana nsig   zeros   faixa
+com desvio       23       1.845         0    540 - 4.018
+sem evidência    17           0         9    0 - 3
+```
+
+Os 23 alvos com desvio específico dão 0,67× os reais — ordem certa. Os 143 de 300
+que carregam **só a resposta média** produzem praticamente ZERO.
+
+Mecanismo medido: a parcela média move cada gene **1,6% RMS em log2** (razão de
+proporção p05 0,985 / p95 1,015) e a parcela de desvio é **12× maior** (rms 0,093
+contra 0,0078 em espaço de delta). Um deslocamento de 1,5% por gene fica abaixo
+do piso de detecção de 400 células contra 18.400 controles.
+
+**E a aposta que isso representa é RUIM, medido.** `sig_jaccard` pontua
+vazio-contra-vazio como 1 e vazio-contra-cheio como 0, então emitir zero só ganha
+se "sem evidência doadora" for proxy de "sem DEG real". Não é: nos dois contextos
+profundos do Replogle, estar no split de treino prediz resposta MENOR (mediana
+220 contra 567 em rpe1, p = 1,3e-14; 52 contra 127 em k562, p = 1,5e-4) mas a
+fração com ZERO genes significativos é praticamente IGUAL (0,054 contra 0,039;
+0,105 contra 0,104). O zero vem de ausência de DADO, não de ausência de RESPOSTA.
+Com a taxa base de ~36,5% de perturbações realmente sem DEG (73 de 200), cerca de
+**91 dos 143** são realmente não-vazios e hoje pontuam ~0 em quatro dos seis
+membros.
+
+**Isso reabre `k_media`, que nunca foi varrido porque "o proxy é cego a ele".**
+Verdade para o proxy, cuja verdade é Orion transplantado e não contém a resposta
+média de D — FALSO para o `auditoria.py`, que usa os controles REAIS e portanto vê
+a parcela média. O que o auditoria mede é quantos genes um dado `k_media` produz;
+o que ele NÃO mede é se são os genes certos, e para isso o que existe é a
+transferência medida da média (seção 15: correlação mediana +0,4736, ganho
++0,2520, 24 de 24 direções positivas). É decisão de quem assina a submissão,
+porque muda a aposta em 143 dos 300 alvos.
+
+### Dois consertos que o caminho cobrou, os dois calados
+
+O gate de reuso de bundle do `avaliador_varredura.sh` procurava
+`$OUT/bundle/bundle.json` e `$OUT/bundle/splits`, e o `prep-real-bundle` do
+cell-eval2 0.19.0 não escreve nenhum dos dois — ele escreve `manifest.json`,
+`config.yaml`, `baseline_agg.csv` e três `anchor_*`. Na varredura de k isso nunca
+apareceu porque os seis braços vinham numa invocação só e o bundle era construído
+nela. Com um braço por chamada o gate passou a decidir, e decidia sempre
+reconstruir: 567 s de `prep-real-bundle` mais 127 s de `baseline` por braço.
+Medido antes e depois: **16 min no primeiro braço, 6 min no seguinte**. O gate
+agora é `manifest.json`, que é `real_bundle.MANIFEST` e o único arquivo que
+precisa existir para o bundle ser legível.
+
+E `gerar_submissao.py` não tinha o idioma `sys.path.insert(0, parent)` dos irmãos
+`varredura_k.py` e `pool_media.py`, e morria em `ModuleNotFoundError: No module
+named 'conversao'` sob `-I` — que é o modo que o projeto exige para script que lê
+dado baixado.

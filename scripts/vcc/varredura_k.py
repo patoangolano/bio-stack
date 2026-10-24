@@ -27,7 +27,8 @@ A varredura rodou e respondeu: `k_desvio = 4`, e `avg_score` foi de 0,275 para
 ERRADA no mecanismo — nao ha troca ate k=3, tudo sobe junto, inclusive o
 `expr_mse` que minimos quadrados teoricamente otimiza (0,228 -> 0,442). O beta
 nao trocava direcao por magnitude: estava sub-disperso para os seis membros ao
-mesmo tempo. Detalhe em docs/VCC-2026-EXECUCAO.md secao 21.
+mesmo tempo. Detalhe em docs/VCC-2026-EXECUCAO.md secao 19, e o encolhimento POR
+GENE que a assimetria dos seis membros abriu esta na secao 20.
 
 Duas armadilhas de leitura da tabela de ESCALAS_DESVIO:
 

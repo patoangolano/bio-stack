@@ -75,6 +75,7 @@ Rodar da raiz do projeto:
 
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 from dataclasses import dataclass
@@ -382,6 +383,13 @@ def main() -> None:
         entradas=entradas,
         k_global_medido=np.float64(diagnostico["k_global_mediano_entre_direcoes"]),
     )
+    # O `.npz` nao entra no git — a politica do projeto mantem array binario de
+    # `runs/vcc/` fora dele, e este tem 1,1 MB. Entao o que entra e o DIGEST, para
+    # que "regere com encolhimento.py" seja conferivel e nao um pedido de fe: a
+    # medida e determinista (a SVD randomizada usa `default_rng(0)`), logo uma
+    # regeneracao correta reproduz o hash.
+    digesto = hashlib.sha256(destino.read_bytes()).hexdigest()
+    print(f"  sha256 do npz: {digesto}")
     (SAIDA / "encolhimento.json").write_text(
         json.dumps(
             {
@@ -398,6 +406,7 @@ def main() -> None:
                 "min_entradas_por_gene": MIN_ENTRADAS_POR_GENE,
                 "k_encolhimento": K_ENCOLHIMENTO,
                 "teto_relativo": TETO_RELATIVO,
+                "sha256_do_pesos_por_gene_npz": digesto,
                 "diagnostico": diagnostico,
                 "concordancia_entre_direcoes": concordancia,
                 "forma_mistura_vs_diagonal": diagonal,
