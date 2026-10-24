@@ -1,0 +1,81 @@
+# bio-stack — ambiente isolado do avaliador local do Virtual Cell Challenge 2026
+# (`avaliador_proxy`, etapa 5 de docs/VCC-2026-ROTA.md), 2026-10-22.
+#
+# Por que este ambiente existe: o placar do desafio fica oculto ate 2026-11-05 e
+# aceita 2 submissoes por dia. Sem rodar a sequencia de pontuacao do `cell-eval2`
+# localmente nao existe ciclo de iteracao — cada mudanca no modelo seria uma
+# aposta cega. Este env roda `baseline` -> `prep-real-bundle` -> `run` -> `score`
+# de ponta a ponta sobre dado nosso.
+#
+# Por que venv separada e nao um grupo do pyproject.toml: `pdex` 0.3.0 arrasta
+# `numba`/`llvmlite` (compilador JIT, ~40 MB de binario) e o `pyarrow` 26, e o
+# `cell-eval2` arrasta `scanpy` inteiro. Resolver isso junto com o venv do
+# projeto poria numpy e scipy em negociacao, e as duas estao travadas em versao
+# exata (numpy==2.4.6, scipy==1.17.1) porque sustentam afirmacao de Metodos. E a
+# mesma razao de `envs/bioemu`, `envs/bonej-headless` e `envs/esm3`.
+#
+# Por que no WSL e nao no Windows: memoria. Medido em 2026-10-22, o host Windows
+# tinha 9,9 GiB **livres** dos 31,4 GiB (navegador, agente, IDE), enquanto a VM
+# do WSL oferece 14 GiB disponiveis dos 15 GiB mais 4 GiB de swap, dedicados e
+# previsiveis. O avaliador e um processo unico que materializa matriz em memoria,
+# e o risco principal da etapa 5 e exatamente o pico de RAM — 14 GiB garantidos
+# valem mais que 31 GiB compartilhados. O venv mora em `~/envs/avaliador-proxy/`
+# dentro da distro, nao em `/mnt/c`: sao ~4 500 arquivos pequenos (numba,
+# llvmlite, pyarrow) e o import atravessando a fronteira de sistema de arquivos
+# custa ordens de grandeza mais.
+#
+# POR QUE VERSAO EXATA EM TUDO, inclusive no que parece irrelevante: o
+# `score --real-bundle` compara oito campos de identidade entre o bundle e a
+# corrida (`config_digest`, `comparator`, `source_fingerprint`,
+# `source_fingerprint_strict`, `resolved_device`, `resolved_de_backend`,
+# `input_type_real_effective`, `de_real_fingerprint`) e qualquer divergencia e
+# fatal, sem waiver — `--allow-config-mismatch` ao lado de `--real-bundle` e erro
+# de uso, nao escape. Nenhum dos oito le versao de biblioteca, mas `polars` e
+# `pyarrow` decidem o byte do parquet que entra no `de_real_fingerprint` quando a
+# tabela de DE e fornecida, e `numba` decide o numero do Mann-Whitney. Um
+# `>=` aqui significa um bundle que para de casar na proxima resolucao.
+#
+# ⚠️ `gpudge` NAO entra, de proposito. Ele e o motor de DE que a Arc usou nos
+# bundles oficiais `-r2`, e arrasta `torch>=2.5`. Tres razoes para ficar fora:
+#   1. `de.backend` tem de ser FIXADO em `pdex` de todo modo, nos quatro passos.
+#      Com `backend: auto` (o default do preset vcc2026) o `cell-eval2` **levanta
+#      excecao** num host onde existe dispositivo CUDA visivel e nenhum motor de
+#      DE de GPU instalado — calcular em CPU calado ali moveria todo numero de DE
+#      sem sinal. Fixar `pdex` faz `_cache_backend` devolver a string verbatim,
+#      sem sondar driver, e o `resolved_de_backend` do bundle e da corrida passam
+#      a ser a mesma constante em qualquer maquina.
+#   2. `torch` so tem wheel para `sm_120` (Blackwell) em `cu128+`, e o `gpudge`
+#      nao declara indice. Um wheel de indice default instala calado e falha no
+#      primeiro kernel.
+#   3. Os 8 GB de VRAM da RTX 5070 Laptop nao sustentam DE de 18 533 genes x
+#      138 400 celulas de todo jeito.
+# Consequencia declarada: `pdex` e `gpudge` NAO sao identicos bit a bit. O
+# README do gpudge promete Pearson > 0,999999999 e o codigo do cell-eval2 diz
+# que os numeros de DE diferem ~1e-5. Nossa pontuacao local e aproximacao do
+# servidor, e essa e a maior fonte de erro conhecida.
+#
+# Reconstruir (do Windows, uma linha):
+#   wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/envs/avaliador-proxy/montar.sh
+#
+# Conferir com corrida real, nunca com `--help` — o `--help` nao importa polars,
+# nao resolve backend de DE e nao toca o gate de CPM:
+#   wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/scripts/vcc/avaliador_corrida.sh
+#
+# numpy e scipy iguais aos do venv do projeto (numpy==2.4.6, scipy==1.17.1): o
+# `pdex` 0.3.0 exige numpy>=2.4.2 e scipy>=1.17.1, entao o piso dele e
+# satisfeito sem subir nenhuma das duas. polars<2 e pandas<3 porque as duas
+# viraram major depois do release 0.19.0 do cell-eval2 (2026-10-16) e o
+# `cell-eval2` declara apenas `polars>=1.0` — um major novo nao foi testado
+# contra o `test_golden_score.py` deles.
+cell-eval2==0.19.0
+pdex==0.3.0
+numba-mwu==0.2.0
+numpy==2.4.6
+scipy==1.17.1
+polars==1.44.2
+pandas==2.3.3
+pyarrow==26.0.0
+anndata==0.13.4
+scanpy==1.12.4
+numba==0.68.0
+h5py==3.16.0
