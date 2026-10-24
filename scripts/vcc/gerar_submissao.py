@@ -41,11 +41,18 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 import numpy as np
-from conversao import PISO_LOG2, TETO_LOG2, Viabilidade, viabilidade_do_delta
-from escritor import EscritorCSR, conferir_teto_por_celula
-from formato_delta import Delta, ler_delta, salvar_delta
-from kernel import N_CELULAS, GrupoEmitido, emitir_grupo
-from momentos import carregar_pool, momentos_do_controle
+
+# `-I` tira o diretorio do script do sys.path, e os cinco imports abaixo sao
+# todos de modulos irmaos. O mesmo idioma do `varredura_k.py` e do
+# `pool_media.py`, e aqui ele faltava: sem isso o script morre em
+# `ModuleNotFoundError: No module named 'conversao'` justamente sob `-I`, que e
+# o modo que o projeto exige para script que le dado baixado.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from conversao import PISO_LOG2, TETO_LOG2, Viabilidade, viabilidade_do_delta  # noqa: E402
+from escritor import EscritorCSR, conferir_teto_por_celula  # noqa: E402
+from formato_delta import Delta, ler_delta, salvar_delta  # noqa: E402
+from kernel import N_CELULAS, GrupoEmitido, emitir_grupo  # noqa: E402
+from momentos import carregar_pool, momentos_do_controle  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parents[2]
 CONTROLES_PADRAO = RAIZ / "data" / "raw" / "vcc" / "controls-final"

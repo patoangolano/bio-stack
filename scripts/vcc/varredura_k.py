@@ -79,6 +79,7 @@ Rodar da raiz do projeto:
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -112,6 +113,34 @@ DE_REAIS = 2739
 LIMIAR_DE = 0.010
 
 
+def fator_por_gene(
+    peso: np.ndarray, alpha: float, log2r_desvio: np.ndarray
+) -> tuple[np.ndarray, float]:
+    """Fator por gene `c * peso**alpha`, com `c` preservando a variancia total.
+
+    O `peso` vem de `encolhimento.py` com media geometrica 1 sobre os genes
+    medidos, e e FORMA: diz quais genes estao mais sub-movidos que a media, nao
+    quanto o conjunto esta sub-movido. O nivel continua sendo `k_desvio`.
+
+    `c` existe porque a cauda direita do peso e mais longa que a esquerda
+    (p95/p50 = 1,77 contra p50/p05 = 1,91 em log, mas a soma de quadrados pesa
+    a direita): sem `c`, subir `alpha` aumentaria a magnitude TOTAL do desvio ao
+    mesmo tempo que redistribui, e a varredura mediria a soma dos dois efeitos
+    sem poder separa-los. Com `c`, `alpha` e redistribuicao pura.
+
+    `c` resolve `sum_{p,g} (c * peso_g**alpha * d[p,g])**2 == sum_{p,g} d[p,g]**2`,
+    que tem forma fechada. Em `alpha = 0` da `c = 1` exatamente, entao o braco
+    reproduz o escalar bit a bit — o mesmo papel que `k=1` reproduzir o delta de
+    entrada tem na varredura escalar.
+    """
+    fator = np.power(peso, alpha)
+    sq_por_gene = np.square(log2r_desvio).sum(axis=0)
+    total = float(sq_por_gene.sum())
+    escalado = float((np.square(fator) * sq_por_gene).sum())
+    c = float(np.sqrt(total / escalado)) if escalado > 0 else 1.0
+    return c * fator, c
+
+
 def para_log2r(delta: np.ndarray, proporcao: np.ndarray) -> np.ndarray:
     """Razao de proporcao, em log2, implicada por um delta sobre `b_ctrl`."""
     alcancavel = proporcao > 0
@@ -136,7 +165,47 @@ def para_delta(log2r: np.ndarray, proporcao: np.ndarray) -> np.ndarray:
     return novo.astype(np.float32)
 
 
-def main() -> None:
+def carregar_peso(genes: list[str]) -> tuple[np.ndarray, int]:
+    """Peso por gene do `encolhimento.py`, alinhado ao nosso eixo.
+
+    Gene sem medida fica em 1,0 e herda o escalar — nao e imputado. Em D isso
+    cobre 6.127 dos 9.633 genes do universo (63,6%) e 53,8% da variancia do
+    delta; o resto segue como no braco escalar, e e por isso que `alpha = 1` nao
+    pode ser lido como "toda a predicao reescalada por gene".
+    """
+    caminho = TRANSFER / "pesos_por_gene.npz"
+    if not caminho.exists():
+        raise FileNotFoundError(
+            f"{caminho} nao existe: rode `encolhimento.py` antes de varrer alpha"
+        )
+    with np.load(caminho, allow_pickle=False) as z:
+        rotulos = [str(g) for g in z["genes"]]
+        valores = np.asarray(z["peso"], dtype=np.float64)
+        entradas = np.asarray(z["entradas"], dtype=np.float64)
+    medido = {g: v for g, v, e in zip(rotulos, valores, entradas, strict=True) if e > 0}
+    peso = np.array([medido.get(g, 1.0) for g in genes], dtype=np.float64)
+    return peso, len(set(genes) & set(medido))
+
+
+def main(argv: list[str] | None = None) -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--alphas",
+        default="",
+        help=(
+            "lista de alpha separada por virgula para o encolhimento POR GENE, "
+            "ex.: 0,0.25,0.5,0.75,1. Vazio (padrao) roda a varredura escalar."
+        ),
+    )
+    parser.add_argument(
+        "--k",
+        type=float,
+        default=4.0,
+        help="k_desvio fixo durante a varredura de alpha (padrao: o otimo medido, 4)",
+    )
+    args = parser.parse_args(argv)
+    alphas = [float(x) for x in args.alphas.split(",") if x.strip()] if args.alphas else []
+
     SAIDA.mkdir(parents=True, exist_ok=True)
     pacote = np.load(TRANSFER / "delta_previsto.npz", allow_pickle=True)
     genes = np.array([str(g) for g in pacote["genes"]], dtype=object)
@@ -184,11 +253,31 @@ def main() -> None:
             f"{com_desvio} alvos com desvio"
         )
 
-    for k in ESCALAS_DESVIO:
+    # Um braco e um par (k_desvio, alpha). Sem `--alphas` a varredura e a
+    # escalar de sempre, com alpha fixo em zero e nome de arquivo sem sufixo —
+    # o que mantem a curva de k reproduzida e os testes dela intactos.
+    if alphas:
+        peso, cobertos = carregar_peso([str(g) for g in genes])
+        print(
+            f"peso por gene: {cobertos} dos {len(genes)} genes do painel com medida, "
+            f"p05 {np.percentile(peso, 5):.3f} p50 {np.percentile(peso, 50):.3f} "
+            f"p95 {np.percentile(peso, 95):.3f} (gene sem medida fica em 1,0)"
+        )
+        bracos = [(args.k, a) for a in alphas]
+    else:
+        peso = np.ones(len(genes), dtype=np.float64)
+        bracos = [(k, 0.0) for k in ESCALAS_DESVIO]
+
+    constantes: dict[str, float] = {}
+    for k, alpha in bracos:
         saidas: dict[str, np.ndarray] = {}
         for contexto in CONTEXTOS:
             proporcao, log2r_media, log2r_desvio = base_log2r[contexto]
-            combinado = ESCALA_MEDIA * log2r_media[None, :] + k * log2r_desvio
+            fator, c = fator_por_gene(peso, alpha, log2r_desvio)
+            constantes[f"k{k:g}_a{alpha:g}_{contexto}"] = c
+            combinado = (
+                ESCALA_MEDIA * log2r_media[None, :] + k * fator[None, :] * log2r_desvio
+            )
             novo = para_delta(combinado, proporcao)
             saidas[f"delta_{contexto}"] = novo
             universo = np.asarray(por_gene[f"no_universo_{contexto}"], dtype=bool)
@@ -197,12 +286,15 @@ def main() -> None:
             linhas.append(
                 {
                     "k_desvio": k,
+                    "alpha": alpha,
                     "contexto": contexto,
+                    "constante_de_variancia": c,
                     "genes_acima_do_limiar": acima,
                     "razao_para_de_real": acima / DE_REAIS,
                 }
             )
-        destino = SAIDA / f"delta_kd{k:g}.npz"
+        sufixo = f"_a{alpha:g}" if alphas else ""
+        destino = SAIDA / f"delta_kd{k:g}{sufixo}.npz"
         # Pelo `formato_delta`, que e o que o `gerar_submissao` le: rotulos em
         # texto de largura fixa, carrega com `allow_pickle=False`. A versao de
         # 22/10 gravava arrays de objeto, que so carregam com pickle.
@@ -215,20 +307,35 @@ def main() -> None:
                 por_contexto={c: saidas[f"delta_{c}"] for c in CONTEXTOS},
             ),
         )
-        medio = float(np.mean([float(x["genes_acima_do_limiar"]) for x in linhas if x["k_desvio"] == k]))
+        deste = [
+            float(x["genes_acima_do_limiar"])
+            for x in linhas
+            if x["k_desvio"] == k and x["alpha"] == alpha
+        ]
+        medio = float(np.mean(deste))
         print(
-            f"k_desvio={k:4g}  genes acima de {LIMIAR_DE}: {medio:7.0f} "
+            f"k_desvio={k:4g} alpha={alpha:4g}  genes acima de {LIMIAR_DE}: {medio:7.0f} "
             f"({medio / DE_REAIS:5.2f}x os {DE_REAIS} reais)  -> {destino.name}"
         )
 
-    pd.DataFrame(linhas).to_csv(SAIDA / "contagem_por_k.tsv", sep="\t", index=False)
+    nome = "contagem_por_alpha.tsv" if alphas else "contagem_por_k.tsv"
+    pd.DataFrame(linhas).to_csv(SAIDA / nome, sep="\t", index=False)
     (SAIDA / "varredura.json").write_text(
         json.dumps(
             {
-                "escalas_do_desvio": list(ESCALAS_DESVIO),
+                "escalas_do_desvio": [k for k, _ in bracos],
+                "alphas": alphas,
                 "escala_da_media": ESCALA_MEDIA,
+                "constante_de_variancia_por_braco": constantes,
                 "decomposicao": decomposicao,
                 "onde_o_k_se_aplica": "em log2 da razao de proporcao, nao no delta",
+                "o_que_alpha_faz": (
+                    "k_g = k_desvio * c(alpha) * peso_g**alpha, com peso de "
+                    "encolhimento.py (media geometrica 1) e c preservando a soma de "
+                    "quadrados do desvio. alpha=0 da c=1 e reproduz o braco escalar bit "
+                    "a bit; alpha=1 aplica a forma medida inteira. O nivel NAO se move "
+                    "com alpha, de proposito: sem c os dois efeitos viriam somados."
+                ),
                 "por_que_a_media_nao_e_varrida": (
                     "A verdade do avaliador_proxy e Orion/HCT116 transplantado, que contem "
                     "o desvio especifico e NAO contem a resposta media de D. Provado: a "
