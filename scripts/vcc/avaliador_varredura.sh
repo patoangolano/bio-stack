@@ -75,7 +75,18 @@ else
     echo "== lado real reusado: $PROXY/real.h5ad"
 fi
 
-if [[ ! -r "$OUT/bundle/bundle.json" && ! -d "$OUT/bundle/splits" ]]; then
+# O gate e `manifest.json`, que e o que o `prep-real-bundle` ESCREVE. A versao
+# anterior procurava `bundle.json` e `splits/`, nomes que o cell-eval2 0.19.0 nao
+# produz — o bundle sai com manifest.json, config.yaml, baseline_agg.csv e os
+# tres anchor_*. Na varredura de k isso nunca apareceu porque os seis bracos
+# vinham numa invocacao so e o bundle era construido nela; com um braco por
+# chamada o gate passou a decidir, e decidia sempre reconstruir: 567 s de
+# prep-real-bundle mais 127 s de baseline por braco, 11,5 min cada, calado.
+#
+# `manifest.json` e `real_bundle.MANIFEST`, e o `read_real_bundle` le arquivos
+# por nome sem enumerar o diretorio — entao e o unico arquivo que precisa existir
+# para o bundle ser legivel.
+if [[ ! -r "$OUT/bundle/manifest.json" ]]; then
     cronometrar baseline "$VENV/bin/cell-eval2" baseline \
         -ar "$PROXY/real.h5ad" "${COMUM[@]}" \
         --save-pred "$OUT/baseline_pred.h5ad" -o "$OUT/baseline"
@@ -83,7 +94,7 @@ if [[ ! -r "$OUT/bundle/bundle.json" && ! -d "$OUT/bundle/splits" ]]; then
         --real "$PROXY/real.h5ad" --baseline "$OUT/baseline_pred.h5ad" \
         "${COMUM[@]}" --id "proxy-$MARCA" -o "$OUT/bundle" --force
 else
-    echo "== bundle reusado: $OUT/bundle"
+    echo "== bundle reusado: $OUT/bundle/manifest.json"
 fi
 
 # ------------------------------------------------- um braco por submissao

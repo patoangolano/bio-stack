@@ -4,3 +4,10 @@
 # versao exata. Subir para 0.20.0 move as metricas e invalida a calibracao de k
 # sem que nada falhe -- o mesmo motivo pelo qual o proprio cell-eval2 fixa `pdex`.
 cell-eval2==0.19.0
+
+# pytest entra para que `tests/vcc/test_orcamento.py` e `test_auditoria.py`
+# RODEM. Os dois modulos chamam `cell_eval2` em vez de reimplementar, e isso e a
+# propriedade que vale testar — uma suite que roda no venv do projeto so
+# conseguiria pular esses testes, e um teste que sempre pula nao e um teste.
+# pytest nao declara numpy nem scipy, entao nao pode mover a resolucao acima.
+pytest==8.4.2
