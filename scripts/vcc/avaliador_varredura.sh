@@ -28,10 +28,17 @@ set -euo pipefail
 PROJETO=/mnt/c/Users/Manec/bio-stack
 VENV="$HOME/envs/avaliador-proxy/.venv"
 CONTEXTO="${CONTEXTO:-D}"
-N_PERTS="${N_PERTS:-32}"
+N_PERTS="${N_PERTS:-40}"
 N_CTRL="${N_CTRL:-18400}"
 SEMENTE="${SEMENTE:-0}"
-FONTE_EFEITOS="${FONTE_EFEITOS:-arc_vcc_25}"
+# orion/hct116 e nao arc_vcc_25: com `--so-alvos-vcc` o arc tem 12 alvos do
+# painel e so 11 passam o gate de 200 genes moventes, de 32 pedidos. O orion
+# tem 148. A profundidade do orion e rasa (mediana de 2 genes significativos
+# por perturbacao contra 2.016 do arc), mas aqui ele e GERADOR do lado real, e
+# nao doador de efeito para a predicao: o que o avaliador precisa e de
+# estrutura de DE com os rotulos certos, e e o numero de alvos que manda.
+FONTE_EFEITOS="${FONTE_EFEITOS:-orion}"
+CONTEXTO_PIE="${CONTEXTO_PIE:-hct116}"
 TRABALHO="${TRABALHO:-$HOME/vcc-avaliador}"
 
 MARCA="vcc-${CONTEXTO}-${FONTE_EFEITOS}-k${N_PERTS}-s${SEMENTE}"
@@ -61,6 +68,7 @@ COMUM=(--preset vcc2026 --pert-col target_gene --set de.backend=pdex)
 if [[ ! -r "$PROXY/real.h5ad" ]]; then
     cronometrar proxy "$VENV/bin/python" -I "$PROJETO/scripts/vcc/avaliador_proxy.py" \
         --contexto "$CONTEXTO" --fonte-efeitos "$FONTE_EFEITOS" \
+        --contexto-pie "$CONTEXTO_PIE" \
         --n-perts "$N_PERTS" --n-ctrl "$N_CTRL" --semente "$SEMENTE" \
         --so-alvos-vcc --pred-pool-unico --saida "$PROXY"
 else
