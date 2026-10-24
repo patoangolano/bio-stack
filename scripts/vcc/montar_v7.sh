@@ -49,7 +49,15 @@ marco "3/4 validador NUMERICO (inclinacao contra o delta pretendido)"
 marco "4/4 vcc prep"
 # O `prep` e do cpython-3.13 das uv tools e nao do venv do projeto; `vcc` esta
 # no PATH do shell de LOGIN, que e o que a tarefa_longa usa.
-vcc prep "$H5AD" --output "$VCC"
+#
+# `-g` e `--perts` sao OBRIGATORIOS, e nao detalhe: sem `-g` o prep recusa com
+# "Missing gene list" (foi como esta linha falhou na primeira montagem da v7,
+# depois de 9 min de emissao e dois validadores aprovados), e sem `--perts` ele
+# nao pode rodar o `--verify-targets` que confere se cada contexto prediz
+# exatamente as 300 perturbacoes oficiais. Os dois vem do proprio
+# `controls-final`, que e o mesmo pacote de onde o contrato tira as 28 travas.
+vcc prep "$H5AD" --output "$VCC" \
+    --genes "$REF/gene_names.csv" --perts "$REF/pert_counts.csv"
 
 marco "pronto"
 ls -la "$H5AD" "$VCC" | awk '{print $5, $9}'

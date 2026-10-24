@@ -1,0 +1,32 @@
+{
+  "submissao": "runs\\vcc\\submissao\\submissao_v7.h5ad",
+  "chunk": 512,
+  "bulk_target_sum": 50000.0,
+  "pred_trace_cap_k": 1.0,
+  "flag": 0.7,
+  "chamadas_do_cell_eval2": [
+    "moments.jackknife_correction",
+    "metrics.delta._exclusion_cols",
+    "metrics.delta._row_weights",
+    "metrics.delta._across_pert_budget"
+  ],
+  "o_limite_e_de_um_lado_so": "O pedido do avaliador usa C_p ja limitado por min(C_p, K*C_p_real), e real_tn nao existe para D/E/F. Limitar reduz o pedido e portanto AUMENTA a razao, entao a razao medida aqui e um limite inferior da do avaliador: razao >= 1 certifica r = 1; razao < 0,7 diz 'em risco', nao 'sinalizado'.",
+  "laudos": [
+    {
+      "contexto": "D",
+      "grupos": 300,
+      "genes": 18533,
+      "alvos_pontuados": 300,
+      "alvos_com_alvo_resolvido": 300,
+      "orcamento": 0.8509425349436138,
+      "pedido_sem_limite": 0.2338399121688891,
+      "razao_sem_limite": 3.6389961279536704,
+      "r_sem_limite": 1.0,
+      "flag": 0.7,
+      "veredito": "paga por inteiro (r = 1,0 garantido, pois o limite so aumenta a razao)",
+      "jk_mediano": 14.430387029931298,
+      "jk_min": 13.233255973812046,
+      "jk_max": 16.09846201938793
+    }
+  ]
+}
