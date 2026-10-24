@@ -54,6 +54,7 @@ LIMITE_DE_BISSECCAO: float = 40.0
 @dataclass(frozen=True)
 class AlvoDeComposicao:
     q: np.ndarray  # [n_genes] float64, >= 0, soma 1
+    razao: np.ndarray  # [n_genes] float64, q/pi -- EXATAMENTE 1 onde delta_efetivo == 0
     delta_efetivo: np.ndarray  # [n_genes] float64
     lambda_de_fechamento: float
     residuo_de_fechamento: float
@@ -127,13 +128,30 @@ def alvo_de_composicao(
     lam, residuo = fechar_por_lambda(m0, alvo_soma)
     m = np.maximum(m0 + lam, 0.0)
     q = np.expm1(m) / alvo_soma
+    delta_efetivo = m - b
+
+    # A razao de composicao contra o pool, que e o que o kernel multiplica pelas
+    # contagens da doadora. E `1,0` EXATO onde o delta efetivo e exatamente zero,
+    # e isso nao e um snap de tolerancia: um gene cujo nivel pretendido nao muda
+    # tem de emitir as contagens da doadora sem mudanca. Calcular
+    # `expm1(m)/w` ali daria `1 +- 4,44e-16`, porque `expm1(log1p(w))` nao
+    # devolve `w` exato (medido: erro de 2,27e-13), e `floor(D * (1 - 1e-16))` e
+    # `D - 1` -- um ulp na razao decrementa toda contagem nao nula do grupo.
+    #
+    # Sob delta nulo o lambda e 0 e o delta efetivo e 0 em todos os genes, logo a
+    # razao e identicamente 1 e a emissao devolve as doadoras bit a bit. Com
+    # delta real o lambda e da ordem de 1e-3 e nenhum gene fica em 1,0 -- o que
+    # esta certo: se a composicao muda, a fatia de todo gene muda de verdade.
+    inalterado = delta_efetivo == 0.0
+    razao = np.ones_like(q)
+    calcular = ~inalterado & (w > 0)
+    razao[calcular] = np.expm1(m[calcular]) / w[calcular]
 
     # log2FC emitido, so onde o placar le: razao de composicao contra o pool.
     no_gate = gate & (w > 0)
     if np.any(no_gate):
-        razao = np.expm1(m[no_gate]) / w[no_gate]
         with np.errstate(divide="ignore"):
-            log2fc = np.log2(razao)
+            log2fc = np.log2(np.expm1(m[no_gate]) / w[no_gate])
         log2fc = log2fc[np.isfinite(log2fc)]
         minimo = float(log2fc.min()) if log2fc.size else float("nan")
         maximo = float(log2fc.max()) if log2fc.size else float("nan")
@@ -142,7 +160,8 @@ def alvo_de_composicao(
 
     return AlvoDeComposicao(
         q=q,
-        delta_efetivo=m - b,
+        razao=razao,
+        delta_efetivo=delta_efetivo,
         lambda_de_fechamento=lam,
         residuo_de_fechamento=residuo,
         # `< 0` e nao `<= 0`: o piso so ATUA onde mudaria o valor. Com `<=`, os
