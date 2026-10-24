@@ -100,9 +100,15 @@ fi
 python3 -c "import tomllib, sys; tomllib.load(open(sys.argv[1], 'rb')); print('config.toml valido')" "$CFG"
 
 # --- 3. daemon ---------------------------------------------------------------------
-rodando=$(claude-science status | python3 -c "import json, sys; print(int(json.load(sys.stdin).get('running', False)))")
+# "De pe" e de pe NA $PORTA. Quem sobe o daemon por outro caminho cai na 8000
+# padrao: em 2026-10-23 o `claude-science url` do login o subiu la, e o
+# wslrelay passou a segurar a 8000 do Windows, que e do app Windows.
+rodando=$(claude-science status | python3 -c "
+import json, sys
+s = json.load(sys.stdin)
+print(int(bool(s.get('running')) and s.get('port') == int(sys.argv[1])))" "$PORTA")
 if [ "$rodando" = 1 ] && [ "$mudou" = 0 ]; then
-    echo "daemon ja de pe"
+    echo "daemon ja de pe na $PORTA"
 else
     claude-science stop >/dev/null 2>&1 || true
     sleep 3
