@@ -50,8 +50,15 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 import numpy as np
-from formato_delta import ler_delta
-from pseudobulk import LINHAS_POR_BLOCO, bulk_lognorm, somas_por_grupo
+
+# `-I` tira o diretorio do script do sys.path, e os dois imports abaixo sao de
+# modulos irmaos. Mesmo idioma do `gerar_submissao.py` e do `varredura_k.py`.
+# Sem isto o validador morre em `ModuleNotFoundError: No module named
+# 'formato_delta'` exatamente sob `-I`, que e o modo exigido para script que le
+# dado baixado — e este e um dos DOIS validadores que rodam antes de um envio.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from formato_delta import ler_delta  # noqa: E402
+from pseudobulk import LINHAS_POR_BLOCO, bulk_lognorm, somas_por_grupo  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parents[2]
 CONTROLES_PADRAO = RAIZ / "data" / "raw" / "vcc" / "controls-final"
