@@ -80,10 +80,15 @@ Rodar da raiz do projeto:
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+
+# `-I` tira o diretorio do script do sys.path; o mesmo idioma do pool_media.py.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from formato_delta import Delta, salvar_delta  # noqa: E402
 
 TRANSFER = Path("runs/vcc/transfer")
 EIXO = Path("runs/vcc/eixo")
@@ -198,7 +203,18 @@ def main() -> None:
                 }
             )
         destino = SAIDA / f"delta_kd{k:g}.npz"
-        np.savez_compressed(destino, genes=genes, alvos=alvos, **saidas, allow_pickle=True)
+        # Pelo `formato_delta`, que e o que o `gerar_submissao` le: rotulos em
+        # texto de largura fixa, carrega com `allow_pickle=False`. A versao de
+        # 22/10 gravava arrays de objeto, que so carregam com pickle.
+        salvar_delta(
+            destino,
+            Delta(
+                genes=[str(g) for g in genes],
+                alvos=[str(a) for a in alvos],
+                contextos=list(CONTEXTOS),
+                por_contexto={c: saidas[f"delta_{c}"] for c in CONTEXTOS},
+            ),
+        )
         medio = float(np.mean([float(x["genes_acima_do_limiar"]) for x in linhas if x["k_desvio"] == k]))
         print(
             f"k_desvio={k:4g}  genes acima de {LIMIAR_DE}: {medio:7.0f} "
