@@ -1,0 +1,155 @@
+{
+  "arquivo": "C:\\Users\\Manec\\AppData\\Local\\Temp\\claude\\C--Users-Manec-bio-stack\\07a4432b-599e-4679-83d3-c71280471116\\scratchpad\\forja_ntc.h5ad",
+  "contextos_exigidos": [
+    "D"
+  ],
+  "painel_completo": false,
+  "itens": [
+    {
+      "nome": "matriz_csr",
+      "passou": true,
+      "detalhe": "encoding-type = 'csr_matrix'"
+    },
+    {
+      "nome": "colunas_obs",
+      "passou": true,
+      "detalhe": "colunas ['target_gene', 'context']; exigidas 'target_gene' e 'context'"
+    },
+    {
+      "nome": "forma_coerente",
+      "passou": true,
+      "detalhe": "X 120000 x 18533, obs 120000, var 18533"
+    },
+    {
+      "nome": "dimensao_de_genes",
+      "passou": true,
+      "detalhe": "18533 colunas, exigidas 18533"
+    },
+    {
+      "nome": "eixo_de_genes",
+      "passou": true,
+      "detalhe": "identico a gene_names.csv na ordem"
+    },
+    {
+      "nome": "genes_sem_repetido",
+      "passou": true,
+      "detalhe": "0 simbolo(s) repetido(s)"
+    },
+    {
+      "nome": "total_de_celulas",
+      "passou": true,
+      "detalhe": "120,000 celulas, esperado 120,000"
+    },
+    {
+      "nome": "teto_de_celulas",
+      "passou": true,
+      "detalhe": "120,000 celulas, teto 400,000"
+    },
+    {
+      "nome": "sem_linha_de_controle",
+      "passou": false,
+      "detalhe": "5 celula(s) rotuladas 'non-targeting'"
+    },
+    {
+      "nome": "contextos",
+      "passou": true,
+      "detalhe": "presentes ['D'], esperados ['D']"
+    },
+    {
+      "nome": "alvos_por_contexto",
+      "passou": true,
+      "detalhe": "300 alvos oficiais em cada contexto"
+    },
+    {
+      "nome": "celulas_por_alvo",
+      "passou": false,
+      "detalhe": "D: 1 alvo(s) ['ABCC1=395']"
+    },
+    {
+      "nome": "estrutura_indptr_tamanho",
+      "passou": true,
+      "detalhe": "120001 entradas, esperado 120001"
+    },
+    {
+      "nome": "estrutura_indptr_inicio",
+      "passou": true,
+      "detalhe": "indptr[0] = 0"
+    },
+    {
+      "nome": "estrutura_indptr_monotonico",
+      "passou": true,
+      "detalhe": "0 linha(s) com comprimento negativo"
+    },
+    {
+      "nome": "estrutura_pares",
+      "passou": true,
+      "detalhe": "data 2,400,000 vs indices 2,400,000"
+    },
+    {
+      "nome": "estrutura_fim_dentro",
+      "passou": true,
+      "detalhe": "indptr[-1] = 2,400,000, data = 2,400,000"
+    },
+    {
+      "nome": "canonico_sem_folga",
+      "passou": true,
+      "detalhe": "0 entrada(s) de folga depois de indptr[-1]"
+    },
+    {
+      "nome": "estrutura_indices_em_faixa",
+      "passou": true,
+      "detalhe": "0 indice(s) fora de 0..18532"
+    },
+    {
+      "nome": "canonico_ordem_estrita",
+      "passou": true,
+      "detalhe": "0 par(es) fora de ordem ou com indice repetido"
+    },
+    {
+      "nome": "sem_zeros_explicitos",
+      "passou": true,
+      "detalhe": "0 zero(s) armazenado(s)"
+    },
+    {
+      "nome": "valores_finitos",
+      "passou": true,
+      "detalhe": "0 NaN/inf."
+    },
+    {
+      "nome": "valores_nao_negativos",
+      "passou": true,
+      "detalhe": "0 valor(es) negativo(s)."
+    },
+    {
+      "nome": "valores_inteiros",
+      "passou": true,
+      "detalhe": "0 valor(es) fracionario(s), maximo 49."
+    },
+    {
+      "nome": "contagem_por_celula",
+      "passou": true,
+      "detalhe": "0 celula(s) acima de 1,000,000; maior soma 792"
+    },
+    {
+      "nome": "celula_nao_nula",
+      "passou": true,
+      "detalhe": "0 celula(s) com soma zero (a normalizacao por CPM divide por isso)"
+    },
+    {
+      "nome": "perturbacao_nao_nula",
+      "passou": true,
+      "detalhe": "nenhuma perturbacao inteiramente nula"
+    },
+    {
+      "nome": "teto_de_densidade",
+      "passou": true,
+      "detalhe": "2,400,000 entradas armazenadas, teto 4,750,000,000 (0.05%); 20/celula (min 20, max 20)"
+    }
+  ],
+  "itens_testados": 28,
+  "falhas": [
+    "sem_linha_de_controle",
+    "celulas_por_alvo"
+  ],
+  "veredito": "reprovado"
+}
