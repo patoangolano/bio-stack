@@ -1,0 +1,72 @@
+{
+  "escala_pseudobulk": 50000.0,
+  "cpm_minimo": 5.0,
+  "contextos": {
+    "D": {
+      "celulas": 18400,
+      "umi_total": 390992784.0,
+      "umi_mediana_por_celula": 20235.5,
+      "se_b_ctrl_mediana": 0.003949323156630365,
+      "se_b_ctrl_p99": 0.008428464186233975
+    },
+    "E": {
+      "celulas": 18400,
+      "umi_total": 384949502.0,
+      "umi_mediana_por_celula": 19681.0,
+      "se_b_ctrl_mediana": 0.003993638860273164,
+      "se_b_ctrl_p99": 0.008973855291668281
+    },
+    "F": {
+      "celulas": 18400,
+      "umi_total": 386467587.0,
+      "umi_mediana_por_celula": 19845.0,
+      "se_b_ctrl_mediana": 0.003930342875678809,
+      "se_b_ctrl_p99": 0.00801756748738504
+    }
+  },
+  "universo_de": [
+    {
+      "contexto": "D",
+      "n_por_pseudobulk": 9565,
+      "n_por_media_celula": 9633
+    },
+    {
+      "contexto": "E",
+      "n_por_pseudobulk": 9744,
+      "n_por_media_celula": 9743
+    },
+    {
+      "contexto": "F",
+      "n_por_pseudobulk": 9499,
+      "n_por_media_celula": 9537
+    }
+  ],
+  "conferencia_contra_memorando": {
+    "D": {
+      "cpm_do_pseudobulk": 9565,
+      "cpm_medio_por_celula": 9633,
+      "memorando": 9633,
+      "pseudobulk_reproduz": false,
+      "media_celula_reproduz": true
+    },
+    "E": {
+      "cpm_do_pseudobulk": 9744,
+      "cpm_medio_por_celula": 9743,
+      "memorando": 9743,
+      "pseudobulk_reproduz": false,
+      "media_celula_reproduz": true
+    },
+    "F": {
+      "cpm_do_pseudobulk": 9499,
+      "cpm_medio_por_celula": 9537,
+      "memorando": 9537,
+      "pseudobulk_reproduz": false,
+      "media_celula_reproduz": true
+    }
+  },
+  "universo_usado": "cpm_medio_por_celula",
+  "por_que": "Das duas definicoes de 'CPM medio no controle', so a media do CPM por celula reproduz os tres numeros medidos (9633/9743/9537). A do pseudobulk da 9565/9744/9499. O cell-eval2 usa a primeira.",
+  "genes_no_universo_em_todos": 7772,
+  "genes_no_universo_em_algum": 11593,
+  "ressalva": "Isto e exato se os 18.400 controles entregues forem os de pontuacao. manifest.json declara 138.400 celulas de verdade (300x400 + 18.400) e panel_id vcc2026-test-1, o que e indicio forte, mas a especificacao fala em 'model inputs only'. Se diferirem, b_ctrl desloca e tudo a jusante com ele."
+}

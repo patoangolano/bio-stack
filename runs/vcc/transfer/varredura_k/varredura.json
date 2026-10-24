@@ -1,0 +1,34 @@
+{
+  "escalas_do_desvio": [
+    1.0,
+    1.5,
+    2.0,
+    3.0,
+    4.0,
+    5.0,
+    6.0,
+    8.0
+  ],
+  "escala_da_media": 1.0,
+  "decomposicao": {
+    "D": {
+      "norma_da_media": 1.9645913805835689,
+      "norma_mediana_do_desvio": 5.460823114004738,
+      "alvos_com_desvio": 156.0
+    },
+    "E": {
+      "norma_da_media": 2.0688909730422296,
+      "norma_mediana_do_desvio": 5.544626580128043,
+      "alvos_com_desvio": 157.0
+    },
+    "F": {
+      "norma_da_media": 2.0611569900166344,
+      "norma_mediana_do_desvio": 5.590363700453209,
+      "alvos_com_desvio": 156.0
+    }
+  },
+  "onde_o_k_se_aplica": "em log2 da razao de proporcao, nao no delta",
+  "por_que_a_media_nao_e_varrida": "A verdade do avaliador_proxy e Orion/HCT116 transplantado, que contem o desvio especifico e NAO contem a resposta media de D. Provado: a correcao do vies de selecao mudou a magnitude da media de 0,063 para 0,019 e moveu avg_score em +0,0028, dentro do ruido. Varrer k_media neste instrumento mediria nada.",
+  "alvo_da_varredura": "direction_fidelity, em 0,022 de um teto de 0,828 — 3% do alcancavel. Direcao por perturbacao e a parcela do desvio especifico, que o beta de minimos quadrados encolhe a ~0,22.",
+  "aviso": "A contagem por limiar e aproximacao declarada. So o avaliador decide: emitir cada k e pontuar, registrando os SEIS membros separados."
+}

@@ -1,0 +1,93 @@
+{
+  "formato_saida": {
+    "arquivo": "runs\\vcc\\transfer\\delta_previsto.npz",
+    "genes": "array de 18.533 simbolos, na ordem de gene_names.csv",
+    "alvos": "array de 300 simbolos, na ordem de pert_counts.csv",
+    "delta_D/delta_E/delta_F": "(300, 18533) float32, delta em espaco log1p de CP50k",
+    "convencao": "b_previsto = b_ctrl + delta. Delta zero significaria predizer o CONTROLE, que pontua abaixo de zero — por isso nenhum dos 300 alvos tem delta zero: todos carregam a resposta media estimada do contexto, que e o zero da escala."
+  },
+  "resposta_media": {
+    "usada": true,
+    "coeficiente_aplicado": 0.47290903217898617,
+    "ganho_mediano_medido": 0.2519886674492884,
+    "direcoes_com_ganho_positivo": 24,
+    "direcoes_totais": 24,
+    "correlacao_mediana": 0.47358663322090055,
+    "por_que": "O zero da escala do vcc2026 e a resposta media real do contexto as 300 perturbacoes, nao o controle. Sem esta parcela os 143 alvos sem evidencia pontuariam ABAIXO de zero em vez de zero. A parcela vale para todos os 300, inclusive os gateados: e o efeito comum do procedimento de perturbacao, pelo qual todos passaram. Transferiu em 24 de 24 direcoes medidas.",
+    "conservadorismo": "O coeficiente foi medido doador-unico contra alvo-unico. Agrupar doadores reduz o ruido do preditor, entao o otimo para a media agrupada seria maior. Usar o valor medido e errar por baixo de proposito: a predicao fica entre o controle e a media real, que ainda bate o controle, em vez de passar da media."
+  },
+  "politica_de_beta": {
+    "direcao_de_referencia_por_doador": {
+      "orion": "orion.hct116->replogle.rpe1",
+      "replogle": "replogle.hepg2->replogle.rpe1"
+    },
+    "mse_relativo_esperado": {
+      "orion": 0.954040416745993,
+      "replogle": 0.9043075408466202
+    },
+    "por_que": "O coeficiente doador -> D/E/F e inestimavel: zero perturbacao medida em D, E ou F. A profundidade do ALVO e o teto — com doador fixo em orion.hct116, mse/mse0 vai de 0,954 (alvo Replogle) a 0,9984 (alvo Orion). Nosso alvo e o ensaio da competicao, profundo, entao a direcao analoga e doador raso -> alvo profundo."
+  },
+  "ponderacao_por_profundidade": {
+    "arc_vcc_25": 2016.0,
+    "replogle": 46.0,
+    "jiang": 13.0,
+    "orion": 2.0
+  },
+  "doadores_sem_direcao_de_referencia": [
+    "arc_vcc_25",
+    "jiang"
+  ],
+  "fallback": {
+    "regra": "mediana gene a gene dos betas medidos",
+    "betas_que_entraram": [
+      "orion",
+      "replogle"
+    ],
+    "n_betas": 2,
+    "ressalva": "Com dois betas medidos a mediana E a media dos dois: nao ha robustez a outlier, so ausencia de escolha arbitraria entre eles."
+  },
+  "alvos_com_sinal_de_doador": 157,
+  "alvos_sem_evidencia": 143,
+  "alvos_reservados_para_validacao": [
+    "FUBP1",
+    "HMGXB4",
+    "TIGD5",
+    "ZBTB7B"
+  ],
+  "por_contexto": {
+    "D": {
+      "alvos_com_delta": 300.0,
+      "alvos_com_desvio_especifico": 156.0,
+      "alvos_so_com_resposta_media": 144.0,
+      "alvos_gateados_por_expressao": 1.0,
+      "delta_abs_mediano": 0.0016837377334013581,
+      "delta_abs_p99": 0.061379097402095795
+    },
+    "E": {
+      "alvos_com_delta": 300.0,
+      "alvos_com_desvio_especifico": 157.0,
+      "alvos_so_com_resposta_media": 143.0,
+      "alvos_gateados_por_expressao": 0.0,
+      "delta_abs_mediano": 0.0018081458983942866,
+      "delta_abs_p99": 0.059353552758693695
+    },
+    "F": {
+      "alvos_com_delta": 300.0,
+      "alvos_com_desvio_especifico": 156.0,
+      "alvos_so_com_resposta_media": 144.0,
+      "alvos_gateados_por_expressao": 1.0,
+      "delta_abs_mediano": 0.0015193276340141892,
+      "delta_abs_p99": 0.05879320576786995
+    }
+  },
+  "limite_honesto": "Duas parcelas, de tamanhos muito diferentes. A resposta media do contexto transferiu em 24 de 24 direcoes, com ganho mediano de 0.252 do erro quadratico sobre predizer o controle — e a parcela grande, e vale para os 300 alvos. O desvio especifico da perturbacao tambem bate o zero em 24 de 24, mas por margem pequena: mse/mse0 mediano 0,955 com o modelo combinado, melhor 0,872, e vale so para os 157 com evidencia. Copiar o doador cru (beta=1) pontua de 1,2 a 3,4 vezes PIOR que nao predizer nada, entao a magnitude do encolhimento vale mais que qualquer sofisticacao de modelo.",
+  "peso_diagonal_contra_programas": {
+    "usado": 0.5,
+    "otimo_medido_mediano": 0.4235,
+    "faixa_medida": [
+      0.2178,
+      0.8735
+    ],
+    "por_que_fica_em_meio_a_meio": "O otimo rende 0,0003 de mse/mse0 DENTRO da amostra e a faixa entre direcoes vai de 0.22 a 0.87 — nao esta determinado. Perseguir isso custaria uma reemissao inteira por ganho abaixo do ruido. Mediana e faixa saem de validacao_loco.json a cada corrida, nao de literal no codigo."
+  }
+}

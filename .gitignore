@@ -174,3 +174,11 @@ runs/atavismo/nivel4/AMBN_trechos.fna
 
 # dependências do gerador do artigo (scripts/rapinantes/artigo/package.json)
 node_modules/
+
+# VCC 2026: os artefatos pesados se regeneram pela cadeia em scripts/vcc/
+# (ctrl_bulk -> eixo_18262 -> transfer_fit -> varredura_k -> gerar_submissao) e
+# vao para o backup do Drive. A submissao sao 16 GB de h5ad + 3,2 GB de .vcc.
+runs/vcc/**/*.h5ad
+runs/vcc/**/*.vcc
+runs/vcc/**/*.npz
+runs/vcc/**/*.npy

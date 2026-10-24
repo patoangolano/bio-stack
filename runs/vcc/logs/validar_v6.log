@@ -1,0 +1,42 @@
+=== CONTRATO ===
+ok     matriz_csr                   encoding-type = 'csr_matrix'
+ok     colunas_obs                  colunas ['target_gene', 'context']; exigidas 'target_gene' e 'context'
+ok     forma_coerente               X 360000 x 18533, obs 360000, var 18533
+ok     dimensao_de_genes            18533 colunas, exigidas 18533
+ok     eixo_de_genes                identico a gene_names.csv na ordem
+ok     genes_sem_repetido           0 simbolo(s) repetido(s)
+ok     total_de_celulas             360,000 celulas, esperado 360,000
+ok     teto_de_celulas              360,000 celulas, teto 400,000
+ok     sem_linha_de_controle        0 celula(s) rotuladas 'non-targeting'
+ok     contextos                    presentes ['D', 'E', 'F'], esperados ['D', 'E', 'F']
+ok     alvos_por_contexto           300 alvos oficiais em cada contexto
+ok     celulas_por_alvo             exatamente 400 por (contexto, alvo)
+ok     estrutura_indptr_tamanho     360001 entradas, esperado 360001
+ok     estrutura_indptr_inicio      indptr[0] = 0
+ok     estrutura_indptr_monotonico  0 linha(s) com comprimento negativo
+ok     estrutura_pares              data 2,004,158,877 vs indices 2,004,158,877
+ok     estrutura_fim_dentro         indptr[-1] = 2,004,158,877, data = 2,004,158,877
+ok     canonico_sem_folga           0 entrada(s) de folga depois de indptr[-1]
+ok     estrutura_indices_em_faixa   0 indice(s) fora de 0..18532
+ok     canonico_ordem_estrita       0 par(es) fora de ordem ou com indice repetido
+ok     sem_zeros_explicitos         0 zero(s) armazenado(s)
+ok     valores_finitos              0 NaN/inf.
+ok     valores_nao_negativos        0 valor(es) negativo(s).
+ok     valores_inteiros             0 valor(es) fracionario(s), maximo 6018.
+ok     contagem_por_celula          0 celula(s) acima de 1,000,000; maior soma 54071
+ok     celula_nao_nula              0 celula(s) com soma zero (a normalizacao por CPM divide por isso)
+ok     perturbacao_nao_nula         nenhuma perturbacao inteiramente nula
+ok     teto_de_densidade            2,004,158,877 entradas armazenadas, teto 4,750,000,000 (42.19%); 5567/celula (min 672, max 8195)
+
+APROVADO: 28/28 itens; contextos ['D', 'E', 'F']
+EXIT_CONTRATO 0
+=== NUMERICO (efetivo) ===
+ok     D: inclinacao +1.000 (faixa 0.85-1.15), intercepto -0.0004, corr 0.866, ruido rms 0.0281, |delta| rms 0.0486, n 5,559,600
+       deslocamento por gene 0.0017 (limite 0.1), razao 1.06 (~1 ruido independente, ~raiz(P) molde compartilhado)
+ok     E: inclinacao +1.000 (faixa 0.85-1.15), intercepto -0.0004, corr 0.853, ruido rms 0.0291, |delta| rms 0.0475, n 5,559,600
+       deslocamento por gene 0.0021 (limite 0.1), razao 1.27 (~1 ruido independente, ~raiz(P) molde compartilhado)
+ok     F: inclinacao +0.999 (faixa 0.85-1.15), intercepto -0.0004, corr 0.857, ruido rms 0.0284, |delta| rms 0.0474, n 5,559,600
+       deslocamento por gene 0.0017 (limite 0.1), razao 1.05 (~1 ruido independente, ~raiz(P) molde compartilhado)
+
+APROVADO contra submissao_v6.efetivo.npz
+EXIT_NUMERICO 0
