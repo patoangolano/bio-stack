@@ -28,6 +28,7 @@ import h5py
 import numpy as np
 import pandas as pd
 import pytest
+import scipy.sparse as sp
 
 RAIZ = Path(__file__).resolve().parents[2]
 REF = RAIZ / "data" / "raw" / "vcc" / "controls-final"
@@ -166,3 +167,101 @@ def forja(tmp_path_factory: pytest.TempPathFactory) -> Callable[[str], Path]:
         return feitas[variante]
 
     return obter
+
+
+# --------------------------------------------------------------------------
+# Peças do gerador: momentos reais, pool real, delta de teste e um mundo pequeno.
+#
+# `momentos` e `pool` fazem UMA varredura por contexto por sessão e ficam em
+# cache. São caros (104,5e6 nao nulos em D) e a maioria dos testes de propriedade
+# usa `controle_pequeno`, que é sintético e roda em milissegundos.
+# --------------------------------------------------------------------------
+
+NTC_IDS = 46  # ntc_id distintos por contexto, do manifest.json
+
+
+@pytest.fixture(scope="session")
+def momentos():
+    """`momentos("D")` -> MomentosControle do contexto real, uma varredura por sessao."""
+    import momentos as mod
+
+    _referencia()
+    cache: dict[str, object] = {}
+
+    def obter(contexto: str):
+        if contexto not in cache:
+            caminho = REF / f"context_{contexto}.h5ad"
+            if not caminho.exists():
+                pytest.skip(f"controle de {contexto} ausente em {caminho}")
+            cache[contexto] = mod.momentos_do_controle(caminho)
+        return cache[contexto]
+
+    return obter
+
+
+@pytest.fixture(scope="session")
+def pool():
+    """`pool("D")` -> CSR [18400, 18533] de contagens, uma leitura por sessao."""
+    import momentos as mod
+
+    cache: dict[str, object] = {}
+
+    def obter(contexto: str):
+        if contexto not in cache:
+            caminho = REF / f"context_{contexto}.h5ad"
+            if not caminho.exists():
+                pytest.skip(f"controle de {contexto} ausente em {caminho}")
+            cache[contexto] = mod.carregar_pool(caminho)
+        return cache[contexto]
+
+    return obter
+
+
+@pytest.fixture(scope="session")
+def delta_lfcD() -> np.ndarray:
+    """`lfc_D` do `delta_teste.npz` resgatado: [300, 18533] float32, rms 0,0329.
+
+    Os rotulos desse arquivo antigo estao em arrays de objeto e exigiriam pickle;
+    so a matriz e lida, e os eixos vem do `gene_names.csv` / `pert_counts.csv`.
+    """
+    caminho = LAUDOS / "delta_teste.npz"
+    if not caminho.exists():
+        pytest.skip(f"delta de teste ausente em {caminho}")
+    with np.load(caminho, allow_pickle=False) as z:
+        return np.asarray(z["lfc_D"])
+
+
+def escrever_controle_pequeno(caminho: Path, n_celulas: int = 120, n_genes: int = 300) -> Path:
+    """Um `.h5ad` de controle sintetico com a mesma FORMA do real.
+
+    Tem genes de `pi == 0` (os 20 ultimos), genes dentro e fora do gate de CPM, e
+    `ntc_id` em 4 lotes de profundidade diferente -- as tres propriedades de que
+    os testes de bloco e de estratificacao dependem.
+    """
+    rng = np.random.default_rng(11)
+    vivos = n_genes - 20
+    # Perfil em lei de potencia: alguns genes dominantes, cauda longa sob o gate.
+    peso = 1.0 / (1.0 + np.arange(vivos)) ** 1.2
+    peso = peso / peso.sum()
+    lote = np.repeat(np.arange(4), n_celulas // 4)
+    profundidade = np.array([4000, 6000, 8000, 10000])[lote]
+    linhas = [rng.multinomial(int(d), peso) for d in profundidade]
+    denso = np.zeros((n_celulas, n_genes), dtype=np.int64)
+    denso[:, :vivos] = np.asarray(linhas)
+    x = sp.csr_matrix(denso.astype(np.float32))
+    obs = pd.DataFrame(
+        {
+            "target_gene": pd.Categorical(["non-targeting"] * n_celulas),
+            "context": pd.Categorical(["D"] * n_celulas),
+            "ntc_id": pd.Categorical([f"ntc_{i}" for i in lote]),
+        },
+        index=pd.Index([f"c{i}" for i in range(n_celulas)], dtype=object),
+    )
+    var = pd.DataFrame(index=pd.Index([f"G{i:04d}" for i in range(n_genes)], dtype=object))
+    ad.AnnData(X=x, obs=obs, var=var).write_h5ad(caminho)
+    return caminho
+
+
+@pytest.fixture(scope="session")
+def controle_pequeno(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    return escrever_controle_pequeno(tmp_path_factory.mktemp("pequeno") / "context_D.h5ad")
