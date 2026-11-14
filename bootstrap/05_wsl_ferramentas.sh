@@ -3,7 +3,7 @@
 #
 # Rodar de dentro do WSL, ou do Windows com as tres defesas do CLAUDE.md:
 #
-#   wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/bootstrap/05_wsl_ferramentas.sh
+#   wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/user/bio-stack/bootstrap/05_wsl_ferramentas.sh
 #
 # O que faz, e e idempotente:
 #   1. instala o pixi (binario oficial, versao e sha256 fixados — nada de curl | sh);
@@ -70,6 +70,10 @@ if [ -f "$MANIFESTO" ]; then
     mkdir -p "$HOME/.pixi/manifests"
     cp "$MANIFESTO" "$HOME/.pixi/manifests/pixi-global.toml"
     pixi global sync
+    # ete4 (dependencia do orthofinder 3.1.5) importa brotli sem declara-lo no build py314 do conda-forge
+    if [ -x "$HOME/.pixi/envs/orthofinder/bin/python" ] && ! "$HOME/.pixi/envs/orthofinder/bin/python" -c "import brotli" 2>/dev/null; then
+        /usr/local/bin/uv pip install --python "$HOME/.pixi/envs/orthofinder/bin/python" brotli >/dev/null
+    fi
 else
     echo "manifesto $MANIFESTO ausente; so o pixi foi instalado"
     exit 0

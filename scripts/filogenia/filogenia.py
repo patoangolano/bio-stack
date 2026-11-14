@@ -40,7 +40,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[2]
 PIPELINE = RAIZ / "pipelines" / "filogenia"
 RUNS = RAIZ / "runs" / "filogenia"
-DISTRO = "Ubuntu-24.04"
+DISTRO = os.environ.get("BIO_STACK_WSL_DISTRO", "Ubuntu-26.04")
 
 
 _UNC_WSL = re.compile(r"^[\\/]{2}wsl(?:\.localhost|\$)[\\/]([^\\/]+)(.*)$", re.IGNORECASE)

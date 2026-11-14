@@ -6,13 +6,13 @@
 # /usr/local/bin, mas o do pipx e dos shims do pixi vem de ~/.profile, lido so
 # em shell de login, e este script chama `python3` do sistema para a conferencia.
 #
-#   wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/envs/avaliador-proxy/montar.sh
+#   wsl -d Ubuntu-26.04 -- bash -l /mnt/c/Users/user/bio-stack/envs/avaliador-proxy/montar.sh
 #
 # Idempotente: reexecutar reinstala as versoes exatas de requirements.in sobre o
 # venv existente. Passe --recriar para apagar o venv antes.
 set -euo pipefail
 
-PROJETO=/mnt/c/Users/Manec/bio-stack
+PROJETO=/mnt/c/Users/user/bio-stack
 RAIZ_ENV="$HOME/envs/avaliador-proxy"
 VENV="$RAIZ_ENV/.venv"
 REQ="$PROJETO/envs/avaliador-proxy/requirements.in"

@@ -11,7 +11,7 @@ TOKENIZERS_PARALLELISM = "false"
 
 [mcp_servers.biocontext]
 command = "uvx"
-args = ["biocontext_kb@latest"]
+args = ["--python", "3.12", "--with", "bibtexparser<2", "biocontext_kb@latest"]
 
 [mcp_servers.biocontext.env]
 UV_PYTHON = "3.12"
@@ -32,36 +32,49 @@ env_vars = [
 [mcp_servers.gget]
 command = "uvx"
 args = [
+    "--from",
     "gget-mcp",
-    "stdio",
+    "gget-mcp",
+    "server",
 ]
+
+[mcp_servers.slicer]
+command = "uvx"
+args = [
+    "--python",
+    "3.13",
+    "mcp-slicer",
+]
+
+[mcp_servers.slicer.env]
+SLICER_URL = "http://localhost:2016"
 
 [mcp_servers.nvidia-bio]
 command = "uv"
 args = [
     "run",
     "--script",
-    "C:/Users/Manec/bio-stack/servers/nvidia_bio_mcp/server.py",
+    "C:/Users/user/bio-stack/servers/nvidia_bio_mcp/server.py",
 ]
 env_vars = ["NVIDIA_API_KEY"]
 
 [mcp_servers.nvidia-bio.env]
 NVIDIA_NIM_MODE = "hosted"
 NVIDIA_NIM_TIMEOUT = "900"
-BIO_STACK_OUT = "C:/Users/Manec/bio-stack/runs/nim"
-BIO_STACK_PROVENANCE = "C:/Users/Manec/bio-stack/runs/provenance.jsonl"
+BIO_STACK_OUT = "C:/Users/user/bio-stack/runs/nim"
+BIO_STACK_PROVENANCE = "C:/Users/user/bio-stack/runs/provenance.jsonl"
 
 [mcp_servers.nvidia-nemo]
 command = "uv"
 args = [
     "run",
     "--script",
-    "C:/Users/Manec/bio-stack/servers/nvidia_nemo_mcp/server.py",
+    "C:/Users/user/bio-stack/servers/nvidia_nemo_mcp/server.py",
 ]
 env_vars = ["NVIDIA_API_KEY"]
 
 [mcp_servers.nvidia-nemo.env]
 NVIDIA_EMBED_MODEL = "nvidia/llama-3.2-nv-embedqa-1b-v2"
 NVIDIA_RERANK_MODEL = "nvidia/llama-3.2-nv-rerankqa-1b-v2"
-BIO_STACK_INDEX = "C:/Users/Manec/bio-stack/runs/library"
-BIO_STACK_PROVENANCE = "C:/Users/Manec/bio-stack/runs/provenance.jsonl"
+BIO_STACK_INDEX = "C:/Users/user/bio-stack/runs/library"
+BIO_STACK_PROVENANCE = "C:/Users/user/bio-stack/runs/provenance.jsonl"

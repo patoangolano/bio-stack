@@ -74,11 +74,11 @@ código de saída em `runs/bootstrap/`. A mão, do Windows:
 
 ```bash
 wsl --install -d Ubuntu-24.04 --no-launch --web-download
-wsl -d Ubuntu-24.04 -u root -- bash /mnt/c/Users/Manec/bio-stack/bootstrap/04b_wsl_base.sh
+wsl -d Ubuntu-24.04 -u root -- bash /mnt/c/Users/user/bio-stack/bootstrap/04b_wsl_base.sh
 wsl --terminate Ubuntu-24.04
-wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/bootstrap/05_wsl_ferramentas.sh
-wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/bootstrap/06_wsl_envs_biomec.sh
-wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/bootstrap/07_wsl_claude_science.sh
+wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/user/bio-stack/bootstrap/05_wsl_ferramentas.sh
+wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/user/bio-stack/bootstrap/06_wsl_envs_biomec.sh
+wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/user/bio-stack/bootstrap/07_wsl_claude_science.sh
 ```
 
 Conferir: `uv run --script tests/check_wsl_ferramentas.py`. O `04b` cria o
@@ -110,7 +110,7 @@ cron, unidade systemd) o PATH não tem o `~/.pixi/bin` e `samtools` dá
 wsl -d Ubuntu-24.04 -- bash -lc "samtools flagstat amostra.bam"
 ```
 
-O projeto aparece lá como `/mnt/c/Users/Manec/bio-stack`. Prefira trabalhar em
+O projeto aparece lá como `/mnt/c/Users/user/bio-stack`. Prefira trabalhar em
 `~/` dentro do WSL quando o I/O importar — `/mnt/c` atravessa a fronteira de
 sistema de arquivos e é ordens de grandeza mais lento para muitos arquivos
 pequenos, que é exatamente o padrão de um pipeline Nextflow.
@@ -176,6 +176,7 @@ de conda nem singularity.
 | plasmídeo, primer, códon, Golden Gate, CRISPR guide | `seq-designer` |
 | variante, VCF, ACMG, gnomAD, farmacogenômica | `variant-curator` |
 | perda gênica, pseudogene, estado ancestral, atavismo, evo-devo | `evo-devo` |
+| fóssil, táxon extinto, PBDB (FAD/LAD), tip-dating (FBD/RevBayes/BEAST2), matriz morfológica (Mk/Mkv +ASC), paleoproteômica (ZooMS), DNA antigo (aDNA), proteína ancestral (AltAll), FEA de fóssil | `paleo-analyst` |
 | árvore filogenética, alinhamento múltiplo, IQ-TREE, suporte de ramo, concordância, árvore de espécies | `phylo-analyst` |
 | Nextflow, nf-core, Snakemake, cluster, container | `pipeline-engineer` |
 | revisão de literatura, estado da arte, precedente | `lit-scout` |

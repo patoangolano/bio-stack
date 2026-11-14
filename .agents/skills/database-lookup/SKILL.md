@@ -338,6 +338,7 @@ Read the relevant reference file before making any API call.
 | MouseMine | `references/mousemine.md` | Mouse genome informatics |
 | ENA | `references/ena.md` | Nucleotide sequences, reads, assemblies, taxonomy (EMBL-EBI) |
 | Addgene | `references/addgene.md` | Plasmid repository |
+| Paleobiology Database (PBDB) | `references/pbdb.md` | Fossil occurrences, stratigraphic ranges (FAD/LAD in Ma), paleocoordinates, ICS time intervals |
 
 ### Disease & Clinical
 | Database | Reference File | What it covers |

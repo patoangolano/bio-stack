@@ -37,12 +37,12 @@
 set -u
 export MSYS_NO_PATHCONV=1
 
-DISTRO=Ubuntu-24.04
-UV=/c/Users/Manec/.local/bin/uv.exe
+DISTRO="${BIO_STACK_WSL_DISTRO:-Ubuntu-26.04}"
+UV=/c/Users/user/.local/bin/uv.exe
 AQUI="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 RAIZ="$(dirname "$AQUI")"
 RAIZ_WIN="$(cygpath -m "$RAIZ")"
-BOOT=/mnt/c/Users/Manec/bio-stack/bootstrap
+BOOT=/mnt/c/Users/user/bio-stack/bootstrap
 LOG="${1:-$RAIZ/runs/bootstrap/09_wsl_reconstruir.log}"
 mkdir -p "$(dirname "$LOG")"
 : > "$LOG"

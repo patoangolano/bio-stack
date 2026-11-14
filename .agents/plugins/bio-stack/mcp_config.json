@@ -1,0 +1,139 @@
+{
+  "mcpServers": {
+    "nvidia-bio": {
+      "command": "C:/Users/user/.local/bin/uv.exe",
+      "args": [
+        "run",
+        "--script",
+        "C:/Users/user/bio-stack/servers/nvidia_bio_mcp/server.py"
+      ],
+      "env": {
+        "BIO_STACK_RUNS": "C:/Users/user/bio-stack/runs/nim",
+        "BIO_STACK_PROVENANCE": "C:/Users/user/bio-stack/runs/provenance.jsonl"
+      }
+    },
+    "nvidia-nemo": {
+      "command": "C:/Users/user/.local/bin/uv.exe",
+      "args": [
+        "run",
+        "--script",
+        "C:/Users/user/bio-stack/servers/nvidia_nemo_mcp/server.py"
+      ],
+      "env": {
+        "BIO_STACK_ROOT": "C:/Users/user/bio-stack",
+        "BIO_STACK_INDEX": "C:/Users/user/bio-stack/runs/library",
+        "BIO_STACK_PROVENANCE": "C:/Users/user/bio-stack/runs/provenance.jsonl"
+      }
+    },
+    "biocontext": {
+      "command": "C:/Users/user/.local/bin/uvx.exe",
+      "args": [
+        "--python",
+        "3.12",
+        "--with",
+        "bibtexparser<2",
+        "biocontext_kb@latest"
+      ],
+      "env": {
+        "UV_CACHE_DIR": "C:/Users/user/AppData/Local/uv/cache"
+      }
+    },
+    "gget": {
+      "command": "C:/Users/user/.local/bin/uvx.exe",
+      "args": [
+        "--from",
+        "gget-mcp",
+        "gget-mcp",
+        "server"
+      ],
+      "env": {
+        "UV_CACHE_DIR": "C:/Users/user/AppData/Local/uv/cache"
+      }
+    },
+    "biomcp": {
+      "command": "C:/Users/user/.local/bin/uvx.exe",
+      "args": [
+        "--python",
+        "3.12",
+        "--from",
+        "biomcp-python",
+        "biomcp",
+        "run"
+      ],
+      "env": {
+        "UV_CACHE_DIR": "C:/Users/user/AppData/Local/uv/cache"
+      }
+    },
+    "tooluniverse": {
+      "command": "C:/Users/user/.local/bin/uvx.exe",
+      "args": [
+        "--python",
+        "3.12",
+        "--from",
+        "tooluniverse",
+        "tooluniverse-smcp-stdio",
+        "--compact-mode",
+        "--exclude-tool-types",
+        "PackageTool"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "UV_CACHE_DIR": "C:/Users/user/AppData/Local/uv/cache"
+      }
+    },
+    "claude-science": {
+      "command": "C:/Users/user/.local/bin/uv.exe",
+      "args": [
+        "run",
+        "--script",
+        "C:/Users/user/bio-stack/servers/claude_science_mcp/server.py"
+      ],
+      "env": {
+        "BIO_STACK_ROOT": "C:/Users/user/bio-stack",
+        "UV_CACHE_DIR": "C:/Users/user/AppData/Local/uv/cache"
+      }
+    },
+    "slicer": {
+      "command": "C:/Users/user/.local/bin/uvx.exe",
+      "args": [
+        "--python",
+        "3.13",
+        "mcp-slicer"
+      ],
+      "env": {
+        "SLICER_URL": "http://localhost:2016",
+        "UV_CACHE_DIR": "C:/Users/user/AppData/Local/uv/cache"
+      }
+    },
+    "blender": {
+      "command": "C:/Users/user/.local/bin/uvx.exe",
+      "args": [
+        "mcp-for-blender"
+      ],
+      "env": {
+        "UV_CACHE_DIR": "C:/Users/user/AppData/Local/uv/cache"
+      }
+    },
+    "chimerax": {
+      "command": "C:/Users/user/.local/bin/chimerax-mcp.exe",
+      "args": [],
+      "env": {
+        "CHIMERAX_HOST": "127.0.0.1",
+        "CHIMERAX_PORT": "61294",
+        "UV_CACHE_DIR": "C:/Users/user/AppData/Local/uv/cache"
+      }
+    },
+    "totalsegmentator": {
+      "command": "C:/Users/user/.local/bin/totalseg_mcp.exe",
+      "args": [
+        "--transport",
+        "stdio"
+      ],
+      "env": {
+        "SLICER_PATH": "C:/Users/user/AppData/Local/slicer.org/3D Slicer 5.12.4/Slicer.exe",
+        "TOTALSEG_WEIGHTS_PATH": "C:/Users/user/bio-stack/data/raw/totalseg_weights",
+        "UV_CACHE_DIR": "C:/Users/user/AppData/Local/uv/cache"
+      }
+    }
+  }
+}

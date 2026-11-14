@@ -167,31 +167,57 @@ def main() -> int:
     except (json.JSONDecodeError, ValueError):
         return 0
 
-    if payload.get("tool_name") not in ("Write", "Edit", "NotebookEdit"):
+    is_agy = "hookEventName" in payload or "toolCall" in payload
+    if is_agy:
+        tc = payload.get("toolCall") or {}
+        raw_name = tc.get("name", "")
+        raw_args = tc.get("args") or {}
+        if raw_name in ("write_file", "edit_file"):
+            tool_name = "Write"
+            ti = {"file_path": raw_args.get("Path") or raw_args.get("file_path") or ""}
+        else:
+            tool_name = raw_name
+            ti = raw_args
+    else:
+        tool_name = payload.get("tool_name")
+        ti = payload.get("tool_input") or {}
+
+    if tool_name not in ("Write", "Edit", "NotebookEdit"):
+        if is_agy:
+            print(json.dumps({}))
         return 0
 
-    ti = payload.get("tool_input") or {}
     # NotebookEdit usa notebook_path; sem isto o ramo de notebook nunca disparava.
     raw = ti.get("file_path") or ti.get("notebook_path")
     if not raw:
+        if is_agy:
+            print(json.dumps({}))
         return 0
 
     path = Path(raw)
     if not path.is_file():
+        if is_agy:
+            print(json.dumps({}))
         return 0
 
     checker = DISPATCH.get(path.suffix)
     if checker is None and path.name in ("Snakefile", "nextflow.config"):
         checker = check_snakemake if path.name == "Snakefile" else check_nextflow
     if checker is None:
+        if is_agy:
+            print(json.dumps({}))
         return 0
 
     try:
         diagnostics = checker(path)
     except Exception:
+        if is_agy:
+            print(json.dumps({}))
         return 0  # um analisador quebrado nunca deve travar a edicao
 
     if not diagnostics:
+        if is_agy:
+            print(json.dumps({}))
         return 0
 
     shown = diagnostics[:MAX_DIAGNOSTICS]
@@ -204,6 +230,9 @@ def main() -> int:
         + "\nCorrija antes de rodar a analise.",
         file=sys.stderr,
     )
+    if is_agy:
+        print(json.dumps({}))
+        return 0
     # exit 2 = devolve o stderr ao modelo para ele agir; nao bloqueia a edicao,
     # que ja aconteceu (este e um PostToolUse).
     return 2

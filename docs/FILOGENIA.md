@@ -60,7 +60,7 @@ Explorer (`\\wsl.localhost\Ubuntu-24.04\...`) e do WSL (`/home/...`,
 Direto no WSL:
 
 ```bash
-nextflow run /mnt/c/Users/Manec/bio-stack/pipelines/filogenia -profile docker \
+nextflow run /mnt/c/Users/user/bio-stack/pipelines/filogenia -profile docker \
     --input /caminho/locos --outgroup Homo_sapiens --outdir resultados -w ~/nf-work/filogenia/work
 ```
 

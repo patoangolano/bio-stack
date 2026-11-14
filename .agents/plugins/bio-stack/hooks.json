@@ -1,0 +1,53 @@
+{
+  "bio-stack": {
+    "enabled": true,
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "C:/Users/user/.local/bin/uv.exe run --no-project --python 3.12 C:/Users/user/bio-stack/.claude/hooks/session_context.py",
+        "timeout": 30
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "run_command|write_file|edit_file|read_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:/Users/user/.local/bin/uv.exe run --no-project --python 3.12 C:/Users/user/bio-stack/.claude/hooks/guard_data.py",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp_.*|call_mcp_tool|run_command|write_file|edit_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:/Users/user/.local/bin/uv.exe run --no-project --python 3.12 C:/Users/user/bio-stack/.claude/hooks/provenance.py",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "write_file|edit_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:/Users/user/.local/bin/uv.exe run --no-project --python 3.12 C:/Users/user/bio-stack/.claude/hooks/lint_gate.py",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "C:/Users/user/.local/bin/uv.exe run --no-project --python 3.12 C:/Users/user/bio-stack/.claude/hooks/session_mark.py",
+        "timeout": 10
+      }
+    ]
+  }
+}

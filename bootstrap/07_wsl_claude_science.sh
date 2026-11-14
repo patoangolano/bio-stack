@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # bio-stack — Claude Science no WSL (Ubuntu-24.04), como o usuario.
 #
-#   wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/bootstrap/07_wsl_claude_science.sh
+#   wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/user/bio-stack/bootstrap/07_wsl_claude_science.sh
 #
 # Pre-requisito: 04b_wsl_base.sh, que poe bubblewrap, socat e o uv em
 # /usr/local/bin — sem os tres a sandbox do daemon nao roda os conectores.
@@ -32,7 +32,7 @@ CFG="$HOME/.claude-science/config.toml"
 for dep in bwrap socat /usr/local/bin/uv; do
     command -v "$dep" >/dev/null || {
         echo "falta $dep; rode antes, como root:" >&2
-        echo "  wsl -d Ubuntu-24.04 -u root -- bash /mnt/c/Users/Manec/bio-stack/bootstrap/04b_wsl_base.sh" >&2
+        echo "  wsl -d Ubuntu-24.04 -u root -- bash /mnt/c/Users/user/bio-stack/bootstrap/04b_wsl_base.sh" >&2
         exit 1
     }
 done
@@ -63,8 +63,8 @@ else
 #   gravacao -> runs/ (saidas em runs/nim e o provenance.jsonl) e o cache do uv
 # data/raw/ fica de fora de proposito: e somente-leitura na politica do projeto.
 [sandbox]
-user_read_paths  = ["/mnt/c/Users/Manec/bio-stack/servers"]
-user_write_paths = ["/mnt/c/Users/Manec/bio-stack/runs", "/home/manec/.cache/uv"]
+user_read_paths  = ["/mnt/c/Users/user/bio-stack/servers"]
+user_write_paths = ["/mnt/c/Users/user/bio-stack/runs", "/home/user/.cache/uv"]
 TOML
     mudou=1
     echo "config.toml: bloco [sandbox] gravado"

@@ -138,7 +138,7 @@ SESSAO_CACHE = Path(
     )
 )
 
-DISTRO = os.environ.get("CLAUDE_SCIENCE_WSL_DISTRO", "Ubuntu-24.04")
+DISTRO = os.environ.get("CLAUDE_SCIENCE_WSL_DISTRO", os.environ.get("BIO_STACK_WSL_DISTRO", "Ubuntu-26.04"))
 EXE_WINDOWS = Path(
     os.environ.get(
         "CLAUDE_SCIENCE_EXE",

@@ -42,7 +42,7 @@ for _s in (sys.stdout, sys.stderr):
 RAIZ = Path(__file__).resolve().parents[1]
 MANIFESTO = RAIZ / "bootstrap" / "pixi-global.toml"
 SNAPSHOT = RAIZ / "bootstrap" / "pixi-global.snapshot.tsv"
-DISTRO = "Ubuntu-24.04"
+DISTRO = os.environ.get("BIO_STACK_WSL_DISTRO", "Ubuntu-26.04")
 
 #: binario -> (comando de versao, trecho que tem de aparecer na saida).
 #: O trecho e a versao fixada no manifesto; quando o binario nao imprime a
@@ -97,6 +97,17 @@ SONDAS: dict[str, tuple[str, str]] = {
     "liftOver": ("liftOver", "Move annotations"),
     "mafsInRegion": ("mafsInRegion", "Extract MAFS"),
     "agat": ("agat --version", "1.7.0"),
+    "rb": ("rb --version", "1.4.2"),
+    "mb": ("mb -v", "3.2.9"),
+    "beast": ("beast -version", "2.7.7"),
+    "damageprofiler": ("damageprofiler -v", "v1.1"),
+    "mapDamage": ("mapDamage --version", "2.2.3"),
+    "adapterremoval": ("adapterremoval --version", "v3.0.2"),
+    "bwa": ("bwa", "0.7.19"),
+    "angsd": ("angsd -version", "0.940"),
+    "smina": ("smina --version", "2020.12.10"),
+    "vina": ("vina --version", "1.1.2"),
+    "vsearch": ("vsearch --version", "v2.32.0"),
 }
 
 falhas: list[str] = []
@@ -139,6 +150,7 @@ def main() -> int:
     # a raiz do repositorio (aconteceu na primeira versao desta suite).
     linhas = [
         "export NO_COLOR=1",
+        "export PYTHONWARNINGS=ignore",
         'cd "$(mktemp -d)"',
         "echo '@@ENVS'",
         "ls -1 ~/.pixi/envs 2>/dev/null",

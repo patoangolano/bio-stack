@@ -1,13 +1,7 @@
 ---
-name: "source-command-bio-doctor"
-description: "Diagnostica a bio-stack — ferramentas, chaves, GPU, servidores MCP e endpoints NVIDIA — e diz exatamente o que consertar."
+name: source-command-bio-doctor
+description: Diagnostica a bio-stack — ferramentas, chaves, GPU, servidores MCP e endpoints NVIDIA — e diz exatamente o que consertar.
 ---
-
-# source-command-bio-doctor
-
-Use this skill when the user asks to run the migrated source command `bio-doctor`.
-
-## Command Template
 
 Faça um diagnóstico completo da bio-stack e entregue um relatório acionável.
 
@@ -30,21 +24,25 @@ real é conferida na seção 1b):
 
 As ferramentas de bioinformática vivem no WSL, num ambiente pixi por
 ferramenta, declaradas em `bootstrap/pixi-global.toml`. Sem cifrão na linha
-de comando e com `bash -lc`:
+de comando (armadilha 1) e com `bash -lc` (armadilha 3):
 
 ```powershell
 wsl -d Ubuntu-24.04 -- bash -lc "pixi --version && pixi global list"
 wsl -d Ubuntu-24.04 -- bash -lc "command -v nextflow docker iqtree3 mafft hyphy codeml blastn diamond miniprot datasets nf-test samtools"
 ```
 
-Ferramenta faltando: `wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/bootstrap/05_wsl_ferramentas.sh`.
-`samtools`/`bcftools` respondem pelo pixi (1.24), não pelo apt (1.19).
+Ferramenta faltando: `wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/user/bio-stack/bootstrap/05_wsl_ferramentas.sh`
+reaplica o manifesto inteiro e regrava `bootstrap/pixi-global.snapshot.tsv`.
+
+> `samtools`/`bcftools` respondem pelo pixi (1.24) e não mais pelo apt
+> (1.19): o `~/.pixi/bin` vem antes de `/usr/bin` no PATH. O htslib 1.19 do
+> Ubuntu tem CVEs abertas no decodificador CRAM, corrigidas na 1.23.1.
 
 ## 1c. Pipeline de filogenia
 
 ```powershell
-wsl -d Ubuntu-24.04 -- bash -lc "cd /mnt/c/Users/Manec/bio-stack/pipelines/filogenia && nextflow lint main.nf nextflow.config conf modules/local"
-uv run --script tests/check_filogenia.py
+wsl -d Ubuntu-24.04 -- bash -lc "cd /mnt/c/Users/user/bio-stack/pipelines/filogenia && nextflow lint main.nf nextflow.config conf modules/local"
+uv run --script tests/check_filogenia.py   # ponta a ponta, ~1 min com imagens em cache
 ```
 
 ## 2. Chaves de API
@@ -55,9 +53,12 @@ Verifique se estão definidas (sem imprimir o valor):
 'NVIDIA_API_KEY','NCBI_API_KEY' | ForEach-Object { $v = [Environment]::GetEnvironmentVariable($_, 'User'); if ($v) { "OK   $_ ($($v.Length) chars)" } else { "MISS $_" } }
 ```
 
-> O `S2_API_KEY` saiu desta sonda em 2026-10-10: era repassado ao `biomcp`, que
-> não o lê. Ver `docs/CHAVES.md` seção 2. **Não reponha** sem achar um
-> consumidor real.
+> O `S2_API_KEY` saiu desta sonda em 2026-10-10. Ele era repassado ao servidor
+> `biomcp`, e o `biomcp-python` não tem uma única ocorrência de `S2_API_KEY`
+> nem de `semanticscholar` — a variável ia para um processo que a ignora.
+> Reportar `MISS` para ela criava uma lacuna falsa que já custou tempo de
+> investigação. Ver `docs/CHAVES.md` seção 2. **Não reponha** sem antes achar
+> um consumidor real.
 
 ## 3. Camada NVIDIA
 

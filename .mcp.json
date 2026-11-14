@@ -5,14 +5,14 @@
       "args": [
         "run",
         "--script",
-        "C:/Users/Manec/bio-stack/servers/nvidia_bio_mcp/server.py"
+        "C:/Users/user/bio-stack/servers/nvidia_bio_mcp/server.py"
       ],
       "env": {
         "NVIDIA_API_KEY": "${NVIDIA_API_KEY}",
         "NVIDIA_NIM_MODE": "hosted",
         "NVIDIA_NIM_TIMEOUT": "900",
-        "BIO_STACK_OUT": "C:/Users/Manec/bio-stack/runs/nim",
-        "BIO_STACK_PROVENANCE": "C:/Users/Manec/bio-stack/runs/provenance.jsonl"
+        "BIO_STACK_OUT": "C:/Users/user/bio-stack/runs/nim",
+        "BIO_STACK_PROVENANCE": "C:/Users/user/bio-stack/runs/provenance.jsonl"
       }
     },
     "nvidia-nemo": {
@@ -20,14 +20,14 @@
       "args": [
         "run",
         "--script",
-        "C:/Users/Manec/bio-stack/servers/nvidia_nemo_mcp/server.py"
+        "C:/Users/user/bio-stack/servers/nvidia_nemo_mcp/server.py"
       ],
       "env": {
         "NVIDIA_API_KEY": "${NVIDIA_API_KEY}",
         "NVIDIA_EMBED_MODEL": "nvidia/nemotron-3-embed-1b",
         "NVIDIA_RERANK_MODEL": "nvidia/llama-3.2-nv-rerankqa-1b-v2",
-        "BIO_STACK_INDEX": "C:/Users/Manec/bio-stack/runs/library",
-        "BIO_STACK_PROVENANCE": "C:/Users/Manec/bio-stack/runs/provenance.jsonl"
+        "BIO_STACK_INDEX": "C:/Users/user/bio-stack/runs/library",
+        "BIO_STACK_PROVENANCE": "C:/Users/user/bio-stack/runs/provenance.jsonl"
       }
     },
     "biocontext": {
@@ -46,8 +46,10 @@
     "gget": {
       "command": "uvx",
       "args": [
+        "--from",
         "gget-mcp",
-        "stdio"
+        "gget-mcp",
+        "server"
       ]
     },
     "biomcp": {
@@ -72,7 +74,7 @@
         "tooluniverse"
       ],
       "env": {
-        "TOOLUNIVERSE_WORKSPACE": "C:/Users/Manec/bio-stack/runs/tooluniverse",
+        "TOOLUNIVERSE_WORKSPACE": "C:/Users/user/bio-stack/runs/tooluniverse",
         "NCBI_API_KEY": "${NCBI_API_KEY:-}",
         "OPENFDA_API_KEY": "${OPENFDA_API_KEY:-}"
       }
@@ -82,13 +84,13 @@
       "args": [
         "run",
         "--script",
-        "C:/Users/Manec/bio-stack/servers/claude_science_mcp/server.py"
+        "C:/Users/user/bio-stack/servers/claude_science_mcp/server.py"
       ],
       "env": {
         "CLAUDE_SCIENCE_TARGET": "wsl",
-        "CLAUDE_SCIENCE_WSL_DISTRO": "Ubuntu-24.04",
+        "CLAUDE_SCIENCE_WSL_DISTRO": "Ubuntu-26.04",
         "CLAUDE_SCIENCE_TIMEOUT": "900",
-        "BIO_STACK_PROVENANCE": "C:/Users/Manec/bio-stack/runs/provenance.jsonl",
+        "BIO_STACK_PROVENANCE": "C:/Users/user/bio-stack/runs/provenance.jsonl",
         "PYTHONDONTWRITEBYTECODE": "1"
       }
     },
@@ -98,7 +100,10 @@
         "--python",
         "3.13",
         "mcp-slicer"
-      ]
+      ],
+      "env": {
+        "SLICER_URL": "http://localhost:2016"
+      }
     },
     "blender": {
       "command": "uvx",
@@ -107,11 +112,11 @@
       ]
     },
     "chimerax": {
-      "command": "C:/Users/Manec/.local/bin/chimerax-mcp.exe",
+      "command": "C:/Users/user/.local/bin/chimerax-mcp.exe",
       "args": []
     },
     "totalsegmentator": {
-      "command": "C:/Users/Manec/.local/bin/totalseg_mcp.exe",
+      "command": "C:/Users/user/.local/bin/totalseg_mcp.exe",
       "args": [
         "--transport",
         "stdio"

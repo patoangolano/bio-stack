@@ -5,7 +5,7 @@
 # espera o consentimento voltar do navegador em 127.0.0.1:53682. E o unico
 # passo do backup que pede mao humana.
 #
-#   wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/bootstrap/rclone_gdrive.sh
+#   wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/user/bio-stack/bootstrap/rclone_gdrive.sh
 #
 # Escopo drive.file: o rclone so enxerga o que ele mesmo subiu, nao o resto do
 # Drive. Consequencia medida em 2026-10-19: o que subiu por outro caminho (o

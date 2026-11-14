@@ -1,18 +1,12 @@
 ---
-name: "source-command-filogenia"
-description: "Constrói a filogenia de um conjunto de locos com IQ-TREE 3 (alinhamento, limpeza, ML por loco, supermatriz, concordância, árvore de espécies) e interpreta o resultado."
+name: source-command-filogenia
+description: Constrói a filogenia de um conjunto de locos com IQ-TREE 3 (alinhamento, limpeza, ML por loco, supermatriz, concordância, árvore de espécies) e interpreta o resultado.
 ---
 
-# source-command-filogenia
+Entrada pedida: $ARGUMENTS
 
-Use this skill when the user asks to run the migrated source command `filogenia`.
-
-## Command Template
-
-Entrada pedida: o que o usuário indicou (diretório ou FASTA de locos, outgroup, opções).
-
-As regras de interpretação estão em `.claude/agents/phylo-analyst.md` (espelhado em
-`.codex/agents/phylo-analyst.toml`); este roteiro é a ordem das etapas.
+Delegue ao agente `phylo-analyst`. Ele tem as regras de interpretação; este
+comando é a ordem das etapas.
 
 ## Passo 1 — Olhar a entrada sem abrir os arquivos
 

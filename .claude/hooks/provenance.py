@@ -148,11 +148,36 @@ def main() -> int:
     except (json.JSONDecodeError, ValueError):
         return 0
 
-    tool_name = payload.get("tool_name", "")
+    is_agy = "hookEventName" in payload or "toolCall" in payload
+    if is_agy:
+        tc = payload.get("toolCall") or {}
+        raw_name = tc.get("name", "")
+        raw_args = tc.get("args") or {}
+        if raw_name == "run_command":
+            tool_name = "PowerShell"
+            tool_input = {"command": raw_args.get("CommandLine") or raw_args.get("command") or ""}
+        elif raw_name in ("write_file", "edit_file"):
+            tool_name = "Write" if raw_name == "write_file" else "Edit"
+            tool_input = {"file_path": raw_args.get("Path") or raw_args.get("file_path") or ""}
+        elif raw_name == "read_file":
+            tool_name = "Read"
+            tool_input = raw_args
+        else:
+            tool_name = raw_name
+            tool_input = raw_args
+        session_id = payload.get("conversationId")
+        event = payload.get("hookEventName") or "PostToolUse"
+    else:
+        tool_name = payload.get("tool_name", "")
+        tool_input = payload.get("tool_input") or {}
+        session_id = payload.get("session_id")
+        event = payload.get("hook_event_name") or "PostToolUse"
+
     if not tool_name or tool_name in IGNORED:
+        if is_agy:
+            print(json.dumps({}))
         return 0
 
-    event = payload.get("hook_event_name") or "PostToolUse"
     falhou = event == "PostToolUseFailure"
 
     # A excecao dos servidores proprios vale so para chamada bem-sucedida.
@@ -162,9 +187,10 @@ def main() -> int:
     # e alcancada. Sem esta ressalva a falha nao aparece em lugar nenhum, que e
     # como tres rotas quebradas passaram meses sem ninguem notar.
     if not falhou and tool_name.startswith(IGNORED_PREFIXES):
+        if is_agy:
+            print(json.dumps({}))
         return 0
 
-    tool_input = payload.get("tool_input") or {}
     response = payload.get("tool_response")
 
     # Qual evento disparou. Sem isto o log so tinha sucesso: `PostToolUse` nao
@@ -175,7 +201,7 @@ def main() -> int:
     entry = {
         "v": SCHEMA,
         "ts": datetime.now(UTC).isoformat(timespec="seconds"),
-        "session": payload.get("session_id"),
+        "session": session_id,
         "commit": COMMIT,
         "kind": classify(tool_name, tool_input),
         "tool": tool_name,
@@ -214,6 +240,8 @@ def main() -> int:
     except OSError:
         pass  # nunca derruba a sessao por causa do log
 
+    if is_agy:
+        print(json.dumps({}))
     return 0
 
 

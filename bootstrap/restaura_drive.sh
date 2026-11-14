@@ -25,7 +25,8 @@
 
 set -u
 
-DISTRO=Ubuntu-24.04
+DISTRO="${BIO_STACK_WSL_DISTRO:-Ubuntu-26.04}"
+WSL_USER="${BIO_STACK_WSL_USER:-user}"
 ORIGEM="${BIO_STACK_BACKUP:-/g/Meu Drive/bio-stack-backup/2026-10-19}"
 AQUI="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 RAIZ="$(dirname "$AQUI")"
@@ -42,7 +43,7 @@ md5_esperado() {
 
 wsl_pronto() {
     wsl.exe -l -q 2>/dev/null | tr -d '\0\r' | grep -qx "$DISTRO" &&
-        MSYS_NO_PATHCONV=1 wsl.exe -d "$DISTRO" -u manec -- test -d /home/manec 2>/dev/null
+        MSYS_NO_PATHCONV=1 wsl.exe -d "$DISTRO" -u "$WSL_USER" -- test -d "/home/$WSL_USER" 2>/dev/null
 }
 
 # nome | destino (windows: diretorio do Git Bash; wsl: diretorio na distro)
@@ -96,7 +97,7 @@ restaurar() {
         # Fluxo pelo stdin do wsl.exe: os bytes passam crus, o dono dos
         # arquivos e o manec, e nao e preciso montar o G: dentro da distro
         # (o que pediria sudo, e o manec nao tem senha).
-        MSYS_NO_PATHCONV=1 wsl.exe -d "$DISTRO" -u manec -- \
+        MSYS_NO_PATHCONV=1 wsl.exe -d "$DISTRO" -u "$WSL_USER" -- \
             tar -xz --skip-old-files -C "$destino" <"$copia" >>"$LOG" 2>&1
     fi
     local codigo=$?
@@ -118,10 +119,10 @@ fi
 restaurar bio-stack_runs_data windows "$RAIZ"
 
 if wsl_pronto; then
-    restaurar rapinantes_wsl wsl /home/manec
-    restaurar nf-work_wsl wsl /home/manec
+    restaurar rapinantes_wsl wsl "/home/$WSL_USER"
+    restaurar nf-work_wsl wsl "/home/$WSL_USER"
 else
-    registrar "pula rapinantes_wsl e nf-work_wsl: $DISTRO sem o usuario manec (rode o 09 antes)"
+    registrar "pula rapinantes_wsl e nf-work_wsl: $DISTRO sem o usuario $WSL_USER (rode o 09 antes)"
 fi
 
 # ~/genomas (9,7 GB) e ~/nf-smoke nao foram para o backup: tudo publico, refeito

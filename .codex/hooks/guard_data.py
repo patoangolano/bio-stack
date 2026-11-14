@@ -133,43 +133,131 @@ def _overwrites_existing(command: str) -> str | None:
     return None
 
 
+#: Ferramentas que escrevem arquivo sem passar por shell. O guard original so
+#: olhava Bash/PowerShell, entao `Write` sobre um FASTQ em data/raw passava sem
+#: nenhuma checagem — o caminho mais curto para destruir dado bruto era tambem
+#: o unico desprotegido.
+WRITE_TOOLS = ("Write", "Edit", "MultiEdit", "NotebookEdit")
+
+#: Ancorado em limite de caminho: `data/raw` casa, `metadata/rawstats` nao.
+RAW_DIR = re.compile(r"(?:^|[/\\])data[/\\]raw(?:[/\\]|$)", re.I)
+
+
+def _guard_write(tool_name: str, tool_input: dict) -> str | None:
+    """
+    Bloqueia escrita dentro de data/raw e sobrescrita de arquivo de dado bruto.
+
+    Criar arquivo novo em qualquer outro lugar e livre — o objetivo e proteger
+    o insubstituivel, nao atrapalhar a analise.
+    """
+    alvo = str(
+        tool_input.get("file_path")
+        or tool_input.get("notebook_path")
+        or tool_input.get("path")
+        or ""
+    )
+    if not alvo:
+        return None
+
+    if RAW_DIR.search(alvo):
+        return (
+            f"{alvo} esta dentro de data/raw, que guarda dado bruto irrecuperavel.\n"
+            "  Escreva em data/proc/ ou runs/ e deixe o bruto intacto. Se o arquivo "
+            "precisa mesmo entrar no acervo bruto, o usuario copia manualmente."
+        )
+
+    if alvo.lower().endswith(DATA_EXT):
+        try:
+            existe = Path(alvo).exists()
+        except OSError:
+            existe = False
+        if existe:
+            return (
+                f"{alvo} ja existe e e um arquivo de dado bruto.\n"
+                "  Sobrescrever apaga o original sem historico. Escreva num nome "
+                "novo e compare antes de substituir."
+            )
+    return None
+
+
+def _finish(is_agy: bool, blocked: bool, reason: str = "") -> int:
+    if is_agy:
+        if blocked:
+            print(json.dumps({"decision": "deny", "reason": reason}))
+        else:
+            print(json.dumps({"decision": "allow"}))
+        return 0
+    if blocked:
+        print(reason, file=sys.stderr)
+        return 2
+    return 0
+
+
 def main() -> int:
     try:
         payload = json.load(sys.stdin)
     except (json.JSONDecodeError, ValueError):
         return 0  # entrada malformada nunca deve travar a sessao
 
-    if payload.get("tool_name") not in ("Bash", "PowerShell"):
-        return 0
+    is_agy = "hookEventName" in payload or "toolCall" in payload
+    if is_agy:
+        tc = payload.get("toolCall") or {}
+        raw_name = tc.get("name", "")
+        raw_args = tc.get("args") or {}
+        if raw_name in ("write_file", "edit_file"):
+            tool_name = "Write"
+            tool_input = {"file_path": raw_args.get("Path") or raw_args.get("file_path") or ""}
+        elif raw_name == "run_command":
+            tool_name = "PowerShell"
+            tool_input = {"command": raw_args.get("CommandLine") or raw_args.get("command") or ""}
+        else:
+            tool_name = raw_name
+            tool_input = raw_args
+    else:
+        tool_name = payload.get("tool_name")
+        tool_input = payload.get("tool_input") or {}
 
-    tool_input = payload.get("tool_input") or {}
+    if tool_name in WRITE_TOOLS:
+        motivo = _guard_write(tool_name, tool_input)
+        if motivo:
+            return _finish(
+                is_agy,
+                True,
+                "[guard_data] escrita bloqueada pela bio-stack.\n"
+                f"  motivo: {motivo}",
+            )
+        return _finish(is_agy, False)
+
+    if tool_name not in ("Bash", "PowerShell"):
+        return _finish(is_agy, False)
+
     command = str(tool_input.get("command", ""))
     if not command:
-        return 0
+        return _finish(is_agy, False)
 
     alvo = _overwrites_existing(command)
     if alvo:
-        print(
+        return _finish(
+            is_agy,
+            True,
             "[guard_data] comando bloqueado pela bio-stack.\n"
             f"  motivo: o redirecionamento sobrescreveria {alvo}, que ja existe.\n"
             "  Escreva num nome novo e compare antes de substituir.",
-            file=sys.stderr,
         )
-        return 2
 
     for pattern, reason in RULES:
         if pattern.search(command):
-            print(
+            return _finish(
+                is_agy,
+                True,
                 "[guard_data] comando bloqueado pela bio-stack.\n"
                 f"  motivo: {reason}\n"
                 f"  comando: {command[:300]}\n"
                 "Se voce tem certeza e o usuario confirmou explicitamente, "
                 "peca para ele rodar manualmente no terminal dele.",
-                file=sys.stderr,
             )
-            return 2
 
-    return 0
+    return _finish(is_agy, False)
 
 
 if __name__ == "__main__":

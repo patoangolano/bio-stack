@@ -79,7 +79,7 @@ também — o invólucro é Python puro e chama o WSL sozinho:
 uv run python scripts/filogenia/filogenia.py --input <dir com 1 FASTA por loco> --outgroup <taxon>
 ```
 
-O projeto aparece lá como `/mnt/c/Users/Manec/bio-stack`. Prefira trabalhar em
+O projeto aparece lá como `/mnt/c/Users/user/bio-stack`. Prefira trabalhar em
 `~/` dentro do WSL quando o I/O importar — `/mnt/c` atravessa a fronteira de
 sistema de arquivos e é ordens de grandeza mais lento para muitos arquivos
 pequenos, que é exatamente o padrão de um pipeline Nextflow.
@@ -143,10 +143,13 @@ singularity.
 | matriz de contagem, DEG, scRNA-seq, enriquecimento | `omics-analyst` |
 | plasmídeo, primer, códon, Golden Gate, CRISPR guide | `seq-designer` |
 | variante, VCF, ACMG, gnomAD, farmacogenômica | `variant-curator` |
+| perda gênica, pseudogene, estado ancestral, atavismo, evo-devo | `evo-devo` |
+| fóssil, táxon extinto, PBDB (FAD/LAD), tip-dating (FBD/RevBayes/BEAST2), matriz morfológica (Mk/Mkv +ASC), paleoproteômica (ZooMS), DNA antigo (aDNA), proteína ancestral (AltAll), FEA de fóssil | `paleo-analyst` |
 | árvore filogenética, alinhamento múltiplo, IQ-TREE, suporte de ramo, concordância, árvore de espécies | `phylo-analyst` |
 | Nextflow, nf-core, Snakemake, cluster, container | `pipeline-engineer` |
 | revisão de literatura, estado da arte, precedente | `lit-scout` |
 | "onde nos meus PDFs fala sobre X" | `mcp__nvidia-nemo__library_search` |
+| varredura longa que não deve ocupar este contexto | `mcp__claude-science__science_ask` |
 
 Perguntas rápidas de lookup (o que é o gene X, qual o UniProt de Y) resolva
 direto com `mcp__gget__*` ou `mcp__biocontext` — não delegue.
@@ -197,31 +200,45 @@ consulte o log, não a memória da conversa.
 
 ## Comandos
 
-Espelhados em `.agents/skills/source-command-*`, usáveis daqui:
+Disponíveis nativamente em `.agents/skills/<comando>/SKILL.md` (e espelhados em
+`.agents/skills/source-command-*` e `.claude/commands/`):
 
 - `/bio-doctor` — diagnóstico do ambiente
 - `/filogenia` — locos → IQ-TREE 3 (ML por loco, supermatriz, concordância, wASTRAL) → Métodos
-
-Só do lado Claude (`.claude/commands/`, sem espelho aqui):
-
-- `/nim` — estado dos endpoints NVIDIA
-- `/fold` — predição de estrutura
-- `/atavismo` — testa se um caráter foi perdido por gene ou por regulação
-  (delega ao agente `evo-devo`, que também só existe em `.claude/agents/`)
-- `/metodos` — gera a seção de Métodos a partir do log
+- `/nim` — estado dos endpoints NVIDIA BioNeMo NIM
+- `/fold` — predição de estrutura (ESM3 / OpenFold3 / Boltz-2)
+- `/atavismo` — testa se um caráter foi perdido por gene ou por regulação (`evo-devo`)
+- `/paleo` — paleontologia computacional: calibração PBDB (FAD/LAD), auditoria Mk/Mkv (`+ASC`), par ancestral `ML`+`AltAll`, paleoproteômica (`zooms-qc`), FBD (`RevBayes`/`BEAST2`) e aDNA (`paleo-analyst`)
+- `/metodos` — gera a seção de Métodos a partir do log `runs/provenance.jsonl`
 - `/nvidia` — audita tudo que a chave NVIDIA destrava
+
+## Biofísica, biomecânica, morfologia e osteologia
+
+Camada de 2026-10-12. O catálogo completo, com as armadilhas medidas, está em
+[`docs/STACK.md`](docs/STACK.md) — leia antes de mexer. O resumo operacional:
+
+| Camada | O que está lá | Como chamar |
+|---|---|---|
+| venv do projeto (Windows) | MDAnalysis, MuJoCo, febio-python, trimesh, PyVista, Open3D, gmsh, morphosource | `uv run python` |
+| `uv tool` (isolado) | TotalSegmentator, nnInteractive, DeepLabCut, SLEAP, chimerax-mcp, biomcp | `TotalSegmentator`, `dlc`, `sleap-train`, … |
+| `envs/<nome>/.venv` | BioEmu, BoneJ_Headless | `envs/bioemu/.venv/Scripts/python.exe` |
+| pixi global (WSL) | GROMACS, PyMOL, OpenMM, OpenSim 4.6 | `gmx`, `pymol`, `python-openmm`, `python-opensim` |
+| pixi em `~/envs` (WSL) | MyoConverter (OpenSim 4.4.1), opencap-processing (OpenSim 4.5) | `pixi run --manifest-path ~/envs/<nome>/pixi.toml python` |
+| aplicativo gráfico | 3D Slicer 5.12.4 + SlicerMorph, Fiji + BoneJ 7.2.2, Blender 5.2.1, ChimeraX 1.12 | MCP `slicer`, `blender`, `chimerax`, `totalsegmentator` |
 
 ## Estrutura
 
 ```
 bootstrap/   instalação (rodar uma vez); 05_wsl_ferramentas.sh + pixi-global.toml = CLIs do WSL
-servers/     servidor MCP da NVIDIA (código próprio)
+servers/     servidores MCP próprios (nvidia_bio_mcp, nvidia_nemo_mcp, claude_science_mcp)
 pipelines/   pipelines Nextflow próprios (filogenia/ — ver docs/FILOGENIA.md)
 scripts/     análises e invólucros (filogenia/filogenia.py roda o pipeline do Windows)
 r/           R 4.6 + Bioconductor (renv): filogenia comparativa, DE de referência
-.codex/      agents, hooks, config.toml — o lado não-Claude
-.agents/     skills compartilhadas (fonte dos comandos espelhados)
-.claude/     equivalentes do lado Claude: agents, commands, hooks, settings
+envs/        ambientes isolados: requirements.in/pixi.toml versionados, .venv fora do git
+vendor/      clones de terceiros que não são pacote (reconstrói: vendor/clonar.sh)
+.codex/      agents, hooks, config.toml — o lado Codex
+.agents/     skills (427), agents (8), hooks.json, plugins/bio-stack — o lado Antigravity (agy)
+.claude/     agents, commands, hooks, settings, marketplace — o lado Claude Code
 data/raw/    dados brutos — protegidos por hook, nunca sobrescrever
 data/proc/   dados processados
 runs/        saídas de análise + provenance.jsonl

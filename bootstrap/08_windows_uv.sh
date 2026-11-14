@@ -49,9 +49,9 @@
 
 set -u
 
-UV=/c/Users/Manec/.local/bin/uv.exe
-PYTHONS=/c/Users/Manec/AppData/Roaming/uv/python
-TOOLS=/c/Users/Manec/AppData/Roaming/uv/tools
+UV=/c/Users/user/.local/bin/uv.exe
+PYTHONS=/c/Users/user/AppData/Roaming/uv/python
+TOOLS=/c/Users/user/AppData/Roaming/uv/tools
 AQUI="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 RAIZ="$(dirname "$AQUI")"
 LOG="${1:-$RAIZ/runs/bootstrap/08_windows_uv.log}"
@@ -143,7 +143,10 @@ env_isolado() {
 }
 env_isolado bioemu --torch-backend cu128
 env_isolado bonej-headless
+env_isolado esm3 --torch-backend cu128
+env_isolado cell-eval2
 kernel "envs/bioemu" "$RAIZ/envs/bioemu/.venv/Scripts/python.exe"
+kernel "envs/esm3" "$RAIZ/envs/esm3/.venv/Scripts/python.exe"
 
 # --- 3. uv tools --------------------------------------------------------------
 ferramenta() {
@@ -159,6 +162,7 @@ ferramenta "chimerax-mcp" chimerax-mcp
 # para uv/tools/vcc-cli. A chave da conta fica no chaveiro do Windows e
 # sobrevive a reinstalacao.
 ferramenta "vcc-cli (Virtual Cell Challenge)" vcc-cli
+passo "biomcp (biomcp-python)" "$UV" tool install --force --python 3.11 biomcp-python
 
 registrar "=== inventario ==="
 "$UV" tool list >>"$LOG" 2>&1

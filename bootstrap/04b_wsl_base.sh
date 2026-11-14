@@ -6,7 +6,7 @@
 # Roda como root, a partir do Windows. O `-u root` dispensa senha e pula o
 # assistente de primeiro uso da distro:
 #
-#   wsl -d Ubuntu-24.04 -u root -- bash /mnt/c/Users/Manec/bio-stack/bootstrap/04b_wsl_base.sh
+#   wsl -d Ubuntu-24.04 -u root -- bash /mnt/c/Users/user/bio-stack/bootstrap/04b_wsl_base.sh
 #
 # Depois dele, como o usuario: 05_wsl_ferramentas.sh (pixi + CLIs, inclusive
 # a biofisica) e 06_wsl_envs_biomec.sh (ambientes de biomecanica).
@@ -20,12 +20,13 @@
 # 1.23.1); quem responde por eles e o ambiente `hts` do pixi (1.24).
 set -euo pipefail
 
-USUARIO=manec
+USUARIO="${BIO_STACK_WSL_USER:-$(id -nu 1000 2>/dev/null || echo user)}"
+DISTRO_NOME="${BIO_STACK_WSL_DISTRO:-Ubuntu-26.04}"
 NXF_VER=26.04.6
 NFCORE_VER=4.1.0
 
 if [ "$(id -u)" -ne 0 ]; then
-    echo "rode como root: wsl -d Ubuntu-24.04 -u root -- bash $0" >&2
+    echo "rode como root: wsl -d $DISTRO_NOME -u root -- bash $0" >&2
     exit 1
 fi
 
@@ -37,16 +38,22 @@ como_usuario() { runuser -l "$USUARIO" -c "$1"; }
 # uid 1000 e o que o /etc/wsl-distribution.conf declara como usuario padrao.
 if id "$USUARIO" >/dev/null 2>&1; then
     echo "usuario $USUARIO ja existe (uid $(id -u "$USUARIO"))"
+    usermod -aG sudo "$USUARIO" 2>/dev/null || true
 else
     useradd -m -u 1000 -s /bin/bash -G sudo "$USUARIO"
-    echo "usuario $USUARIO criado SEM senha; defina com:  wsl -d Ubuntu-24.04 -u root passwd $USUARIO"
+    echo "usuario $USUARIO criado SEM senha; defina com:  wsl -d $DISTRO_NOME -u root passwd $USUARIO"
+fi
+echo "$USUARIO ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/bio-stack
+chmod 0440 /etc/sudoers.d/bio-stack
+if [ "$USUARIO" != "manec" ] && [ ! -e /home/manec ]; then
+    ln -s "/home/$USUARIO" /home/manec
 fi
 if grep -q '^\[user\]' /etc/wsl.conf 2>/dev/null; then
     sed -i "s/^default=.*/default=$USUARIO/" /etc/wsl.conf
 else
     printf '\n[user]\ndefault=%s\n' "$USUARIO" >> /etc/wsl.conf
 fi
-echo "/etc/wsl.conf: usuario padrao = $USUARIO (vale depois de wsl --terminate Ubuntu-24.04)"
+echo "/etc/wsl.conf: usuario padrao = $USUARIO (vale depois de wsl --terminate $DISTRO_NOME)"
 
 # --- 2. apt ---------------------------------------------------------------------
 export DEBIAN_FRONTEND=noninteractive
@@ -112,14 +119,14 @@ else
     como_usuario "nextflow -download >/dev/null"
 fi
 
-# --- 5. nf-core por pipx ---------------------------------------------------------
-if como_usuario "pipx list --short 2>/dev/null | grep -q '^nf-core $NFCORE_VER\$'"; then
+# --- 5. nf-core por pipx (com fallback para uv tool se python3 do sistema nao tiver wheel) ---
+if como_usuario "export PATH=\"\$HOME/.local/bin:\$PATH\"; command -v nf-core >/dev/null && nf-core --version 2>/dev/null | grep -q '$NFCORE_VER'"; then
     echo "nf-core $NFCORE_VER ja instalado"
 else
-    como_usuario "pipx install --force nf-core==$NFCORE_VER >/dev/null"
+    como_usuario "pipx install --force nf-core==$NFCORE_VER >/dev/null 2>&1 || /usr/local/bin/uv tool install --force --python 3.12 nf-core==$NFCORE_VER >/dev/null"
 fi
 
 # --- 6. resumo -------------------------------------------------------------------
-como_usuario "echo '== camada base =='; nextflow -version 2>/dev/null | grep version; nf-core --version 2>/dev/null | tail -1; docker --version"
+como_usuario "export PATH=\"\$HOME/.local/bin:\$PATH\"; echo '== camada base =='; nextflow -version 2>/dev/null | grep version; nf-core --version 2>/dev/null | tail -1; docker --version"
 echo
-echo "proximo: wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/bootstrap/05_wsl_ferramentas.sh"
+echo "proximo: wsl -d $DISTRO_NOME -- bash -l /mnt/c/Users/user/bio-stack/bootstrap/05_wsl_ferramentas.sh"

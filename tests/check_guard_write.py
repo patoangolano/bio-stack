@@ -31,7 +31,7 @@ CASOS: list[tuple[str, dict, int]] = [
         "Write em data/raw com caminho absoluto Windows",
         {
             "tool_name": "Write",
-            "tool_input": {"file_path": r"C:\Users\Manec\bio-stack\data\raw\lote1\r1.fq.gz"},
+            "tool_input": {"file_path": r"C:\Users\user\bio-stack\data\raw\lote1\r1.fq.gz"},
         },
         2,
     ),

@@ -158,13 +158,13 @@ def testa_involucro(tmp: Path) -> None:
     casos = {
         "\\\\wsl.localhost\\Ubuntu-24.04\\home\\manec\\x": "/home/manec/x",
         "\\\\wsl$\\Ubuntu-24.04\\home": "/home",
-        "/c/Users/Manec/x": "/mnt/c/Users/Manec/x",
+        "/c/Users/user/x": "/mnt/c/Users/user/x",
         "/mnt/c/x": "/mnt/c/x",
         "/home/manec/x": "/home/manec/x",
         "~/dados": "~/dados",
     }
     if os.name == "nt":
-        casos["C:\\Users\\Manec\\bio-stack"] = "/mnt/c/Users/Manec/bio-stack"
+        casos["C:\\Users\\Manec\\bio-stack"] = "/mnt/c/Users/user/bio-stack"
     for entrada, esperado in casos.items():
         ok(f.para_wsl(entrada) == esperado, f"para_wsl({entrada!r}) = {esperado!r}")
     try:

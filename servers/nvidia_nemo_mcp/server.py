@@ -53,7 +53,23 @@ except ImportError:  # pragma: no cover
 # Configuracao
 # ---------------------------------------------------------------------------
 
-API_KEY = os.environ.get("NVIDIA_API_KEY", "").strip()
+def _resolve_api_key() -> str:
+    val = os.environ.get("NVIDIA_API_KEY", "").strip()
+    if val and not val.startswith("${"):
+        return val
+    if os.name == "nt":
+        try:
+            import winreg
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Environment") as key:
+                v, _ = winreg.QueryValueEx(key, "NVIDIA_API_KEY")
+                if isinstance(v, str) and v.strip():
+                    return v.strip()
+        except OSError:
+            pass
+    return ""
+
+
+API_KEY = _resolve_api_key()
 BASE = os.environ.get("NVIDIA_NEMO_BASE", "https://integrate.api.nvidia.com/v1")
 
 # llama-3.2-nv-embedqa-1b-v2 cobre 26 idiomas. Importa aqui: artigos em ingles,

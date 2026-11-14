@@ -48,4 +48,4 @@ fi
 
 echo "BoneJ_Headless em $aqui/BoneJ_Headless"
 echo "Requer Fiji com a update site BoneJ habilitada. Nesta maquina:"
-echo "  C:/Users/Manec/Apps/Fiji.app/ImageJ-win64.exe"
+echo "  C:/Users/user/Apps/Fiji.app/ImageJ-win64.exe"

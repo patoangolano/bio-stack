@@ -39,7 +39,7 @@ for _s in (sys.stdout, sys.stderr):
 RAIZ = Path(__file__).resolve().parents[1]
 PIPELINE = RAIZ / "pipelines" / "filogenia"
 VERDADEIRA = PIPELINE / "assets" / "test" / "arvore_verdadeira.nwk"
-DISTRO = "Ubuntu-24.04"
+DISTRO = os.environ.get("BIO_STACK_WSL_DISTRO", "Ubuntu-26.04")
 
 falhas: list[str] = []
 
@@ -142,6 +142,8 @@ def wsl_pronto() -> str | None:
             ],
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             timeout=90,
             check=False,
         )

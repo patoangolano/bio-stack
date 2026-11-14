@@ -33,7 +33,7 @@ set -uo pipefail
 DEST="${BIO_STACK_BACKUP_DEST:-gdrive:bio-stack-backup/$(date +%F)}"
 LOG="${1:-$HOME/backup_drive.log}"
 TMP="$HOME/.backup_drive_md5"
-BIO=/mnt/c/Users/Manec/bio-stack
+BIO=/mnt/c/Users/user/bio-stack
 mkdir -p "$TMP" "$(dirname "$LOG")"
 
 if [ -n "${BIO_STACK_BACKUP_ITENS:-}" ]; then

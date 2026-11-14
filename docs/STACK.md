@@ -62,17 +62,20 @@ PubMed · bioRxiv/medRxiv · BioRender · Synthesize Bio (GEM-1) · Hugging Face
 | `LatchBio` | registro de conectores | lançar workflows na nuvem |
 | `Synapse.org` | registro de conectores | dados de consórcios (Sage Bionetworks) |
 
-### Ferramentas de linha de comando — ★ camada pixi no WSL (2026-10-11)
+### Ferramentas de linha de comando — ★ camada pixi no WSL (2026-10-11, expandida em 2026-11-13)
 
-37 ambientes pixi (um por ferramenta, ou grupo coeso), versão exata em
+54 ambientes pixi (um por ferramenta, ou grupo coeso), versão exata em
 [`bootstrap/pixi-global.toml`](../bootstrap/pixi-global.toml), build e
 sha256 em `bootstrap/pixi-global.snapshot.tsv`, conferidas por
 `tests/check_wsl_ferramentas.py`. Chame direto pelo WSL
-(`wsl -d Ubuntu-24.04 -- bash -lc "blastn -version"`).
+(`wsl -d Ubuntu-26.04 -- bash -lc "blastn -version"`).
 
 | Família | Ferramentas |
 |---|---|
 | filogenia | ★ IQ-TREE 3.1.4, MAFFT 7.525, FAMSA 2.4.1, MUSCLE 5.3, ClipKIT 2.14.0, trimAl 1.5.1, RAxML-NG 2.0.3, FastTree 2.2.0, ASTER 1.25 (wASTRAL), gotree, goalign |
+| paleontologia, FBD e datação | ★ RevBayes 1.4.2 (`rb`, `rb-mpi`), BEAST 2.7.7 (`beast`, `beauti`, `treeannotator` + `beagle-lib` 4.2.0), MrBayes 3.2.9 (`mb`, `mb-mpi`), `scripts/paleo/paleo_toolkit.py` (`pbdb-range`, `mk-audit`, `altall-asr`, `zooms-qc`) |
+| DNA antigo (aDNA) e sedaDNA | ★ DamageProfiler 1.1, mapDamage2 2.2.3, AdapterRemoval 3.0.2, BWA 0.7.19 (`bwa aln`), ANGSD 0.940 (`angsd`, `realSFS`, `NGSadmix`), VSEARCH 2.32.0 |
+| docking físico (controle do DiffDock) | ★ smina 2020.12.10, AutoDock Vina 1.1.2 (`vina`, `vina_split`) |
 | evolução molecular | ★ HyPhy 2.5.103, PAML 4.10.10 (codeml, MCMCtree), MACSE 2.07, PRANK |
 | homologia e ortologia | ★ BLAST+ 2.17.0, DIAMOND 2.2.8, HMMER 3.4, MMseqs2 18, OrthoFinder 3.1.5, miniprot 0.18, minimap2 2.31 |
 | transcrição | ★ subread 2.1.1 (featureCounts), StringTie 3.0.3 — leitura de RNA-seq sobre janela não anotada (relíquia transcrita ou não) |
@@ -86,7 +89,9 @@ sha256 em `bootstrap/pixi-global.snapshot.tsv`, conferidas por
 
 O levantamento completo — o que entrou, o que ficou como receita e o que
 foi descartado, com fonte — está em
-[`PESQUISA-STACK-2026-10.md`](PESQUISA-STACK-2026-10.md).
+[`PESQUISA-STACK-2026-10.md`](PESQUISA-STACK-2026-10.md) e a expansão de
+paleontologia e precisão em
+[`PALEONTOLOGIA-E-PRECISAO-2026-11.md`](PALEONTOLOGIA-E-PRECISAO-2026-11.md).
 
 ### R — ★ biblioteca do projeto em `r/` (renv, 2026-10-11)
 
@@ -283,7 +288,7 @@ Aplicar: `bash bootstrap/06_wsl_envs_biomec.sh` (no WSL).
 |---|---|---|---|
 | 3D Slicer | 5.12.4 (rev 34645) | `AppData/Local/slicer.org/3D Slicer 5.12.4` | download direto, sha512 conferido, instalador NSIS em `/S` |
 | SlicerMorph | git `0934a26` | extensão do Slicer | pacote do `slicer-packages.kitware.com`, sha512 conferido |
-| Fiji + BoneJ | Fiji stable; BoneJ 7.2.2 + bonej-plus 0.0.24 | `C:/Users/Manec/Apps/Fiji.app` | zip portátil; update site adicionada por CLI |
+| Fiji + BoneJ | Fiji stable; BoneJ 7.2.2 + bonej-plus 0.0.24 | `C:/Users/user/Apps/Fiji.app` | zip portátil; update site adicionada por CLI |
 | Blender | 5.2.1 LTS | `Program Files/Blender Foundation/Blender 5.2` | já estava instalado |
 | ChimeraX | 1.12 (2026-06-12) | `Program Files/ChimeraX 1.12` | instalado por Мухамед em 2026-10-12, depois do aceite de licença |
 | FEBio Studio + solver | Studio 3.2, **FEBio 4.13.0** | `Program Files/FEBioStudio` | instalado por Мухамед em 2026-10-12, depois do cadastro |

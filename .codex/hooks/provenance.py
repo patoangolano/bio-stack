@@ -41,6 +41,49 @@ def _log_path() -> Path:
 
 LOG = _log_path()
 
+#: Versao do formato de cada linha. O arquivo ja mudou de forma uma vez sem
+#: aviso (linhas antigas nao tem `ok` nem `commit`), e um leitor que assuma o
+#: formato novo quebra ou, pior, mente sobre as linhas velhas.
+SCHEMA = 3
+
+
+def _commit() -> str | None:
+    """
+    SHA do HEAD, lido direto do diretorio .git.
+
+    Poderia ser `git rev-parse HEAD`, mas isso e um subprocesso por chamada de
+    ferramenta — em 900 operacoes, minutos de overhead. Ler o arquivo custa
+    microssegundos e da a mesma resposta.
+
+    Isto e o que amarra resultado a codigo. Sem o SHA, o log responde "o que eu
+    rodei" mas nao "com qual versao do script" — e a segunda pergunta e a que
+    torna o resultado reproduzivel.
+    """
+    raiz = Path(__file__).resolve().parents[2] / ".git"
+    try:
+        head = (raiz / "HEAD").read_text(encoding="utf-8").strip()
+    except OSError:
+        return None
+    if not head.startswith("ref:"):
+        return head[:40] or None  # HEAD destacado ja e o proprio SHA
+
+    ref = head[4:].strip()
+    try:
+        return (raiz / ref).read_text(encoding="utf-8").strip()[:40]
+    except OSError:
+        pass
+    # Ref empacotada: depois de `git gc` o arquivo solto deixa de existir.
+    try:
+        for linha in (raiz / "packed-refs").read_text(encoding="utf-8").splitlines():
+            if linha.endswith(f" {ref}"):
+                return linha.split(" ", 1)[0][:40]
+    except OSError:
+        pass
+    return None
+
+
+COMMIT = _commit()
+
 # Ferramentas de leitura pura nao mudam nada; registra-las so gera ruido.
 IGNORED = {"Read", "Grep", "Glob", "TodoWrite", "ListAgents", "ToolSearch", "WebSearch"}
 
@@ -105,22 +148,79 @@ def main() -> int:
     except (json.JSONDecodeError, ValueError):
         return 0
 
-    tool_name = payload.get("tool_name", "")
+    is_agy = "hookEventName" in payload or "toolCall" in payload
+    if is_agy:
+        tc = payload.get("toolCall") or {}
+        raw_name = tc.get("name", "")
+        raw_args = tc.get("args") or {}
+        if raw_name == "run_command":
+            tool_name = "PowerShell"
+            tool_input = {"command": raw_args.get("CommandLine") or raw_args.get("command") or ""}
+        elif raw_name in ("write_file", "edit_file"):
+            tool_name = "Write" if raw_name == "write_file" else "Edit"
+            tool_input = {"file_path": raw_args.get("Path") or raw_args.get("file_path") or ""}
+        elif raw_name == "read_file":
+            tool_name = "Read"
+            tool_input = raw_args
+        else:
+            tool_name = raw_name
+            tool_input = raw_args
+        session_id = payload.get("conversationId")
+        event = payload.get("hookEventName") or "PostToolUse"
+    else:
+        tool_name = payload.get("tool_name", "")
+        tool_input = payload.get("tool_input") or {}
+        session_id = payload.get("session_id")
+        event = payload.get("hook_event_name") or "PostToolUse"
+
     if not tool_name or tool_name in IGNORED:
-        return 0
-    if tool_name.startswith(IGNORED_PREFIXES):
+        if is_agy:
+            print(json.dumps({}))
         return 0
 
-    tool_input = payload.get("tool_input") or {}
+    falhou = event == "PostToolUseFailure"
+
+    # A excecao dos servidores proprios vale so para chamada bem-sucedida.
+    # Em `servers/nvidia_bio_mcp/server.py` todo `_log_provenance(...)` roda
+    # DEPOIS de obter o resultado, entao quando o POST levanta excecao — o 422
+    # que `evo2_score` dava em toda chamada, por exemplo — a linha de log nunca
+    # e alcancada. Sem esta ressalva a falha nao aparece em lugar nenhum, que e
+    # como tres rotas quebradas passaram meses sem ninguem notar.
+    if not falhou and tool_name.startswith(IGNORED_PREFIXES):
+        if is_agy:
+            print(json.dumps({}))
+        return 0
+
     response = payload.get("tool_response")
 
+    # Qual evento disparou. Sem isto o log so tinha sucesso: `PostToolUse` nao
+    # dispara quando a ferramenta falha, entao uma predicao que deu 422 e um
+    # script que estourou excecao sumiam do caderno. Uma secao de Metodos
+    # escrita a partir de um log so-de-sucesso descreve um experimento que nao
+    # aconteceu — e o vies e invisivel, porque nada no arquivo denuncia a falta.
     entry = {
+        "v": SCHEMA,
         "ts": datetime.now(UTC).isoformat(timespec="seconds"),
-        "session": payload.get("session_id"),
+        "session": session_id,
+        "commit": COMMIT,
         "kind": classify(tool_name, tool_input),
         "tool": tool_name,
+        "ok": not falhou,
         "input": redact(tool_input),
     }
+
+    if falhou:
+        motivo = payload.get("tool_error") or payload.get("error") or ""
+        if isinstance(motivo, dict):
+            motivo = motivo.get("message") or json.dumps(motivo, ensure_ascii=False)
+        # redact() ANTES do truncamento. Este era o unico campo da entrada que
+        # nao passava pelo filtro de segredo, e e justamente o campo que tende a
+        # ecoar a linha de comando que falhou — um `curl -H "Authorization:
+        # Bearer ..."` que da errado devolve o header na mensagem de erro. Como
+        # runs/provenance.jsonl e versionado de proposito (.gitignore tem
+        # `!runs/provenance.jsonl`), um segredo aqui entra no historico do git e
+        # nao sai mais. Corrigido em 2026-10-10.
+        entry["erro"] = redact(str(motivo))[:400] or "(sem mensagem)"
 
     # Guarda so o essencial da resposta: caminhos de arquivo e status de erro.
     if isinstance(response, dict):
@@ -140,6 +240,8 @@ def main() -> int:
     except OSError:
         pass  # nunca derruba a sessao por causa do log
 
+    if is_agy:
+        print(json.dumps({}))
     return 0
 
 

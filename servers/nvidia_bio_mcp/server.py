@@ -67,8 +67,24 @@ except ImportError:  # pragma: no cover - caminho legado
 # Configuracao
 # ---------------------------------------------------------------------------
 
+def _resolve_api_key() -> str:
+    val = os.environ.get("NVIDIA_API_KEY", "").strip()
+    if val and not val.startswith("${"):
+        return val
+    if sys.platform == "win32":
+        try:
+            import winreg
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Environment") as key:
+                v, _ = winreg.QueryValueEx(key, "NVIDIA_API_KEY")
+                if isinstance(v, str) and v.strip():
+                    return v.strip()
+        except OSError:
+            pass
+    return ""
+
+
 MODE: str = os.environ.get("NVIDIA_NIM_MODE", "hosted").lower()
-API_KEY: str = os.environ.get("NVIDIA_API_KEY", "").strip()
+API_KEY: str = _resolve_api_key()
 HOSTED_BASE: str = os.environ.get("NVIDIA_NIM_HOSTED_BASE", "https://health.api.nvidia.com/v1")
 LOCAL_BASE: str = os.environ.get("NVIDIA_NIM_LOCAL_BASE", "http://localhost:8000")
 
@@ -353,6 +369,9 @@ def _base_url() -> str:
 
 
 def _headers() -> dict[str, str]:
+    global API_KEY
+    if not API_KEY:
+        API_KEY = _resolve_api_key()
     h = {"Content-Type": "application/json", "Accept": "application/json"}
     if MODE == "hosted":
         if not API_KEY:
@@ -644,6 +663,9 @@ def nim_config() -> dict[str, Any]:
 
     Chame isto primeiro quando qualquer outra ferramenta falhar.
     """
+    global API_KEY
+    if not API_KEY:
+        API_KEY = _resolve_api_key()
     return {
         "mode": MODE,
         "base_url": _base_url(),

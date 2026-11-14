@@ -31,7 +31,7 @@ wsl -d Ubuntu-24.04 -- bash -lc "pixi --version && pixi global list"
 wsl -d Ubuntu-24.04 -- bash -lc "command -v nextflow docker iqtree3 mafft hyphy codeml blastn diamond miniprot datasets nf-test samtools"
 ```
 
-Ferramenta faltando: `wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/Manec/bio-stack/bootstrap/05_wsl_ferramentas.sh`
+Ferramenta faltando: `wsl -d Ubuntu-24.04 -- bash -l /mnt/c/Users/user/bio-stack/bootstrap/05_wsl_ferramentas.sh`
 reaplica o manifesto inteiro e regrava `bootstrap/pixi-global.snapshot.tsv`.
 
 > `samtools`/`bcftools` respondem pelo pixi (1.24) e não mais pelo apt
@@ -41,7 +41,7 @@ reaplica o manifesto inteiro e regrava `bootstrap/pixi-global.snapshot.tsv`.
 ## 1c. Pipeline de filogenia
 
 ```powershell
-wsl -d Ubuntu-24.04 -- bash -lc "cd /mnt/c/Users/Manec/bio-stack/pipelines/filogenia && nextflow lint main.nf nextflow.config conf modules/local"
+wsl -d Ubuntu-24.04 -- bash -lc "cd /mnt/c/Users/user/bio-stack/pipelines/filogenia && nextflow lint main.nf nextflow.config conf modules/local"
 uv run --script tests/check_filogenia.py   # ponta a ponta, ~1 min com imagens em cache
 ```
 

@@ -35,7 +35,7 @@ if [ ! -f /usr/include/linux/input-event-codes.h ]; then
   echo "== instalando linux-libc-dev (header de input, exigido por evdev) =="
   sudo -n apt-get install -y -q linux-libc-dev || {
     echo "sem sudo sem senha; rode como root:" >&2
-    echo "  wsl -d Ubuntu-24.04 -u root -- bash /mnt/c/Users/Manec/bio-stack/bootstrap/04b_wsl_base.sh" >&2
+    echo "  wsl -d Ubuntu-24.04 -u root -- bash /mnt/c/Users/user/bio-stack/bootstrap/04b_wsl_base.sh" >&2
     exit 1
   }
 fi
@@ -59,7 +59,7 @@ for nome in myoconverter opencap; do
   fi
 
   echo "== $nome =="
-  ( cd "$destino/$nome" && pixi install )
+  ( cd "$destino/$nome" && CPATH="/usr/include${CPATH:+:$CPATH}" pixi install )
   cp "$destino/$nome/pixi.lock" "$projeto/envs/$nome/pixi.lock"
   echo "   ambiente: $destino/$nome    lock regravado em envs/$nome/pixi.lock"
 done
