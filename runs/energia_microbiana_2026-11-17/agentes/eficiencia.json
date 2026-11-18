@@ -1,0 +1,932 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-11-17",
+  "language": "pt-BR",
+  "question": "Qual microrganismo utiliza mais eficientemente a energia ambiental?",
+  "review_type": "Avaliação crítica dirigida; não revisão sistemática, metanálise ou fronteira de Pareto quantitativa.",
+  "scope": {
+    "included": [
+      "Ecologia e fisiologia de organismos naturais",
+      "Termodinâmica, rendimento, produtividade, manutenção e eletroquímica",
+      "Resultados publicados e crítica de comparabilidade de modelos"
+    ],
+    "excluded": [
+      "Propostas de engenharia",
+      "Protocolos de cultivo",
+      "Organismos de risco elevado como objeto de trabalho",
+      "Ranking por genes ou tamanho de genoma",
+      "Percentuais fixos do atlas anterior",
+      "NotebookLM"
+    ],
+    "fba_executed_by_this_agent": false,
+    "genomes_analyzed_by_this_agent": false,
+    "scientific_methodological_source_count": 20
+  },
+  "conclusion": {
+    "universal_winner": null,
+    "statement": "Não há vencedor universal demonstrado; a ordem é condicionada ao recurso, aceptor, produto, desfecho e fronteira do balanço.",
+    "confidence_scope": "Conclusão de não comparabilidade global apoiada por diferenças de denominador e de cenário; não significa equivalência entre organismos.",
+    "rejected_inferences": [
+      "Versatilidade metabólica implica maior eficiência energética",
+      "Quantidade de genes ou genoma público prova rendimento",
+      "Carbono fixado ou N2 assimilado constitui geração de energia",
+      "95% de recuperação de elétrons equivale a 95% de eficiência energética",
+      "Rendimento quântico de fotossistema equivale a conversão solar de cultura",
+      "Baixa potência por célula equivale a alta produtividade",
+      "Qualquer hidrogenotrófico pode crescer usando somente H2 atmosférico",
+      "Mesma função chamada biomass em diferentes modelos significa o mesmo desfecho físico"
+    ]
+  },
+  "criteria": [
+    {
+      "id": "M01",
+      "name": "Energia livre de reação",
+      "definition": "deltaG = deltaG0 + R*T*ln(Q)",
+      "unit": "kJ mol_reacao^-1",
+      "required_context": ["reação balanceada", "atividades", "pH", "temperatura", "produtos", "fugacidades", "convenção padrão ou transformada"],
+      "warning": "Não usar deltaG padrão como deltaG ambiental nem tratar aceptores como intercambiáveis."
+    },
+    {
+      "id": "M02",
+      "name": "ATP líquido e conservação",
+      "definition": "mol ATP líquido por mol de doador ou reação explicitada",
+      "unit": "mol mol^-1",
+      "required_context": ["estado ATP/ADP/Pi", "acoplamento iônico", "cadeia respiratória", "aceptor", "manutenção", "biossíntese", "transporte reverso"],
+      "warning": "ATP/doador não é constante universal por espécie; custo de precursor não é ATP produzido por doador."
+    },
+    {
+      "id": "M03",
+      "name": "Rendimento de carbono",
+      "definition": "C-mol de biomassa nova / C-mol de carbono consumido",
+      "unit": "C-mol_X C-mol_C^-1",
+      "required_context": ["composição elementar", "carbono de todas as fontes", "balanço de produtos", "reservas", "cinzas"],
+      "warning": "Não equivale a rendimento energético; CO2 e orgânicos não têm o mesmo conteúdo energético."
+    },
+    {
+      "id": "M04",
+      "name": "Rendimento de biomassa por energia",
+      "definition": "C-mol de biomassa nova / energia ou exergia disponibilizada sob convenção declarada",
+      "unit": "C-mol_X J^-1",
+      "required_context": ["todas as entradas", "fonte de energia", "aceptor", "composição da biomassa", "fronteira consistente"],
+      "warning": "É rendimento dimensional, não porcentagem; não misturar Gibbs, entalpia e energia luminosa sem convenção."
+    },
+    {
+      "id": "M05",
+      "name": "Crescimento e produtividade",
+      "definition": "mu = ln(2)/tempo_duplicacao; biomassa produzida por tempo e volume ou área declarada",
+      "unit": "h^-1; g_DW L^-1 d^-1; g_DW m_solo^-2 d^-1",
+      "required_context": ["período", "área ou volume", "crescimento líquido", "taxonomia e cultura pura/comunidade"],
+      "warning": "Título em g/L não é produtividade nem rendimento."
+    },
+    {
+      "id": "M06",
+      "name": "Afinidade e limiar",
+      "definition": "K_m/K_s aparente e concentração mínima de consumo ou crescimento",
+      "unit": "concentração ou pressão explicitada",
+      "required_context": ["NH3 livre versus amônio total", "pH", "temperatura", "salinidade", "estado fisiológico", "agregação"],
+      "warning": "Afinidade, limiar de consumo e eficiência de crescimento são propriedades distintas."
+    },
+    {
+      "id": "M07",
+      "name": "Manutenção e potência",
+      "definition": "q_S = mu/Y_XS_max + m_S; P = taxa_reacao * (-deltaG)",
+      "unit": "J C-mol_X^-1 h^-1; mmol_ATP g_X^-1 h^-1; W celula^-1",
+      "required_context": ["temperatura", "tamanho celular", "dormência", "reparo", "morte e reciclagem", "modelo versus medição"],
+      "warning": "Não há piso universal demonstrado; menor potência não significa maior produtividade ou eficiência percentual."
+    },
+    {
+      "id": "M08",
+      "name": "Recuperação coulômbica",
+      "definition": "CE = integral(I dt)/(F*n_e*n_substrato_consumido)",
+      "unit": "fração ou porcentagem de carga",
+      "required_context": ["substrato consumido", "estequiometria de elétrons", "período", "crescimento", "perdas e correntes de fundo"],
+      "warning": "Energia elétrica é integral(V_celula*I dt); CE não a substitui."
+    },
+    {
+      "id": "M09",
+      "name": "Conversão solar da cultura",
+      "definition": "energia em biomassa líquida produzida / energia solar incidente integrada",
+      "unit": "fração ou porcentagem energética",
+      "required_context": ["espectro/PAR", "área de terreno", "tempo", "respiração", "calor de combustão", "insumos auxiliares"],
+      "warning": "Não equivale a Fv/Fm, rendimento quântico ou eficiência de reação de fotossistema."
+    }
+  ],
+  "thermodynamic_examples": {
+    "status": "Equações ilustrativas e uma derivação matemática; não deltaG medido in situ.",
+    "reactions": [
+      "NH4+ + 1.5 O2 -> NO2- + 2 H+ + H2O",
+      "NH4+ + 2 O2 -> NO3- + 2 H+ + H2O",
+      "CO2 + 4 H2 -> CH4 + 2 H2O",
+      "2 CO2 + 4 H2 -> CH3COO- + H+ + 2 H2O"
+    ],
+    "H2_sensitivity": {
+      "assumptions": "Consumo de quatro H2/reação, demais atividades constantes, atividade ou fugacidade de H2 reduzida dez vezes.",
+      "temperature_K": 298.15,
+      "R_J_mol_K": 8.31446261815324,
+      "formula": "4*R*T*ln(10)/1000",
+      "delta_deltaG_kJ_mol_reaction": 22.832038010141034,
+      "interpretation": "A reação fica menos favorável; não é um valor absoluto de deltaG ambiental."
+    },
+    "warnings": [
+      "Normalizar atividades/fugacidades para Q adimensional.",
+      "Não misturar H2 gasoso e dissolvido sem convenção e relação apropriadas.",
+      "Não contar H+ novamente quando já incluído em transformação de deltaG0'.",
+      "Comparar potenciais na mesma referência.",
+      "Maior rendimento por amônia na oxidação completa pode refletir energia adicional da etapa de nitrito."
+    ]
+  },
+  "quantitative_evidence": [
+    {
+      "id": "Q01",
+      "source_ids": ["S09"],
+      "system": "Rhodopseudomonas palustris CGA009, tipo selvagem",
+      "mode": "Fotoheterotrofia com acetato e nitrogênio combinado",
+      "energy_inputs": ["luz", "energia química dos recursos orgânicos sob balanço definido"],
+      "electron_donor": "acetato",
+      "electron_acceptor_context": "Fotofosforilação cíclica; assimilação de carbono/refixação de CO2 participa do balanço redox, não um aceptor respiratório externo equiparado a O2.",
+      "metric": "Rendimento de biomassa-C",
+      "reported": {"value": 1.75, "sd": 0.15, "unit": "C-mol_X mol_acetato^-1"},
+      "derived": {"value": 0.875, "sd": 0.075, "unit": "C-mol_X C-mol_acetato^-1", "formula": "valor/2 e DP/2, pois acetato contém dois C"},
+      "n": "8-10 réplicas biológicas, conforme tabela 2",
+      "location": "Tabela 2 e nota de composição da biomassa",
+      "evidence_type": "Experimental; conversão para C-mol derivada da unidade publicada",
+      "caveats": [
+        "Não é eficiência energética de 87.5%.",
+        "Luz é entrada adicional não incluída no denominador de carbono.",
+        "Massa convertida usando fórmula empírica CH1.8N0.18O0.38 da linhagem 42OL."
+      ]
+    },
+    {
+      "id": "Q02",
+      "source_ids": ["S09"],
+      "system": "R. palustris CGA009",
+      "metric": "Tempo de duplicação",
+      "reported": {"value": 8.4, "sd": 0.6, "unit": "h"},
+      "derived": {"value": 0.08251752149523157, "unit": "h^-1", "formula": "ln(2)/8.4; somente estimativa central, sem propagar distribuição de erro"},
+      "n": "8-10 réplicas biológicas",
+      "location": "Tabela 2",
+      "evidence_type": "Experimental, com conversão matemática central",
+      "caveat": "Não comparar com produtividade volumétrica ou crescimento de outras espécies sob entradas diferentes."
+    },
+    {
+      "id": "Q03",
+      "source_ids": ["S09"],
+      "system": "R. palustris CGA009",
+      "metric": "Fechamento de balanços",
+      "reported": {
+        "carbon_recovery_percent": 93,
+        "carbon_recovery_sd_percent": 8,
+        "electron_recovery_percent": 98,
+        "electron_recovery_sd_percent": 9
+      },
+      "location": "Tabela 2",
+      "evidence_type": "Balanços experimentais",
+      "caveat": "Recuperação analítica de carbono/elétrons não é rendimento de biomassa nem eficiência energética; os aproximadamente 94% destinados a biomassa no mapa são inferência de 13C-MFA."
+    },
+    {
+      "id": "Q04",
+      "source_ids": ["S10"],
+      "system": "Seis culturas PNSB, incluindo R. palustris e comunidades",
+      "metric": "Rendimento por COD",
+      "reported": {"approximate_value": 1, "unit": "g_COD_biomassa g_COD_removido^-1"},
+      "location": "Resumo",
+      "evidence_type": "Comparação experimental; apenas resumo auditado",
+      "n": null,
+      "caveats": ["COD não é C-mol nem joules.", "A luz também fornece energia.", "Rendimento semelhante não estabelece R. palustris como vencedora exclusiva."]
+    },
+    {
+      "id": "Q05",
+      "source_ids": ["S10"],
+      "system": "Rhodobacter capsulatus isolado e reator inoculado com enriquecimento",
+      "metric": "Crescimento específico e produtividade, em sistemas distintos",
+      "reported": {
+        "isolated_culture_mu_range": [2.3, 3.8],
+        "isolated_culture_mu_unit": "d^-1",
+        "community_reactor_productivity": 1.7,
+        "community_reactor_productivity_unit": "g_DW L^-1 d^-1"
+      },
+      "location": "Resumo",
+      "evidence_type": "Experimental; resumo",
+      "n": null,
+      "caveat": "Não atribuir o máximo do reator a R. palustris ou a uma cultura pura de Rb. capsulatus."
+    },
+    {
+      "id": "Q06",
+      "source_ids": ["S08"],
+      "system": "N. maritimus SCM1 versus Nitrosococcus oceani",
+      "metric": "Massa seca por amônia e tempo de duplicação",
+      "reported": {
+        "N_maritimus_yield": 1.3,
+        "N_oceani_yield": 0.8,
+        "yield_unit": "g_DW mol_amonia_oxidada^-1",
+        "N_maritimus_doubling_h": 28,
+        "N_oceani_doubling_h": 15
+      },
+      "location": "Comparison of the Growth Yield of AOA and AOB",
+      "evidence_type": "Comparação experimental em condições descritas como iguais",
+      "n": "Não extraído do suplemento",
+      "caveat": "Trade-off local rendimento/velocidade; não generalizar a todo AOA/AOB nem converter para C-mol sem composição."
+    },
+    {
+      "id": "Q07",
+      "source_ids": ["S08"],
+      "system": "HP/HB thaumarchaeal versus Calvin-Benson no cálculo do artigo",
+      "metric": "Custo anabólico de acetil-CoA",
+      "reported": {
+        "thaumarchaeal_HPHB": 4,
+        "Calvin_Benson": 7,
+        "unit": "mol_ligacoes_anidrido_ATP mol_acetil_CoA^-1"
+      },
+      "location": "Tabela 4",
+      "evidence_type": "Estequiometria de vias apoiada por ensaios bioquímicos",
+      "caveat": "Não é ATP formado por mol de NH3, nem custo integral de crescimento/transporte/redutores/manutenção."
+    },
+    {
+      "id": "Q08",
+      "source_ids": ["S06", "S07"],
+      "system": "Nitrosopumilus maritimus SCM1",
+      "metric": "Afinidade e limiar de oxidação",
+      "reported": {
+        "Km_total_ammonium_nM": 133,
+        "consumption_threshold_total_ammonium_nM_upper_bound": 10,
+        "approximate_Km_free_NH3_nM_as_cited_in_S07": 3
+      },
+      "location": "Resumo S06; comparação de afinidades no texto S07",
+      "evidence_type": "Cinética experimental publicada; limiar de consumo",
+      "n": "Não extraído",
+      "caveat": "Não equiparar amônio total a NH3 livre; afinidade não é eficiência energética."
+    },
+    {
+      "id": "Q09",
+      "source_ids": ["S07"],
+      "system": "Nitrospira inopinata",
+      "metric": "Km aparente de amônia e Vmax",
+      "reported": {
+        "Km_total_ammonium_uM": 0.84,
+        "Km_total_ammonium_sd_uM": 0.17,
+        "Km_free_NH3_nM": 63,
+        "Km_free_NH3_sd_nM": 10,
+        "Vmax": 14.8,
+        "Vmax_sd": 1.2,
+        "Vmax_unit": "umol_N mg_proteina^-1 h^-1"
+      },
+      "n": 6,
+      "uncertainty_type": "DP entre réplicas",
+      "location": "Texto principal; figura 1 e Extended Data 4",
+      "evidence_type": "Experimental",
+      "caveats": ["Agregação pode limitar transporte e elevar Km aparente.", "Não extrapolar a todas as Nitrospira.", "Não comparar sem especiação, pH, temperatura e salinidade."]
+    },
+    {
+      "id": "Q10",
+      "source_ids": ["S07"],
+      "system": "N. inopinata versus N. gargensis e N. viennensis",
+      "metric": "Rendimento relativo de proteína por mol de amônia",
+      "reported": {
+        "increase_percent_vs_N_gargensis": 32.3,
+        "increase_percent_vs_N_viennensis": 29.7,
+        "n_per_organism": 4
+      },
+      "location": "Texto principal; Extended Data 9c; Determination of molar growth yield",
+      "evidence_type": "Experimental; Tukey-Kramer no artigo",
+      "caveats": [
+        "Comparadores não incluem N. maritimus no ensaio de rendimento.",
+        "Temperaturas não idênticas.",
+        "Reação final completa versus parcial oferece energia adicional.",
+        "Proteína por mol N não é biomassa-C por J."
+      ]
+    },
+    {
+      "id": "Q11",
+      "source_ids": ["S11"],
+      "system": "Cupriavidus necator ATCC 17697",
+      "metric": "Lag autotrófico",
+      "reported": {"range": [6, 12], "unit": "h"},
+      "n": 2,
+      "location": "Resumo; Results and discussion; Conclusions",
+      "evidence_type": "Experimental",
+      "caveats": [
+        "OD e lag não medem Y_X/H2 ou eficiência energética.",
+        "Autores explicitam necessidade de medir consumo de substratos/gases durante os ensaios.",
+        "Não extrapolar automaticamente a H16.",
+        "Não usado o valor de concentração com unidade inconsistente do texto."
+      ]
+    },
+    {
+      "id": "Q12",
+      "source_ids": ["S12"],
+      "system": "Cupriavidus necator H16",
+      "metric": "Título de massa seca total e fração PHB",
+      "reported": {
+        "dry_mass_concentration": 13.1,
+        "dry_mass_error": 0.4,
+        "dry_mass_unit": "g L^-1",
+        "PHB_weight_percent": 79,
+        "PHB_error_percent": 2
+      },
+      "n": null,
+      "uncertainty_type": "Sinal ± reportado no resumo; definição não auditada em suplemento",
+      "location": "Resumo",
+      "evidence_type": "Experimental; apenas resultado de organismo natural utilizado",
+      "caveat": "Título e reserva/produto não são rendimento por energia nem massa estrutural comparável."
+    },
+    {
+      "id": "Q13",
+      "source_ids": ["S13"],
+      "system": "Nannochloropsis sp. CCAP 211/78, verão 2013, quatro instalações externas",
+      "metric": "Eficiência solar média e máxima reportada",
+      "reported": [
+        {"design": "open_raceway", "mean_percent": 1.1, "mean_days": 24, "maximum_percent": 1.5, "maximum_window_days": 8},
+        {"design": "horizontal_tubular", "mean_percent": 1.5, "mean_days": 36, "maximum_percent": 1.8, "maximum_window_days": 6},
+        {"design": "vertical_tubular", "mean_percent": 2.4, "mean_days": 36, "maximum_percent": 4.2, "maximum_window_days": 9},
+        {"design": "flat_panel", "mean_percent": 2.7, "mean_days": 36, "maximum_percent": 3.8, "maximum_window_days": 3}
+      ],
+      "location": "Tabela 1; Calculations: Photosynthetic efficiency on sunlight",
+      "evidence_type": "Biomassa e irradiância medidas, eficiência calculada com calor de combustão assumido",
+      "energy_boundary": "Energia química da produção de biomassa / luz solar por área ocupada, com conversão PAR/solar; não energia líquida incluindo equipamentos.",
+      "assumed_biomass_combustion_enthalpy_kJ_g": 22.5,
+      "caveats": [
+        "Não são médias anuais nem intervalos de confiança.",
+        "Dias não são réplicas independentes de instalações.",
+        "Máximo de eficiência não precisa coincidir com máximo de produtividade.",
+        "Mesma espécie e diferentes sistemas; não ranking de espécies.",
+        "Não generalizar números a cianobactérias."
+      ]
+    },
+    {
+      "id": "Q14",
+      "source_ids": ["S13"],
+      "system": "Mesmas instalações de Nannochloropsis de Q13",
+      "metric": "Produtividade por área de terreno",
+      "reported": [
+        {"design": "open_raceway", "mean": 9.7, "maximum": 14.0},
+        {"design": "horizontal_tubular", "mean": 12.1, "maximum": 15.7},
+        {"design": "vertical_tubular", "mean": 19.4, "maximum": 24.4},
+        {"design": "flat_panel", "mean": 20.5, "maximum": 27.5}
+      ],
+      "unit": "g_DW m_solo^-2 d^-1",
+      "location": "Tabela 1",
+      "evidence_type": "Experimental/calculado de massa produzida e colhida",
+      "caveats": ["Geometria e definição de área acompanham comparação.", "Não desconta toda energia auxiliar.", "Não confundir máximo com média."]
+    },
+    {
+      "id": "Q15",
+      "source_ids": ["S16"],
+      "system": "Geobacter sulfurreducens, acetato como doador e eletrodo como aceptor",
+      "metric": "Recuperação de elétrons",
+      "reported": {"mean_recovery_percent_approximate": 95, "illustrative_balance_percent": 96.8, "electrons_per_acetate": 8},
+      "n": "Não explicitado para a média no trecho de estequiometria extraído",
+      "location": "Stoichiometry and energetics",
+      "evidence_type": "Experimental",
+      "caveats": [
+        "Não é eficiência energética de 95%.",
+        "Potência e energia elétrica requerem tensão.",
+        "Poised-potential e fuel cell têm fronteiras energéticas diferentes."
+      ]
+    },
+    {
+      "id": "Q16",
+      "source_ids": ["S03"],
+      "system": "Biosfera de sedimentos marinhos subsuperficiais do Quaternário",
+      "metric": "Mediana de potência utilizada por célula",
+      "reported": {
+        "aerobic_heterotrophs_W_cell": 2.23e-18,
+        "sulfate_reducers_W_cell": 1.08e-19,
+        "methanogens_W_cell": 1.50e-20
+      },
+      "location": "Resumo",
+      "evidence_type": "Modelo global de degradação, reações e abundância celular",
+      "caveats": [
+        "Não calorimetria individual nem manutenção mínima universal.",
+        "Não identifica espécie campeã.",
+        "Baixa potência não estabelece rendimento de biomassa ou eficiência percentual."
+      ]
+    },
+    {
+      "id": "Q17",
+      "source_ids": ["S19"],
+      "system": "H2 troposférico no contexto da revisão de 2015",
+      "metric": "Concentração atmosférica de contexto",
+      "reported": {"approximate_H2_ppbv": 530, "equivalent_ppmv": 0.53},
+      "location": "Atmospheric H2",
+      "evidence_type": "Revisão",
+      "caveats": [
+        "Não medição global atualizada de 2026.",
+        "Fluxo local é limitado mesmo se atmosfera é reservatório amplo.",
+        "Hidrogenases homólogas de C. necator não provam consumo atmosférico."
+      ]
+    }
+  ],
+  "qualitative_evidence": [
+    {
+      "source_ids": ["S01", "S02"],
+      "claim": "Correlações de manutenção derivadas de culturas não definem o piso universal de vida; organismos ambientais muito lentos podem persistir com fluxos muito menores.",
+      "limitation": "Revisão e correlação, não um mesmo ensaio comparativo entre todos os candidatos."
+    },
+    {
+      "source_ids": ["S04"],
+      "claim": "Acetogênicos acoplam fixação de CO2 e conservação de energia; mecanismos de acoplamento importam perto do limite termodinâmico.",
+      "limitation": "Nenhum número universal de ATP/doador foi atribuído a todos os acetogênicos."
+    },
+    {
+      "source_ids": ["S05"],
+      "claim": "Metanogênicos com citocromos podem ter maior rendimento e maior limiar de H2 que os sem citocromos.",
+      "limitation": "Trade-off entre limiar e rendimento; não ordenar todas as espécies ou acetogênicos contra metanogênicos sem contexto."
+    },
+    {
+      "source_ids": ["S17"],
+      "claim": "Eletrodo doador sustentou redução de nitrato por G. metallireducens e fumarato por G. sulfurreducens.",
+      "limitation": "Não demonstra automaticamente autotrofia ou rendimento elétrico de biomassa."
+    },
+    {
+      "source_ids": ["S18", "S19"],
+      "claim": "Gases-traço podem sustentar persistência e, em comunidades específicas, também fixação quimiossintética.",
+      "limitation": "S18 é comunitário; não atribuir desempenho a uma espécie apenas por genes presentes."
+    }
+  ],
+  "conditional_rankings": [
+    {
+      "scenario": "Luz, água e carbono inorgânico; produção primária sem doador reduzido externo",
+      "priority_candidates": ["Cianobactérias oxigênicas", "Microalgas"],
+      "order_within_candidates": null,
+      "basis": "Elegibilidade fisiológica, não superioridade energética medida de uma espécie.",
+      "missing": ["comparação de espécies", "fluxos incidentes e absorvidos", "clima", "respiração", "nutrientes"],
+      "source_ids": ["S13", "S14"]
+    },
+    {
+      "scenario": "Luz e carbono orgânico; conservar carbono em biomassa",
+      "priority_candidates": ["R. palustris", "Outras PNSB"],
+      "order_within_candidates": null,
+      "basis": "Alto rendimento de carbono e rendimentos COD próximos entre culturas.",
+      "missing": ["entrada energética da luz", "mesmo carbono", "mesmo fluxo de fótons", "balanço energético"],
+      "source_ids": ["S09", "S10"]
+    },
+    {
+      "scenario": "Luz e orgânicos; maximizar crescimento nas culturas comparadas",
+      "priority_candidates": ["Rhodobacter capsulatus nos ensaios de S10"],
+      "order_within_candidates": null,
+      "basis": "Mais rápido entre as culturas descritas; não assumir R. palustris como campeão.",
+      "missing": ["comparação universal", "energia harmonizada", "produtividade da cultura pura versus comunidade"],
+      "source_ids": ["S10"]
+    },
+    {
+      "scenario": "H2, O2 e CO2 no escuro; formar biomassa",
+      "priority_candidates": ["C. necator"],
+      "order_within_candidates": null,
+      "basis": "Autotrofia hidrogenotrófica pertinente; não vitória demonstrada em C-mol/J.",
+      "missing": ["balanço de H2/O2 consumidos", "origem e custo do H2", "composição estrutural versus PHB", "comparadores no mesmo orçamento"],
+      "source_ids": ["S11", "S12"]
+    },
+    {
+      "scenario": "NH3 diluído e O2; afinidade de captação nas linhagens citadas",
+      "priority_candidates": ["N. maritimus SCM1", "N. inopinata"],
+      "order_within_candidates": "Km de NH3 livre citado para SCM1 é menor; comparação entre estudos, não ensaio ambiental pareado.",
+      "basis": "Afinidade, não eficiência energética.",
+      "missing": ["mesma salinidade", "mesma temperatura", "pH", "comparação de desempenho de campo"],
+      "source_ids": ["S06", "S07"]
+    },
+    {
+      "scenario": "Oxidação de amônia até nitrato; rendimento por mol de N nos comparadores de S07",
+      "priority_candidates": ["N. inopinata"],
+      "order_within_candidates": "Maior rendimento de proteína/N que N. gargensis e N. viennensis no estudo.",
+      "basis": "Rendimento por N; processo comammox tem reação final diferente.",
+      "missing": ["deltaG efetivo", "biomassa-C", "mesma temperatura", "comparação de rendimento com SCM1"],
+      "source_ids": ["S07"]
+    },
+    {
+      "scenario": "H2/CO2 em anoxia; acetato, CH4 ou persistência como objetivos distintos",
+      "priority_candidates": ["Acetogênicos", "Metanogênicos"],
+      "order_within_candidates": null,
+      "basis": "Depende de produto, concentrações, limiar e mecanismos; maior rendimento pode acompanhar maior limiar.",
+      "missing": ["produto comum", "pH", "H2", "CO2", "produtos", "temperatura", "linhagem"],
+      "source_ids": ["S04", "S05"]
+    },
+    {
+      "scenario": "Orgânicos/H2 e eletrodo aceptor; recuperar carga como corrente",
+      "priority_candidates": ["Geobacter"],
+      "order_within_candidates": null,
+      "basis": "Recuperação de elétrons alta demonstrada no sistema citado.",
+      "missing": ["tensão útil", "energia auxiliar", "potência", "mesma geometria", "aceptor no catodo"],
+      "source_ids": ["S15", "S16", "S17"]
+    },
+    {
+      "scenario": "Mínima potência para persistência ambiental",
+      "priority_candidates": ["Especialistas de sedimentos", "Consumidores de gases-traço pertinentes ao ambiente"],
+      "order_within_candidates": null,
+      "basis": "Baixa potência estimada e estratégias de persistência, não produtividade máxima.",
+      "missing": ["mínimo universal", "espécies individualmente testadas", "normalização de tamanho", "medição de manutenção"],
+      "source_ids": ["S02", "S03", "S18", "S19"]
+    }
+  ],
+  "pareto": {
+    "type": "Qualitativo, por cenário",
+    "quantitative_frontier_computed": false,
+    "global_nondominance_proven": false,
+    "dominance_definition": "Mesmo cenário viável e objetivos: melhor em pelo menos um, sem piorar os demais.",
+    "profiles": [
+      {"candidate": "R. palustris", "supported_strength": "Rendimento de carbono fotoheterotrófico", "tradeoff_or_unknown": "Luz adicional; não máximo demonstrado por J ou tempo.", "source_ids": ["S09", "S10"]},
+      {"candidate": "C. necator", "supported_strength": "Autotrofia no escuro com H2/O2", "tradeoff_or_unknown": "Combustível/aceptor externos; rendimento fechado por energia não estabelecido nas fontes selecionadas.", "source_ids": ["S11", "S12"]},
+      {"candidate": "Cianobactérias/microalgas", "supported_strength": "Água como doador em produção primária luminosa", "tradeoff_or_unknown": "Perdas ópticas e respiratórias, variação temporal e área.", "source_ids": ["S13", "S14"]},
+      {"candidate": "N. maritimus", "supported_strength": "Afinidade e anabolismo econômico", "tradeoff_or_unknown": "Crescimento mais lento no contraste com N. oceani.", "source_ids": ["S06", "S08"]},
+      {"candidate": "N. inopinata", "supported_strength": "Rendimento/N e afinidade em comammox", "tradeoff_or_unknown": "Vmax e energia da reação completa; falta comparação por J.", "source_ids": ["S07"]},
+      {"candidate": "Acetogênicos/metanogênicos", "supported_strength": "Conservação energética em anoxia", "tradeoff_or_unknown": "Limiar versus rendimento; produtos e linhagens distintos.", "source_ids": ["S04", "S05"]},
+      {"candidate": "Geobacter", "supported_strength": "Recuperação de carga no eletrodo", "tradeoff_or_unknown": "Carga não determina energia útil, potência ou biomassa.", "source_ids": ["S15", "S16", "S17"]}
+    ],
+    "local_measured_tradeoff": {
+      "comparison": "N. maritimus versus N. oceani em S08",
+      "yield": "1.3 versus 0.8 g_DW/mol amônia",
+      "doubling": "28 versus 15 h",
+      "interpretation": "Rendimento maior e crescimento mais lento; nenhuma dominação nesses dois eixos."
+    }
+  },
+  "fba_critique": {
+    "source_ids": ["S20"],
+    "formulation": "max c^T v, sujeito a S v = 0 e limites de fluxo",
+    "preexisting_models_reported_by_parent": ["iJN678", "iHN637", "iAF692", "iCN1361"],
+    "model_files_read_by_this_agent": false,
+    "taxon_assignments_verified_by_this_agent": false,
+    "parent_audit_status": "Auditoria isolada comunicada como planejada/em execução; nenhum resultado antecipado aqui.",
+    "comparison_requirements": [
+      "Linhagem, versão, origem, integridade e unidade de biomassa",
+      "Mesmo objetivo físico, não apenas mesmo nome de reação",
+      "Meio, recursos, doadores e aceptores explicitados",
+      "Limites de fluxo de importação distintos de concentrações/Km",
+      "Orçamento comum de carbono/elétrons/energia conforme objetivo",
+      "Fótons, P/O, transporte e estequiometria de íons auditados",
+      "GAM e NGAM em unidades consistentes e valores justificados",
+      "Balanço de massa/carga, demandas e ciclos geradores de energia",
+      "Restrições termodinâmicas adicionais quando necessárias",
+      "Soluções alternativas/FVA e sensibilidade",
+      "Validação com medidas nas mesmas condições",
+      "Fronteiras por cenário; inviabilidade num meio não significa inferioridade global"
+    ],
+    "closed_uptake_test_warning": "Teste de consistência e possíveis fontes indevidas, não medição de manutenção.",
+    "old_atlas_exclusion": {
+      "script": "scripts/bioenergetics_efficiency_analysis.py",
+      "atlas": "runs/bioenergetics_efficiency_atlas.json",
+      "basis": "Atualização da sessão principal: script sem COBRApy ou solver, com valores fixos e álgebra sem proveniência adequada.",
+      "used_as_evidence": false,
+      "valid_as_fba_results": false,
+      "valid_for_efficiency_ranking": false
+    },
+    "genome_panel_warning": "79 entradas ou a presença de genes nos genomas não validam percentuais energéticos ou rankings."
+  },
+  "evidence_gaps": [
+    "Não há confronto pareado de todos os grupos no mesmo orçamento energético.",
+    "Não há deltaG ambiental calculado com todas as atividades, produtos e condições de cada comparação.",
+    "Faltam balanços comparáveis de H2/O2 consumidos e energia auxiliar.",
+    "Faltam composição elementar harmonizada e separação de reserva/produto de biomassa estrutural.",
+    "Medidas em proteína/mol N, COD, massa seca e C-mol não podem ser agregadas diretamente.",
+    "Não há ATP/doador universal medido para os grupos.",
+    "Mínima potência de sedimentos é inferida e não um mínimo de manutenção por espécie.",
+    "Não há ranking independente de espécies de cianobactérias e microalgas.",
+    "Alguns números foram verificados apenas em resumo, sem auditoria de suplemento.",
+    "Não foi estimada incerteza combinada entre estudos.",
+    "Auditoria computacional dos quatro modelos não fornece por si comparação cruzada."
+  ],
+  "sources": [
+    {
+      "id": "S01",
+      "authors": "Tijhuis L; van Loosdrecht MCM; Heijnen JJ",
+      "year": 1993,
+      "title": "A thermodynamically based correlation for maintenance Gibbs energy requirements in aerobic and anaerobic chemotrophic growth",
+      "journal": "Biotechnology and Bioengineering",
+      "type": "Correlação secundária de dados de culturas",
+      "doi": "10.1002/bit.260420415",
+      "pmid": "18613056",
+      "pmcid": null,
+      "url": "https://doi.org/10.1002/bit.260420415",
+      "record_url": "https://pubmed.ncbi.nlm.nih.gov/18613056/",
+      "access_used": "Resumo e metadados",
+      "supports": "Manutenção em kJ/C-mol/h e dependência de temperatura; não piso universal."
+    },
+    {
+      "id": "S02",
+      "authors": "Hoehler TM; Jørgensen BB",
+      "year": 2013,
+      "title": "Microbial life under extreme energy limitation",
+      "journal": "Nature Reviews Microbiology",
+      "type": "Revisão",
+      "doi": "10.1038/nrmicro2939",
+      "pmid": "23321532",
+      "pmcid": null,
+      "url": "https://doi.org/10.1038/nrmicro2939",
+      "record_url": "https://pubmed.ncbi.nlm.nih.gov/23321532/",
+      "access_used": "Resumo e metadados",
+      "supports": "Persistência ambiental com fluxos muito menores que estimativas de culturas."
+    },
+    {
+      "id": "S03",
+      "authors": "Bradley JA; Arndt S; Amend JP; Burwicz E; Dale AW; Egger M; LaRowe DE",
+      "year": 2020,
+      "title": "Widespread energy limitation to life in global subseafloor sediments",
+      "journal": "Science Advances",
+      "type": "Estudo primário de modelagem global",
+      "doi": "10.1126/sciadv.aba0697",
+      "pmid": "32821818",
+      "pmcid": "PMC7406382",
+      "url": "https://doi.org/10.1126/sciadv.aba0697",
+      "record_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7406382/",
+      "access_used": "Resumo e metadados",
+      "supports": "Potência mediana inferida por grupos metabólicos; não calorimetria individual."
+    },
+    {
+      "id": "S04",
+      "authors": "Schuchmann K; Müller V",
+      "year": 2014,
+      "title": "Autotrophy at the thermodynamic limit of life: a model for energy conservation in acetogenic bacteria",
+      "journal": "Nature Reviews Microbiology",
+      "type": "Revisão mecanística",
+      "doi": "10.1038/nrmicro3365",
+      "pmid": "25383604",
+      "pmcid": null,
+      "url": "https://doi.org/10.1038/nrmicro3365",
+      "record_url": "https://pubmed.ncbi.nlm.nih.gov/25383604/",
+      "access_used": "Resumo e metadados",
+      "supports": "Acoplamento entre fixação de CO2 e conservação de energia em acetogênicos."
+    },
+    {
+      "id": "S05",
+      "authors": "Thauer RK; Kaster AK; Seedorf H; Buckel W; Hedderich R",
+      "year": 2008,
+      "title": "Methanogenic archaea: ecologically relevant differences in energy conservation",
+      "journal": "Nature Reviews Microbiology",
+      "type": "Revisão",
+      "doi": "10.1038/nrmicro1931",
+      "pmid": "18587410",
+      "pmcid": null,
+      "url": "https://doi.org/10.1038/nrmicro1931",
+      "record_url": "https://pubmed.ncbi.nlm.nih.gov/18587410/",
+      "access_used": "Resumo e metadados",
+      "supports": "Diferenças de rendimento e limiar de H2 entre metanogênicos com/sem citocromos."
+    },
+    {
+      "id": "S06",
+      "authors": "Martens-Habbena W; Berube PM; Urakawa H; de la Torre JR; Stahl DA",
+      "year": 2009,
+      "title": "Ammonia oxidation kinetics determine niche separation of nitrifying Archaea and Bacteria",
+      "journal": "Nature",
+      "type": "Experimento fisiológico primário",
+      "doi": "10.1038/nature08465",
+      "pmid": "19794413",
+      "pmcid": null,
+      "url": "https://doi.org/10.1038/nature08465",
+      "record_url": "https://pubmed.ncbi.nlm.nih.gov/19794413/",
+      "access_used": "Resumo e metadados; contexto de NH3 livre verificado em S07",
+      "supports": "Km e limiar de consumo de N. maritimus SCM1."
+    },
+    {
+      "id": "S07",
+      "authors": "Kits KD et al.",
+      "year": 2017,
+      "title": "Kinetic analysis of a complete nitrifier reveals an oligotrophic lifestyle",
+      "journal": "Nature",
+      "type": "Experimento fisiológico primário",
+      "doi": "10.1038/nature23679",
+      "pmid": "28847001",
+      "pmcid": "PMC5600814",
+      "url": "https://doi.org/10.1038/nature23679",
+      "record_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5600814/",
+      "access_used": "Texto integral, figuras e métodos relevantes",
+      "supports": "Cinética e rendimento de N. inopinata; limites de extrapolação taxonômica."
+    },
+    {
+      "id": "S08",
+      "authors": "Könneke M et al.",
+      "year": 2014,
+      "title": "Ammonia-oxidizing archaea use the most energy-efficient aerobic pathway for CO2 fixation",
+      "journal": "Proceedings of the National Academy of Sciences",
+      "type": "Experimento bioquímico e fisiológico primário",
+      "doi": "10.1073/pnas.1402028111",
+      "pmid": "24843170",
+      "pmcid": "PMC4050595",
+      "url": "https://doi.org/10.1073/pnas.1402028111",
+      "record_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4050595/",
+      "access_used": "Texto integral; comparação de crescimento e tabela 4",
+      "supports": "HP/HB econômico e contraste rendimento/velocidade; não eficiência integral do organismo."
+    },
+    {
+      "id": "S09",
+      "authors": "McKinlay JB; Harwood CS",
+      "year": 2010,
+      "title": "Carbon dioxide fixation as a central redox cofactor recycling mechanism in bacteria",
+      "journal": "Proceedings of the National Academy of Sciences",
+      "type": "Experimento de balanços e 13C-MFA",
+      "doi": "10.1073/pnas.1006175107",
+      "pmid": "20558750",
+      "pmcid": "PMC2900684",
+      "url": "https://doi.org/10.1073/pnas.1006175107",
+      "record_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2900684/",
+      "access_used": "Texto integral; tabela 2 e resultados do tipo selvagem",
+      "supports": "Rendimento de carbono e balanço redox de R. palustris; variantes modificadas não utilizadas para propostas."
+    },
+    {
+      "id": "S10",
+      "authors": "Alloul A; Wuyts S; Lebeer S; Vlaeminck SE",
+      "year": 2019,
+      "title": "Volatile fatty acids impacting phototrophic growth kinetics of purple bacteria: Paving the way for protein production on fermented wastewater",
+      "journal": "Water Research",
+      "type": "Experimento fisiológico comparativo",
+      "doi": "10.1016/j.watres.2018.12.025",
+      "pmid": "30665160",
+      "pmcid": null,
+      "url": "https://doi.org/10.1016/j.watres.2018.12.025",
+      "record_url": "https://pubmed.ncbi.nlm.nih.gov/30665160/",
+      "access_used": "Resumo e metadados",
+      "supports": "Seis culturas PNSB, rendimento COD, crescimento e produtividade de comunidade."
+    },
+    {
+      "id": "S11",
+      "authors": "Amer A; Kim Y",
+      "year": 2023,
+      "title": "Minimizing the Lag Phase of Cupriavidus necator Growth under Autotrophic, Heterotrophic, and Mixotrophic Conditions",
+      "journal": "Applied and Environmental Microbiology",
+      "type": "Experimento fisiológico primário",
+      "doi": "10.1128/aem.02007-22",
+      "pmid": "36719244",
+      "pmcid": "PMC9972949",
+      "url": "https://doi.org/10.1128/aem.02007-22",
+      "record_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9972949/",
+      "access_used": "Texto integral; resultados e conclusão",
+      "supports": "Lag e adaptação de ATCC 17697; consumo não acompanhado integralmente impede rendimento energético fechado."
+    },
+    {
+      "id": "S12",
+      "authors": "Lambauer V; Kratzer R",
+      "year": 2022,
+      "title": "Lab-Scale Cultivation of Cupriavidus necator on Explosive Gas Mixtures: Carbon Dioxide Fixation into Polyhydroxybutyrate",
+      "journal": "Bioengineering",
+      "type": "Experimento primário com linhagem natural H16",
+      "doi": "10.3390/bioengineering9050204",
+      "pmid": "35621482",
+      "pmcid": "PMC9138072",
+      "url": "https://doi.org/10.3390/bioengineering9050204",
+      "record_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9138072/",
+      "access_used": "Resumo e metadados; somente resultado de biomassa/PHB",
+      "supports": "Distinguir concentração, reserva/produto e rendimento; não foram fornecidos procedimentos."
+    },
+    {
+      "id": "S13",
+      "authors": "de Vree JH; Bosma R; Janssen M; Barbosa MJ; Wijffels RH",
+      "year": 2015,
+      "title": "Comparison of four outdoor pilot-scale photobioreactors",
+      "journal": "Biotechnology for Biofuels",
+      "type": "Experimento comparativo de sistemas externos",
+      "doi": "10.1186/s13068-015-0400-2",
+      "pmid": "26689675",
+      "pmcid": "PMC4683866",
+      "url": "https://doi.org/10.1186/s13068-015-0400-2",
+      "record_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4683866/",
+      "access_used": "Texto integral; tabela 1 e definições de eficiência/área",
+      "supports": "Eficiência solar real de cultura, produtividade e influência da fronteira e geometria."
+    },
+    {
+      "id": "S14",
+      "authors": "Blankenship RE et al.",
+      "year": 2011,
+      "title": "Comparing photosynthetic and photovoltaic efficiencies and recognizing the potential for improvement",
+      "journal": "Science",
+      "type": "Revisão/perspectiva metodológica",
+      "doi": "10.1126/science.1200165",
+      "pmid": "21566184",
+      "pmcid": null,
+      "url": "https://doi.org/10.1126/science.1200165",
+      "record_url": "https://pubmed.ncbi.nlm.nih.gov/21566184/",
+      "access_used": "Resumo e metadados",
+      "supports": "Necessidade de fronteiras, produtos e intervalos comuns em eficiência solar; sem propostas de engenharia."
+    },
+    {
+      "id": "S15",
+      "authors": "Logan BE; Hamelers B; Rozendal R; Schröder U; Keller J; Freguia S; Aelterman P; Verstraete W; Rabaey K",
+      "year": 2006,
+      "title": "Microbial fuel cells: methodology and technology",
+      "journal": "Environmental Science & Technology",
+      "type": "Revisão metodológica",
+      "doi": "10.1021/es0605016",
+      "pmid": "16999087",
+      "pmcid": null,
+      "url": "https://doi.org/10.1021/es0605016",
+      "record_url": "https://pubmed.ncbi.nlm.nih.gov/16999087/",
+      "access_used": "Resumo e metadados Europe PMC, título/autores/páginas confirmados Crossref",
+      "supports": "Definições e comparabilidade de desempenho eletroquímico."
+    },
+    {
+      "id": "S16",
+      "authors": "Bond DR; Lovley DR",
+      "year": 2003,
+      "title": "Electricity production by Geobacter sulfurreducens attached to electrodes",
+      "journal": "Applied and Environmental Microbiology",
+      "type": "Experimento fisiológico/eletroquímico primário",
+      "doi": "10.1128/AEM.69.3.1548-1555.2003",
+      "pmid": "12620842",
+      "pmcid": "PMC150094",
+      "url": "https://doi.org/10.1128/AEM.69.3.1548-1555.2003",
+      "record_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC150094/",
+      "access_used": "Texto integral; Stoichiometry and energetics",
+      "supports": "Eletrodo aceptor; recuperação de elétrons próxima de 95%, não energia."
+    },
+    {
+      "id": "S17",
+      "authors": "Gregory KB; Bond DR; Lovley DR",
+      "year": 2004,
+      "title": "Graphite electrodes as electron donors for anaerobic respiration",
+      "journal": "Environmental Microbiology",
+      "type": "Experimento fisiológico/eletroquímico primário",
+      "doi": "10.1111/j.1462-2920.2004.00593.x",
+      "pmid": "15142248",
+      "pmcid": null,
+      "url": "https://doi.org/10.1111/j.1462-2920.2004.00593.x",
+      "record_url": "https://pubmed.ncbi.nlm.nih.gov/15142248/",
+      "access_used": "Resumo e metadados",
+      "supports": "Eletrodo doador em reduções específicas; não autotrofia automaticamente."
+    },
+    {
+      "id": "S18",
+      "authors": "Ji M et al.",
+      "year": 2017,
+      "title": "Atmospheric trace gases support primary production in Antarctic desert surface soil",
+      "journal": "Nature",
+      "type": "Estudo comunitário primário",
+      "doi": "10.1038/nature25014",
+      "pmid": "29211716",
+      "pmcid": null,
+      "url": "https://doi.org/10.1038/nature25014",
+      "record_url": "https://pubmed.ncbi.nlm.nih.gov/29211716/",
+      "access_used": "Resumo e metadados",
+      "supports": "Oxidação atmosférica de H2/CO e fixação quimiossintética comunitária."
+    },
+    {
+      "id": "S19",
+      "authors": "Greening C; Constant P; Hards K; Morales SE; Oakeshott JG; Russell RJ; Taylor MC; Berney M; Conrad R; Cook GM",
+      "year": 2015,
+      "title": "Atmospheric hydrogen scavenging: from enzymes to ecosystems",
+      "journal": "Applied and Environmental Microbiology",
+      "type": "Revisão",
+      "doi": "10.1128/AEM.03364-14",
+      "pmid": "25501483",
+      "pmcid": "PMC4309691",
+      "url": "https://doi.org/10.1128/AEM.03364-14",
+      "record_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4309691/",
+      "access_used": "Texto integral",
+      "supports": "Manutenção, mixotrofia, concentração atmosférica e diferenças entre hidrogenases homólogas."
+    },
+    {
+      "id": "S20",
+      "authors": "Orth JD; Thiele I; Palsson BØ",
+      "year": 2010,
+      "title": "What is flux balance analysis?",
+      "journal": "Nature Biotechnology",
+      "type": "Revisão/primer metodológico",
+      "doi": "10.1038/nbt.1614",
+      "pmid": "20212490",
+      "pmcid": "PMC3108565",
+      "url": "https://doi.org/10.1038/nbt.1614",
+      "record_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3108565/",
+      "access_used": "Texto integral",
+      "supports": "FBA depende de objetivo, limites, estado estacionário e soluções alternativas; não prevê concentrações."
+    }
+  ],
+  "search_provenance": {
+    "access_date": "2026-11-17",
+    "first_discovery": {
+      "server": "tooluniverse",
+      "tool": "find_tools",
+      "query": "Search peer-reviewed primary microbial bioenergetics literature and verify DOI PMID PMC full text quantitative growth yield Gibbs energy maintenance photosynthesis nitrification acetogenesis methanogenesis extracellular electron transfer",
+      "selected_tool": "EuropePMC_search_articles"
+    },
+    "databases": ["Europe PMC", "PubMed Central", "Crossref"],
+    "endpoints": {
+      "europe_pmc_search": "https://www.ebi.ac.uk/europepmc/webservices/rest/search",
+      "europe_pmc_parameters": {"format": "json", "resultType": "core", "pageSize": "2-4 para consultas dirigidas"},
+      "pmc_html_template": "https://pmc.ncbi.nlm.nih.gov/articles/{PMCID}/",
+      "crossref_single_record": "https://api.crossref.org/works/10.1021%2Fes0605016"
+    },
+    "initial_queries": [
+      {"query": "\"Nitrospira inopinata\" \"oligotrophic\"", "announced_hits": 74, "returned": 3},
+      {"query": "\"Nitrosopumilus maritimus\" \"kinetics\"", "announced_hits": 117, "returned": 3},
+      {"query": "\"Rhodopseudomonas palustris\" \"energy\" \"efficiency\" \"yield\"", "announced_hits": 596, "returned": 3},
+      {"query": "\"Cupriavidus necator\" \"hydrogen\" \"yield\"", "announced_hits": 726, "returned": 3},
+      {"query": "\"photosynthetic efficiency\" \"microalgae\" \"theoretical\"", "announced_hits": 416, "returned": 3},
+      {"query": "\"Geobacter\" \"coulombic efficiency\" \"energy\"", "announced_hits": 312, "returned": 3}
+    ],
+    "targeted_lookup_strategy": "Títulos exatos e DOI de todas as 20 fontes finais foram resolvidos em consultas Europe PMC, inclusive dentro de consultas de tema/retornos; tabelas dos PMCID relevantes foram conferidas em HTML. Query reprodutível por fonte: DOI:\"{doi}\".",
+    "full_text_locations_read": ["PMC5600814", "PMC4050595", "PMC2900684", "PMC9972949", "PMC4683866", "PMC150094", "PMC4309691", "PMC3108565"],
+    "retrieval_warnings": [
+      "Totais das buscas iniciais não são estudos lidos nem estudos únicos.",
+      "Não houve paginação exaustiva.",
+      "ToolUniverse registrou 406 na rota fullTextXML Europe PMC e 403 OAI em algumas consultas; fallback NCBI efetch e HTML PMC tiveram sucesso.",
+      "Europe PMC retornou DOI de S15 associado também a título/PMID distinto; Crossref confirmou a revisão Methodology and Technology de Logan et al., páginas 5181-5192; usado PMID 16999087.",
+      "Não foi realizada busca sistemática de retratações ou auditoria de todos os suplementos."
+    ],
+    "notebooklm_used": false,
+    "preexisting_atlas_used": false
+  },
+  "methodological_acknowledgement": {
+    "separate_from_20_bioenergetics_modeling_sources": true,
+    "skills_consulted": ["scientific-critical-thinking", "cobrapy", "paper-lookup"],
+    "citation": "Kassis T; Agarwal V; He Y; Patel D; Brueckner AM. 2026. Scientific Agent Skills: A Library of Procedural Knowledge for Research Agents.",
+    "doi": "10.48550/arXiv.2609.00065",
+    "url": "https://arxiv.org/abs/2609.00065",
+    "metadata_verified": true,
+    "use": "Crédito procedimental, não evidência sobre eficiência microbiana."
+  }
+}

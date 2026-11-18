@@ -1,0 +1,4061 @@
+{
+  "generated_at": "2026-11-18T02:10:46.829376+00:00",
+  "protocol": "runs/energia_microbiana_2026-11-17/PROTOCOLO.md",
+  "prior_materials_audit": "runs/energia_microbiana_2026-11-17/AUDITORIA_MATERIAIS_ANTERIORES.md",
+  "preserved_prior_files_present": {
+    "scripts/bioenergetics_efficiency_analysis.py": true,
+    "runs/bioenergetics_efficiency_atlas.json": true,
+    "scripts/microbios_energia/01_verificar_genomas.sh": true,
+    "scripts/microbios_energia/02_resolver_acessos.sh": true,
+    "scripts/microbios_energia/03_baixar_gems.py": true,
+    "runs/microbios_energia/genomas_ncbi.tsv": true,
+    "runs/microbios_energia/genomas_resolvidos.tsv": true
+  },
+  "counts": {
+    "panel_entries": 79,
+    "distinct_accessions": 79,
+    "versatility_candidates": 20,
+    "versatility_references": 48,
+    "diversity_entries": 36,
+    "diversity_sources": 51,
+    "efficiency_sources": 20,
+    "efficiency_quantitative_records": 17,
+    "efficiency_conditional_rankings": 9,
+    "annotation_taxa": 8,
+    "annotation_candidates_triaged": 223,
+    "annotation_representatives": 48,
+    "annotation_representatives_uniprot": 42,
+    "annotation_representatives_kegg": 6,
+    "annotation_excluded_cautions": 2,
+    "cobrapy_models_audited": 4,
+    "notebooklm_sources": 59,
+    "unique_dois_across_fronts": 132,
+    "unique_pmids_across_fronts": 132,
+    "unique_pmcids_across_fronts": 84
+  },
+  "fronts": {
+    "frente_1_versatilidade": {
+      "file": "agentes/versatilidade.md",
+      "json": "agentes/versatilidade.json",
+      "unit_of_analysis": "Cepa e condição experimental; não a união de capacidades de uma espécie ou gênero",
+      "critical_corrections": [
+        {
+          "id": "hupV_CGA009",
+          "claim": "CGA009 tem frameshift por deleção de quatro bases em hupV e não cresceu fotoautotroficamente com H2 nas condições testadas; tiossulfato sustentou fotoautotrofia.",
+          "level": "G",
+          "sources": [
+            "16923881"
+          ],
+          "locator": "Resultados, Fig. 2 e tabelas 1-3",
+          "negative_evidence_scope": "Cepa CGA009, condições do estudo, não toda a espécie"
+        },
+        {
+          "id": "CGA010_not_CGA0092",
+          "claim": "A derivada com hupV reparado no artigo de 2006 é CGA010. CGA0092 não é o nome dessa derivada.",
+          "level": "G",
+          "sources": [
+            "16923881",
+            "37078874"
+          ]
+        },
+        {
+          "id": "CGA0092_difference",
+          "claim": "O resequenciamento de 2023 encontrou diferença entre CGA009 e CGA0092 em ppsR2. As três correções da referência de CGA009 envolvem amtB2/RPA0276, RPA1790 e RPA2040, não um reparo de hupV.",
+          "level": "A",
+          "sources": [
+            "37078874"
+          ],
+          "locator": "Tabela 1",
+          "consequence": "Não atribuir H2 fotoautotrófico a CGA0092 com base neste resequenciamento."
+        },
+        {
+          "id": "Rhodovulum_AB26",
+          "claim": "AB26 foi publicada como Rhodovulum sulfidophilum em 2021 e reclassificada como Rhodovulum visakhapatnamense em 2022.",
+          "sources": [
+            "34054125",
+            "35744753"
+          ],
+          "consequence": "Não atribuir a caracterização mecanística específica de pEEU de AB26 a AB14 apenas por nome histórico."
+        },
+        {
+          "id": "Cereibacter_name",
+          "claim": "Cereibacter sphaeroides é nome correto no LPSN; Rhodobacter sphaeroides e Luteovulum sphaeroides são sinônimos homotípicos. Rhodobacter capsulatus permanece nome correto.",
+          "sources": [
+            "32373076",
+            "LPSN_11077",
+            "LPSN_780422"
+          ]
+        },
+        {
+          "id": "Paracoccus_GB17",
+          "claim": "GB17 pertence a Paracoccus pantotrophus; literatura antiga sob P. denitrificans exige reconciliação de cepa.",
+          "sources": [
+            "10319488",
+            "31896641",
+            "LPSN_779162"
+          ]
+        },
+        {
+          "id": "Cupriavidus_N1_H16",
+          "claim": "A cepa-tipo N-1 de C. necator carece dos genes de hidrogenase presentes em H16.",
+          "sources": [
+            "21742890"
+          ],
+          "consequence": "Não generalizar o fenótipo de H16 para toda a espécie."
+        },
+        {
+          "id": "Hydrogenovibrio_104_sequencing",
+          "claim": "O estudo de 104 sequenciou transcriptomas e 16S; o RNA foi mapeado à montagem de S5 GCF_003991075.1 e também analisado por montagem de transcriptoma.",
+          "sources": [
+            "39276367"
+          ],
+          "consequence": "Não registrar GCF_003991075.1 como genoma próprio fechado de 104."
+        }
+      ]
+    },
+    "frente_2_diversidade": {
+      "file": "agentes/diversidade.md",
+      "json": "agentes/diversidade.json",
+      "negative_control": "Haloferax volcanii DS2 (GCF_000025685.1)",
+      "exclusions": [
+        {
+          "tema": "radiofrequencia",
+          "estado": "Nenhuma demonstracao de obtencao energetica natural sustentada neste corpus; efeitos termicos/estresse nao bastam."
+        },
+        {
+          "tema": "calor",
+          "estado": "Termofilia nao demonstra conversao de calor isotermico em energia metabolica."
+        },
+        {
+          "tema": "radiacao_ionizante",
+          "estado": "Radiotolerancia/melanizacao nao demonstram por si radioautotrofia; H2 radiolitico alimenta metabolismo quimico sem provar captacao celular direta de radiacao."
+        },
+        {
+          "tema": "campo_eletrico",
+          "estado": "Nao equivale a eletrotrofia sem fluxo de eletrons e balanco redox demonstrados."
+        }
+      ]
+    },
+    "frente_3_eficiencia": {
+      "file": "agentes/eficiencia.md",
+      "json": "agentes/eficiencia.json",
+      "universal_winner": null,
+      "conditional_rankings": [
+        {
+          "scenario": "Luz, água e carbono inorgânico; produção primária sem doador reduzido externo",
+          "priority_candidates": [
+            "Cianobactérias oxigênicas",
+            "Microalgas"
+          ],
+          "order_within_candidates": null,
+          "basis": "Elegibilidade fisiológica, não superioridade energética medida de uma espécie.",
+          "missing": [
+            "comparação de espécies",
+            "fluxos incidentes e absorvidos",
+            "clima",
+            "respiração",
+            "nutrientes"
+          ],
+          "source_ids": [
+            "S13",
+            "S14"
+          ]
+        },
+        {
+          "scenario": "Luz e carbono orgânico; conservar carbono em biomassa",
+          "priority_candidates": [
+            "R. palustris",
+            "Outras PNSB"
+          ],
+          "order_within_candidates": null,
+          "basis": "Alto rendimento de carbono e rendimentos COD próximos entre culturas.",
+          "missing": [
+            "entrada energética da luz",
+            "mesmo carbono",
+            "mesmo fluxo de fótons",
+            "balanço energético"
+          ],
+          "source_ids": [
+            "S09",
+            "S10"
+          ]
+        },
+        {
+          "scenario": "Luz e orgânicos; maximizar crescimento nas culturas comparadas",
+          "priority_candidates": [
+            "Rhodobacter capsulatus nos ensaios de S10"
+          ],
+          "order_within_candidates": null,
+          "basis": "Mais rápido entre as culturas descritas; não assumir R. palustris como campeão.",
+          "missing": [
+            "comparação universal",
+            "energia harmonizada",
+            "produtividade da cultura pura versus comunidade"
+          ],
+          "source_ids": [
+            "S10"
+          ]
+        },
+        {
+          "scenario": "H2, O2 e CO2 no escuro; formar biomassa",
+          "priority_candidates": [
+            "C. necator"
+          ],
+          "order_within_candidates": null,
+          "basis": "Autotrofia hidrogenotrófica pertinente; não vitória demonstrada em C-mol/J.",
+          "missing": [
+            "balanço de H2/O2 consumidos",
+            "origem e custo do H2",
+            "composição estrutural versus PHB",
+            "comparadores no mesmo orçamento"
+          ],
+          "source_ids": [
+            "S11",
+            "S12"
+          ]
+        },
+        {
+          "scenario": "NH3 diluído e O2; afinidade de captação nas linhagens citadas",
+          "priority_candidates": [
+            "N. maritimus SCM1",
+            "N. inopinata"
+          ],
+          "order_within_candidates": "Km de NH3 livre citado para SCM1 é menor; comparação entre estudos, não ensaio ambiental pareado.",
+          "basis": "Afinidade, não eficiência energética.",
+          "missing": [
+            "mesma salinidade",
+            "mesma temperatura",
+            "pH",
+            "comparação de desempenho de campo"
+          ],
+          "source_ids": [
+            "S06",
+            "S07"
+          ]
+        },
+        {
+          "scenario": "Oxidação de amônia até nitrato; rendimento por mol de N nos comparadores de S07",
+          "priority_candidates": [
+            "N. inopinata"
+          ],
+          "order_within_candidates": "Maior rendimento de proteína/N que N. gargensis e N. viennensis no estudo.",
+          "basis": "Rendimento por N; processo comammox tem reação final diferente.",
+          "missing": [
+            "deltaG efetivo",
+            "biomassa-C",
+            "mesma temperatura",
+            "comparação de rendimento com SCM1"
+          ],
+          "source_ids": [
+            "S07"
+          ]
+        },
+        {
+          "scenario": "H2/CO2 em anoxia; acetato, CH4 ou persistência como objetivos distintos",
+          "priority_candidates": [
+            "Acetogênicos",
+            "Metanogênicos"
+          ],
+          "order_within_candidates": null,
+          "basis": "Depende de produto, concentrações, limiar e mecanismos; maior rendimento pode acompanhar maior limiar.",
+          "missing": [
+            "produto comum",
+            "pH",
+            "H2",
+            "CO2",
+            "produtos",
+            "temperatura",
+            "linhagem"
+          ],
+          "source_ids": [
+            "S04",
+            "S05"
+          ]
+        },
+        {
+          "scenario": "Orgânicos/H2 e eletrodo aceptor; recuperar carga como corrente",
+          "priority_candidates": [
+            "Geobacter"
+          ],
+          "order_within_candidates": null,
+          "basis": "Recuperação de elétrons alta demonstrada no sistema citado.",
+          "missing": [
+            "tensão útil",
+            "energia auxiliar",
+            "potência",
+            "mesma geometria",
+            "aceptor no catodo"
+          ],
+          "source_ids": [
+            "S15",
+            "S16",
+            "S17"
+          ]
+        },
+        {
+          "scenario": "Mínima potência para persistência ambiental",
+          "priority_candidates": [
+            "Especialistas de sedimentos",
+            "Consumidores de gases-traço pertinentes ao ambiente"
+          ],
+          "order_within_candidates": null,
+          "basis": "Baixa potência estimada e estratégias de persistência, não produtividade máxima.",
+          "missing": [
+            "mínimo universal",
+            "espécies individualmente testadas",
+            "normalização de tamanho",
+            "medição de manutenção"
+          ],
+          "source_ids": [
+            "S02",
+            "S03",
+            "S18",
+            "S19"
+          ]
+        }
+      ],
+      "pareto_summary": {
+        "type": "Qualitativo, por cenário",
+        "quantitative_frontier_computed": false,
+        "global_nondominance_proven": false,
+        "dominance_definition": "Mesmo cenário viável e objetivos: melhor em pelo menos um, sem piorar os demais.",
+        "profiles": [
+          {
+            "candidate": "R. palustris",
+            "supported_strength": "Rendimento de carbono fotoheterotrófico",
+            "tradeoff_or_unknown": "Luz adicional; não máximo demonstrado por J ou tempo.",
+            "source_ids": [
+              "S09",
+              "S10"
+            ]
+          },
+          {
+            "candidate": "C. necator",
+            "supported_strength": "Autotrofia no escuro com H2/O2",
+            "tradeoff_or_unknown": "Combustível/aceptor externos; rendimento fechado por energia não estabelecido nas fontes selecionadas.",
+            "source_ids": [
+              "S11",
+              "S12"
+            ]
+          },
+          {
+            "candidate": "Cianobactérias/microalgas",
+            "supported_strength": "Água como doador em produção primária luminosa",
+            "tradeoff_or_unknown": "Perdas ópticas e respiratórias, variação temporal e área.",
+            "source_ids": [
+              "S13",
+              "S14"
+            ]
+          },
+          {
+            "candidate": "N. maritimus",
+            "supported_strength": "Afinidade e anabolismo econômico",
+            "tradeoff_or_unknown": "Crescimento mais lento no contraste com N. oceani.",
+            "source_ids": [
+              "S06",
+              "S08"
+            ]
+          },
+          {
+            "candidate": "N. inopinata",
+            "supported_strength": "Rendimento/N e afinidade em comammox",
+            "tradeoff_or_unknown": "Vmax e energia da reação completa; falta comparação por J.",
+            "source_ids": [
+              "S07"
+            ]
+          },
+          {
+            "candidate": "Acetogênicos/metanogênicos",
+            "supported_strength": "Conservação energética em anoxia",
+            "tradeoff_or_unknown": "Limiar versus rendimento; produtos e linhagens distintos.",
+            "source_ids": [
+              "S04",
+              "S05"
+            ]
+          },
+          {
+            "candidate": "Geobacter",
+            "supported_strength": "Recuperação de carga no eletrodo",
+            "tradeoff_or_unknown": "Carga não determina energia útil, potência ou biomassa.",
+            "source_ids": [
+              "S15",
+              "S16",
+              "S17"
+            ]
+          }
+        ],
+        "local_measured_tradeoff": {
+          "comparison": "N. maritimus versus N. oceani em S08",
+          "yield": "1.3 versus 0.8 g_DW/mol amônia",
+          "doubling": "28 versus 15 h",
+          "interpretation": "Rendimento maior e crescimento mais lento; nenhuma dominação nesses dois eixos."
+        }
+      },
+      "evidence_gaps": [
+        "Não há confronto pareado de todos os grupos no mesmo orçamento energético.",
+        "Não há deltaG ambiental calculado com todas as atividades, produtos e condições de cada comparação.",
+        "Faltam balanços comparáveis de H2/O2 consumidos e energia auxiliar.",
+        "Faltam composição elementar harmonizada e separação de reserva/produto de biomassa estrutural.",
+        "Medidas em proteína/mol N, COD, massa seca e C-mol não podem ser agregadas diretamente.",
+        "Não há ATP/doador universal medido para os grupos.",
+        "Mínima potência de sedimentos é inferida e não um mínimo de manutenção por espécie.",
+        "Não há ranking independente de espécies de cianobactérias e microalgas.",
+        "Alguns números foram verificados apenas em resumo, sem auditoria de suplemento.",
+        "Não foi estimada incerteza combinada entre estudos.",
+        "Auditoria computacional dos quatro modelos não fornece por si comparação cruzada."
+      ]
+    },
+    "frente_4_anotacoes": {
+      "file": "agentes/anotacoes.md",
+      "json": "agentes/anotacoes.json",
+      "script": "agentes/auditoria_anotacoes.py",
+      "uniprot_release": "2026_04",
+      "validation": {
+        "all_48_representatives_have_exact_target_taxon": true,
+        "all_script_requests_http_200": true,
+        "all_logged_searches_fully_retrieved": true,
+        "representatives_reviewed_uniprot": 16,
+        "representatives_unreviewed_uniprot": 26,
+        "representatives_function_catalysis_ECO_0000269": 1,
+        "unique_representatives_plus_cautions": 50,
+        "not_claimed": [
+          "complete pathway",
+          "biological absence",
+          "expression",
+          "organism-level efficiency",
+          "evolutionary loss"
+        ]
+      },
+      "excluded_cautions": [
+        {
+          "accession": "Q6QQP7",
+          "target": "J-10-fl",
+          "reason": "WRONG STRAIN: referenceComments STRAIN=OK-70-fl, species taxon 1108; must not be used as native J-10-fl Mcr evidence."
+        },
+        {
+          "accession": "Q0K5E4",
+          "target": "H16",
+          "reason": "AMBIGUOUS ANNOTATION: putative ammonia monooxygenase is an unreviewed single-protein label; not evidence for an AmoABC nitrification module in H16."
+        }
+      ]
+    },
+    "frente_5_integracao": {
+      "genome_panel": {
+        "datasets_version": "datasets version: 18.38.0",
+        "panel_entries": 79,
+        "distinct_accessions": 79,
+        "levels": {
+          "Complete Genome": 71,
+          "Scaffold": 4,
+          "Contig": 2,
+          "Chromosome": 2
+        },
+        "groups": {
+          "Generalistas fototróficos": 9,
+          "Fototrofia anoxigênica": 6,
+          "Generalistas quimiotróficos": 6,
+          "Quimiolitotrofia": 5,
+          "Enxofre": 5,
+          "Ferro e enxofre": 1,
+          "Ferro": 3,
+          "Fototrofia oxigênica": 5,
+          "Algas mixotróficas": 4,
+          "Haloarqueia heterotrófica — controle de extrapolação": 1,
+          "Rodopsinas": 3,
+          "Fototrofia aeróbia": 1,
+          "Metanotrofia": 5,
+          "Nitrificação": 5,
+          "Anammox": 2,
+          "Acetogênese": 3,
+          "Carboxidotrofia": 1,
+          "Metanogênese": 4,
+          "Eletroatividade": 3,
+          "Redução de sulfato": 2,
+          "Subsolo e radiólise": 1,
+          "Bactérias-cabo": 1,
+          "Gases-traço": 3
+        },
+        "refseq_vs_genbank": {
+          "GCF_refseq": 74,
+          "GCA_genbank": 5
+        },
+        "main_queries_count": 79,
+        "main_returned_assemblies": 273,
+        "resolution_queries_count": 6,
+        "resolution_returned_assemblies": 38,
+        "raw_cache_sha256_verified": 85,
+        "pinned_results": {
+          "rcaps": "Rhodobacter capsulatus SB 1003"
+        },
+        "historical_accessions_checked": [
+          {
+            "accession": "GCF_000012605.1",
+            "organism": "Hydrogenovibrio crunogenus XCL-2",
+            "strain": "XCL-2",
+            "assembly_status": "suppressed",
+            "assembly_level": "Complete Genome",
+            "paired_accession": "GCA_000012605.1"
+          },
+          {
+            "accession": "GCF_000195895.1",
+            "organism": "Methanosarcina barkeri str. Fusaro",
+            "strain": "Fusaro",
+            "assembly_status": "suppressed",
+            "assembly_level": "Complete Genome",
+            "paired_accession": "GCA_000195895.1"
+          },
+          {
+            "accession": "GCF_000021865.1",
+            "organism": "Rhodobacter capsulatus SB 1003",
+            "strain": "SB 1003",
+            "assembly_status": "current",
+            "assembly_level": "Complete Genome",
+            "paired_accession": "GCA_000021865.1"
+          }
+        ],
+        "strain_filter_relaxed": [
+          {
+            "id": "rten",
+            "taxon_requested": "Rhodocyclus tenuis",
+            "strain_filter_requested": "DSM 109",
+            "selected_accession": "GCF_014197755.1",
+            "selected_organism": "Rhodocyclus tenuis",
+            "selected_strain": "2761",
+            "level": "Scaffold"
+          },
+          {
+            "id": "cferro",
+            "taxon_requested": "Chlorobium ferrooxidans",
+            "strain_filter_requested": "KoFox",
+            "selected_accession": "GCF_000168715.1",
+            "selected_organism": "Chlorobium ferrooxidans DSM 13031",
+            "selected_strain": "DSM 13031",
+            "level": "Contig"
+          },
+          {
+            "id": "hcrun",
+            "taxon_requested": "Hydrogenovibrio crunogenus",
+            "strain_filter_requested": "XCL-2",
+            "selected_accession": "GCF_004786015.1",
+            "selected_organism": "Hydrogenovibrio crunogenus",
+            "selected_strain": "SP-41",
+            "level": "Complete Genome"
+          },
+          {
+            "id": "skuj",
+            "taxon_requested": "Sulfuricurvum kujiense",
+            "strain_filter_requested": "YK-1",
+            "selected_accession": "GCF_000183725.1",
+            "selected_organism": "Sulfuricurvum kujiense DSM 16994",
+            "selected_strain": "DSM 16994",
+            "level": "Complete Genome"
+          },
+          {
+            "id": "mbark",
+            "taxon_requested": "Methanosarcina barkeri",
+            "strain_filter_requested": "Fusaro",
+            "selected_accession": "GCF_000970065.1",
+            "selected_organism": "Methanosarcina barkeri 227",
+            "selected_strain": "227",
+            "level": "Complete Genome"
+          }
+        ]
+      },
+      "cobrapy_audit": {
+        "python": "3.11.18",
+        "cobra_version": "0.32.1",
+        "solver": "glpk",
+        "swiglpk_version": "5.0.13",
+        "ranking_inferred": false,
+        "models_audited": 4,
+        "models": [
+          {
+            "model_id": "CnecH16",
+            "source_path": "data/proc/gem/iCN1361.xml",
+            "sha256_verified": true,
+            "sha256": "c4e418d831f428a93702f2d1b6c62d6fe3538545474f12397640028169d4ce0c",
+            "genes": 1362,
+            "reactions": 1292,
+            "metabolites": 1265,
+            "objective": {
+              "R_Biomass": 1.0
+            },
+            "medium_import_count": 6,
+            "medium_import_bounds": {
+              "EX_OXYGEN_MOLECULE_e": 1000.0,
+              "EX_AMMONIUM_e": 1000.0,
+              "EX_SULFATE_e": 1000.0,
+              "EX_Pi_e": 1000.0,
+              "EX_BETA_D_FRUCTOSE_e": 2.6,
+              "EX_FE2_e": 1000.0
+            },
+            "native_bounds_optimization": {
+              "status": "optimal",
+              "objective_value": 0.2585690497035916
+            },
+            "closed_imports_native_maintenance": {
+              "status": "infeasible",
+              "objective_value": null
+            },
+            "closed_imports_atpm_test": {
+              "reaction": "R_ATPM",
+              "equation": "M_ATP + M_WATER --> M_ADP + M_PROTON + M_Pi",
+              "native_bounds": [
+                3.0,
+                1000.0
+              ],
+              "test_bounds": [
+                0.0,
+                1000.0
+              ],
+              "result": {
+                "status": "optimal",
+                "objective_value": 0.0
+              },
+              "interpretation": "Fluxo ATPM positivo sem importações é alerta de ciclo/fonte interna permissiva; fluxo zero não valida todo o modelo."
+            }
+          },
+          {
+            "model_id": "iJN678",
+            "source_path": "data/proc/gem/iJN678.json",
+            "sha256_verified": true,
+            "sha256": "2e9f99e6004d060e77e650b1591100898350c49d15f6de5d61d50b41ba6b12b2",
+            "genes": 622,
+            "reactions": 863,
+            "metabolites": 795,
+            "objective": {
+              "BIOMASS_Ec_SynHetero": 1.0
+            },
+            "medium_import_count": 19,
+            "medium_import_bounds": {
+              "EX_ca2_e": 1000.0,
+              "EX_cobalt2_e": 1000.0,
+              "EX_ni2_e": 1000.0,
+              "EX_h_e": 1000.0,
+              "EX_h2o_e": 1000.0,
+              "EX_o2_e": 1000.0,
+              "EX_glc__D_e": 0.85,
+              "EX_no3_e": 1000.0,
+              "EX_k_e": 1000.0,
+              "EX_so4_e": 1000.0,
+              "EX_pi_e": 1000.0,
+              "EX_mobd_e": 1000.0,
+              "EX_fe3_e": 1000.0,
+              "EX_fe2_e": 1000.0,
+              "EX_na1_e": 1000.0,
+              "EX_mn2_e": 1000.0,
+              "EX_mg2_e": 1000.0,
+              "EX_cu2_e": 1000.0,
+              "EX_zn2_e": 1000.0
+            },
+            "native_bounds_optimization": {
+              "status": "optimal",
+              "objective_value": 0.06314995695015081
+            },
+            "closed_imports_native_maintenance": {
+              "status": "optimal",
+              "objective_value": 0.0
+            },
+            "closed_imports_atpm_test": {
+              "status": "not_performed",
+              "reason": "ATPM inexistente ou ambígua; nenhuma reação foi inventada.",
+              "candidate_ids": []
+            }
+          },
+          {
+            "model_id": "iHN637",
+            "source_path": "data/proc/gem/iHN637.json",
+            "sha256_verified": true,
+            "sha256": "8d0060907d7496ea0072518fc02d9534ee0a1c3f517c16c876455bd85ccff2b9",
+            "genes": 637,
+            "reactions": 785,
+            "metabolites": 698,
+            "objective": {
+              "BIOMASS_Cl_DSM_WT_46p666M1": 1.0
+            },
+            "medium_import_count": 22,
+            "medium_import_bounds": {
+              "EX_h2o_e": 1000.0,
+              "EX_k_e": 1000.0,
+              "EX_mg2_e": 1000.0,
+              "EX_mn2_e": 1000.0,
+              "EX_na1_e": 1000.0,
+              "EX_nh4_e": 1000.0,
+              "EX_ni2_e": 1000.0,
+              "EX_pi_e": 1000.0,
+              "EX_mobd_e": 1000.0,
+              "EX_zn2_e": 1000.0,
+              "EX_ribflv_e": 1000.0,
+              "EX_btn_e": 1000.0,
+              "EX_so4_e": 1000.0,
+              "EX_thm_e": 1000.0,
+              "EX_ca2_e": 1000.0,
+              "EX_cl_e": 1000.0,
+              "EX_cobalt2_e": 1000.0,
+              "EX_cu2_e": 1000.0,
+              "EX_fe2_e": 1000.0,
+              "EX_fol_e": 1000.0,
+              "EX_fru_e": 5.0,
+              "EX_h_e": 1000.0
+            },
+            "native_bounds_optimization": {
+              "status": "optimal",
+              "objective_value": 0.22445454212002638
+            },
+            "closed_imports_native_maintenance": {
+              "status": "infeasible",
+              "objective_value": null
+            },
+            "closed_imports_atpm_test": {
+              "reaction": "ATPM",
+              "equation": "atp_c + h2o_c --> adp_c + h_c + pi_c",
+              "native_bounds": [
+                0.45,
+                1000.0
+              ],
+              "test_bounds": [
+                0.0,
+                1000.0
+              ],
+              "result": {
+                "status": "optimal",
+                "objective_value": 0.0
+              },
+              "interpretation": "Fluxo ATPM positivo sem importações é alerta de ciclo/fonte interna permissiva; fluxo zero não valida todo o modelo."
+            }
+          },
+          {
+            "model_id": "iAF692",
+            "source_path": "data/proc/gem/iAF692.json",
+            "sha256_verified": true,
+            "sha256": "f05d9e93767e8c9c9cb4a6fb8d00bf52f9a3bee7edb83ea90b7e21eee8970367",
+            "genes": 692,
+            "reactions": 690,
+            "metabolites": 628,
+            "objective": {
+              "BIOMASS_Mb_30": 1.0
+            },
+            "medium_import_count": 15,
+            "medium_import_bounds": {
+              "EX_pi_e": 999999.0,
+              "EX_so3_e": 999999.0,
+              "EX_4abz_e": 999999.0,
+              "EX_co2_e": 999999.0,
+              "EX_cobalt2_e": 999999.0,
+              "EX_cys__L_e": 999999.0,
+              "EX_h2o_e": 999999.0,
+              "EX_h2s_e": 999999.0,
+              "EX_h_e": 999999.0,
+              "EX_meoh_e": 5.1,
+              "EX_n2_e": 999999.0,
+              "EX_na1_e": 999999.0,
+              "EX_nac_e": 999999.0,
+              "EX_nh4_e": 999999.0,
+              "EX_ni2_e": 999999.0
+            },
+            "native_bounds_optimization": {
+              "status": "optimal",
+              "objective_value": 0.026780442801466253
+            },
+            "closed_imports_native_maintenance": {
+              "status": "infeasible",
+              "objective_value": null
+            },
+            "closed_imports_atpm_test": {
+              "reaction": "ATPM",
+              "equation": "atp_c + h2o_c --> adp_c + h_c + pi_c",
+              "native_bounds": [
+                0.8,
+                0.8
+              ],
+              "test_bounds": [
+                0.0,
+                0.8
+              ],
+              "result": {
+                "status": "optimal",
+                "objective_value": 0.0
+              },
+              "interpretation": "Fluxo ATPM positivo sem importações é alerta de ciclo/fonte interna permissiva; fluxo zero não valida todo o modelo."
+            }
+          }
+        ]
+      },
+      "notebooklm_cross_check": {
+        "notebook_id": "4cb14b1e-7be6-439c-8ec6-f24686551300",
+        "url": "https://notebook.google.com/notebook/4cb14b1e-7be6-439c-8ec6-f24686551300",
+        "source_count": 59,
+        "queries": [
+          {
+            "file": "notebooklm/auditoria_fontes.json",
+            "query_id": "b33db02b4058",
+            "status": "completed",
+            "answer_chars": 10377
+          },
+          {
+            "file": "notebooklm/comparacao_modelos.json",
+            "query_id": "72c69448cf42",
+            "status": "completed",
+            "answer_chars": 21632
+          }
+        ],
+        "convergences": [
+          "Separação fenotípica entre R. palustris CGA009 e TIE-1 quanto à fotoferrotrofia/eletrotrofia experimentalmente demonstradas em TIE-1.",
+          "Inexistência de microrganismo campeão universal entre os cinco GEMs (iDT1294, iCN1361, iJN678, iHN637, iAF692) e invalidade de comparar valores ótimos de FBA sob limites padrão e BOFs distintas.",
+          "Consumo de H2 atmosférico (~530 ppbv) por hidrogenases de alta afinidade (ex.: Huc em M. smegmatis) associado predominantemente à manutenção/persistência celular sob inanição de carbono.",
+          "Identificação de fontes ruidosas ou fora do escopo no acervo importado automaticamente (p. ex., página institucional, sRNA de motilidade, estruturas PDB isoladas, páginas ResearchGate e sínteses automáticas sem protocolo PRISMA)."
+        ],
+        "corrections_by_primary_and_db_audits": [
+          {
+            "topic": "R. palustris CGA009 — crescimento fotoautotrófico com H2 (hupV)",
+            "notebooklm_statement": "auditoria_fontes.json lista os quatro modos tróficos em CGA009 sem registrar a lesão em hupV.",
+            "verified_correction": "versatilidade.md (PMID 16923881) comprova deleção de 4 pb em hupV impedindo fotoautotrofia com H2 em CGA009 nas condições testadas (restaurada em CGA010); CGA0092 (PMID 37078874) não reporta reparo de hupV."
+          },
+          {
+            "topic": "R. palustris CGA009 — presença anotada de homólogos pioABC",
+            "notebooklm_statement": "auditoria_fontes.json sugere ausência de fotoferrotrofia/captação catódica e atribui o operon pioABC especificamente a TIE-1.",
+            "verified_correction": "anotacoes.md (UniProt 2026_04 e KEGG) confirma ortólogos candidatos PioA/B/C também em CGA009 (TX73_003855/003850/003845; A0AAE9XUC8, Q6NBT3, Q6NBT4): ausência de validação fenotípica em CGA009 não equivale a ausência genômica anotada."
+          },
+          {
+            "topic": "Dimensões dos modelos GEM publicados vs. arquivos locais",
+            "notebooklm_statement": "comparacao_modelos.json cita dimensões dos artigos originais (iJN678: 678 genes; iCN1361: 1.361 genes / 1.263 metabólitos; iAF692: 619 reações).",
+            "verified_correction": "auditoria_cobrapy.json mede os arquivos locais efetivos (iJN678.json: 622 genes / 863 reações / 795 metabólitos; iCN1361.xml: 1.362 genes / 1.292 reações / 1.265 metabólitos; iAF692.json: 692 genes / 690 reações / 628 metabólitos), reforçando que equivalência binária entre artigo e arquivo local não pode ser presumida sem hash/origem."
+          }
+        ]
+      }
+    }
+  },
+  "pendencias_reconciliacao": [
+    {
+      "item": "Linhagem de Chlamydomonas no estudo S05.",
+      "status_pos_integracao": "ABERTO (limitação mantida): texto completo de S05 (PMID 41570075) não foi auditado quanto ao identificador exato de sublinhagem; painel genômico usa CC-503 cw92 mt+ (GCF_000002595.2) apenas como referência da espécie."
+    },
+    {
+      "item": "Linhagem e doador exato de Chloroflexus no estudo selecionado.",
+      "status_pos_integracao": "PARCIALMENTE FECHADO: versatilidade.md (PMID 31158281) separa o isolado termofílico de Nakabusa (H2 fotoautotrófico e quimiolitotrófico) da cepa-tipo genômica J-10-fl (GCF_000018865.1); anotacoes.md valida J-10-fl (3HP bi-cycle A9WIU3/A9WEU4) excluindo Q6QQP7 (OK-70-fl)."
+    },
+    {
+      "item": "Correspondencia entre material catodico e genoma de Geobacter.",
+      "status_pos_integracao": "ABERTO (limitação mantida): G. sulfurreducens PCA (GCF_000007985.2) e G. metallireducens GS-15 (GCF_000012925.1) representam os genomas de referência, sem vínculo verificado de sublinhagem com todo ensaio catódico."
+    },
+    {
+      "item": "Correspondencia entre genoma e cocultura de Methanosarcina barkeri.",
+      "status_pos_integracao": "PARCIALMENTE FECHADO: painel_final.tsv registra M. barkeri 227 (GCF_000970065.1, filtro relaxado) e linhagens_historicas.json documenta M. barkeri Fusaro (GCF_000195895.1, status suppressed). Permanece aberto o rastreamento direto da linhagem exata do ensaio de DIET (S40) vs. montagem."
+    },
+    {
+      "item": "Avaliacao institucional de risco, pureza e disponibilidade de cada material.",
+      "status_pos_integracao": "FORA DO ESCOPO computacional (mantido para comitê institucional e coleções de cultura antes de qualquer trabalho experimental)."
+    },
+    {
+      "item": "Inventario formal de acessos de montagem sob responsabilidade do principal.",
+      "status_pos_integracao": "FECHADO na Frente 5: painel formal com 79 montagens distintas verificado em genomas/painel_final.tsv e genomas/INVENTARIO.md."
+    }
+  ],
+  "bibliography_union": {
+    "unique_doi_count": 132,
+    "unique_pmid_count": 132,
+    "unique_pmcid_count": 84,
+    "dois": [
+      {
+        "doi": "10.1002/bit.260420415",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "18613056"
+        ],
+        "title": "A thermodynamically based correlation for maintenance Gibbs energy requirements in aerobic and anaerobic chemotrophic growth",
+        "year": 1993
+      },
+      {
+        "doi": "10.1002/mbo3.310",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "26541261"
+        ],
+        "title": "Breathing air to save energy--new insights into the ecophysiological role of high-affinity [NiFe]-hydrogenase in Streptomyces avermitilis.",
+        "year": 2016
+      },
+      {
+        "doi": "10.1007/bf00290916",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "8387263"
+        ],
+        "title": "Geobacter metallireducens gen. nov. sp. nov., a microorganism capable of coupling the complete oxidation of organic compounds to the reduction of iron and other metals.",
+        "year": 1993
+      },
+      {
+        "doi": "10.1007/s002030050609",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "9639598"
+        ],
+        "title": "Aerobic chemolithoautotrophic growth and RubisCO function in Rhodobacter capsulatus and a spontaneous gain of function mutant of Rhodobacter sphaeroides.",
+        "year": 1998
+      },
+      {
+        "doi": "10.1007/s00792-011-0359-2",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "21311931"
+        ],
+        "title": "Acidiferrobacter thiooxydans, gen. nov. sp. nov.; an acidophilic, thermo-tolerant, facultatively anaerobic iron- and sulfur-oxidizer of the family Ectothiorhodospiraceae.",
+        "year": 2011
+      },
+      {
+        "doi": "10.1016/0005-2728(76)90107-9",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "2313"
+        ],
+        "title": "Stimulation of ATP synthesis in Halobacterium halobium R1 by light-induced or artifically created proton electrochemical potential gradients across the cell membrane.",
+        "year": 1976
+      },
+      {
+        "doi": "10.1016/0014-5793(88)80739-7",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "2834225"
+        ],
+        "title": "Photosynthetic reaction centre of Chloroflexus aurantiacus. I. Primary structure of L-subunit.",
+        "year": "1988"
+      },
+      {
+        "doi": "10.1016/0167-4838(89)90225-2",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "2493816"
+        ],
+        "title": "Immunological comparison of subunits isolated from various hydrogenases of aerobic hydrogen bacteria.",
+        "year": "1989"
+      },
+      {
+        "doi": "10.1016/j.biochi.2023.11.003",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "37952891"
+        ],
+        "title": "Dynamic lid domain of Chloroflexus aurantiacus Malonyl-CoA reductase controls the reaction.",
+        "year": "2024"
+      },
+      {
+        "doi": "10.1016/j.biortech.2025.132330",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "40037435"
+        ],
+        "title": "Zero-valent iron as an alternative electron donor for extracellular electron uptake linked to CO2 fixation in Rhodopseudomonas palustris.",
+        "year": 2025
+      },
+      {
+        "doi": "10.1016/j.ijbiomac.2023.124676",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "37146856"
+        ],
+        "title": "Cryo-EM structure of bifunctional malonyl-CoA reductase from Chloroflexus aurantiacus reveals a dynamic domain movement for high enzymatic activity.",
+        "year": "2023"
+      },
+      {
+        "doi": "10.1016/j.watres.2018.12.025",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "30665160"
+        ],
+        "title": "Volatile fatty acids impacting phototrophic growth kinetics of purple bacteria: Paving the way for protein production on fermented wastewater",
+        "year": 2019
+      },
+      {
+        "doi": "10.1016/j.ymben.2019.07.006",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "31319152"
+        ],
+        "title": "Exploiting Hydrogenophaga pseudoflava for aerobic syngas-based production of chemicals.",
+        "year": 2019
+      },
+      {
+        "doi": "10.1016/j.ymben.2022.08.005",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "35987434"
+        ],
+        "title": "Thermodynamic limitations of PHB production from formate and fructose in Cupriavidus necator.",
+        "year": 2022
+      },
+      {
+        "doi": "10.1016/s0022-2836(03)00894-5",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "12948488"
+        ],
+        "title": "Complete nucleotide sequence of pHG1: a Ralstonia eutropha H16 megaplasmid encoding key enzymes of H(2)-based lithoautotrophy and anaerobiosis.",
+        "year": "2003"
+      },
+      {
+        "doi": "10.1021/acs.est.1c04071",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "34748326"
+        ],
+        "title": "Extracellular Electron Exchange Capabilities of Desulfovibrio ferrophilus and Desulfopila corrodens.",
+        "year": 2021
+      },
+      {
+        "doi": "10.1021/es0605016",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "16999087"
+        ],
+        "title": "Microbial fuel cells: methodology and technology",
+        "year": 2006
+      },
+      {
+        "doi": "10.1038/msb4100046",
+        "fronts": [
+          "modelos_gem"
+        ],
+        "pmids": [
+          "16738551"
+        ],
+        "title": null,
+        "year": null
+      },
+      {
+        "doi": "10.1038/nature03911",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "16177789"
+        ],
+        "title": "Isolation of an autotrophic ammonia-oxidizing marine archaeon.",
+        "year": 2005
+      },
+      {
+        "doi": "10.1038/nature04032",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "16267553"
+        ],
+        "title": "Proteorhodopsin in the ubiquitous marine bacterium SAR11.",
+        "year": 2005
+      },
+      {
+        "doi": "10.1038/nature04647",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "16598256"
+        ],
+        "title": "Deciphering the evolution and metabolism of an anammox bacterium from a community genome.",
+        "year": 2006
+      },
+      {
+        "doi": "10.1038/nature08465",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "19794413"
+        ],
+        "title": "Ammonia oxidation kinetics determine niche separation of nitrifying Archaea and Bacteria",
+        "year": 2009
+      },
+      {
+        "doi": "10.1038/nature16461",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "26610024"
+        ],
+        "title": "Complete nitrification by Nitrospira bacteria.",
+        "year": 2015
+      },
+      {
+        "doi": "10.1038/nature23679",
+        "fronts": [
+          "diversidade",
+          "eficiencia"
+        ],
+        "pmids": [
+          "28847001"
+        ],
+        "title": "Kinetic analysis of a complete nitrifier reveals an oligotrophic lifestyle.",
+        "year": 2017
+      },
+      {
+        "doi": "10.1038/nature25014",
+        "fronts": [
+          "diversidade",
+          "eficiencia"
+        ],
+        "pmids": [
+          "29211716"
+        ],
+        "title": "Atmospheric trace gases support primary production in Antarctic desert surface soil.",
+        "year": 2017
+      },
+      {
+        "doi": "10.1038/nbt.1614",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "20212490"
+        ],
+        "title": "What is flux balance analysis?",
+        "year": 2010
+      },
+      {
+        "doi": "10.1038/nbt1244",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "16964242"
+        ],
+        "title": "Genome sequence of the bioplastic-producing 'Knallgas' bacterium Ralstonia eutropha H16.",
+        "year": "2006"
+      },
+      {
+        "doi": "10.1038/nbt923",
+        "fronts": [
+          "anotacoes_uniprot",
+          "versatilidade"
+        ],
+        "pmids": [
+          "14704707"
+        ],
+        "title": "Complete genome sequence of the metabolically versatile photosynthetic bacterium Rhodopseudomonas palustris.",
+        "year": 2004
+      },
+      {
+        "doi": "10.1038/ncomms4391",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "24569675"
+        ],
+        "title": "Electron uptake by iron-oxidizing phototrophic bacteria.",
+        "year": 2014
+      },
+      {
+        "doi": "10.1038/nrmicro1931",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "18587410"
+        ],
+        "title": "Methanogenic archaea: ecologically relevant differences in energy conservation",
+        "year": 2008
+      },
+      {
+        "doi": "10.1038/nrmicro2939",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "23321532"
+        ],
+        "title": "Microbial life under extreme energy limitation",
+        "year": 2013
+      },
+      {
+        "doi": "10.1038/nrmicro3365",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "25383604"
+        ],
+        "title": "Autotrophy at the thermodynamic limit of life: a model for energy conservation in acetogenic bacteria",
+        "year": 2014
+      },
+      {
+        "doi": "10.1038/s41396-019-0393-0",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "30872805"
+        ],
+        "title": "Two Chloroflexi classes independently evolved the ability to persist on atmospheric hydrogen and carbon monoxide.",
+        "year": 2019
+      },
+      {
+        "doi": "10.1038/s41396-021-01015-8",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "34054125"
+        ],
+        "title": "Photoferrotrophy and phototrophic extracellular electron uptake is common in the marine anoxygenic phototroph Rhodovulum sulfidophilum.",
+        "year": 2021
+      },
+      {
+        "doi": "10.1038/s41467-019-09377-6",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "30902976"
+        ],
+        "title": "Phototrophic extracellular electron uptake is linked to carbon dioxide fixation in the bacterium Rhodopseudomonas palustris.",
+        "year": 2019
+      },
+      {
+        "doi": "10.1038/s41467-025-61056-x",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "40592898"
+        ],
+        "title": "NAD-dependent dehydrogenases enable efficient growth of Paracoccus denitrificans on the PET monomer ethylene glycol.",
+        "year": 2025
+      },
+      {
+        "doi": "10.1038/s41586-020-2468-5",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "32669693"
+        ],
+        "title": "Bacterial chemolithoautotrophy via manganese oxidation.",
+        "year": 2020
+      },
+      {
+        "doi": "10.1038/s41586-023-05781-7",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "36890228"
+        ],
+        "title": "Structural basis for bacterial energy extraction from atmospheric hydrogen.",
+        "year": 2023
+      },
+      {
+        "doi": "10.1042/bcj20210511",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "34402504"
+        ],
+        "title": "Cryo-EM structure of the Rhodospirillum rubrum RC-LH1 complex at 2.5A.",
+        "year": "2021"
+      },
+      {
+        "doi": "10.1073/pnas.0407486101",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "15550538"
+        ],
+        "title": "Anaerobic growth of Methanosarcina acetivorans C2A on carbon monoxide: an unusual way of life for a methanogenic archaeon.",
+        "year": 2004
+      },
+      {
+        "doi": "10.1073/pnas.0712027105",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "18552178"
+        ],
+        "title": "Genome analysis of the proteorhodopsin-containing marine bacterium Polaribacter sp. MED152 (Flavobacteria).",
+        "year": 2008
+      },
+      {
+        "doi": "10.1073/pnas.0908356106",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "19955419"
+        ],
+        "title": "Identifying the missing steps of the autotrophic 3-hydroxypropionate CO2 fixation cycle in Chloroflexus aurantiacus.",
+        "year": 2009
+      },
+      {
+        "doi": "10.1073/pnas.0913533107",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "20421470"
+        ],
+        "title": "Nitrosopumilus maritimus genome reveals unique mechanisms for nitrification and autotrophy in globally distributed marine crenarchaea.",
+        "year": "2010"
+      },
+      {
+        "doi": "10.1073/pnas.1006175107",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "20558750"
+        ],
+        "title": "Carbon dioxide fixation as a central redox cofactor recycling mechanism in bacteria",
+        "year": 2010
+      },
+      {
+        "doi": "10.1073/pnas.1111262109",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "22203982"
+        ],
+        "title": "Genome and physiology of a model Epsilonproteobacterium responsible for sulfide detoxification in marine oxygen depletion zones.",
+        "year": 2012
+      },
+      {
+        "doi": "10.1073/pnas.1117907109",
+        "fronts": [
+          "modelos_gem"
+        ],
+        "pmids": [
+          "22308420"
+        ],
+        "title": null,
+        "year": null
+      },
+      {
+        "doi": "10.1073/pnas.1320586111",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "24591586"
+        ],
+        "title": "A soil actinobacterium scavenges atmospheric H2 using two membrane-associated, oxygen-dependent [NiFe] hydrogenases.",
+        "year": 2014
+      },
+      {
+        "doi": "10.1073/pnas.132181499",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "12093901"
+        ],
+        "title": "The complete genome sequence of Chlorobium tepidum TLS, a photosynthetic, anaerobic, green-sulfur bacterium.",
+        "year": 2002
+      },
+      {
+        "doi": "10.1073/pnas.1402028111",
+        "fronts": [
+          "anotacoes_uniprot",
+          "eficiencia"
+        ],
+        "pmids": [
+          "24843170"
+        ],
+        "title": "Ammonia-oxidizing archaea use the most energy-efficient aerobic pathway for CO2 fixation",
+        "year": 2014
+      },
+      {
+        "doi": "10.1073/pnas.1506533112",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "26305944"
+        ],
+        "title": "Expanded metabolic versatility of ubiquitous nitrite-oxidizing bacteria from the genus Nitrospira.",
+        "year": 2015
+      },
+      {
+        "doi": "10.1073/pnas.2522572123",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "41570075"
+        ],
+        "title": "Metabolic rewiring and biomass redistribution enable optimized mixotrophic growth in Chlamydomonas.",
+        "year": 2026
+      },
+      {
+        "doi": "10.1073/pnas.96.23.13571",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "10557362"
+        ],
+        "title": "Identification of an ATP-binding cassette transporter involved in bicarbonate uptake in the cyanobacterium Synechococcus sp. strain PCC 7942.",
+        "year": 1999
+      },
+      {
+        "doi": "10.1074/jbc.m113.510255",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "24045950"
+        ],
+        "title": "The ferredoxin:NAD+ oxidoreductase (Rnf) from the acetogen Acetobacterium woodii requires Na+ and is reversibly coupled to the membrane potential.",
+        "year": 2013
+      },
+      {
+        "doi": "10.1074/jbc.m116.735530",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "27317665"
+        ],
+        "title": "Characterization of Anammox Hydrazine Dehydrogenase, a Key N2-producing Enzyme in the Global Nitrogen Cycle.",
+        "year": 2016
+      },
+      {
+        "doi": "10.1093/femsle/fnz122",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "31158281"
+        ],
+        "title": "Hydrogen-dependent autotrophic growth in phototrophic and chemolithotrophic cultures of thermophilic bacteria, Chloroflexus aggregans and Chloroflexus aurantiacus, isolated from Nakabusa hot springs.",
+        "year": 2019
+      },
+      {
+        "doi": "10.1093/ismejo/wrae173",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "39276367"
+        ],
+        "title": "Oxidation of sulfur, hydrogen, and iron by metabolically versatile Hydrogenovibrio from deep sea hydrothermal vents.",
+        "year": 2024
+      },
+      {
+        "doi": "10.1093/pcp/pcz044",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "30847494"
+        ],
+        "title": "Thylakoid Localized Type 2 NAD(P)H Dehydrogenase NdbA Optimizes Light-Activated Heterotrophic Growth of Synechocystis sp. PCC 6803.",
+        "year": 2019
+      },
+      {
+        "doi": "10.1099/00207713-49-2-645",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "10319488"
+        ],
+        "title": "A re-evaluation of the taxonomy of Paracoccus denitrificans and a proposal for the combination Paracoccus pantotrophus comb. nov.",
+        "year": 1999
+      },
+      {
+        "doi": "10.1099/ijs.0.048827-0",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "23749282"
+        ],
+        "title": "Sulfurimonas gotlandica sp. nov., a chemoautotrophic and psychrotolerant epsilonproteobacterium isolated from a pelagic redoxcline, and an emended description of the genus Sulfurimonas.",
+        "year": 2013
+      },
+      {
+        "doi": "10.1099/ijs.0.64255-0",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "16901999"
+        ],
+        "title": "Sulfurimonas paralvinellae sp. nov., a novel mesophilic, hydrogen- and sulfur-oxidizing chemolithoautotroph within the Epsilonproteobacteria isolated from a deep-sea hydrothermal vent polychaete nest, reclassification of Thiomicrospira denitrificans as Sulfurimonas denitrificans comb. nov. and emended description of the genus Sulfurimonas.",
+        "year": 2006
+      },
+      {
+        "doi": "10.1111/j.1365-2958.1991.tb01978.x",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "1779759"
+        ],
+        "title": "Identification of cfxR, an activator gene of autotrophic CO2 fixation in Alcaligenes eutrophus.",
+        "year": "1991"
+      },
+      {
+        "doi": "10.1111/j.1365-2958.2005.04861.x",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "16238619"
+        ],
+        "title": "Regulation of methane oxidation in the facultative methanotroph Methylocella silvestris BL2.",
+        "year": 2005
+      },
+      {
+        "doi": "10.1111/j.1432-1033.1989.tb14617.x",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "2651125"
+        ],
+        "title": "The primary structure of the Chloroflexus aurantiacus reaction-center polypeptides.",
+        "year": "1989"
+      },
+      {
+        "doi": "10.1111/j.1432-1033.1989.tb14708.x",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "2496982"
+        ],
+        "title": "Comparison of the NH2-terminal amino acid sequences of the four non-identical subunits of the NAD-linked hydrogenases from Nocardia opaca 1b and Alcaligenes eutrophus H16.",
+        "year": "1989"
+      },
+      {
+        "doi": "10.1111/j.1462-2920.2004.00593.x",
+        "fronts": [
+          "diversidade",
+          "eficiencia"
+        ],
+        "pmids": [
+          "15142248"
+        ],
+        "title": "Graphite electrodes as electron donors for anaerobic respiration.",
+        "year": 2004
+      },
+      {
+        "doi": "10.1111/j.1462-2920.2008.01679.x",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "18631365"
+        ],
+        "title": "The complete genome sequence of Moorella thermoacetica (f. Clostridium thermoaceticum).",
+        "year": 2008
+      },
+      {
+        "doi": "10.1111/nph.17359",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "33764540"
+        ],
+        "title": "Mixotrophic growth of the extremophile Galdieria sulphuraria reveals the flexibility of its carbon assimilation metabolism.",
+        "year": 2021
+      },
+      {
+        "doi": "10.1126/sciadv.aba0697",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "32821818"
+        ],
+        "title": "Widespread energy limitation to life in global subseafloor sediments",
+        "year": 2020
+      },
+      {
+        "doi": "10.1126/science.1200165",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "21566184"
+        ],
+        "title": "Comparing photosynthetic and photovoltaic efficiencies and recognizing the potential for improvement",
+        "year": 2011
+      },
+      {
+        "doi": "10.1126/science.1256985",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "25170152"
+        ],
+        "title": "Growth of nitrite-oxidizing bacteria by aerobic hydrogen oxidation.",
+        "year": 2014
+      },
+      {
+        "doi": "10.1126/science.289.5485.1724",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "10976061"
+        ],
+        "title": "Molecular evidence for the early evolution of photosynthesis.",
+        "year": "2000"
+      },
+      {
+        "doi": "10.1126/science.aaf5039",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "27257255"
+        ],
+        "title": "Water splitting-biosynthetic system with CO2 reduction efficiencies exceeding photosynthesis.",
+        "year": 2016
+      },
+      {
+        "doi": "10.1128/aem.00895-14",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "24837373"
+        ],
+        "title": "Direct interspecies electron transfer between Geobacter metallireducens and Methanosarcina barkeri.",
+        "year": 2014
+      },
+      {
+        "doi": "10.1128/aem.01741-23",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "38078768"
+        ],
+        "title": "Nitrous oxide reduction by two partial denitrifying bacteria requires denitrification intermediates that cannot be respired.",
+        "year": 2024
+      },
+      {
+        "doi": "10.1128/aem.01844-07",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "18065616"
+        ],
+        "title": "Genome of the epsilonproteobacterial chemolithoautotroph Sulfurimonas denitrificans.",
+        "year": 2008
+      },
+      {
+        "doi": "10.1128/aem.02007-22",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "36719244"
+        ],
+        "title": "Minimizing the Lag Phase of Cupriavidus necator Growth under Autotrophic, Heterotrophic, and Mixotrophic Conditions",
+        "year": 2023
+      },
+      {
+        "doi": "10.1128/aem.03364-14",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "25501483"
+        ],
+        "title": "Atmospheric hydrogen scavenging: from enzymes to ecosystems",
+        "year": 2015
+      },
+      {
+        "doi": "10.1128/aem.60.10.3752-3759.1994",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "7527204"
+        ],
+        "title": "Geobacter sulfurreducens sp. nov., a hydrogen- and acetate-oxidizing dissimilatory metal-reducing microorganism.",
+        "year": 1994
+      },
+      {
+        "doi": "10.1128/aem.69.3.1548-1555.2003",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "12620842"
+        ],
+        "title": "Electricity production by Geobacter sulfurreducens attached to electrodes",
+        "year": 2003
+      },
+      {
+        "doi": "10.1128/aem.71.8.4487-4496.2005",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "16085840"
+        ],
+        "title": "Isolation and characterization of a genetically tractable photoautotrophic Fe(II)-oxidizing bacterium, Rhodopseudomonas palustris strain TIE-1.",
+        "year": 2005
+      },
+      {
+        "doi": "10.1128/jb.00299-08",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "18441057"
+        ],
+        "title": "The genome of Heliobacterium modesticaldum, a phototrophic representative of the Firmicutes containing the simplest photosynthetic apparatus.",
+        "year": 2008
+      },
+      {
+        "doi": "10.1128/jb.00357-18",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "30126940"
+        ],
+        "title": "The Rnf Complex Is an Energy-Coupled Transhydrogenase Essential To Reversibly Link Cellular NADH and Ferredoxin Pools in the Acetogen Acetobacterium woodii.",
+        "year": 2018
+      },
+      {
+        "doi": "10.1128/jb.00366-10",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "20418398"
+        ],
+        "title": "Complete genome sequence of the photosynthetic purple nonsulfur bacterium Rhodobacter capsulatus SB 1003.",
+        "year": 2010
+      },
+      {
+        "doi": "10.1128/jb.00381-06",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "16923881"
+        ],
+        "title": "Regulation of uptake hydrogenase and effects of hydrogen utilization on gene expression in Rhodopseudomonas palustris.",
+        "year": 2006
+      },
+      {
+        "doi": "10.1128/jb.00506-10",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "20472789"
+        ],
+        "title": "Complete genome sequence of the aerobic facultative methanotroph Methylocella silvestris BL2.",
+        "year": 2010
+      },
+      {
+        "doi": "10.1128/jb.00515-12",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "22628496"
+        ],
+        "title": "Draft genome sequence of Rubrivivax gelatinosus CBS.",
+        "year": 2012
+      },
+      {
+        "doi": "10.1128/jb.00810-06",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "16980466"
+        ],
+        "title": "The Methanosarcina barkeri genome: comparative analysis with Methanosarcina acetivorans and Methanosarcina mazei reveals extensive rearrangement within methanosarcinal genomes.",
+        "year": 2006
+      },
+      {
+        "doi": "10.1128/jb.01025-15",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "26833419"
+        ],
+        "title": "Different Functions of Phylogenetically Distinct Bacterial Complex I Isozymes.",
+        "year": 2016
+      },
+      {
+        "doi": "10.1128/jb.01346-12",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "23012286"
+        ],
+        "title": "Genome sequence of the methanotrophic poly-beta-hydroxybutyrate producer Methylocystis parvus OBBP.",
+        "year": 2012
+      },
+      {
+        "doi": "10.1128/jb.05660-11",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "21742890"
+        ],
+        "title": "Complete genome sequence of the type strain Cupriavidus necator N-1.",
+        "year": 2011
+      },
+      {
+        "doi": "10.1128/jb.166.2.446-452.1986",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "3009400"
+        ],
+        "title": "Tn5-induced mutations affecting sulfur-oxidizing ability (Sox) of Thiosphaera pantotropha.",
+        "year": 1986
+      },
+      {
+        "doi": "10.1128/jb.172.6.2920-2929.1990",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "2188945"
+        ],
+        "title": "Cloning and nucleotide sequences of the genes for the subunits of NAD-reducing hydrogenase of Alcaligenes eutrophus H16.",
+        "year": "1990"
+      },
+      {
+        "doi": "10.1128/jb.173.9.2761-2767.1991",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "1902208"
+        ],
+        "title": "Light-activated heterotrophic growth of the cyanobacterium Synechocystis sp. strain PCC 6803: a blue-light-requiring process.",
+        "year": 1991
+      },
+      {
+        "doi": "10.1128/jb.174.19.6277-6289.1992",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "1383192"
+        ],
+        "title": "A gene complex coding for the membrane-bound hydrogenase of Alcaligenes eutrophus H16.",
+        "year": "1992"
+      },
+      {
+        "doi": "10.1128/jb.177.15.4442-4450.1995",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "pmids": [
+          "7543477"
+        ],
+        "title": "Characterization of the duplicate ribulose-1,5-bisphosphate carboxylase genes and cbb promoters of Alcaligenes eutrophus.",
+        "year": "1995"
+      },
+      {
+        "doi": "10.1128/jb.177.8.2241-2244.1995",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "7721719"
+        ],
+        "title": "Carbon monoxide-dependent growth of Rhodospirillum rubrum.",
+        "year": 1995
+      },
+      {
+        "doi": "10.1128/jb.186.20.6956-6969.2004",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "15466049"
+        ],
+        "title": "Complete genome sequence of the genetically tractable hydrogenotrophic methanogen Methanococcus maripaludis.",
+        "year": 2004
+      },
+      {
+        "doi": "10.1128/mbio.00103-10",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "20714445"
+        ],
+        "title": "Microbial electrosynthesis: feeding microbes electricity to convert carbon dioxide and water to multicarbon extracellular organic compounds.",
+        "year": 2010
+      },
+      {
+        "doi": "10.1128/mbio.00496-15",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "25900658"
+        ],
+        "title": "Extracellular enzymes facilitate electron uptake in biocorrosion and bioelectrosynthesis.",
+        "year": 2015
+      },
+      {
+        "doi": "10.1128/mra.00814-19",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "31515345"
+        ],
+        "title": "Complete Genome Sequence of Cupriavidus necator H16 (DSM 428).",
+        "year": 2019
+      },
+      {
+        "doi": "10.1128/mra.01132-19",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "31624154"
+        ],
+        "title": "Complete Genome Sequence of a Mesophilic Obligately Chemolithoautotrophic Hydrogen-Oxidizing Bacterium, Hydrogenovibrio marinus MH-110.",
+        "year": 2019
+      },
+      {
+        "doi": "10.1128/mra.01285-22",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "37078874"
+        ],
+        "title": "Complete Genome Sequence of Rhodopseudomonas palustris CGA0092 and Corrections to the R. palustris CGA009 Genome Sequence.",
+        "year": 2023
+      },
+      {
+        "doi": "10.1128/mra.01290-19",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "31896641"
+        ],
+        "title": "Complete Genome Sequence and Annotation of the Paracoccus pantotrophus Type Strain DSM 2944.",
+        "year": 2020
+      },
+      {
+        "doi": "10.1128/mra.01419-19",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "32139556"
+        ],
+        "title": "Draft Genome Sequence and Annotation of Paracoccus versutus MAL 1HM19, a Nitrate-Reducing, Sulfide-Oxidizing Bacterium.",
+        "year": 2020
+      },
+      {
+        "doi": "10.1128/msystems.00383-26",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "42095649"
+        ],
+        "title": "Machine learning reveals proteome-encoded growth determinants underlying metabolic versatility of Rhodopseudomonas palustris on lignin-derived aromatics.",
+        "year": 2026
+      },
+      {
+        "doi": "10.1128/msystems.01077-23",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "38180324"
+        ],
+        "title": "Genome-scale metabolic model of the versatile bacterium Paracoccus denitrificans Pd1222.",
+        "year": 2024
+      },
+      {
+        "doi": "10.1186/1471-2164-11-511",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "20863402"
+        ],
+        "title": "Complete genome and comparative analysis of the chemolithoautotrophic bacterium Oligotropha carboxidovorans OM5.",
+        "year": 2010
+      },
+      {
+        "doi": "10.1186/1471-2164-12-334",
+        "fronts": [
+          "anotacoes_uniprot",
+          "versatilidade"
+        ],
+        "pmids": [
+          "21714912"
+        ],
+        "title": "Complete genome sequence of the filamentous anoxygenic phototrophic bacterium Chloroflexus aurantiacus.",
+        "year": 2011
+      },
+      {
+        "doi": "10.1186/1471-2164-9-597",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "19077236"
+        ],
+        "title": "Acidithiobacillus ferrooxidans metabolism: from genome sequence to industrial applications.",
+        "year": 2008
+      },
+      {
+        "doi": "10.1186/1471-2180-10-150",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "20497547"
+        ],
+        "title": "Energy metabolism of Heliobacterium modesticaldum during phototrophic and chemotrophic growth.",
+        "year": 2010
+      },
+      {
+        "doi": "10.1186/1475-2859-12-118",
+        "fronts": [
+          "modelos_gem"
+        ],
+        "pmids": [
+          "24274140"
+        ],
+        "title": null,
+        "year": null
+      },
+      {
+        "doi": "10.1186/s13068-015-0400-2",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "26689675"
+        ],
+        "title": "Comparison of four outdoor pilot-scale photobioreactors",
+        "year": 2015
+      },
+      {
+        "doi": "10.1371/journal.pbio.0020303",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "15383840"
+        ],
+        "title": "Genomic insights into methanotrophy: the complete genome sequence of Methylococcus capsulatus (Bath).",
+        "year": 2004
+      },
+      {
+        "doi": "10.1371/journal.pcbi.1010106",
+        "fronts": [
+          "modelos_gem"
+        ],
+        "pmids": [
+          "35604933"
+        ],
+        "title": null,
+        "year": null
+      },
+      {
+        "doi": "10.1371/journal.pcbi.1011371",
+        "fronts": [
+          "modelos_gem"
+        ],
+        "pmids": [
+          "37556472"
+        ],
+        "title": null,
+        "year": null
+      },
+      {
+        "doi": "10.1371/journal.pone.0000667",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "17668050"
+        ],
+        "title": "A novel lineage of proteobacteria involved in formation of marine Fe-oxidizing microbial mat communities.",
+        "year": 2007
+      },
+      {
+        "doi": "10.1371/journal.pone.0009605",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "20333302"
+        ],
+        "title": "The complete genome sequence of Haloferax volcanii DS2, a model archaeon.",
+        "year": 2010
+      },
+      {
+        "doi": "10.1371/journal.pone.0019725",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "21573025"
+        ],
+        "title": "Energy starved Candidatus Pelagibacter ubique substitutes light-mediated ATP production for endogenous carbon respiration.",
+        "year": 2011
+      },
+      {
+        "doi": "10.1371/journal.pone.0103034",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "25058581"
+        ],
+        "title": "The growth and survival of Mycobacterium smegmatis is enhanced by co-metabolism of atmospheric H2.",
+        "year": 2014
+      },
+      {
+        "doi": "10.1371/journal.pone.0106218",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "25170905"
+        ],
+        "title": "The role of hydrogen for Sulfurimonas denitrificans' metabolism.",
+        "year": 2014
+      },
+      {
+        "doi": "10.1371/journal.pone.0114551",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "25479613"
+        ],
+        "title": "Genome annotation provides insight into carbon monoxide and hydrogen metabolism in Rubrivivax gelatinosus.",
+        "year": 2014
+      },
+      {
+        "doi": "10.3389/fbioe.2022.989481",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "36281430"
+        ],
+        "title": "Production of biopolymer precursors beta-alanine and L-lactic acid from CO2 with metabolically versatile Rhodococcus opacus DSM 43205.",
+        "year": 2022
+      },
+      {
+        "doi": "10.3389/fmicb.2012.00354",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "23087677"
+        ],
+        "title": "Synechococcus sp. Strain PCC 7002 Transcriptome: Acclimation to Temperature, Salinity, Oxidative Stress, and Mixotrophic Growth Conditions.",
+        "year": 2012
+      },
+      {
+        "doi": "10.3389/fmicb.2017.02513",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "29312214"
+        ],
+        "title": "Sulfur Metabolism of Hydrogenovibrio thermophilus Strain S5 and Its Adaptations to Deep-Sea Hydrothermal Vent Environment.",
+        "year": 2017
+      },
+      {
+        "doi": "10.3389/fmicb.2018.00067",
+        "fronts": [
+          "diversidade"
+        ],
+        "pmids": [
+          "29497402"
+        ],
+        "title": "Phylogenomics and Comparative Genomic Studies Robustly Support Division of the Genus Mycobacterium into an Emended Genus Mycobacterium and Four Novel Genera.",
+        "year": 2018
+      },
+      {
+        "doi": "10.3389/fmicb.2020.00468",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "32373076"
+        ],
+        "title": "Analysis of 1,000+ Type-Strain Genomes Substantially Improves Taxonomic Classification of Alphaproteobacteria.",
+        "year": 2020
+      },
+      {
+        "doi": "10.3390/bioengineering9050204",
+        "fronts": [
+          "eficiencia"
+        ],
+        "pmids": [
+          "35621482"
+        ],
+        "title": "Lab-Scale Cultivation of Cupriavidus necator on Explosive Gas Mixtures: Carbon Dioxide Fixation into Polyhydroxybutyrate",
+        "year": 2022
+      },
+      {
+        "doi": "10.3390/metabo16010086",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "41590694"
+        ],
+        "title": "Artificial Neural Network Elucidates the Role of Transport Proteins in Rhodopseudomonas palustris CGA009 During Lignin Breakdown Product Catabolism.",
+        "year": 2026
+      },
+      {
+        "doi": "10.3390/microorganisms10061235",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [
+          "35744753"
+        ],
+        "title": "Taxonomic Re-Evaluation and Genomic Comparison of Novel Extracellular Electron Uptake-Capable Rhodovulum visakhapatnamense and Rhodovulum sulfidophilum Isolates.",
+        "year": 2022
+      },
+      {
+        "doi": "10.4056/sigs.1804360",
+        "fronts": [
+          "anotacoes_uniprot",
+          "versatilidade"
+        ],
+        "pmids": [
+          "21886856"
+        ],
+        "title": "Complete genome sequence of Rhodospirillum rubrum type strain (S1).",
+        "year": 2011
+      },
+      {
+        "doi": "10.64898/2025.12.19.695510",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [],
+        "title": "Machine Learning Reveals Proteome-Encoded Growth Predictors of Rhodopseudomonas palustris CGA009 on Lignin Aromatics.",
+        "year": 2025
+      },
+      {
+        "doi": "10.64898/2026.11.09.765286",
+        "fronts": [
+          "versatilidade"
+        ],
+        "pmids": [],
+        "title": "Selected for the surface: adaptive laboratory evolution for accelerated cathodic biofilm development in Cupriavidus necator.",
+        "year": 2026
+      }
+    ],
+    "pmids": [
+      {
+        "pmid": "2313",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1016/0005-2728(76)90107-9"
+        ],
+        "title": "Stimulation of ATP synthesis in Halobacterium halobium R1 by light-induced or artifically created proton electrochemical potential gradients across the cell membrane.",
+        "year": 1976
+      },
+      {
+        "pmid": "1383192",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1128/jb.174.19.6277-6289.1992"
+        ],
+        "title": "A gene complex coding for the membrane-bound hydrogenase of Alcaligenes eutrophus H16.",
+        "year": "1992"
+      },
+      {
+        "pmid": "1779759",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1111/j.1365-2958.1991.tb01978.x"
+        ],
+        "title": "Identification of cfxR, an activator gene of autotrophic CO2 fixation in Alcaligenes eutrophus.",
+        "year": "1991"
+      },
+      {
+        "pmid": "1902208",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1128/jb.173.9.2761-2767.1991"
+        ],
+        "title": "Light-activated heterotrophic growth of the cyanobacterium Synechocystis sp. strain PCC 6803: a blue-light-requiring process.",
+        "year": 1991
+      },
+      {
+        "pmid": "2188945",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1128/jb.172.6.2920-2929.1990"
+        ],
+        "title": "Cloning and nucleotide sequences of the genes for the subunits of NAD-reducing hydrogenase of Alcaligenes eutrophus H16.",
+        "year": "1990"
+      },
+      {
+        "pmid": "2493816",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1016/0167-4838(89)90225-2"
+        ],
+        "title": "Immunological comparison of subunits isolated from various hydrogenases of aerobic hydrogen bacteria.",
+        "year": "1989"
+      },
+      {
+        "pmid": "2496982",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1111/j.1432-1033.1989.tb14708.x"
+        ],
+        "title": "Comparison of the NH2-terminal amino acid sequences of the four non-identical subunits of the NAD-linked hydrogenases from Nocardia opaca 1b and Alcaligenes eutrophus H16.",
+        "year": "1989"
+      },
+      {
+        "pmid": "2651125",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1111/j.1432-1033.1989.tb14617.x"
+        ],
+        "title": "The primary structure of the Chloroflexus aurantiacus reaction-center polypeptides.",
+        "year": "1989"
+      },
+      {
+        "pmid": "2834225",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1016/0014-5793(88)80739-7"
+        ],
+        "title": "Photosynthetic reaction centre of Chloroflexus aurantiacus. I. Primary structure of L-subunit.",
+        "year": "1988"
+      },
+      {
+        "pmid": "3009400",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/jb.166.2.446-452.1986"
+        ],
+        "title": "Tn5-induced mutations affecting sulfur-oxidizing ability (Sox) of Thiosphaera pantotropha.",
+        "year": 1986
+      },
+      {
+        "pmid": "7527204",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1128/aem.60.10.3752-3759.1994"
+        ],
+        "title": "Geobacter sulfurreducens sp. nov., a hydrogen- and acetate-oxidizing dissimilatory metal-reducing microorganism.",
+        "year": 1994
+      },
+      {
+        "pmid": "7543477",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1128/jb.177.15.4442-4450.1995"
+        ],
+        "title": "Characterization of the duplicate ribulose-1,5-bisphosphate carboxylase genes and cbb promoters of Alcaligenes eutrophus.",
+        "year": "1995"
+      },
+      {
+        "pmid": "7721719",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/jb.177.8.2241-2244.1995"
+        ],
+        "title": "Carbon monoxide-dependent growth of Rhodospirillum rubrum.",
+        "year": 1995
+      },
+      {
+        "pmid": "8387263",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1007/bf00290916"
+        ],
+        "title": "Geobacter metallireducens gen. nov. sp. nov., a microorganism capable of coupling the complete oxidation of organic compounds to the reduction of iron and other metals.",
+        "year": 1993
+      },
+      {
+        "pmid": "9639598",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1007/s002030050609"
+        ],
+        "title": "Aerobic chemolithoautotrophic growth and RubisCO function in Rhodobacter capsulatus and a spontaneous gain of function mutant of Rhodobacter sphaeroides.",
+        "year": 1998
+      },
+      {
+        "pmid": "10319488",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1099/00207713-49-2-645"
+        ],
+        "title": "A re-evaluation of the taxonomy of Paracoccus denitrificans and a proposal for the combination Paracoccus pantotrophus comb. nov.",
+        "year": 1999
+      },
+      {
+        "pmid": "10557362",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1073/pnas.96.23.13571"
+        ],
+        "title": "Identification of an ATP-binding cassette transporter involved in bicarbonate uptake in the cyanobacterium Synechococcus sp. strain PCC 7942.",
+        "year": 1999
+      },
+      {
+        "pmid": "10976061",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1126/science.289.5485.1724"
+        ],
+        "title": "Molecular evidence for the early evolution of photosynthesis.",
+        "year": "2000"
+      },
+      {
+        "pmid": "12093901",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1073/pnas.132181499"
+        ],
+        "title": "The complete genome sequence of Chlorobium tepidum TLS, a photosynthetic, anaerobic, green-sulfur bacterium.",
+        "year": 2002
+      },
+      {
+        "pmid": "12620842",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1128/aem.69.3.1548-1555.2003"
+        ],
+        "title": "Electricity production by Geobacter sulfurreducens attached to electrodes",
+        "year": 2003
+      },
+      {
+        "pmid": "12948488",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1016/s0022-2836(03)00894-5"
+        ],
+        "title": "Complete nucleotide sequence of pHG1: a Ralstonia eutropha H16 megaplasmid encoding key enzymes of H(2)-based lithoautotrophy and anaerobiosis.",
+        "year": "2003"
+      },
+      {
+        "pmid": "14704707",
+        "fronts": [
+          "anotacoes_uniprot",
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1038/nbt923"
+        ],
+        "title": "Complete genome sequence of the metabolically versatile photosynthetic bacterium Rhodopseudomonas palustris.",
+        "year": 2004
+      },
+      {
+        "pmid": "15142248",
+        "fronts": [
+          "diversidade",
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1111/j.1462-2920.2004.00593.x"
+        ],
+        "title": "Graphite electrodes as electron donors for anaerobic respiration.",
+        "year": 2004
+      },
+      {
+        "pmid": "15383840",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1371/journal.pbio.0020303"
+        ],
+        "title": "Genomic insights into methanotrophy: the complete genome sequence of Methylococcus capsulatus (Bath).",
+        "year": 2004
+      },
+      {
+        "pmid": "15466049",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1128/jb.186.20.6956-6969.2004"
+        ],
+        "title": "Complete genome sequence of the genetically tractable hydrogenotrophic methanogen Methanococcus maripaludis.",
+        "year": 2004
+      },
+      {
+        "pmid": "15550538",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1073/pnas.0407486101"
+        ],
+        "title": "Anaerobic growth of Methanosarcina acetivorans C2A on carbon monoxide: an unusual way of life for a methanogenic archaeon.",
+        "year": 2004
+      },
+      {
+        "pmid": "16085840",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/aem.71.8.4487-4496.2005"
+        ],
+        "title": "Isolation and characterization of a genetically tractable photoautotrophic Fe(II)-oxidizing bacterium, Rhodopseudomonas palustris strain TIE-1.",
+        "year": 2005
+      },
+      {
+        "pmid": "16177789",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1038/nature03911"
+        ],
+        "title": "Isolation of an autotrophic ammonia-oxidizing marine archaeon.",
+        "year": 2005
+      },
+      {
+        "pmid": "16238619",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1111/j.1365-2958.2005.04861.x"
+        ],
+        "title": "Regulation of methane oxidation in the facultative methanotroph Methylocella silvestris BL2.",
+        "year": 2005
+      },
+      {
+        "pmid": "16267553",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1038/nature04032"
+        ],
+        "title": "Proteorhodopsin in the ubiquitous marine bacterium SAR11.",
+        "year": 2005
+      },
+      {
+        "pmid": "16598256",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1038/nature04647"
+        ],
+        "title": "Deciphering the evolution and metabolism of an anammox bacterium from a community genome.",
+        "year": 2006
+      },
+      {
+        "pmid": "16738551",
+        "fronts": [
+          "modelos_gem"
+        ],
+        "dois": [
+          "10.1038/msb4100046"
+        ],
+        "title": null,
+        "year": null
+      },
+      {
+        "pmid": "16901999",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1099/ijs.0.64255-0"
+        ],
+        "title": "Sulfurimonas paralvinellae sp. nov., a novel mesophilic, hydrogen- and sulfur-oxidizing chemolithoautotroph within the Epsilonproteobacteria isolated from a deep-sea hydrothermal vent polychaete nest, reclassification of Thiomicrospira denitrificans as Sulfurimonas denitrificans comb. nov. and emended description of the genus Sulfurimonas.",
+        "year": 2006
+      },
+      {
+        "pmid": "16923881",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/jb.00381-06"
+        ],
+        "title": "Regulation of uptake hydrogenase and effects of hydrogen utilization on gene expression in Rhodopseudomonas palustris.",
+        "year": 2006
+      },
+      {
+        "pmid": "16964242",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1038/nbt1244"
+        ],
+        "title": "Genome sequence of the bioplastic-producing 'Knallgas' bacterium Ralstonia eutropha H16.",
+        "year": "2006"
+      },
+      {
+        "pmid": "16980466",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1128/jb.00810-06"
+        ],
+        "title": "The Methanosarcina barkeri genome: comparative analysis with Methanosarcina acetivorans and Methanosarcina mazei reveals extensive rearrangement within methanosarcinal genomes.",
+        "year": 2006
+      },
+      {
+        "pmid": "16999087",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1021/es0605016"
+        ],
+        "title": "Microbial fuel cells: methodology and technology",
+        "year": 2006
+      },
+      {
+        "pmid": "17189359",
+        "fronts": [
+          "anotacoes_kegg"
+        ],
+        "dois": [],
+        "title": null,
+        "year": null
+      },
+      {
+        "pmid": "17668050",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1371/journal.pone.0000667"
+        ],
+        "title": "A novel lineage of proteobacteria involved in formation of marine Fe-oxidizing microbial mat communities.",
+        "year": 2007
+      },
+      {
+        "pmid": "18065616",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/aem.01844-07"
+        ],
+        "title": "Genome of the epsilonproteobacterial chemolithoautotroph Sulfurimonas denitrificans.",
+        "year": 2008
+      },
+      {
+        "pmid": "18441057",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1128/jb.00299-08"
+        ],
+        "title": "The genome of Heliobacterium modesticaldum, a phototrophic representative of the Firmicutes containing the simplest photosynthetic apparatus.",
+        "year": 2008
+      },
+      {
+        "pmid": "18552178",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1073/pnas.0712027105"
+        ],
+        "title": "Genome analysis of the proteorhodopsin-containing marine bacterium Polaribacter sp. MED152 (Flavobacteria).",
+        "year": 2008
+      },
+      {
+        "pmid": "18587410",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1038/nrmicro1931"
+        ],
+        "title": "Methanogenic archaea: ecologically relevant differences in energy conservation",
+        "year": 2008
+      },
+      {
+        "pmid": "18613056",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1002/bit.260420415"
+        ],
+        "title": "A thermodynamically based correlation for maintenance Gibbs energy requirements in aerobic and anaerobic chemotrophic growth",
+        "year": 1993
+      },
+      {
+        "pmid": "18631365",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1111/j.1462-2920.2008.01679.x"
+        ],
+        "title": "The complete genome sequence of Moorella thermoacetica (f. Clostridium thermoaceticum).",
+        "year": 2008
+      },
+      {
+        "pmid": "19077236",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1186/1471-2164-9-597"
+        ],
+        "title": "Acidithiobacillus ferrooxidans metabolism: from genome sequence to industrial applications.",
+        "year": 2008
+      },
+      {
+        "pmid": "19794413",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1038/nature08465"
+        ],
+        "title": "Ammonia oxidation kinetics determine niche separation of nitrifying Archaea and Bacteria",
+        "year": 2009
+      },
+      {
+        "pmid": "19955419",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1073/pnas.0908356106"
+        ],
+        "title": "Identifying the missing steps of the autotrophic 3-hydroxypropionate CO2 fixation cycle in Chloroflexus aurantiacus.",
+        "year": 2009
+      },
+      {
+        "pmid": "20212490",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1038/nbt.1614"
+        ],
+        "title": "What is flux balance analysis?",
+        "year": 2010
+      },
+      {
+        "pmid": "20333302",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1371/journal.pone.0009605"
+        ],
+        "title": "The complete genome sequence of Haloferax volcanii DS2, a model archaeon.",
+        "year": 2010
+      },
+      {
+        "pmid": "20418398",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/jb.00366-10"
+        ],
+        "title": "Complete genome sequence of the photosynthetic purple nonsulfur bacterium Rhodobacter capsulatus SB 1003.",
+        "year": 2010
+      },
+      {
+        "pmid": "20421470",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1073/pnas.0913533107"
+        ],
+        "title": "Nitrosopumilus maritimus genome reveals unique mechanisms for nitrification and autotrophy in globally distributed marine crenarchaea.",
+        "year": "2010"
+      },
+      {
+        "pmid": "20472789",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1128/jb.00506-10"
+        ],
+        "title": "Complete genome sequence of the aerobic facultative methanotroph Methylocella silvestris BL2.",
+        "year": 2010
+      },
+      {
+        "pmid": "20497547",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1186/1471-2180-10-150"
+        ],
+        "title": "Energy metabolism of Heliobacterium modesticaldum during phototrophic and chemotrophic growth.",
+        "year": 2010
+      },
+      {
+        "pmid": "20558750",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1073/pnas.1006175107"
+        ],
+        "title": "Carbon dioxide fixation as a central redox cofactor recycling mechanism in bacteria",
+        "year": 2010
+      },
+      {
+        "pmid": "20714445",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1128/mbio.00103-10"
+        ],
+        "title": "Microbial electrosynthesis: feeding microbes electricity to convert carbon dioxide and water to multicarbon extracellular organic compounds.",
+        "year": 2010
+      },
+      {
+        "pmid": "20863402",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1186/1471-2164-11-511"
+        ],
+        "title": "Complete genome and comparative analysis of the chemolithoautotrophic bacterium Oligotropha carboxidovorans OM5.",
+        "year": 2010
+      },
+      {
+        "pmid": "21311931",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1007/s00792-011-0359-2"
+        ],
+        "title": "Acidiferrobacter thiooxydans, gen. nov. sp. nov.; an acidophilic, thermo-tolerant, facultatively anaerobic iron- and sulfur-oxidizer of the family Ectothiorhodospiraceae.",
+        "year": 2011
+      },
+      {
+        "pmid": "21566184",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1126/science.1200165"
+        ],
+        "title": "Comparing photosynthetic and photovoltaic efficiencies and recognizing the potential for improvement",
+        "year": 2011
+      },
+      {
+        "pmid": "21573025",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1371/journal.pone.0019725"
+        ],
+        "title": "Energy starved Candidatus Pelagibacter ubique substitutes light-mediated ATP production for endogenous carbon respiration.",
+        "year": 2011
+      },
+      {
+        "pmid": "21714912",
+        "fronts": [
+          "anotacoes_uniprot",
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1186/1471-2164-12-334"
+        ],
+        "title": "Complete genome sequence of the filamentous anoxygenic phototrophic bacterium Chloroflexus aurantiacus.",
+        "year": 2011
+      },
+      {
+        "pmid": "21742890",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/jb.05660-11"
+        ],
+        "title": "Complete genome sequence of the type strain Cupriavidus necator N-1.",
+        "year": 2011
+      },
+      {
+        "pmid": "21886856",
+        "fronts": [
+          "anotacoes_uniprot",
+          "versatilidade"
+        ],
+        "dois": [
+          "10.4056/sigs.1804360"
+        ],
+        "title": "Complete genome sequence of Rhodospirillum rubrum type strain (S1).",
+        "year": 2011
+      },
+      {
+        "pmid": "22203982",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1073/pnas.1111262109"
+        ],
+        "title": "Genome and physiology of a model Epsilonproteobacterium responsible for sulfide detoxification in marine oxygen depletion zones.",
+        "year": 2012
+      },
+      {
+        "pmid": "22308420",
+        "fronts": [
+          "modelos_gem"
+        ],
+        "dois": [
+          "10.1073/pnas.1117907109"
+        ],
+        "title": null,
+        "year": null
+      },
+      {
+        "pmid": "22628496",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/jb.00515-12"
+        ],
+        "title": "Draft genome sequence of Rubrivivax gelatinosus CBS.",
+        "year": 2012
+      },
+      {
+        "pmid": "23012286",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1128/jb.01346-12"
+        ],
+        "title": "Genome sequence of the methanotrophic poly-beta-hydroxybutyrate producer Methylocystis parvus OBBP.",
+        "year": 2012
+      },
+      {
+        "pmid": "23087677",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.3389/fmicb.2012.00354"
+        ],
+        "title": "Synechococcus sp. Strain PCC 7002 Transcriptome: Acclimation to Temperature, Salinity, Oxidative Stress, and Mixotrophic Growth Conditions.",
+        "year": 2012
+      },
+      {
+        "pmid": "23321532",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1038/nrmicro2939"
+        ],
+        "title": "Microbial life under extreme energy limitation",
+        "year": 2013
+      },
+      {
+        "pmid": "23749282",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1099/ijs.0.048827-0"
+        ],
+        "title": "Sulfurimonas gotlandica sp. nov., a chemoautotrophic and psychrotolerant epsilonproteobacterium isolated from a pelagic redoxcline, and an emended description of the genus Sulfurimonas.",
+        "year": 2013
+      },
+      {
+        "pmid": "24045950",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1074/jbc.m113.510255"
+        ],
+        "title": "The ferredoxin:NAD+ oxidoreductase (Rnf) from the acetogen Acetobacterium woodii requires Na+ and is reversibly coupled to the membrane potential.",
+        "year": 2013
+      },
+      {
+        "pmid": "24274140",
+        "fronts": [
+          "modelos_gem"
+        ],
+        "dois": [
+          "10.1186/1475-2859-12-118"
+        ],
+        "title": null,
+        "year": null
+      },
+      {
+        "pmid": "24569675",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1038/ncomms4391"
+        ],
+        "title": "Electron uptake by iron-oxidizing phototrophic bacteria.",
+        "year": 2014
+      },
+      {
+        "pmid": "24591586",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1073/pnas.1320586111"
+        ],
+        "title": "A soil actinobacterium scavenges atmospheric H2 using two membrane-associated, oxygen-dependent [NiFe] hydrogenases.",
+        "year": 2014
+      },
+      {
+        "pmid": "24837373",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1128/aem.00895-14"
+        ],
+        "title": "Direct interspecies electron transfer between Geobacter metallireducens and Methanosarcina barkeri.",
+        "year": 2014
+      },
+      {
+        "pmid": "24843170",
+        "fronts": [
+          "anotacoes_eco",
+          "anotacoes_uniprot",
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1073/pnas.1402028111"
+        ],
+        "title": "Ammonia-oxidizing archaea use the most energy-efficient aerobic pathway for CO2 fixation",
+        "year": 2014
+      },
+      {
+        "pmid": "25058581",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1371/journal.pone.0103034"
+        ],
+        "title": "The growth and survival of Mycobacterium smegmatis is enhanced by co-metabolism of atmospheric H2.",
+        "year": 2014
+      },
+      {
+        "pmid": "25170152",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1126/science.1256985"
+        ],
+        "title": "Growth of nitrite-oxidizing bacteria by aerobic hydrogen oxidation.",
+        "year": 2014
+      },
+      {
+        "pmid": "25170905",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1371/journal.pone.0106218"
+        ],
+        "title": "The role of hydrogen for Sulfurimonas denitrificans' metabolism.",
+        "year": 2014
+      },
+      {
+        "pmid": "25383604",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1038/nrmicro3365"
+        ],
+        "title": "Autotrophy at the thermodynamic limit of life: a model for energy conservation in acetogenic bacteria",
+        "year": 2014
+      },
+      {
+        "pmid": "25479613",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1371/journal.pone.0114551"
+        ],
+        "title": "Genome annotation provides insight into carbon monoxide and hydrogen metabolism in Rubrivivax gelatinosus.",
+        "year": 2014
+      },
+      {
+        "pmid": "25501483",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1128/aem.03364-14"
+        ],
+        "title": "Atmospheric hydrogen scavenging: from enzymes to ecosystems",
+        "year": 2015
+      },
+      {
+        "pmid": "25900658",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1128/mbio.00496-15"
+        ],
+        "title": "Extracellular enzymes facilitate electron uptake in biocorrosion and bioelectrosynthesis.",
+        "year": 2015
+      },
+      {
+        "pmid": "26305944",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1073/pnas.1506533112"
+        ],
+        "title": "Expanded metabolic versatility of ubiquitous nitrite-oxidizing bacteria from the genus Nitrospira.",
+        "year": 2015
+      },
+      {
+        "pmid": "26541261",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1002/mbo3.310"
+        ],
+        "title": "Breathing air to save energy--new insights into the ecophysiological role of high-affinity [NiFe]-hydrogenase in Streptomyces avermitilis.",
+        "year": 2016
+      },
+      {
+        "pmid": "26610024",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1038/nature16461"
+        ],
+        "title": "Complete nitrification by Nitrospira bacteria.",
+        "year": 2015
+      },
+      {
+        "pmid": "26689675",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1186/s13068-015-0400-2"
+        ],
+        "title": "Comparison of four outdoor pilot-scale photobioreactors",
+        "year": 2015
+      },
+      {
+        "pmid": "26833419",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/jb.01025-15"
+        ],
+        "title": "Different Functions of Phylogenetically Distinct Bacterial Complex I Isozymes.",
+        "year": 2016
+      },
+      {
+        "pmid": "27257255",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1126/science.aaf5039"
+        ],
+        "title": "Water splitting-biosynthetic system with CO2 reduction efficiencies exceeding photosynthesis.",
+        "year": 2016
+      },
+      {
+        "pmid": "27317665",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1074/jbc.m116.735530"
+        ],
+        "title": "Characterization of Anammox Hydrazine Dehydrogenase, a Key N2-producing Enzyme in the Global Nitrogen Cycle.",
+        "year": 2016
+      },
+      {
+        "pmid": "28847001",
+        "fronts": [
+          "diversidade",
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1038/nature23679"
+        ],
+        "title": "Kinetic analysis of a complete nitrifier reveals an oligotrophic lifestyle.",
+        "year": 2017
+      },
+      {
+        "pmid": "29211716",
+        "fronts": [
+          "diversidade",
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1038/nature25014"
+        ],
+        "title": "Atmospheric trace gases support primary production in Antarctic desert surface soil.",
+        "year": 2017
+      },
+      {
+        "pmid": "29312214",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.3389/fmicb.2017.02513"
+        ],
+        "title": "Sulfur Metabolism of Hydrogenovibrio thermophilus Strain S5 and Its Adaptations to Deep-Sea Hydrothermal Vent Environment.",
+        "year": 2017
+      },
+      {
+        "pmid": "29497402",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.3389/fmicb.2018.00067"
+        ],
+        "title": "Phylogenomics and Comparative Genomic Studies Robustly Support Division of the Genus Mycobacterium into an Emended Genus Mycobacterium and Four Novel Genera.",
+        "year": 2018
+      },
+      {
+        "pmid": "30126940",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1128/jb.00357-18"
+        ],
+        "title": "The Rnf Complex Is an Energy-Coupled Transhydrogenase Essential To Reversibly Link Cellular NADH and Ferredoxin Pools in the Acetogen Acetobacterium woodii.",
+        "year": 2018
+      },
+      {
+        "pmid": "30665160",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1016/j.watres.2018.12.025"
+        ],
+        "title": "Volatile fatty acids impacting phototrophic growth kinetics of purple bacteria: Paving the way for protein production on fermented wastewater",
+        "year": 2019
+      },
+      {
+        "pmid": "30847494",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1093/pcp/pcz044"
+        ],
+        "title": "Thylakoid Localized Type 2 NAD(P)H Dehydrogenase NdbA Optimizes Light-Activated Heterotrophic Growth of Synechocystis sp. PCC 6803.",
+        "year": 2019
+      },
+      {
+        "pmid": "30872805",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1038/s41396-019-0393-0"
+        ],
+        "title": "Two Chloroflexi classes independently evolved the ability to persist on atmospheric hydrogen and carbon monoxide.",
+        "year": 2019
+      },
+      {
+        "pmid": "30902976",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1038/s41467-019-09377-6"
+        ],
+        "title": "Phototrophic extracellular electron uptake is linked to carbon dioxide fixation in the bacterium Rhodopseudomonas palustris.",
+        "year": 2019
+      },
+      {
+        "pmid": "31158281",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1093/femsle/fnz122"
+        ],
+        "title": "Hydrogen-dependent autotrophic growth in phototrophic and chemolithotrophic cultures of thermophilic bacteria, Chloroflexus aggregans and Chloroflexus aurantiacus, isolated from Nakabusa hot springs.",
+        "year": 2019
+      },
+      {
+        "pmid": "31319152",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1016/j.ymben.2019.07.006"
+        ],
+        "title": "Exploiting Hydrogenophaga pseudoflava for aerobic syngas-based production of chemicals.",
+        "year": 2019
+      },
+      {
+        "pmid": "31515345",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/mra.00814-19"
+        ],
+        "title": "Complete Genome Sequence of Cupriavidus necator H16 (DSM 428).",
+        "year": 2019
+      },
+      {
+        "pmid": "31624154",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/mra.01132-19"
+        ],
+        "title": "Complete Genome Sequence of a Mesophilic Obligately Chemolithoautotrophic Hydrogen-Oxidizing Bacterium, Hydrogenovibrio marinus MH-110.",
+        "year": 2019
+      },
+      {
+        "pmid": "31690680",
+        "fronts": [
+          "anotacoes_kegg"
+        ],
+        "dois": [],
+        "title": null,
+        "year": null
+      },
+      {
+        "pmid": "31896641",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/mra.01290-19"
+        ],
+        "title": "Complete Genome Sequence and Annotation of the Paracoccus pantotrophus Type Strain DSM 2944.",
+        "year": 2020
+      },
+      {
+        "pmid": "32139556",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/mra.01419-19"
+        ],
+        "title": "Draft Genome Sequence and Annotation of Paracoccus versutus MAL 1HM19, a Nitrate-Reducing, Sulfide-Oxidizing Bacterium.",
+        "year": 2020
+      },
+      {
+        "pmid": "32373076",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.3389/fmicb.2020.00468"
+        ],
+        "title": "Analysis of 1,000+ Type-Strain Genomes Substantially Improves Taxonomic Classification of Alphaproteobacteria.",
+        "year": 2020
+      },
+      {
+        "pmid": "32669693",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1038/s41586-020-2468-5"
+        ],
+        "title": "Bacterial chemolithoautotrophy via manganese oxidation.",
+        "year": 2020
+      },
+      {
+        "pmid": "32821818",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1126/sciadv.aba0697"
+        ],
+        "title": "Widespread energy limitation to life in global subseafloor sediments",
+        "year": 2020
+      },
+      {
+        "pmid": "33764540",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1111/nph.17359"
+        ],
+        "title": "Mixotrophic growth of the extremophile Galdieria sulphuraria reveals the flexibility of its carbon assimilation metabolism.",
+        "year": 2021
+      },
+      {
+        "pmid": "34054125",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1038/s41396-021-01015-8"
+        ],
+        "title": "Photoferrotrophy and phototrophic extracellular electron uptake is common in the marine anoxygenic phototroph Rhodovulum sulfidophilum.",
+        "year": 2021
+      },
+      {
+        "pmid": "34402504",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1042/bcj20210511"
+        ],
+        "title": "Cryo-EM structure of the Rhodospirillum rubrum RC-LH1 complex at 2.5A.",
+        "year": "2021"
+      },
+      {
+        "pmid": "34748326",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1021/acs.est.1c04071"
+        ],
+        "title": "Extracellular Electron Exchange Capabilities of Desulfovibrio ferrophilus and Desulfopila corrodens.",
+        "year": 2021
+      },
+      {
+        "pmid": "35604933",
+        "fronts": [
+          "modelos_gem"
+        ],
+        "dois": [
+          "10.1371/journal.pcbi.1010106"
+        ],
+        "title": null,
+        "year": null
+      },
+      {
+        "pmid": "35621482",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.3390/bioengineering9050204"
+        ],
+        "title": "Lab-Scale Cultivation of Cupriavidus necator on Explosive Gas Mixtures: Carbon Dioxide Fixation into Polyhydroxybutyrate",
+        "year": 2022
+      },
+      {
+        "pmid": "35744753",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.3390/microorganisms10061235"
+        ],
+        "title": "Taxonomic Re-Evaluation and Genomic Comparison of Novel Extracellular Electron Uptake-Capable Rhodovulum visakhapatnamense and Rhodovulum sulfidophilum Isolates.",
+        "year": 2022
+      },
+      {
+        "pmid": "35987434",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1016/j.ymben.2022.08.005"
+        ],
+        "title": "Thermodynamic limitations of PHB production from formate and fructose in Cupriavidus necator.",
+        "year": 2022
+      },
+      {
+        "pmid": "36281430",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.3389/fbioe.2022.989481"
+        ],
+        "title": "Production of biopolymer precursors beta-alanine and L-lactic acid from CO2 with metabolically versatile Rhodococcus opacus DSM 43205.",
+        "year": 2022
+      },
+      {
+        "pmid": "36719244",
+        "fronts": [
+          "eficiencia"
+        ],
+        "dois": [
+          "10.1128/aem.02007-22"
+        ],
+        "title": "Minimizing the Lag Phase of Cupriavidus necator Growth under Autotrophic, Heterotrophic, and Mixotrophic Conditions",
+        "year": 2023
+      },
+      {
+        "pmid": "36890228",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1038/s41586-023-05781-7"
+        ],
+        "title": "Structural basis for bacterial energy extraction from atmospheric hydrogen.",
+        "year": 2023
+      },
+      {
+        "pmid": "37078874",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/mra.01285-22"
+        ],
+        "title": "Complete Genome Sequence of Rhodopseudomonas palustris CGA0092 and Corrections to the R. palustris CGA009 Genome Sequence.",
+        "year": 2023
+      },
+      {
+        "pmid": "37146856",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1016/j.ijbiomac.2023.124676"
+        ],
+        "title": "Cryo-EM structure of bifunctional malonyl-CoA reductase from Chloroflexus aurantiacus reveals a dynamic domain movement for high enzymatic activity.",
+        "year": "2023"
+      },
+      {
+        "pmid": "37556472",
+        "fronts": [
+          "modelos_gem"
+        ],
+        "dois": [
+          "10.1371/journal.pcbi.1011371"
+        ],
+        "title": null,
+        "year": null
+      },
+      {
+        "pmid": "37952891",
+        "fronts": [
+          "anotacoes_uniprot"
+        ],
+        "dois": [
+          "10.1016/j.biochi.2023.11.003"
+        ],
+        "title": "Dynamic lid domain of Chloroflexus aurantiacus Malonyl-CoA reductase controls the reaction.",
+        "year": "2024"
+      },
+      {
+        "pmid": "38078768",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/aem.01741-23"
+        ],
+        "title": "Nitrous oxide reduction by two partial denitrifying bacteria requires denitrification intermediates that cannot be respired.",
+        "year": 2024
+      },
+      {
+        "pmid": "38180324",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/msystems.01077-23"
+        ],
+        "title": "Genome-scale metabolic model of the versatile bacterium Paracoccus denitrificans Pd1222.",
+        "year": 2024
+      },
+      {
+        "pmid": "39276367",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1093/ismejo/wrae173"
+        ],
+        "title": "Oxidation of sulfur, hydrogen, and iron by metabolically versatile Hydrogenovibrio from deep sea hydrothermal vents.",
+        "year": 2024
+      },
+      {
+        "pmid": "40037435",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1016/j.biortech.2025.132330"
+        ],
+        "title": "Zero-valent iron as an alternative electron donor for extracellular electron uptake linked to CO2 fixation in Rhodopseudomonas palustris.",
+        "year": 2025
+      },
+      {
+        "pmid": "40592898",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1038/s41467-025-61056-x"
+        ],
+        "title": "NAD-dependent dehydrogenases enable efficient growth of Paracoccus denitrificans on the PET monomer ethylene glycol.",
+        "year": 2025
+      },
+      {
+        "pmid": "41570075",
+        "fronts": [
+          "diversidade"
+        ],
+        "dois": [
+          "10.1073/pnas.2522572123"
+        ],
+        "title": "Metabolic rewiring and biomass redistribution enable optimized mixotrophic growth in Chlamydomonas.",
+        "year": 2026
+      },
+      {
+        "pmid": "41590694",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.3390/metabo16010086"
+        ],
+        "title": "Artificial Neural Network Elucidates the Role of Transport Proteins in Rhodopseudomonas palustris CGA009 During Lignin Breakdown Product Catabolism.",
+        "year": 2026
+      },
+      {
+        "pmid": "42095649",
+        "fronts": [
+          "versatilidade"
+        ],
+        "dois": [
+          "10.1128/msystems.00383-26"
+        ],
+        "title": "Machine learning reveals proteome-encoded growth determinants underlying metabolic versatility of Rhodopseudomonas palustris on lignin-derived aromatics.",
+        "year": 2026
+      }
+    ],
+    "pmcids": {
+      "PMC10017518": [
+        "diversidade"
+      ],
+      "PMC10190428": [
+        "versatilidade"
+      ],
+      "PMC10441798": [
+        "modelos_gem"
+      ],
+      "PMC10807417": [
+        "versatilidade"
+      ],
+      "PMC10878069": [
+        "versatilidade"
+      ],
+      "PMC11439405": [
+        "versatilidade"
+      ],
+      "PMC1183355": [
+        "versatilidade"
+      ],
+      "PMC12214560": [
+        "versatilidade"
+      ],
+      "PMC123171": [
+        "diversidade"
+      ],
+      "PMC12844201": [
+        "versatilidade"
+      ],
+      "PMC12846818": [
+        "diversidade"
+      ],
+      "PMC13289028": [
+        "versatilidade"
+      ],
+      "PMC150094": [
+        "eficiencia"
+      ],
+      "PMC1595397": [
+        "versatilidade"
+      ],
+      "PMC1636319": [
+        "diversidade"
+      ],
+      "PMC1681478": [
+        "modelos_gem"
+      ],
+      "PMC176875": [
+        "versatilidade"
+      ],
+      "PMC1930151": [
+        "diversidade"
+      ],
+      "PMC201883": [
+        "diversidade"
+      ],
+      "PMC207855": [
+        "diversidade"
+      ],
+      "PMC214625": [
+        "versatilidade"
+      ],
+      "PMC2258580": [
+        "versatilidade"
+      ],
+      "PMC23989": [
+        "diversidade"
+      ],
+      "PMC2438413": [
+        "diversidade"
+      ],
+      "PMC2575129": [
+        "diversidade"
+      ],
+      "PMC2621215": [
+        "diversidade"
+      ],
+      "PMC2795484": [
+        "diversidade"
+      ],
+      "PMC2841640": [
+        "diversidade"
+      ],
+      "PMC2887804": [
+        "diversidade"
+      ],
+      "PMC2897342": [
+        "diversidade"
+      ],
+      "PMC2897665": [
+        "versatilidade"
+      ],
+      "PMC2900684": [
+        "eficiencia"
+      ],
+      "PMC2921159": [
+        "diversidade"
+      ],
+      "PMC3090418": [
+        "diversidade"
+      ],
+      "PMC3091675": [
+        "diversidade"
+      ],
+      "PMC3108565": [
+        "eficiencia"
+      ],
+      "PMC3150298": [
+        "versatilidade"
+      ],
+      "PMC3156396": [
+        "versatilidade"
+      ],
+      "PMC3165677": [
+        "versatilidade"
+      ],
+      "PMC3258601": [
+        "versatilidade"
+      ],
+      "PMC3289291": [
+        "modelos_gem"
+      ],
+      "PMC3370876": [
+        "versatilidade"
+      ],
+      "PMC3458656": [
+        "diversidade"
+      ],
+      "PMC3468840": [
+        "diversidade"
+      ],
+      "PMC3814746": [
+        "diversidade"
+      ],
+      "PMC3836495": [
+        "versatilidade"
+      ],
+      "PMC3964045": [
+        "diversidade"
+      ],
+      "PMC4050595": [
+        "eficiencia"
+      ],
+      "PMC4109961": [
+        "diversidade"
+      ],
+      "PMC4148795": [
+        "diversidade"
+      ],
+      "PMC4149538": [
+        "versatilidade"
+      ],
+      "PMC4222884": [
+        "modelos_gem"
+      ],
+      "PMC4257681": [
+        "versatilidade"
+      ],
+      "PMC4309691": [
+        "eficiencia"
+      ],
+      "PMC4453541": [
+        "diversidade"
+      ],
+      "PMC4568715": [
+        "diversidade"
+      ],
+      "PMC4683866": [
+        "eficiencia"
+      ],
+      "PMC4767420": [
+        "diversidade"
+      ],
+      "PMC4859585": [
+        "versatilidade"
+      ],
+      "PMC5016112": [
+        "diversidade"
+      ],
+      "PMC5152751": [
+        "diversidade"
+      ],
+      "PMC517821": [
+        "diversidade"
+      ],
+      "PMC529327": [
+        "diversidade"
+      ],
+      "PMC5600814": [
+        "diversidade",
+        "eficiencia"
+      ],
+      "PMC5733100": [
+        "versatilidade"
+      ],
+      "PMC5819568": [
+        "diversidade"
+      ],
+      "PMC6182241": [
+        "diversidade"
+      ],
+      "PMC6430793": [
+        "versatilidade"
+      ],
+      "PMC6553663": [
+        "diversidade"
+      ],
+      "PMC6742796": [
+        "versatilidade"
+      ],
+      "PMC6776052": [
+        "diversidade"
+      ],
+      "PMC6797543": [
+        "versatilidade"
+      ],
+      "PMC6940293": [
+        "versatilidade"
+      ],
+      "PMC7171218": [
+        "versatilidade"
+      ],
+      "PMC7179689": [
+        "versatilidade"
+      ],
+      "PMC7406382": [
+        "eficiencia"
+      ],
+      "PMC7802741": [
+        "diversidade"
+      ],
+      "PMC8252106": [
+        "diversidade"
+      ],
+      "PMC8528915": [
+        "versatilidade"
+      ],
+      "PMC9138072": [
+        "eficiencia"
+      ],
+      "PMC9166356": [
+        "modelos_gem"
+      ],
+      "PMC9230146": [
+        "versatilidade"
+      ],
+      "PMC9587121": [
+        "versatilidade"
+      ],
+      "PMC9972949": [
+        "eficiencia"
+      ]
+    },
+    "gem_literature_verified": [
+      {
+        "line": "https://doi.org/10.1371/journal.pcbi.1010106 — PMID 35604933, PMC9166356.",
+        "doi": "10.1371/journal.pcbi.1010106",
+        "pmid": "35604933",
+        "pmcid": "PMC9166356"
+      },
+      {
+        "line": "https://doi.org/10.1073/pnas.1117907109 — PMID 22308420, PMC3289291.",
+        "doi": "10.1073/pnas.1117907109",
+        "pmid": "22308420",
+        "pmcid": "PMC3289291"
+      },
+      {
+        "line": "https://doi.org/10.1186/1475-2859-12-118 — PMID 24274140, PMC4222884.",
+        "doi": "10.1186/1475-2859-12-118",
+        "pmid": "24274140",
+        "pmcid": "PMC4222884"
+      },
+      {
+        "line": "https://doi.org/10.1038/msb4100046 — PMID 16738551, PMC1681478.",
+        "doi": "10.1038/msb4100046",
+        "pmid": "16738551",
+        "pmcid": "PMC1681478"
+      },
+      {
+        "line": "https://doi.org/10.1371/journal.pcbi.1011371 — PMID 37556472, PMC10441798.",
+        "doi": "10.1371/journal.pcbi.1011371",
+        "pmid": "37556472",
+        "pmcid": "PMC10441798"
+      }
+    ]
+  }
+}

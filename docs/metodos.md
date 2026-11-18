@@ -1,348 +1,57 @@
-# Métodos — relíquias de genes do esmalte em amniotas sem dente
+# Métodos — Análise Bioenergética, Genômica e Funcional de Microrganismos Ambientais
 
-Gerado em 2026-10-17 pela rotina `/metodos`, a partir de `runs/provenance.jsonl`
-(5.645 registros entre 2026-10-12T00:00Z e 2026-10-17T14:18Z: 2.316 comandos de
-shell, 1.911 execuções de análise, 539 edições de código, 88 consultas a bases),
-dos scripts `scripts/atavismo/s24`–`s36` e das versões lidas no ambiente. Duas
-linhas antigas do log não são JSON válido e foram ignoradas na contagem. As
-pendências 1–6 foram fechadas no mesmo dia com `s37_pendencias_metodos.py`
-(saídas em `runs/atavismo/pendencias/`).
+Este documento registra a metodologia efetivamente executada na revisão integrada de **17 de novembro de 2026** ([runs/energia_microbiana_2026-11-17/](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/RELATORIO.md)) e preserva o histórico auditado das etapas exploratórias anteriores de **14–15 de novembro de 2026**, com as correções exigidas pela auditoria de proveniência ([AUDITORIA_MATERIAIS_ANTERIORES.md](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/AUDITORIA_MATERIAIS_ANTERIORES.md)).
 
-## Registro e reprodutibilidade
+---
 
-Todas as operações foram registradas automaticamente, com parâmetros e horário
-UTC, em `runs/provenance.jsonl`. Cada etapa corresponde a um script versionado no
-repositório; a ordem de execução e o comando de cada um estão no cabeçalho do
-próprio script. A aleatoriedade foi controlada por gerador local
-(`numpy.random.default_rng`, semente 20261017). Não usamos estado global de
-gerador.
+## Parte I — Revisão de Escopo, Inventário Genômico e Auditorias de 17/11/2026
 
-## Espécies e montagens
+### 1. Desenho em cinco frentes e contrato de evidência
+A investigação de 17/11/2026 seguiu o protocolo versionado em [PROTOCOLO.md](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/PROTOCOLO.md), estruturado como revisão exploratória de escopo (não revisão sistemática PRISMA nem metanálise) em cinco frentes complementares:
+1. **Frente 1 — Generalistas e versatilidade intra-cepa (`lit-scout`):** [versatilidade.md](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/agentes/versatilidade.md) e [versatilidade.json](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/agentes/versatilidade.json) (20 entradas analisadas por cepa e condição experimental; 48 referências, sendo 42 artigos primários, 2 pré-prints e 4 registros de bases).
+2. **Frente 2 — Mapa amplo entre Bacteria, Archaea e Eucariotos (`general`):** [diversidade.md](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/agentes/diversidade.md) e [diversidade.json](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/agentes/diversidade.json) (36 entradas complementares, incluindo *Haloferax volcanii* DS2 como controle negativo de fototrofia por rodopsinas; 51 fontes primárias; exclusões físicas explícitas).
+3. **Frente 3 — Critérios de eficiência comparável e limitações de FBA (`general`):** [eficiencia.md](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/agentes/eficiencia.md) e [eficiencia.json](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/agentes/eficiencia.json) (20 fontes científico-metodológicas verificadas, 17 registros quantitativos extraídos, 9 rankings condicionais, Pareto qualitativo e 12 critérios para comparação futura de modelos).
+4. **Frente 4 — Auditoria funcional genômica (`evo-devo`):** [anotacoes.md](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/agentes/anotacoes.md), [anotacoes.json](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/agentes/anotacoes.json) e [auditoria_anotacoes.py](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/agentes/auditoria_anotacoes.py).
+5. **Frente 5 — Inventário NCBI Datasets, auditoria COBRApy, conferência NotebookLM e integração final:** [atualizar_genomas.py](file:///C:/Users/user/bio-stack/scripts/energia_microbiana/atualizar_genomas.py), [finalizar_genomas.py](file:///C:/Users/user/bio-stack/scripts/energia_microbiana/finalizar_genomas.py), [auditar_modelos.py](file:///C:/Users/user/bio-stack/scripts/energia_microbiana/auditar_modelos.py), [integrar_sintese.py](file:///C:/Users/user/bio-stack/scripts/energia_microbiana/integrar_sintese.py) e [RELATORIO.md](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/RELATORIO.md).
 
-Usamos 18 montagens RefSeq do NCBI, acessadas pela API NCBI Datasets v2alpha e
-pelo EDirect (efetch 26.0) entre 2026-10-12 e 2026-10-17 (Tabela M1). O
-*Melopsittacus undulatus* (GCF_012275295.1) entrou apenas na contagem de genes
-anotados. *Casuarius*, *Aquila* e o próprio *Melopsittacus* não puderam ser
-analisados por intervalo, porque NRG1 ou LPL não estão anotados nessas montagens.
+### 2. Buscas bibliográficas e nomenclatura taxonômica
+As consultas literárias e taxonômicas das Frentes 1–3 e 5 utilizaram ToolUniverse (`find_tools`, `PubMed_search_articles`, `PubMed_get_article`, `EuropePMC_search_articles`, `EuropePMC_get_fulltext`), BioContext (`bc_get_europepmc_articles`), API REST Europe PMC (`resultType=core`), NCBI efetch, leitura HTML PMC (quando a extração XML retornou erro HTTP 406/403), Crossref e registros LPSN (*List of Prokaryotic names with Standing in Nomenclature*).
+- A tentativa inicial de busca semântica local via `mcp__nvidia-nemo__library_search` falhou por ausência de acervo/índice configurado e não foi interpretada como ausência de literatura.
+- A união desduplicada de referências científicas registradas nas Frentes 1–4 e na literatura verificada dos modelos GEM ([INTERPRETACAO.md](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/modelos/INTERPRETACAO.md)) totalizou **132 DOIs únicos**, **132 PMIDs únicos** e **84 PMCIDs** ([resumo_integrado.json](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/resumo_integrado.json)).
 
-**Tabela M1.** Montagens e sequências usadas (o acesso da sequência foi conferido
-pelo título do registro).
+### 3. Inventário reprodutível de genomas no NCBI Datasets
+O painel genômico foi gerado no WSL2 (`Ubuntu-26.04`) com o cliente oficial `NCBI Datasets CLI` (`datasets version: 18.38.0`), sem download de arquivos FASTA nem reanotação *de novo*:
+1. **Consulta principal:** [executar_inventario.sh](file:///C:/Users/user/bio-stack/scripts/energia_microbiana/executar_inventario.sh) invocou `scripts/energia_microbiana/atualizar_genomas.py` sobre as 79 entradas versionadas em [candidatos.tsv](file:///C:/Users/user/bio-stack/scripts/energia_microbiana/candidatos.tsv) (`datasets summary genome taxon <taxon> [--search <strain>] --limit 10`), retornando 273 registros de montagem e 73 representantes `current` na primeira passagem, preservando os JSONs brutos em `genomas/ncbi_raw/` com hash SHA-256 em [inventario_ncbi.json](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/genomas/inventario_ncbi.json).
+2. **Resolução de nomes e acessos históricos:** para as 6 entradas sem representante `current` na consulta com filtro estrito, [resolver_nomes.sh](file:///C:/Users/user/bio-stack/scripts/energia_microbiana/resolver_nomes.sh) consultou [resolver_nomes.tsv](file:///C:/Users/user/bio-stack/scripts/energia_microbiana/resolver_nomes.tsv) sem `--search` (38 registros retornados em 6 consultas), e [finalizar_genomas.py](file:///C:/Users/user/bio-stack/scripts/energia_microbiana/finalizar_genomas.py) consultou diretamente três acessos históricos (`datasets summary genome accession GCF_000021865.1 GCF_000012605.1 GCF_000195895.1`, salvos em [linhagens_historicas.json](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/genomas/linhagens_historicas.json)).
+3. **Consolidação do painel:** fixou-se `GCF_000021865.1` (`current`) para *Rhodobacter capsulatus* SB 1003 (`rcaps`), documentou-se o status `suppressed` de `GCF_000012605.1` (*Hydrogenovibrio crunogenus* XCL-2) e `GCF_000195895.1` (*Methanosarcina barkeri* Fusaro), e manteve-se marcação explícita de filtro relaxado de linhagem para 5 entradas (`rten`, `cferro`, `hcrun`, `skuj`, `mbark`). O painel consolidado em [painel_final.tsv](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/genomas/painel_final.tsv) e [INVENTARIO.md](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/genomas/INVENTARIO.md) reúne **79 entradas e 79 acessos distintos** (`71` *Complete Genome*, `2` *Chromosome*, `4` *Scaffold*, `2` *Contig*; `74 RefSeq GCF_` e `5 GenBank GCA_`), com integridade verificada por SHA-256 nos 85 caches JSON brutos.
 
-| Grupo | Espécie | Montagem | Sequência do intervalo NRG1..LPL |
-|---|---|---|---|
-| Crocodylia (com dente) | *Alligator mississippiensis* | GCF_030867095.1 (rAllMis1) | NC_081826.1 |
-| | *Gavialis gangeticus* | GCF_001723915.1 (GavGan_comp1) | NW_017729024.1 |
-| | *Crocodylus porosus* | GCF_001723895.1 (CroPor_comp1) | NW_017728950.1 |
-| Squamata (com dente) | *Anolis carolinensis* | GCF_035594765.1 (rAnoCar3.1.pri) | NC_085842.1 |
-| | *Python bivittatus* | GCF_059951505.1 (Pbiv_v1) | NW_028277112.1 |
-| | *Podarcis muralis* | GCF_964188315.1 (rPodMur119.hap1.1) | NC_135671.1 |
-| Testudines (sem dente) | *Chrysemys picta* | GCF_011386835.1 (ASM1138683v2) | NC_088796.1 |
-| | *Chelonia mydas* | GCF_015237465.2 (rCheMyd1.pri.v2) | NC_051245.2 |
-| | *Gopherus evgoodei* | GCF_007399415.2 (rGopEvg1_v1.p) | NC_044327.1 |
-| | *Pelodiscus sinensis* | GCF_049634645.1 (ASM4963464v1) | NC_134716.1 |
-| Aves (sem dente) | *Gallus gallus* | GCF_016699485.2 (GRCg7b) | NC_052572.1 (chrZ) |
-| | *Anas platyrhynchos* | GCF_047663525.1 (IASCAAS_PekinDuck_T2T) | NC_092621.1 |
-| | *Strigops habroptila* | GCF_004027225.2 (bStrHab1.2.pri) | NC_044302.2 (chrZ) |
-| | *Taeniopygia guttata* | GCF_048771995.1 (bTaeGut7.mat) | NC_133063.1 |
-| | *Dromaius novaehollandiae* | GCF_036370855.1 (bDroNov1.hap1) | NC_088132.1 (só NRG1) |
-| | *Struthio camelus* | GCF_040807025.1 (bStrCam1.hap1) | NC_090982.1 |
-| | *Apteryx rowi* | GCF_003343035.1 (aptRow1) | NW_020447342.1 |
-| | *Tinamus guttatus* | GCF_059628265.1 (ASM5962826v1) | NW_028288906.1 (só LPL) |
+### 4. Auditoria funcional de módulos energéticos em UniProtKB e KEGG Genes
+Executada por [auditoria_anotacoes.py](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/agentes/auditoria_anotacoes.py) sobre 8 proteomas/táxons exatos (*R. palustris* CGA009 `UP000001426` / `258594`, *R. palustris* TIE-1 `UP000001725` / `395960`, *C. necator* H16 `UP000008210` / `381666`, *R. rubrum* ATCC 11170 `UP000001929` / `269796`, *P. pantotrophus* DSM 2944/GB17 `UP000273626` / `82367`, *P. denitrificans* PD1222 `UP000000361` / `318586`, *C. aurantiacus* J-10-fl `UP000002008` / `324602` e *N. maritimus* SCM1 `UP000000792` / `436308`):
+- Consultas REST diretas à API pública do UniProt (release `2026_04`, `/proteomes/{UPID}.json` e `/uniprotkb/search`) e KEGG Genes (`/get/{IDs}` para cobertura funcional em TIE-1 e checagem cruzada), totalizando **24 requisições HTTP 200** registradas em `anotacoes.json:request_log`.
+- Triagem de **223 candidatos únicos**, retenção de **48 representantes confirmados** (`42` UniProtKB [`16` revisados, `26` não revisados] e `6` KEGG Genes, com `1` entrada — `A9A1Y1`/`Nmar_0206` — possuindo `ECO:0000269` nos campos `FUNCTION`/`CATALYTIC ACTIVITY`) e separação de **2 cautelas excluídas** (`Q6QQP7` de OK-70-fl e `Q0K5E4` em H16).
 
-As montagens não foram escolhidas à mão: o script pega a localização de cada
-gene na anotação RefSeq do NCBI Gene. Para o gavial, isso devolveu a
-GavGan_comp1 de 2016 (contig N50 de cerca de 10 kb), e não o rGavGan2.hap2 do
-VGP (GCA_030020295.1, contig N50 de 84,2 Mb), que não tem anotação RefSeq. O
-gavial serviu só de controle com dente (ENAM com identidade de 0,92 ao jacaré e
-zero lesão), papel para o qual a montagem antiga bastou.
+### 5. Auditoria computacional de modelos metabólicos (COBRApy)
+Os quatro modelos locais pré-existentes em `data/proc/gem/` (`iCN1361.xml`, `iJN678.json`, `iHN637.json`, `iAF692.json`) foram auditados com [auditar_modelos.py](file:///C:/Users/user/bio-stack/scripts/energia_microbiana/auditar_modelos.py) em ambiente `uv` isolado com **Python 3.11.18**, **COBRApy 0.32.1** e solver **GLPK** (`swiglpk 5.0.13`):
+- Registro de SHA-256, dimensões, função-objetivo nativa e limites de importação (`model.medium`).
+- Otimização FBA sob limites nativos (4 resultados `optimal`, não comparáveis entre si por diferirem em substratos — frutose `2.6`, glicose `0.85`, frutose `5.0`, metanol `5.1` — e composição de biomassa).
+- Fechamento de todas as reações de fronteira monometabólito de importação sob manutenção nativa (`infeasible` em `iCN1361`, `iHN637` e `iAF692`; `0.0` em `iJN678`) e maximização de ATPM com piso `0.0` (`0.0` nos três modelos com ATPM identificada; não executado em `iJN678` por ausência de reação ATPM inequívoca). Saídas em [auditoria_cobrapy.json](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/modelos/auditoria_cobrapy.json) e [INTERPRETACAO.md](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/modelos/INTERPRETACAO.md).
 
-**Tabela M2.** Data de download (UTC, horário de modificação do arquivo que a
-análise leu; `s37_datas_acesso.tsv`).
+### 6. Uso auxiliar auditado do NotebookLM e integração final
+- Caderno criado via `gemini-notebook-mcp`: `4cb14b1e-7be6-439c-8ec6-f24686551300` (`59` fontes importadas via pesquisa web `ChA1MDQxOTM0NjIyM2I4OWM0EAgaAjBjKgN1c2M` e adição de 6 URLs específicas via `source_add`).
+- Duas consultas de síntese (`b33db02b4058` e `72c69448cf42`) foram exportadas via [registrar_saida_mcp.py](file:///C:/Users/user/bio-stack/scripts/energia_microbiana/registrar_saida_mcp.py) para [auditoria_fontes.json](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/notebooklm/auditoria_fontes.json) e [comparacao_modelos.json](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/notebooklm/comparacao_modelos.json) e confrontadas diretamente com a literatura primária, UniProt/KEGG e COBRApy.
+- A consolidação final foi executada por [integrar_sintese.py](file:///C:/Users/user/bio-stack/scripts/energia_microbiana/integrar_sintese.py), validando contagens e hashes e gravando [resumo_integrado.json](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/resumo_integrado.json) e [RELATORIO.md](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/RELATORIO.md).
 
-| Dado | Script | Baixado em (UTC) |
-|---|---|---|
-| intervalos NRG1..LPL de *Alligator*, *Gavialis*, *Anolis*, *Chrysemys*, *Gallus*, *Strigops* | `s26` | 2026-10-12 17:53–17:54 |
-| intervalos dos outros 12 (*Crocodylus*, *Python*, *Podarcis*, *Chelonia*, *Gopherus*, *Pelodiscus*, *Anas*, *Taeniopygia*, *Dromaius*, *Struthio*, *Apteryx*, *Tinamus*) | `s30` | 2026-10-17 03:09–03:11 |
-| 23 intervalos do painel (AMELX, MMP20, DSPP, ACP4) | `s27` | 2026-10-17 02:28–02:31 |
-| proteoma do jacaré (GCF_030867095.1) | `s27_reciproco` | 2026-10-17 01:35 |
-| genomas inteiros de jacaré, frango e kakapo | `s35` | 2026-10-17 11:57–11:59 |
-| multiz100way hg38, chr4 | `s36` | 2026-10-17 12:06 |
-| ncbiRefSeqCurated hg38 (API do UCSC) | `s36` | 2026-10-17 11:59 |
-| Elferink 2010, Additional file 5 (Europe PMC) | `s28` | 2026-10-17 03:02 |
+---
 
-## Proteínas de consulta
+## Parte II — Registro Histórico e Correções dos Materiais Anteriores (14–15/11/2026)
 
-As consultas principais foram as proteínas do jacaré: ENAM (QOX06214.1), AMBN
-(XP_019346386.1), AMTN (KYO35092.1), o controle positivo LPL (XP_019346320.1) e
-o controle negativo DSPP (XP_059578269.1). Para os genes do painel fora do
-cluster usamos AMELX (XP_014463267.1), MMP20 (XP_006272555.1), DSPP e ACP4
-(XP_019336727.1), além de todas as proteínas anotadas em ±1,5 Mb de cada alvo no
-jacaré, que serviram de competidoras. A segunda consulta usou as proteínas RefSeq
-do *Anolis carolinensis* ENAM (XP_062825318.1, 1.097 aa), AMBN (NP_001315156.1,
-377 aa), AMTN (NP_001315157.1, 334 aa) e LPL (XP_062827593.1, 476 aa). Refeita a
-mesma busca do `s33`, as quatro sequências baixadas são idênticas às que
-entraram na análise. O controle de composição usou a IBSP do *Anolis*
-(XP_003221343.2).
+As execuções exploratórias de 14–15 de novembro de 2026 foram preservadas no repositório sem alteração, sujeitas às seguintes retificações documentadas em [AUDITORIA_MATERIAIS_ANTERIORES.md](file:///C:/Users/user/bio-stack/runs/energia_microbiana_2026-11-17/AUDITORIA_MATERIAIS_ANTERIORES.md):
 
-Duas consultas do jacaré são registros GenBank, e não RefSeq. Comparadas por
-alinhamento global (BLOSUM62) ao modelo RefSeq da GCF_030867095.1, elas ficaram
-assim:
-- A ENAM QOX06214.1 (849 aa) tem 848 de 849 resíduos idênticos ao
-  XP_019346377.1 (1.078 aa). O RefSeq tem a mais 212 aa N-terminais e 17
-  C-terminais, então a consulta cobre os resíduos 213–1061 do modelo atual. As
-  coordenadas de códon do ENAM neste trabalho estão na numeração da QOX06214.1,
-  e o N-terminal do ENAM não foi buscado.
-- A AMTN KYO35092.1 (375 aa) contém o XP_014451634.1 (328 aa) inteiro, com 100%
-  de identidade, e tem a mais 47 aa N-terminais.
-
-## Intervalos sintênicos
-
-O cluster ENAM–AMBN–AMTN fica no chr3 do jacaré entre NRG1 e LPL, na ordem
-NRG1 → ENAM → AMBN → AMTN → LPL → PSD3. Para cada espécie localizamos as
-âncoras NRG1 e LPL pela anotação RefSeq e extraímos o intervalo entre elas com
-60 kb de margem de cada lado (`s26_relicto_comparativo.py`,
-`s30_especies_extra.py`). Para AMELX, MMP20, DSPP e ACP4, que ficam em outros
-cromossomos do jacaré, cada gene recebeu um intervalo próprio
-(`s27_painel_intervalos.py`): as âncoras foram o vizinho nomeado mais próximo de
-cada lado no jacaré, exigidas nas espécies sem dente e no *Anolis*, com 60 kb de
-margem e teto de 3 Mb. Quando o par de âncoras não estava no mesmo registro,
-usamos uma única âncora com janela de 750 kb, e o índice dessas espécies deve
-ser lido como limite inferior.
-
-## Busca por tBLASTn
-
-As proteínas de consulta foram buscadas nos intervalos com tBLASTn (BLAST+
-2.17.0) com `-evalue 10 -seg yes -max_target_seqs 50` (`s26_alinhar.sh`,
-`s27_alinhar.sh`). O limiar de e-value ficou frouxo de propósito: a decisão foi
-tomada pelo bitscore, que não depende do tamanho do banco. Os intervalos vão de
-170 kb a 1,8 Mb, e o mesmo alinhamento muda de e-value conforme o intervalo.
-O piso de ruído foi medido com o controle negativo DSPP do jacaré contra o
-intervalo do cluster (22–30 bits).
-
-**Competição local** (`s27_indice.py`). Todas as proteínas do intervalo do
-jacaré foram buscadas juntas. Um trecho do alvo foi descartado quando outra
-proteína alinhou pelo menos 50% dele com bitscore maior.
-
-**Melhor hit recíproco** (`s27_reciproco.sh`). Cada trecho que sobrou foi
-traduzido e buscado com BLASTX contra o proteoma inteiro do jacaré
-(GCF_030867095.1, 48.040 proteínas; `-evalue 10 -max_target_seqs 5`). O trecho
-só contou se o melhor hit foi a proteína de consulta. Dos 69 trechos, 66
-confirmaram; os 3 rejeitados eram parálogos de fora do intervalo.
-
-No cluster do frango (`s24_alinhar.sh`, `s25_verificar_relicto.sh`), as regiões
-candidatas passaram ainda por dois testes: número de cópias (dc-megablast da
-região contra o próprio intervalo, e ≤ 1e-3, exigindo um único hit) e BLASTX
-recíproco contra as cinco proteínas de consulta.
-
-**Índices.** Calculamos dois índices: (i) a soma dos melhores bitscores de ENAM,
-AMBN e AMTN dividida pelo melhor bitscore do LPL na mesma espécie (`s26`); e
-(ii) a soma dos bitscores dos trechos recíprocos dividida pelo valor do próprio
-jacaré (`s27`).
-
-## Nulo por janela e segunda consulta
-
-Para separar sinal de ruído (`s33_indice_nulo.py`, `s33_alinhar.sh`), geramos 20
-versões embaralhadas de cada proteína de consulta, com a mesma composição e o
-mesmo comprimento e a ordem dos resíduos destruída (`rng.permutation`). Elas
-foram buscadas no mesmo intervalo de cada espécie com o mesmo tBLASTn. Para cada
-gene e espécie, só o excesso do bitscore observado sobre o percentil 95 do nulo
-entrou no índice, que é o índice (i) refeito com esses excessos. Repetimos tudo
-com a segunda consulta, as proteínas do *Anolis*. Ela está à mesma distância
-filogenética de crocodilianos, tartarugas e aves (Lepidosauria × Archelosauria,
-cerca de 281 Ma; Kumar et al. 2022), o que elimina a vantagem dos crocodilianos
-como parentes próximos da consulta.
-
-## Controle de composição
-
-A IBSP é uma sialoproteína óssea intrinsecamente desordenada como ENAM e AMBN, e
-é funcional nas aves. A IBSP do *Anolis* foi buscada nos intervalos do DSPP do
-`s27`, onde a IBSP é âncora, com o mesmo nulo do `s33` (`s34_composicao.py`,
-`s34_alinhar.sh`). A queda do sinal da IBSP nas aves estima quanto da queda do
-ENAM se explica só pela cegueira do tBLASTn para essa classe de proteína.
-
-## Calibração com pseudogene conhecido
-
-O Ψ-AMEL da galinha (Sire et al. 2008; GenBank EU340348) foi buscado por BLASTN
-(e ≤ 1e-5) no intervalo do AMELX do `s27` no GRCg7b, para medir se o tBLASTn
-com a proteína de crocodiliano detecta um pseudogene de ave reconhecido
-(`s27_calibra_amelx.sh`). Repetimos o tBLASTn do AMELX do jacaré com `-seg no`
-para excluir o filtro de baixa complexidade como causa.
-
-## Lesões em quadro (nível 3)
-
-As proteínas do jacaré foram alinhadas a cada intervalo com miniprot 0.18-r281,
-que modela íntrons e marca frameshifts e códons de parada, com
-`-j 2 -k 4 -M 0 -n 1 -l 4 --outc=0.01 --outs=0.5 -t 8` (`s29_lesoes.sh`).
-Frameshifts foram lidos das operações F/G da string `cg` e os stops dos códons
-`*taa`, `*tag` e `*tga` da string `cs` (`s29_lesoes.py`). Só contamos
-alinhamentos que se sobrepõem a um trecho recíproco do `s27`. Antes de ler as
-aves, calibramos a taxa de lesão do alinhador nas seis espécies com dente, cujos
-genes são funcionais, incluindo três escamados com identidade ao jacaré
-(0,36–0,39 no ENAM) na mesma faixa das relíquias.
-
-## Lesões compartilhadas (nível 4)
-
-A relíquia de ENAM do kakapo, recortada do alinhamento do miniprot, foi usada
-como consulta em nucleotídeo (BLASTN `-task dc-megablast`, e ≤ 1e-5) contra os
-intervalos das demais aves (`s31_aves_nt.sh`). Os trechos homólogos e o CDS de
-três crocodilianos foram alinhados com MAFFT v7.525 (`--localpair --maxiterate
-1000`, L-INS-i) e com MUSCLE 5.3 (`-align`), na fita codificante e no quadro do
-jacaré (`s31_nivel4.py`). Polarizamos cada lesão pelos crocodilianos: deleção é
-gap na ave onde a maioria dos crocodilianos tem base; inserção é o inverso; stop
-é códon de parada no quadro do jacaré. Uma lesão só contou quando (i) apareceu
-com o mesmo tipo, posição e tamanho em pelo menos duas aves, (ii) apareceu nos
-dois alinhadores e (iii) não estava em homopolímero (corrida de 4 ou mais bases
-iguais). Datamos cada lesão pelo menor clado que contém todas as aves que a têm,
-exigindo que toda ave desse clado que cobre a posição também a tenha. Lesões que
-violam essa condição foram marcadas como incongruentes com a árvore. A topologia
-usada foi Palaeognathae (*Struthio*, (*Apteryx*, *Dromaius*)) e Neognathae
-(*Anas*, (*Strigops*, *Taeniopygia*)).
-
-## ODAPH e ODAM
-
-O ortólogo de ODAPH no jacaré foi identificado por posição entre CDKL2 e THAP6
-e por estrutura de éxons (Liang et al. 2021), e conferido com BLASTP contra o
-Swiss-Prot humano e o proteoma do jacaré (`s32_odam_odaph.py/.sh`; consultas do
-UniProt REST, acessado em 2026-10-17). Buscamos ODAPH e ODAM nos intervalos
-sintênicos de todas as espécies com tBLASTn e miniprot (mesmos parâmetros acima)
-e, depois, nos genomas inteiros de frango, kakapo e jacaré (`s35_genomas.sh`,
-`s35_busca_genoma.sh/.py`; tBLASTn `-evalue 10 -seg yes -max_target_seqs 50`,
-decisão por bitscore, recíproco por BLASTX contra o proteoma do jacaré). Cada
-locus candidato foi comparado entre as duas aves pelos genes vizinhos em ±400 kb
-(`s35_sintenia_odaph.py`). A sensibilidade da busca foi medida com uma régua: a
-ODAPH do jacaré contra as ODAPH funcionais de *Anolis* e *Podarcis*
-(`s35_regua_odaph.sh`).
-
-## Taxa de recombinação
-
-Usamos o mapa de ligação do frango de Elferink et al. (2010), Additional file 5
-(bins de cerca de 500 kb, taxa de macho, porque o Z só recombina em ZZ), obtido
-pela API REST do Europe PMC (`s28_recombinacao_z.py`). O intervalo NRG1..LPL foi
-localizado em galGal3 pelo refGene do UCSC (API REST, 2026-10-17):
-chrZ:52.836.615–53.408.327. A taxa da janela foi a média dos bins ponderada pela
-sobreposição, comparada com a distribuição dos 122 bins do Z e dos 1.697 bins
-autossômicos.
-
-Para ler o bin da própria relíquia, ela foi posta no galGal3 por âncoras de
-sequência (`s37_pendencias_metodos.py`). Cada relíquia do GRCg7b, com 2 kb de
-flanco de cada lado, foi quebrada em 32-meros. Só contaram os 32-meros que
-ocorrem uma única vez no trecho chrZ:52,5–53,8 Mb do galGal3 (API do UCSC), e a
-posição foi a diagonal mediana entre os dois genomas. Para o ENAM, 4.380 de 4.380
-âncoras ficaram na mesma diagonal; para o AMBN, 1.893 de 2.650. A relíquia de
-ENAM caiu em galGal3 chrZ:53.354.694 e a de AMBN em 53.367.714, as duas no bin
-1784.
-
-## Validação por alinhamento de genoma inteiro
-
-Baixamos o MAF do chr4 do multiz100way do hg38 (UCSC; 4,6 GB; Blanchette et al.
-2004) e o recortamos com `mafsInRegion` (kent 482) nos 29 éxons codificantes de
-ENAM, AMBN e AMTN humanos (RefSeq curado NM_031889.3, NM_016519.6 e NM_212557.4),
-o que deu 73 blocos (`s36_multiz.py/.sh`). Para cada gene e montagem, medimos a
-fração do CDS humano com base alinhada. O arquivo `chr4.maf.gz` do UCSC tem
-Last-Modified de 6 de maio de 2015 e 4.627.971.825 bytes, o mesmo tamanho da
-cópia local. A trilha ncbiRefSeqCurated do hg38 tinha `dataTime` de 13 de agosto
-de 2025 na consulta de 2026-10-17.
-
-## Tempos de divergência
-
-Os tempos de divergência citados vieram da API do TimeTree 5 (Kumar et al. 2022),
-acessada em 2026-10-17: *Alligator* × *Gallus* 243 Ma (IC 240–247);
-*Alligator* × *Anolis* 281 Ma (277–285); *Alligator* × *Chrysemys* 257 Ma
-(249–265); *Dromaius* × *Gallus* 108 Ma (102–114); *Gallus* × *Strigops* 96 Ma
-(90–103).
-
-## Estatística
-
-Não calculamos teste de hipótese. As espécies não são independentes
-(compartilham filogenia), e o número de linhagens de perda é dois (aves e
-tartarugas). As comparações entre grupos são descritivas: faixas e razões, sem
-p-valor.
-
-## Software e ambiente
-
-BLAST+ 2.17.0 (bioconda, build hb02a186_1); miniprot 0.18-r281; MAFFT v7.525;
-MUSCLE 5.3; samtools/htslib 1.24; SeqKit 2.14.0; NCBI datasets 18.38.0; EDirect
-(efetch) 26.0; kent `mafsInRegion` 482. Ferramentas de linha de comando no WSL2
-(Ubuntu 24.04, Python 3.12.3), instaladas por pixi a partir de
-`bootstrap/pixi-global.toml`. Análise em Python 3.11.17 (numpy 2.4.6, pandas
-2.3.3, scipy 1.17.1, requests 2.34.2, matplotlib 3.11.2, reportlab 5.0.1),
-gerenciado por uv. Hardware: notebook com 20 núcleos lógicos e 15 GB de RAM no
-WSL2. A GPU (RTX 5070, 8 GB) não foi usada nesta análise.
-
-## Tentativas que mudaram o rumo
-
-- **lncRNAs como relíquias** (`s24`). A hipótese inicial era que os lncRNAs do
-  Ensembl no intervalo do frango fossem os restos transcritos de ENAM, AMBN e
-  AMTN. As relíquias que o tBLASTn detectou caíram nos vãos entre os lncRNAs,
-  em sequência sem anotação. O único lncRNA com similaridade nucleotídica ao
-  cluster (72,8% em 158 pb, dentro do AMTN do jacaré) não codifica proteína do
-  cluster quando traduzido (BLASTX, melhor e = 1,2).
-- **Índice em bits sem nulo** (`s26`). Com seis espécies, o índice separou com e
-  sem dente. A crítica externa mostrou que três genes no piso de ruído (cerca de
-  25 bits cada) divididos por cerca de 170 bits do LPL dão 0,4 sem relíquia
-  nenhuma. Ao ampliar para 18 espécies com o nulo do `s33`, a separação
-  desapareceu com a consulta do jacaré e só reapareceu com a do *Anolis*. A
-  partir disso as conclusões passaram a se apoiar nas lesões (nível 3), e não no
-  índice.
-- **Afirmações de independência entre linhagens** (`s26`). A inversão AMBN/AMTN
-  entre frango e kakapo foi retirada porque os dois valores (23,5 e 24,6 bits)
-  estão no piso de ruído.
-- **Ponto cego do tBLASTn.** O Ψ-AMEL conhecido não foi detectado pela proteína
-  de crocodiliano (zero HSP; 25,8 bits sem SEG). Por isso adotamos a consulta em
-  nucleotídeo a partir de uma relíquia de ave para o nível 4.
-- **E-value no genoma inteiro** (`s35`). A 1e-2, só a proteína do próprio jacaré
-  se encontrou num banco de 2,3 Gb. A decisão passou a ser por bitscore.
-- **Table Browser do UCSC** bloqueou o acesso automatizado (Cloudflare
-  Turnstile), e o alinhamento PECAN de amniotas do Ensembl só cobre primatas na
-  região. Por isso baixamos o MAF do chr4 inteiro.
-- **Frameshift pelo multiz** (`s36`). A contagem de corridas de gap fora de
-  múltiplo de 3 reprovou no controle: o ENAM funcional do jacaré teve 54 contra o
-  humano. A métrica foi descartada e só a cobertura foi usada.
-
-## Uso de inteligência artificial
-
-O desenho das análises, a escrita dos scripts, a execução e a redação deste
-texto foram feitos com assistência do Claude Code (Anthropic, modelo Claude
-Opus 5.5), sob direção e revisão do autor. A crítica externa do método (§7 de
-`docs/METODO-RELIQUIAS.md`) foi produzida por um agente de IA especializado
-(`evo-devo`) e conferida contra os dados. Nenhum dado biológico usado aqui foi
-gerado por IA: todas as sequências são montagens públicas do NCBI, do UCSC e do
-Ensembl.
-
-## Referências citadas nesta seção
-
-- Blanchette M et al. 2004. *Genome Res* 14(4):708–715. doi:10.1101/gr.1933104
-- Camacho C et al. 2009. *BMC Bioinformatics* 10:421. doi:10.1186/1471-2105-10-421
-- Edgar RC. 2022. *Nat Commun* 13(1):6968. doi:10.1038/s41467-022-34630-w
-- Elferink MG et al. 2010. *BMC Genet* 11:11. doi:10.1186/1471-2156-11-11
-- Katoh K, Standley DM. 2013. *Mol Biol Evol* 30(4):772–780. doi:10.1093/molbev/mst010
-- Kumar S et al. 2022. *Mol Biol Evol* 39(8):msac174. doi:10.1093/molbev/msac174
-- Li H. 2023. *Bioinformatics* 39(1):btad014. doi:10.1093/bioinformatics/btad014
-- Liang T et al. 2021. *Sci Rep* 11(1):1132. doi:10.1038/s41598-020-80912-y
-- Sire JY, Delgado SC, Girondot M. 2008. *BMC Evol Biol* 8:246. doi:10.1186/1471-2148-8-246
-
-## Pendências
-
-As pendências 1–6 foram fechadas em 2026-10-17 com `s37_pendencias_metodos.py`;
-o resultado de cada uma está no corpo deste texto.
-
-1. ~~**Montagem do gavial**~~: o docstring do `s26` foi corrigido para
-   GCF_001723915.1 e explica por que o código chega a ela (anotação RefSeq). O
-   rGavGan2.hap2 fica como melhoria futura (seção Espécies).
-2. ~~**Acessos das proteínas do *Anolis***~~: recuperados e conferidos por
-   identidade de sequência (seção Proteínas de consulta).
-3. ~~**Proteínas de consulta GenBank**~~: comparadas ao RefSeq. O achado novo é
-   que o N-terminal do ENAM (212 aa) não foi buscado; isso entrou nas limitações
-   do paper.
-4. ~~**Datas de acesso**~~: Tabela M2.
-5. ~~**Versões do UCSC**~~: multiz100way de 2015-05-06; ncbiRefSeqCurated de
-   2025-08-13.
-6. ~~**Relíquia em galGal3**~~: ancorada por 32-meros. Ela cai no bin 1784
-   (3,94 cM/Mb), a 3,0 kb (ENAM) e 16,0 kb (AMBN) da borda com o bin 1783
-   (0,68 cM/Mb).
-7. **Assistência de IA** (continua aberta): o formato da declaração depende da
-   revista ou da instituição de destino, e o texto atual é genérico.
-8. ~~**Repositório**~~: resolvido em 2026-10-17 — github.com/patoangolano/bio-stack
-   é público (`gh repo view`). Um depósito com DOI (Zenodo) continua sendo
-   melhor para a versão submetida.
-9. ~~**Afiliação do autor**~~: resolvido em 2026-10-17 — Faculdade Senac, Brasil.
+1. **Exploração bibliográfica e estrutural inicial (15/11/2026 UTC):**
+   - Instanciou o caderno NotebookLM `464abc65-ed3b-42a1-90a4-08b45f549f5c` (`research_start` `mode="fast"`, duas rodadas `39fd9f75-9093-4cd0-b935-d71ff38e6ed6` e `d50734f7-ab26-476f-a933-b8cf30edf359`; consulta `c910b31d-dfd7-4a4a-ae47-9bfd86489eea`) junto a buscas em `biocontext`, `biomcp`, `gget` e `tooluniverse`.
+   - Avaliou o impacto de refatoração de regiões regulatórias/codificadoras com **Evo 2 (40B)** via `mcp__nvidia-bio__evo2_likelihood` em `runs/nim/20261115T024036_786950_mtrCAB_5utr_ref_vs_syn_evo2ll_c0ea0f8b9c92.json` e `runs/nim/20261115T024104_025153_pufB_5utr_wt_vs_opt_clean_evo2ll_95d3544be4de.json` (sem relação com eficiência metabólica celular comparada).
+2. **Download dos GEMs locais e verificação preliminar de genomas (15/11/2026):**
+   - Executou `scripts/microbios_energia/01_verificar_genomas.sh`, `02_resolver_acessos.sh` e `03_baixar_gems.py` (com `datasets` `18.38.0` no WSL2 — o valor `18.41.1` citado anteriormente correspondia apenas ao aviso de atualização do cliente, não à versão instalada) e obteve os quatro modelos locais armazenados em `data/proc/gem/` (`iHN637.json`, `iJN678.json`, `iAF692.json` via BiGG e `iCN1361.xml`).
+3. **Correções e exclusões de evidência sobre o registro de 14–15/11/2026:**
+   - O arquivo `scripts/energy_harvesting_analysis.py` mencionado na versão anterior deste documento **não existe** no repositório.
+   - O script `scripts/bioenergetics_efficiency_analysis.py` e sua saída `runs/bioenergetics_efficiency_atlas.json` **não executam otimização FBA** via COBRApy nem chamam `scipy.optimize.linprog`; contêm parâmetros constantes sem vinculação a estudos primários e misturam linhagens distintas (`CGA009 / TIE-1`) e acessos desatualizados/derivados automaticamente (`GCF_000195775.1`, `GCF_000009285.2`). **Não são utilizados como evidência empírica ou computacional na revisão de 17/11/2026.**

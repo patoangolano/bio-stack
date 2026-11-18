@@ -1,0 +1,244 @@
+{
+  "generated_at": "2026-11-17T20:01:36.982520+00:00",
+  "python": "3.11.18",
+  "cobra_version": "0.32.1",
+  "solver": "glpk",
+  "swiglpk_version": "5.0.13",
+  "ranking_inferred": false,
+  "models": [
+    {
+      "source_path": "data/proc/gem/iCN1361.xml",
+      "sha256": "c4e418d831f428a93702f2d1b6c62d6fe3538545474f12397640028169d4ce0c",
+      "source_provenance": "Arquivo local preexistente; origem/versionamento externo não certificados nesta auditoria.",
+      "model_id": "CnecH16",
+      "model_name": null,
+      "genes": 1362,
+      "reactions": 1292,
+      "metabolites": 1265,
+      "objective": {
+        "R_Biomass": 1.0
+      },
+      "objective_direction": "max",
+      "medium_import_bounds": {
+        "EX_OXYGEN_MOLECULE_e": 1000.0,
+        "EX_AMMONIUM_e": 1000.0,
+        "EX_SULFATE_e": 1000.0,
+        "EX_Pi_e": 1000.0,
+        "EX_BETA_D_FRUCTOSE_e": 2.6,
+        "EX_FE2_e": 1000.0
+      },
+      "native_bounds_optimization": {
+        "status": "optimal",
+        "objective_value": 0.2585690497035916
+      },
+      "warnings": [
+        "Import bounds are flux capacities, not environmental concentrations.",
+        "Different default media/objectives prohibit cross-model ranking.",
+        "A feasible FBA solution does not prove measured growth or efficiency."
+      ],
+      "closed_all_boundary_imports_native_maintenance": {
+        "status": "infeasible",
+        "objective_value": null
+      },
+      "closed_imports_atpm_test": {
+        "reaction": "R_ATPM",
+        "equation": "M_ATP + M_WATER --> M_ADP + M_PROTON + M_Pi",
+        "native_bounds": [
+          3.0,
+          1000.0
+        ],
+        "test_bounds": [
+          0.0,
+          1000.0
+        ],
+        "result": {
+          "status": "optimal",
+          "objective_value": 0.0
+        },
+        "interpretation": "Fluxo ATPM positivo sem importações é alerta de ciclo/fonte interna permissiva; fluxo zero não valida todo o modelo."
+      }
+    },
+    {
+      "source_path": "data/proc/gem/iJN678.json",
+      "sha256": "2e9f99e6004d060e77e650b1591100898350c49d15f6de5d61d50b41ba6b12b2",
+      "source_provenance": "Arquivo local preexistente; origem/versionamento externo não certificados nesta auditoria.",
+      "model_id": "iJN678",
+      "model_name": null,
+      "genes": 622,
+      "reactions": 863,
+      "metabolites": 795,
+      "objective": {
+        "BIOMASS_Ec_SynHetero": 1.0
+      },
+      "objective_direction": "max",
+      "medium_import_bounds": {
+        "EX_ca2_e": 1000.0,
+        "EX_cobalt2_e": 1000.0,
+        "EX_ni2_e": 1000.0,
+        "EX_h_e": 1000.0,
+        "EX_h2o_e": 1000.0,
+        "EX_o2_e": 1000.0,
+        "EX_glc__D_e": 0.85,
+        "EX_no3_e": 1000.0,
+        "EX_k_e": 1000.0,
+        "EX_so4_e": 1000.0,
+        "EX_pi_e": 1000.0,
+        "EX_mobd_e": 1000.0,
+        "EX_fe3_e": 1000.0,
+        "EX_fe2_e": 1000.0,
+        "EX_na1_e": 1000.0,
+        "EX_mn2_e": 1000.0,
+        "EX_mg2_e": 1000.0,
+        "EX_cu2_e": 1000.0,
+        "EX_zn2_e": 1000.0
+      },
+      "native_bounds_optimization": {
+        "status": "optimal",
+        "objective_value": 0.06314995695015081
+      },
+      "warnings": [
+        "Import bounds are flux capacities, not environmental concentrations.",
+        "Different default media/objectives prohibit cross-model ranking.",
+        "A feasible FBA solution does not prove measured growth or efficiency."
+      ],
+      "closed_all_boundary_imports_native_maintenance": {
+        "status": "optimal",
+        "objective_value": 0.0
+      },
+      "closed_imports_atpm_test": {
+        "status": "not_performed",
+        "reason": "ATPM inexistente ou ambígua; nenhuma reação foi inventada.",
+        "candidate_ids": []
+      }
+    },
+    {
+      "source_path": "data/proc/gem/iHN637.json",
+      "sha256": "8d0060907d7496ea0072518fc02d9534ee0a1c3f517c16c876455bd85ccff2b9",
+      "source_provenance": "Arquivo local preexistente; origem/versionamento externo não certificados nesta auditoria.",
+      "model_id": "iHN637",
+      "model_name": null,
+      "genes": 637,
+      "reactions": 785,
+      "metabolites": 698,
+      "objective": {
+        "BIOMASS_Cl_DSM_WT_46p666M1": 1.0
+      },
+      "objective_direction": "max",
+      "medium_import_bounds": {
+        "EX_h2o_e": 1000.0,
+        "EX_k_e": 1000.0,
+        "EX_mg2_e": 1000.0,
+        "EX_mn2_e": 1000.0,
+        "EX_na1_e": 1000.0,
+        "EX_nh4_e": 1000.0,
+        "EX_ni2_e": 1000.0,
+        "EX_pi_e": 1000.0,
+        "EX_mobd_e": 1000.0,
+        "EX_zn2_e": 1000.0,
+        "EX_ribflv_e": 1000.0,
+        "EX_btn_e": 1000.0,
+        "EX_so4_e": 1000.0,
+        "EX_thm_e": 1000.0,
+        "EX_ca2_e": 1000.0,
+        "EX_cl_e": 1000.0,
+        "EX_cobalt2_e": 1000.0,
+        "EX_cu2_e": 1000.0,
+        "EX_fe2_e": 1000.0,
+        "EX_fol_e": 1000.0,
+        "EX_fru_e": 5.0,
+        "EX_h_e": 1000.0
+      },
+      "native_bounds_optimization": {
+        "status": "optimal",
+        "objective_value": 0.22445454212002638
+      },
+      "warnings": [
+        "Import bounds are flux capacities, not environmental concentrations.",
+        "Different default media/objectives prohibit cross-model ranking.",
+        "A feasible FBA solution does not prove measured growth or efficiency."
+      ],
+      "closed_all_boundary_imports_native_maintenance": {
+        "status": "infeasible",
+        "objective_value": null
+      },
+      "closed_imports_atpm_test": {
+        "reaction": "ATPM",
+        "equation": "atp_c + h2o_c --> adp_c + h_c + pi_c",
+        "native_bounds": [
+          0.45,
+          1000.0
+        ],
+        "test_bounds": [
+          0.0,
+          1000.0
+        ],
+        "result": {
+          "status": "optimal",
+          "objective_value": 0.0
+        },
+        "interpretation": "Fluxo ATPM positivo sem importações é alerta de ciclo/fonte interna permissiva; fluxo zero não valida todo o modelo."
+      }
+    },
+    {
+      "source_path": "data/proc/gem/iAF692.json",
+      "sha256": "f05d9e93767e8c9c9cb4a6fb8d00bf52f9a3bee7edb83ea90b7e21eee8970367",
+      "source_provenance": "Arquivo local preexistente; origem/versionamento externo não certificados nesta auditoria.",
+      "model_id": "iAF692",
+      "model_name": null,
+      "genes": 692,
+      "reactions": 690,
+      "metabolites": 628,
+      "objective": {
+        "BIOMASS_Mb_30": 1.0
+      },
+      "objective_direction": "max",
+      "medium_import_bounds": {
+        "EX_pi_e": 999999.0,
+        "EX_so3_e": 999999.0,
+        "EX_4abz_e": 999999.0,
+        "EX_co2_e": 999999.0,
+        "EX_cobalt2_e": 999999.0,
+        "EX_cys__L_e": 999999.0,
+        "EX_h2o_e": 999999.0,
+        "EX_h2s_e": 999999.0,
+        "EX_h_e": 999999.0,
+        "EX_meoh_e": 5.1,
+        "EX_n2_e": 999999.0,
+        "EX_na1_e": 999999.0,
+        "EX_nac_e": 999999.0,
+        "EX_nh4_e": 999999.0,
+        "EX_ni2_e": 999999.0
+      },
+      "native_bounds_optimization": {
+        "status": "optimal",
+        "objective_value": 0.026780442801466253
+      },
+      "warnings": [
+        "Import bounds are flux capacities, not environmental concentrations.",
+        "Different default media/objectives prohibit cross-model ranking.",
+        "A feasible FBA solution does not prove measured growth or efficiency."
+      ],
+      "closed_all_boundary_imports_native_maintenance": {
+        "status": "infeasible",
+        "objective_value": null
+      },
+      "closed_imports_atpm_test": {
+        "reaction": "ATPM",
+        "equation": "atp_c + h2o_c --> adp_c + h_c + pi_c",
+        "native_bounds": [
+          0.8,
+          0.8
+        ],
+        "test_bounds": [
+          0.0,
+          0.8
+        ],
+        "result": {
+          "status": "optimal",
+          "objective_value": 0.0
+        },
+        "interpretation": "Fluxo ATPM positivo sem importações é alerta de ciclo/fonte interna permissiva; fluxo zero não valida todo o modelo."
+      }
+    }
+  ]
+}
