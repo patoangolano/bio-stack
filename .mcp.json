@@ -121,6 +121,31 @@
         "--transport",
         "stdio"
       ]
+    },
+    "addgene-mcp": {
+      "command": "uvx",
+      "args": [
+        "addgene-mcp"
+      ],
+      "env": {
+        "MCP_PORT": "3001",
+        "MCP_HOST": "0.0.0.0",
+        "MCP_TRANSPORT": "stdio"
+      }
+    },
+    "ncbi-eutils": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@pipeworx/mcp-ncbi-eutils"
+      ]
+    },
+    "ebi-tools": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://ebi-tools-mcp-server.quentincody.workers.dev/mcp"
+      ]
     }
   }
 }

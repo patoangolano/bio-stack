@@ -21,6 +21,9 @@ ou configurado nesta stack; o resto é o mapa para expandir.
 | ★ `blender` | [ahujasid/mcp-for-blender](https://github.com/ahujasid/mcp-for-blender) | Blender: executa Python na cena, limpeza e retopologia de malha. 9 ferramentas |
 | ★ `chimerax` | [chimerax-mcp](https://pypi.org/project/chimerax-mcp/) | ChimeraX pela REST API: abre/salva estrutura, sequência, script. 39 ferramentas |
 | ★ `totalsegmentator` | vem dentro do próprio TotalSegmentator (`totalseg_mcp`) | segmentação de TC: classes, tarefas, modalidade, fase de contraste. 8 ferramentas |
+| ★ `addgene-mcp` | [addgene-mcp](https://pypi.org/project/addgene-mcp/) | Addgene: busca de plasmídeos, plasmídeos populares, metadados e download de sequências. 4 ferramentas |
+| ★ `ncbi-eutils` | [@pipeworx/mcp-ncbi-eutils](https://www.npmjs.com/package/@pipeworx/mcp-ncbi-eutils) | NCBI Entrez E-utilities + GEO: `einfo`, `esearch`, `esummary`, `efetch`, `elink`, `egquery`, `geo_series`, `geo_search`. 8 ferramentas |
+| ★ `ebi-tools` | `https://ebi-tools-mcp-server.quentincody.workers.dev/mcp` (via `mcp-remote`) | EMBL-EBI Web Services: busca, schema, consulta e execução de ferramentas da EBI (`ebi_tools_search`, `ebi_tools_get_schema`, `ebi_tools_query_data`, `ebi_tools_execute`). 8 ferramentas |
 
 > **Por que o `bibtexparser<2` no `biocontext`.** O pacote importa `scholarly`,
 > que faz `from bibtexparser.bibdatabase import BibDatabase`. O bibtexparser 2.x

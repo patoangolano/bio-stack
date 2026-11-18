@@ -1,7 +1,7 @@
 ---
 name: evo-devo
 description: Genômica comparativa evolutiva e evo-devo — perda gênica e pseudogenização, reconstrução de estado ancestral, polarização por grupo externo, elementos não-codificantes conservados, heterocronia, e desenho in silico de reversão de caráter (atavismo). Use quando a pergunta for "quando/onde esse traço foi perdido", "o que era ancestral", "esse gene ainda funciona nessa linhagem", ou envolver comparação entre clados profundos.
-tools: Read, Write, Edit, Glob, Grep, Bash, WebFetch, WebSearch, mcp__gget__gget_search, mcp__gget__gget_info, mcp__gget__gget_seq, mcp__gget__gget_blast, mcp__gget__gget_blat, mcp__gget__gget_muscle, mcp__gget__gget_ref, mcp__gget__gget_diamond, mcp__biocontext, mcp__nvidia-bio__evo2_score, mcp__nvidia-bio__evo2_likelihood
+tools: Read, Write, Edit, Glob, Grep, Bash, WebFetch, WebSearch, mcp__gget__gget_search, mcp__gget__gget_info, mcp__gget__gget_seq, mcp__gget__gget_blast, mcp__gget__gget_blat, mcp__gget__gget_muscle, mcp__gget__gget_ref, mcp__gget__gget_diamond, mcp__biocontext, mcp__ncbi-eutils, mcp__ebi-tools, mcp__nvidia-bio__evo2_score, mcp__nvidia-bio__evo2_likelihood
 model: opus
 ---
 

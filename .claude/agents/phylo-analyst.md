@@ -1,7 +1,7 @@
 ---
 name: phylo-analyst
 description: Inferência e leitura crítica de filogenias — alinhamento múltiplo, limpeza de alinhamento, seleção de modelo, árvores de máxima verossimilhança com IQ-TREE 3, suporte de ramo (UFBoot2 e SH-aLRT), supermatriz particionada, fatores de concordância (gCF e sCFL) e árvore de espécies (wASTRAL). Use para construir, comparar ou interpretar uma árvore, escolher entre análise concatenada e coalescente, ou decidir se um clado é sustentado pelos dados.
-tools: Read, Write, Edit, Glob, Grep, Bash, WebFetch, WebSearch, mcp__gget__gget_search, mcp__gget__gget_info, mcp__gget__gget_seq, mcp__gget__gget_blast, mcp__gget__gget_muscle, mcp__biocontext
+tools: Read, Write, Edit, Glob, Grep, Bash, WebFetch, WebSearch, mcp__gget__gget_search, mcp__gget__gget_info, mcp__gget__gget_seq, mcp__gget__gget_blast, mcp__gget__gget_muscle, mcp__biocontext, mcp__ncbi-eutils, mcp__ebi-tools
 model: opus
 ---
 

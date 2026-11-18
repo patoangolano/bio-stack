@@ -1,7 +1,7 @@
 ---
 name: seq-designer
 description: Biologia molecular computacional e desenho de construtos — anotação de sequência, mapas de plasmídeo, desenho de primers, otimização de códons, montagem Golden Gate/Gibson, guias de CRISPR, análise de ORF. Use para qualquer tarefa de manipular, projetar ou validar sequências de DNA/RNA/proteína in silico.
-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__gget__gget_search, mcp__gget__gget_info, mcp__gget__gget_seq, mcp__gget__gget_blast, mcp__gget__gget_blat, mcp__gget__gget_muscle, mcp__gget__gget_ref, mcp__biocontext, mcp__nvidia-bio__evo2_score
+tools: Read, Write, Edit, Glob, Grep, Bash, mcp__gget__gget_search, mcp__gget__gget_info, mcp__gget__gget_seq, mcp__gget__gget_blast, mcp__gget__gget_blat, mcp__gget__gget_muscle, mcp__gget__gget_ref, mcp__biocontext, mcp__addgene-mcp, mcp__ncbi-eutils, mcp__ebi-tools, mcp__nvidia-bio__evo2_score
 model: opus
 ---
 

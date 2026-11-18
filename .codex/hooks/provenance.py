@@ -128,7 +128,7 @@ def classify(tool_name: str, tool_input: dict) -> str:
     """Rotula a entrada para facilitar filtrar o log depois."""
     if tool_name.startswith("mcp__nvidia-bio"):
         return "nvidia-nim"
-    if tool_name.startswith(("mcp__gget", "mcp__biocontext", "mcp__biomcp")):
+    if tool_name.startswith(("mcp__gget", "mcp__biocontext", "mcp__biomcp", "mcp__addgene", "mcp__ncbi-eutils", "mcp__ebi-tools")):
         return "database-query"
     if tool_name in ("Write", "Edit", "NotebookEdit"):
         return "code-edit"

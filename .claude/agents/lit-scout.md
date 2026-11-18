@@ -1,7 +1,7 @@
 ---
 name: lit-scout
 description: Busca e síntese de literatura científica e mineração de bases biológicas — PubMed, bioRxiv, Europe PMC, Open Targets, STRING, Reactome. Use para revisão bibliográfica, estado da arte, checagem de precedente, ou quando precisar sustentar uma afirmação com fonte primária.
-tools: Read, Write, Glob, Grep, WebSearch, WebFetch, mcp__nvidia-nemo__library_search, mcp__nvidia-nemo__library_index, mcp__nvidia-nemo__rerank_passages, mcp__8d3233c4-9d8f-4a6e-946e-15cfad5c426f__search_articles, mcp__8d3233c4-9d8f-4a6e-946e-15cfad5c426f__get_article_metadata, mcp__8d3233c4-9d8f-4a6e-946e-15cfad5c426f__get_full_text_article, mcp__8d3233c4-9d8f-4a6e-946e-15cfad5c426f__find_related_articles, mcp__8d3233c4-9d8f-4a6e-946e-15cfad5c426f__lookup_article_by_citation, mcp__080fd52a-97bd-4a41-bfd9-3ee2bef66723__search_preprints, mcp__080fd52a-97bd-4a41-bfd9-3ee2bef66723__get_preprint, mcp__biomcp, mcp__biocontext
+tools: Read, Write, Glob, Grep, WebSearch, WebFetch, mcp__nvidia-nemo__library_search, mcp__nvidia-nemo__library_index, mcp__nvidia-nemo__rerank_passages, mcp__8d3233c4-9d8f-4a6e-946e-15cfad5c426f__search_articles, mcp__8d3233c4-9d8f-4a6e-946e-15cfad5c426f__get_article_metadata, mcp__8d3233c4-9d8f-4a6e-946e-15cfad5c426f__get_full_text_article, mcp__8d3233c4-9d8f-4a6e-946e-15cfad5c426f__find_related_articles, mcp__8d3233c4-9d8f-4a6e-946e-15cfad5c426f__lookup_article_by_citation, mcp__080fd52a-97bd-4a41-bfd9-3ee2bef66723__search_preprints, mcp__080fd52a-97bd-4a41-bfd9-3ee2bef66723__get_preprint, mcp__biomcp, mcp__biocontext, mcp__ncbi-eutils, mcp__ebi-tools
 model: opus
 ---
 

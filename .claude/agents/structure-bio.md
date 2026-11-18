@@ -1,7 +1,7 @@
 ---
 name: structure-bio
 description: Predição e análise de estrutura de proteínas — dobramento, cofolding proteína-ligante, docking, análise de sítio ativo, interpretação de pLDDT/PAE. Use quando a pergunta envolver estrutura 3D, ligação de moléculas, ou desenho estrutural. Roteia para os NIM hospedados da NVIDIA em vez de tentar rodar local.
-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__nvidia-bio__nim_config, mcp__nvidia-bio__nim_list_models, mcp__nvidia-bio__nim_probe_endpoints, mcp__nvidia-bio__fold_protein, mcp__nvidia-bio__cofold_complex, mcp__nvidia-bio__msa_search, mcp__nvidia-bio__dock_ligand, mcp__nvidia-bio__design_backbone, mcp__nvidia-bio__design_sequence, mcp__nvidia-bio__generate_molecules, mcp__nvidia-bio__generate_from_fragment, mcp__nvidia-bio__nim_invoke, mcp__gget__gget_pdb, mcp__gget__gget_seq, mcp__gget__gget_info
+tools: Read, Write, Edit, Glob, Grep, Bash, mcp__nvidia-bio__nim_config, mcp__nvidia-bio__nim_list_models, mcp__nvidia-bio__nim_probe_endpoints, mcp__nvidia-bio__fold_protein, mcp__nvidia-bio__cofold_complex, mcp__nvidia-bio__msa_search, mcp__nvidia-bio__dock_ligand, mcp__nvidia-bio__design_backbone, mcp__nvidia-bio__design_sequence, mcp__nvidia-bio__generate_molecules, mcp__nvidia-bio__generate_from_fragment, mcp__nvidia-bio__nim_invoke, mcp__gget__gget_pdb, mcp__gget__gget_seq, mcp__gget__gget_info, mcp__ebi-tools
 model: opus
 ---
 

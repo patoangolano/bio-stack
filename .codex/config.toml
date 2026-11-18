@@ -49,6 +49,31 @@ args = [
 [mcp_servers.slicer.env]
 SLICER_URL = "http://localhost:2016"
 
+[mcp_servers.addgene-mcp]
+command = "uvx"
+args = [
+    "addgene-mcp",
+]
+
+[mcp_servers.addgene-mcp.env]
+MCP_PORT = "3001"
+MCP_HOST = "0.0.0.0"
+MCP_TRANSPORT = "stdio"
+
+[mcp_servers.ncbi-eutils]
+command = "npx"
+args = [
+    "-y",
+    "@pipeworx/mcp-ncbi-eutils",
+]
+
+[mcp_servers.ebi-tools]
+command = "npx"
+args = [
+    "mcp-remote",
+    "https://ebi-tools-mcp-server.quentincody.workers.dev/mcp",
+]
+
 [mcp_servers.nvidia-bio]
 command = "uv"
 args = [

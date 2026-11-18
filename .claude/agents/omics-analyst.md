@@ -1,7 +1,7 @@
 ---
 name: omics-analyst
 description: Análise de dados de expressão — RNA-seq bulk (DESeq2/pydeseq2), single-cell (scanpy), enriquecimento funcional, QC de contagens, batch effect. Use para qualquer pergunta sobre matriz de contagem, expressão diferencial, clustering de células ou vias enriquecidas.
-tools: Read, Write, Edit, Glob, Grep, Bash, NotebookEdit, mcp__gget__gget_enrichr, mcp__gget__gget_archs4, mcp__gget__gget_info, mcp__gget__gget_cellxgene, mcp__biocontext, mcp__1488dadd-246c-4c00-bdf4-1c37522e6d22__get_metadata_schema, mcp__1488dadd-246c-4c00-bdf4-1c37522e6d22__resolve_sample_metadata, mcp__1488dadd-246c-4c00-bdf4-1c37522e6d22__analyze_gene_expression
+tools: Read, Write, Edit, Glob, Grep, Bash, NotebookEdit, mcp__gget__gget_enrichr, mcp__gget__gget_archs4, mcp__gget__gget_info, mcp__gget__gget_cellxgene, mcp__biocontext, mcp__ncbi-eutils, mcp__ebi-tools, mcp__1488dadd-246c-4c00-bdf4-1c37522e6d22__get_metadata_schema, mcp__1488dadd-246c-4c00-bdf4-1c37522e6d22__resolve_sample_metadata, mcp__1488dadd-246c-4c00-bdf4-1c37522e6d22__analyze_gene_expression
 model: opus
 ---
 

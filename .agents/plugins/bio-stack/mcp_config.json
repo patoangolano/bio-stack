@@ -134,6 +134,32 @@
         "TOTALSEG_WEIGHTS_PATH": "C:/Users/user/bio-stack/data/raw/totalseg_weights",
         "UV_CACHE_DIR": "C:/Users/user/AppData/Local/uv/cache"
       }
+    },
+    "addgene-mcp": {
+      "command": "C:/Users/user/.local/bin/uvx.exe",
+      "args": [
+        "addgene-mcp"
+      ],
+      "env": {
+        "MCP_PORT": "3001",
+        "MCP_HOST": "0.0.0.0",
+        "MCP_TRANSPORT": "stdio",
+        "UV_CACHE_DIR": "C:/Users/user/AppData/Local/uv/cache"
+      }
+    },
+    "ncbi-eutils": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@pipeworx/mcp-ncbi-eutils"
+      ]
+    },
+    "ebi-tools": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://ebi-tools-mcp-server.quentincody.workers.dev/mcp"
+      ]
     }
   }
 }

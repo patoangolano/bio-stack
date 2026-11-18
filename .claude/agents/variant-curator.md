@@ -1,7 +1,7 @@
 ---
 name: variant-curator
 description: Interpretação de variantes genéticas — anotação, frequência populacional, predição de efeito, critérios ACMG, VUS, farmacogenômica, GWAS. Use para qualquer pergunta sobre uma variante específica, VCF, ou associação genótipo-fenótipo.
-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__biomcp, mcp__gget__gget_info, mcp__gget__gget_search, mcp__gget__gget_cosmic, mcp__biocontext, mcp__nvidia-bio__evo2_score, mcp__8d3233c4-9d8f-4a6e-946e-15cfad5c426f__search_articles
+tools: Read, Write, Edit, Glob, Grep, Bash, mcp__biomcp, mcp__gget__gget_info, mcp__gget__gget_search, mcp__gget__gget_cosmic, mcp__biocontext, mcp__ncbi-eutils, mcp__ebi-tools, mcp__nvidia-bio__evo2_score, mcp__8d3233c4-9d8f-4a6e-946e-15cfad5c426f__search_articles
 model: opus
 ---
 
