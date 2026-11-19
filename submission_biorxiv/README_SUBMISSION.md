@@ -1,10 +1,10 @@
-# bioRxiv Preprint Submission Package (v1.0.1 Audited Revision Candidate)
+# bioRxiv Preprint Submission Package (`enamel-relics-v1.0.1`)
 
 **Manuscript Title:** *Unannotated Enamel-Gene Relics on the Avian Z Chromosome, Disordered-Protein Homology Bias, and Phylogenetic Limits of Inactivating-Mutation Dating in Birds and Turtles*  
 **Author:** Matheus Lima (Independent Researcher, São Paulo, Brazil; `limatheus458@gmail.com`; ORCID: `0009-0000-3557-8337`)  
 **Target bioRxiv Subject Area:** **Evolutionary Biology** (secondary: **Genomics**)  
 **Article Type:** New Results (Empirical Comparative Genomics / Paleogenomics)  
-**Audit Branch / Candidate Release:** `audit/biorxiv-revision-v1.0.1` (target tag after human review: `enamel-relics-v1.0.1`; historical tag `enamel-relics-v1.0.0` preserved untouched)
+**Archival Release:** `enamel-relics-v1.0.1` (Zenodo Concept DOI: [`10.5281/zenodo.24358066`](https://doi.org/10.5281/zenodo.24358066); historical tag `enamel-relics-v1.0.0` preserved untouched at `10.5281/zenodo.24358067`)
 
 ## Package Contents
 
@@ -22,9 +22,8 @@
 1. **Affiliation & openRxiv Screening Compliance (PENDING HUMAN DECISION — see `../audit/biorxiv_readiness_report.md`):**
    - Current draft conservatively uses **Option A** (`Independent Researcher, São Paulo, Brazil` + factual Senac student *Author Note*).
    - Under openRxiv's 20 October 2026 AI & Accountability policy, independent authors without an institutional affiliation face heightened screening scrutiny. Before uploading to bioRxiv, send Draft Emails 1 (to Centro Universitário Senac) and 2 (to `bioRxiv@openrxiv.org`) provided in `../audit/biorxiv_readiness_report.md` and update the affiliation line to **Option B** only if written confirmation is received.
-2. **Merge PR & Mint `enamel-relics-v1.0.1` Release (PENDING HUMAN REVIEW):**
-   - After approving and merging PR `audit/biorxiv-revision-v1.0.1 → main`, tag and publish GitHub Release `enamel-relics-v1.0.1`.
-   - With `.zenodo.json` and `CITATION.cff` now at repository root, the Zenodo GitHub webhook will mint a new version DOI under the same **Concept DOI** [`10.5281/zenodo.24358066`](https://doi.org/10.5281/zenodo.24358066) (always resolving to the latest release; `enamel-relics-v1.0.0` remains permanently archived at `10.5281/zenodo.24358067`).
+2. **Archival Release (`enamel-relics-v1.0.1`) & Zenodo Concept DOI:**
+   - Published on GitHub as release `enamel-relics-v1.0.1` with `.zenodo.json` and `CITATION.cff` at repository root, linked under Zenodo **Concept DOI** [`10.5281/zenodo.24358066`](https://doi.org/10.5281/zenodo.24358066) (always resolving to the latest release; `enamel-relics-v1.0.0` remains permanently archived at `10.5281/zenodo.24358067`).
 3. **Upload to bioRxiv:**
    - Category: **Evolutionary Biology** (secondary: **Genomics**); Article Type: **New Results**.
    - Main manuscript file: `manuscript_biorxiv.pdf` (19 pages, continuous line & page numbering, zero placeholders).
