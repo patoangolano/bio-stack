@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+echo "uname=$(uname -a)"
+echo "tblastn=$(tblastn -version | head -n1)"
+echo "blastx=$(blastx -version | head -n1)"
+echo "blastn=$(blastn -version | head -n1)"
+echo "segmasker=$(segmasker -version | head -n1)"
+echo "diamond=$(diamond version | head -n1)"
+echo "miniprot=$(miniprot --version | head -n1)"
+echo "mafft=$(mafft --version 2>&1 | head -n1)"
+echo "muscle=$(muscle -version 2>&1 | head -n1)"
+echo "iqtree3=$(iqtree3 --version 2>&1 | head -n1 || iqtree2 --version 2>&1 | head -n1 || echo MISSING)"
+echo "samtools=$(samtools --version | head -n1)"
+echo "seqkit=$(seqkit version | head -n1)"
+echo "datasets=$(datasets --version | head -n1)"
+echo "typst=$(typst --version | head -n1)"
