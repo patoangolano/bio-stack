@@ -334,7 +334,7 @@ def test_table_numbers_match_supplementary_and_deliverables_exist() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 9. Historical release tags enamel-relics-v1.0.0 and v1.0.1 strictly unmodified
+# 9. Historical release tags enamel-relics-v1.0.0, v1.0.1, and v1.0.2 unmodified
 # ---------------------------------------------------------------------------
 def test_historical_tags_unmodified() -> None:
     tag_v100_obj = subprocess.run(["git", "rev-parse", "enamel-relics-v1.0.0"], capture_output=True, text=True, cwd=ROOT, check=True).stdout.strip()
@@ -344,6 +344,9 @@ def test_historical_tags_unmodified() -> None:
 
     tag_v101_commit = subprocess.run(["git", "rev-parse", "enamel-relics-v1.0.1^{commit}"], capture_output=True, text=True, cwd=ROOT, check=True).stdout.strip()
     assert tag_v101_commit == "13b34a6f77a7b7fdd56d95ee1eac4549d6be9370"
+
+    tag_v102_commit = subprocess.run(["git", "rev-parse", "enamel-relics-v1.0.2^{commit}"], capture_output=True, text=True, cwd=ROOT, check=True).stdout.strip()
+    assert tag_v102_commit == "db711560a41948ef5978ec146e1b1bbf7c39bd04"
 
 
 # ---------------------------------------------------------------------------
@@ -512,3 +515,83 @@ def test_v102_neutral_simulation_and_deliverables() -> None:
     v102_claims = read_tsv(v102_dir / "claims_evidence_matrix.tsv")
     assert len(v102_claims) >= 16
     assert {"claim_id", "finding_classification", "readiness_status"}.issubset(v102_claims[0].keys())
+
+
+# ---------------------------------------------------------------------------
+# 13. Pre-submission final Phase A-F: Neornithes detectability, K80 conditioning,
+#     exploratory p-values, calibrated language, and audit/final/ deliverables
+# ---------------------------------------------------------------------------
+def test_pre_submission_final_neornithes_detectability_and_language() -> None:
+    typ = (SUB / "manuscript.typ").read_text(encoding="utf-8")
+    md = (SUB / "manuscript.md").read_text(encoding="utf-8")
+    fig_code = (ROOT / "scripts" / "enamel_relics" / "06_make_figures.py").read_text(encoding="utf-8")
+
+    # Verify neornithes_detectability_audit.json metrics
+    det_path = RUNS / "v102" / "neornithes_detectability_audit.json"
+    assert det_path.exists()
+    det = json.loads(det_path.read_text(encoding="utf-8"))
+    enam8_dual = det["exon_coverage_breakdown"]["ENAM_exon8_aves"]["dual_aligner"]
+    assert enam8_dual["all_7_birds_covered"] == 0
+    assert enam8_dual["all_6_non_taegut_covered"] == 306
+    assert enam8_dual["cross_clade_ge1_pal_ge1_neog"] == 727
+    assert enam8_dual["cross_clade_ge2_pal_ge2_neog"] == 675
+
+    power_dual_1 = next(
+        p for p in det["ancestral_neornithes_stop_detection_power"]
+        if p["mask_mode"] == "empirical_dual_aligner_mask" and float(p["branch_scale"]) == 1.0
+    )
+    assert float(power_dual_1["p_strict_7of7_universal"]) == 0.0
+    assert float(power_dual_1["p_uncontradicted_ge1_pal_ge1_neog_TableS8_def"]) == 0.1625
+    assert float(power_dual_1["p_reversal_corrupted_cross_clade_appears_incongruent"]) == 0.4082
+
+    # Forbidden overconclusive phrases must NOT appear in manuscript.typ, manuscript.md, or 06_make_figures.py
+    forbidden_phrases = (
+        "zero crown Neornithes synapomorphies",
+        "0 congruent lesions",
+        "Zero shared lesions span Palaeognathae + Neognathae",
+        "ruling out generalized avian substitution-rate acceleration",
+        "ruling out uniform avian rate acceleration",
+        "confirming `Strhab` `ENAM_Acar`",
+        "ENAM_ Exon 8 independently favors",
+        "ENAM* Exon 8 independently favors",
+        "unequivocally confirms",
+    )
+    for name, txt in (("manuscript.typ", typ), ("manuscript.md", md), ("06_make_figures.py", fig_code)):
+        for phrase in forbidden_phrases:
+            assert phrase not in txt, f"Overconclusive phrase '{phrase}' still present in {name}"
+
+    # Required calibrated caveats must appear in both manuscript.typ and manuscript.md
+    required_caveats = (
+        "no crown-Neornithes-wide synapomorphy was detected",
+        "16.3%",
+        "40.8%",
+        "unadjusted exploratory empirical",
+        "conditional on the K80 model",
+        "conditional descriptions of finite-site sampling within one locus",
+    )
+    for name, txt in (("manuscript.typ", typ), ("manuscript.md", md)):
+        for req in required_caveats:
+            assert req in txt, f"Required caveat '{req}' missing from {name}"
+
+    assert "none detected (0/878" in fig_code
+
+    # Verify all 10 mandatory deliverables in audit/final/ exist and are non-empty
+    final_dir = ROOT / "audit" / "final"
+    for fname in (
+        "final_review_report.md",
+        "neornithes_detection_limits.md",
+        "k80_interpretation_review.md",
+        "statistical_interpretation_review.md",
+        "editorial_changes.md",
+        "affiliation_and_submission.md",
+        "claims_evidence_matrix.tsv",
+        "test_results.md",
+        "final_change_log.md",
+        "submission_readiness.md",
+    ):
+        p = final_dir / fname
+        assert p.exists() and p.stat().st_size > 200, f"Missing or empty final deliverable: {p}"
+
+    final_claims = read_tsv(final_dir / "claims_evidence_matrix.tsv")
+    assert len(final_claims) >= 14
+    assert {"claim_id", "status", "verification_category"}.issubset(final_claims[0].keys())

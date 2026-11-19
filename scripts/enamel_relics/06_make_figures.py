@@ -775,7 +775,7 @@ def make_figure3() -> dict[str, str]:
 
     badges = [
         (0.76, y_duro, f"Chemyd + Chrpic:\nENAM {duro_p} PTCs\nAMBN {duro_i} fs + Ex4 AG→AC*", COL["Testudines"], (0.28, 10.35), "center"),
-        (0.36, y_aves, "Crown Neornithes:\n0 congruent lesions\n(T1: 5–6/16 incong.;\nT2/T3: 9–11/16)", "#222222", (0.00, 1.05), "center"),
+        (0.36, y_aves, "Crown Neornithes:\nnone detected (0/878\n7-bird cov.; T1: 5–6/16\nincong.; T2/T3: 9–11/16)", "#222222", (0.00, 1.05), "center"),
         (0.58, y_palaeo, f"Palaeognathae:\nENAM {pal_p} PTCs + Ex6 AG→AC/GT\nAMBN Ex4 {pal_i} fs (16-nt del*)", COL["FS"], (0.12, 6.85), "center"),
         (0.78, y_nova, "Novaeratitae:\nENAM 5 PTCs + Ex6 GT→AT\nAMBN 2 PTCs", COL["SPLICE"], (0.98, 6.85), "center"),
         (0.78, y_gallo, f"Galloanserae:\nENAM {gal_i} fs (cod 619)\n+ {gal_p} PTC (p.Gly558Ter)", COL["Aves"], (0.62, 2.86), "center"),
