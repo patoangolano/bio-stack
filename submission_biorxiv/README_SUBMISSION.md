@@ -16,15 +16,12 @@
 | `figures/` | Figures 1–3 exported in vector `.svg` (path-outlined), vector `.pdf` (Type 42 fonts), and 320 DPI `.png` (Okabe-Ito colorblind-safe palette) |
 | `supplementary/` | Consolidated supplementary tables `Table_S1` through `Table_S6` (10 `.tsv` files) + `MANIFEST_SHA256.tsv` |
 
-## Pre-Upload Manual Steps (Required Before Clicking Submit)
+## Pre-Upload Checklist (All Automated Metadata Complete)
 
-1. **Author ORCID:** Inserted (`0009-0000-3557-8337`) and compiled into `manuscript_biorxiv.pdf`.
-2. **Mint Zenodo Archival DOI (Recommended):** Create a tagged GitHub release on `https://github.com/patoangolano/bio-stack` (e.g., `v1.0.0-biorxiv`) linked to Zenodo, copy the resulting DOI into `Data and Code Availability` in `manuscript.typ` (replacing `10.5281/zenodo.XXXXXXX`), and recompile:
-   ```powershell
-   wsl -d Ubuntu-26.04 -- bash -lc "cd /mnt/c/Users/user/bio-stack/submission_biorxiv && typst compile manuscript.typ manuscript_biorxiv.pdf"
-   ```
+1. **Author ORCID:** Inserted (`0009-0000-3557-8337`, clickable link) and compiled into `manuscript_biorxiv.pdf`.
+2. **Zenodo Archival DOI:** Minted (`10.5281/zenodo.24358067`, release `enamel-relics-v1.0.0`), inserted into `Data and Code Availability`, and compiled into `manuscript_biorxiv.pdf`.
 3. **Upload to bioRxiv:**
-   - Category: **Evolutionary Biology**
-   - Main manuscript file: `manuscript_biorxiv.pdf`
+   - Category: **Evolutionary Biology** (Article Type: **New Results**)
+   - Main manuscript file: `manuscript_biorxiv.pdf` (16 pages, continuous line & page numbering, zero placeholders remaining)
    - Supplementary data files: zip `supplementary/` (`Table_S1`–`Table_S6` + `MANIFEST_SHA256.tsv`) or upload individual TSVs as Supplementary Material.
-   - Abstract field (copy directly from `manuscript.md`; verified **236 words**, ≤ 250-word limit).
+   - Abstract field: copy directly from `manuscript.md` (verified **236 words**, ≤ 250-word limit).

@@ -209,7 +209,7 @@ All bioinformatics binaries were executed inside WSL2 (`Ubuntu-26.04`, Pixi-mana
 // =============================================================================
 ## Data and Code Availability
 
-All analysis scripts (`scripts/enamel_relics/01_audit_and_fetch.py` through `06_make_figures.py`), pinned software versions, provenance logs (`provenance_run.jsonl`), verified BibTeX references, vector figures, and consolidated supplementary tables (`Table_S1` through `Table_S6` with `MANIFEST_SHA256.tsv`) are openly available at `https://github.com/patoangolano/bio-stack` (permanent archival snapshot to be minted prior to journal submission: `[Zenodo DOI: 10.5281/zenodo.XXXXXXX — insert upon GitHub release]`). All genome assemblies and protein queries analyzed are publicly archived in NCBI RefSeq/GenBank and Ensembl Release 116 under the exact accessions listed in Table S1 and Table S3a.
+All analysis scripts (`scripts/enamel_relics/01_audit_and_fetch.py` through `06_make_figures.py`), pinned software versions, provenance logs (`provenance_run.jsonl`), verified BibTeX references, vector figures, and consolidated supplementary tables (`Table_S1` through `Table_S6` with `MANIFEST_SHA256.tsv`) are openly available at `https://github.com/patoangolano/bio-stack` (archival release `enamel-relics-v1.0.0` permanently archived on Zenodo at [https://doi.org/10.5281/zenodo.24358067](https://doi.org/10.5281/zenodo.24358067)). All genome assemblies and protein queries analyzed are publicly archived in NCBI RefSeq/GenBank and Ensembl Release 116 under the exact accessions listed in Table S1 and Table S3a.
 
 ## Funding
 
