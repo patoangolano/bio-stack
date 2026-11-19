@@ -1,0 +1,87 @@
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 29 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    DESKTOP-CICR4UR (AVX2, FMA3, 15 GB RAM)
+Command: /home/user/.pixi/envs/iqtree/bin/iqtree3 -s /mnt/c/Users/user/bio-stack/runs/enamel_relics/level4/ENAM_exon8_aves/mafft.fna -z /mnt/c/Users/user/bio-stack/runs/enamel_relics/v102/iqtree_tests/trees_T1_T2_T3.nwk -te /mnt/c/Users/user/bio-stack/runs/enamel_relics/v101/phaseD/iqtree_asr/tree_T1.nwk -m GTR+G -zb 10000 -zw -au -o Amis,Ggan,Cpor -pre /mnt/c/Users/user/bio-stack/runs/enamel_relics/v102/iqtree_tests/topo_mafft -redo -nt 4 --quiet
+Seed:    827175 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Thu Nov 19 03:44:30 2026
+Kernel:  AVX+FMA - 4 threads (12 CPU cores detected)
+
+Reading alignment file /mnt/c/Users/user/bio-stack/runs/enamel_relics/level4/ENAM_exon8_aves/mafft.fna ... Fasta format detected
+Reading fasta file: done in 0.00134087 secs using 11.41% CPU
+Alignment most likely contains DNA/RNA sequences
+Constructing alignment: done in 0.00336599 secs using 153.7% CPU
+Alignment has 10 sequences with 2919 columns, 1313 distinct patterns
+1309 parsimony-informative, 625 singleton sites, 985 constant sites
+      Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 2.21729e-05 secs using 90.2% CPU
+   1  Amis    9.76%    passed      7.98%
+   2  Ggan    9.76%    passed      6.69%
+   3  Cpor    9.76%    passed      5.84%
+   4  Ggal   32.34%    failed      0.00%
+   5  Apla   41.25%    passed     16.39%
+   6  Shab   12.68%    passed     34.02%
+   7  Tgut   74.99%    passed     19.97%
+   8  Dnov   13.67%    failed      4.48%
+   9  Scam   14.90%    passed     19.52%
+  10  Arow    8.74%    failed      4.70%
+WARNING: 1 sequences contain more than 50% gaps/ambiguity
+****  TOTAL   22.79%  3 sequences failed composition chi2 test (p-value<5%; df=3)
+Checking for duplicate sequences: done in 5.38826e-05 secs using 393.4% CPU
+Reading input tree file /mnt/c/Users/user/bio-stack/runs/enamel_relics/v101/phaseD/iqtree_asr/tree_T1.nwk ... rooted tree
+
+NOTE: 1 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -16134.155
+2. Current log-likelihood: -15252.463
+3. Current log-likelihood: -15239.588
+4. Current log-likelihood: -15238.021
+5. Current log-likelihood: -15237.880
+6. Current log-likelihood: -15237.864
+Optimal log-likelihood: -15237.863
+Rate parameters:  A-C: 0.89337  A-G: 3.56604  A-T: 0.86759  C-G: 1.07537  C-T: 4.31933  G-T: 1.00000
+Base frequencies:  A: 0.302  C: 0.258  G: 0.228  T: 0.212
+Gamma shape alpha: 12.906
+Parameters optimization took 6 rounds (0.045 sec)
+Wrote distance file to... 
+BEST SCORE FOUND : -15237.863
+Total tree length: 1.747
+
+Total number of iterations: 0
+CPU time used for tree search: 0.000 sec (0h:0m:0s)
+Wall-clock time used for tree search: 0.000 sec (0h:0m:0s)
+Total CPU time used: 0.254 sec (0h:0m:0s)
+Total wall-clock time used: 0.073 sec (0h:0m:0s)
+Reading trees in /mnt/c/Users/user/bio-stack/runs/enamel_relics/v102/iqtree_tests/trees_T1_T2_T3.nwk ...
+
+3 trees detected
+Note: 50.509 MB of RAM required!
+Creating 10000 bootstrap replicates...
+done
+Tree 1 / LogL: -15237.863
+Tree 2 / LogL: -15260.819
+Tree 3 / LogL: -15261.045
+Performing RELL-BP test...
+Performing KH and SH test...
+Computing pairwise logl difference variance ...
+Performing WKH and WSH test...
+Performing ELW test...
+Performing approximately unbiased (AU) test...
+2 MB required for AU test
+Generating 10 x 10000 multiscale bootstrap replicates... 0.798 seconds
+TreeID	AU	RSS	d	c
+1	0.999	9.983	-3.071	0.058
+2	0.001	7.195	3.050	-0.001
+3	0.002	15.146	2.959	0.032
+Time for AU test: 0.801 seconds
+Time for evaluating all trees: 1.266 sec.
+
+Analysis results written to: 
+  IQ-TREE report:                /mnt/c/Users/user/bio-stack/runs/enamel_relics/v102/iqtree_tests/topo_mafft.iqtree
+  Maximum-likelihood tree:       /mnt/c/Users/user/bio-stack/runs/enamel_relics/v102/iqtree_tests/topo_mafft.treefile
+  Evaluated user trees:          /mnt/c/Users/user/bio-stack/runs/enamel_relics/v102/iqtree_tests/topo_mafft.trees
+  Screen log file:               /mnt/c/Users/user/bio-stack/runs/enamel_relics/v102/iqtree_tests/topo_mafft.log
+
+Date and Time: Thu Nov 19 03:44:32 2026

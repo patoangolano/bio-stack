@@ -39,11 +39,14 @@ def sha256_file(path: Path) -> str:
 # ---------------------------------------------------------------------------
 def test_supplementary_hashes_and_mirror() -> None:
     for base in (SUPP_RUNS, SUPP_SUB):
-        manifest = read_tsv(base / "MANIFEST_SHA256.tsv")
-        assert len(manifest) >= 11, f"Expected >=11 supplementary TSVs in {base}, got {len(manifest)}"
+        manifest_path = base / "MANIFEST_SHA256.tsv"
+        assert b"\r\n" not in manifest_path.read_bytes(), f"CRLF line endings found in {manifest_path}"
+        manifest = read_tsv(manifest_path)
+        assert len(manifest) == 14, f"Expected 14 supplementary TSVs (Table_S0..Table_S9) in {base}, got {len(manifest)}"
         for row in manifest:
             p = base / row["file"]
             assert p.exists(), f"Missing {p}"
+            assert b"\r\n" not in p.read_bytes(), f"CRLF line endings found in {p}"
             assert p.stat().st_size == int(row["bytes"]), f"Byte mismatch on {p}"
             assert sha256_file(p) == row["sha256"], f"SHA-256 mismatch on {p}"
     # Mirror exact match between runs/ and submission_biorxiv/
@@ -331,10 +334,181 @@ def test_table_numbers_match_supplementary_and_deliverables_exist() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 9. Historical release tag enamel-relics-v1.0.0 strictly unmodified
+# 9. Historical release tags enamel-relics-v1.0.0 and v1.0.1 strictly unmodified
 # ---------------------------------------------------------------------------
-def test_historical_tag_unmodified() -> None:
-    tag_obj = subprocess.run(["git", "rev-parse", "enamel-relics-v1.0.0"], capture_output=True, text=True, cwd=ROOT, check=True).stdout.strip()
-    tag_commit = subprocess.run(["git", "rev-parse", "enamel-relics-v1.0.0^{commit}"], capture_output=True, text=True, cwd=ROOT, check=True).stdout.strip()
-    assert tag_obj == "b9ff25e654007ef26f5ce01ce702f68c214c90b2"
-    assert tag_commit == "a425b2d1b20bd0fd77a997915d62523f5b8f2649"
+def test_historical_tags_unmodified() -> None:
+    tag_v100_obj = subprocess.run(["git", "rev-parse", "enamel-relics-v1.0.0"], capture_output=True, text=True, cwd=ROOT, check=True).stdout.strip()
+    tag_v100_commit = subprocess.run(["git", "rev-parse", "enamel-relics-v1.0.0^{commit}"], capture_output=True, text=True, cwd=ROOT, check=True).stdout.strip()
+    assert tag_v100_obj == "b9ff25e654007ef26f5ce01ce702f68c214c90b2"
+    assert tag_v100_commit == "a425b2d1b20bd0fd77a997915d62523f5b8f2649"
+
+    tag_v101_commit = subprocess.run(["git", "rev-parse", "enamel-relics-v1.0.1^{commit}"], capture_output=True, text=True, cwd=ROOT, check=True).stdout.strip()
+    assert tag_v101_commit == "13b34a6f77a7b7fdd56d95ee1eac4549d6be9370"
+
+
+# ---------------------------------------------------------------------------
+# 10. v1.0.2 Phase A: Codon-to-amino-acid translation verification (Table S5a)
+# ---------------------------------------------------------------------------
+CODON_TO_AA3: dict[str, str] = {
+    "TTT": "Phe", "TTC": "Phe", "TTA": "Leu", "TTG": "Leu",
+    "CTT": "Leu", "CTC": "Leu", "CTA": "Leu", "CTG": "Leu",
+    "ATT": "Ile", "ATC": "Ile", "ATA": "Ile", "ATG": "Met",
+    "GTT": "Val", "GTC": "Val", "GTA": "Val", "GTG": "Val",
+    "TCT": "Ser", "TCC": "Ser", "TCA": "Ser", "TCG": "Ser",
+    "CCT": "Pro", "CCC": "Pro", "CCA": "Pro", "CCG": "Pro",
+    "ACT": "Thr", "ACC": "Thr", "ACA": "Thr", "ACG": "Thr",
+    "GCT": "Ala", "GCC": "Ala", "GCA": "Ala", "GCG": "Ala",
+    "TAT": "Tyr", "TAC": "Tyr", "TAA": "Ter", "TAG": "Ter",
+    "CAT": "His", "CAC": "His", "CAA": "Gln", "CAG": "Gln",
+    "AAT": "Asn", "AAC": "Asn", "AAA": "Lys", "AAG": "Lys",
+    "GAT": "Asp", "GAC": "Asp", "GAA": "Glu", "GAG": "Glu",
+    "TGT": "Cys", "TGC": "Cys", "TGA": "Ter", "TGG": "Trp",
+    "CGT": "Arg", "CGC": "Arg", "CGA": "Arg", "CGG": "Arg",
+    "AGT": "Ser", "AGC": "Ser", "AGA": "Arg", "AGG": "Arg",
+    "GGT": "Gly", "GGC": "Gly", "GGA": "Gly", "GGG": "Gly",
+}
+AA1_TO_AA3: dict[str, str] = {
+    "A": "Ala", "C": "Cys", "D": "Asp", "E": "Glu", "F": "Phe",
+    "G": "Gly", "H": "His", "I": "Ile", "K": "Lys", "L": "Leu",
+    "M": "Met", "N": "Asn", "P": "Pro", "Q": "Gln", "R": "Arg",
+    "S": "Ser", "T": "Thr", "V": "Val", "W": "Trp", "Y": "Tyr",
+}
+
+
+def test_v102_codon_to_amino_acid_translations() -> None:
+    # Load reference protein sequences
+    faa_path = RUNS / "queries" / "all_real_queries.faa"
+    seqs: dict[str, str] = {}
+    cur_id = ""
+    for line in faa_path.read_text(encoding="utf-8").splitlines():
+        if line.startswith(">"):
+            cur_id = line[1:].split()[0]
+            seqs[cur_id] = ""
+        elif cur_id:
+            seqs[cur_id] += line.strip()
+
+    ref_seqs = {
+        "XP_019346377.1": seqs["ENAM_Amis"],
+        "XP_019346386.1": seqs["AMBN_Amis"],
+    }
+    assert len(ref_seqs["XP_019346377.1"]) == 1078
+    assert len(ref_seqs["XP_019346386.1"]) == 390
+
+    s5a = read_tsv(SUPP_SUB / "Table_S5a_level4_shared_mutations.tsv")
+    for r in s5a:
+        prot = r["ref_protein"]
+        cod_idx = int(r["codon_1based"])
+        expected_ref_aa3 = AA1_TO_AA3[ref_seqs[prot][cod_idx - 1]]
+        assert r["ref_aa_3letter"] == expected_ref_aa3, f"Ref AA mismatch at {r['standardized_variant_id']}"
+
+        if r["mutation_type"] == "stop":
+            assert r["standardized_variant_id"] == f"{prot}:p.{expected_ref_aa3}{cod_idx}Ter"
+            assert CODON_TO_AA3[r["amis_codon"]] == expected_ref_aa3
+            for c_stop in r["carrier_codons"].split(","):
+                assert CODON_TO_AA3[c_stop] == "Ter", f"Carrier codon {c_stop} is not a stop codon"
+            if r["neornithes_ml_codon"] not in ("", "-"):
+                assert CODON_TO_AA3[r["neornithes_ml_codon"]] == r["neornithes_ml_aa_3letter"]
+
+    # Specifically verify Codon 601 (Phe -> Tyr -> Ter) and Codon 1003 (Trp / site-independent ML Cys -> Ter)
+    c601 = next(r for r in s5a if r["standardized_variant_id"] == "XP_019346377.1:p.Phe601Ter")
+    assert c601["amis_codon"] == "TTT" and c601["ref_aa_3letter"] == "Phe"
+    assert c601["neornithes_ml_codon"] == "TAT" and c601["neornithes_ml_aa_3letter"] == "Tyr"
+    assert c601["carrier_codons"] == "TAA"
+
+    c1003 = next(r for r in s5a if r["standardized_variant_id"] == "XP_019346377.1:p.Trp1003Ter")
+    assert c1003["amis_codon"] == "TGG" and c1003["ref_aa_3letter"] == "Trp"
+    assert c1003["neornithes_ml_codon"] == "TGC" and c1003["neornithes_ml_aa_3letter"] == "Cys"
+    assert c1003["carrier_codons"] == "TGA"
+
+
+# ---------------------------------------------------------------------------
+# 11. v1.0.2 Phase B & C: Synapomorphy coverage tiers & topological sensitivity
+# ---------------------------------------------------------------------------
+def test_v102_synapomorphy_tiers_and_topological_sensitivity() -> None:
+    s5a = read_tsv(SUPP_SUB / "Table_S5a_level4_shared_mutations.tsv")
+    s9 = {r["topology_id"]: r for r in read_tsv(SUPP_SUB / "Table_S9_topology_sensitivity_T1_T2_T3_v102.tsv")}
+
+    # Every variant with missing sister-clade coverage must NOT be labeled OUTGROUP_AND_SISTER_VERIFIED_SYNAPOMORPHY
+    for r in s5a:
+        tier = r["synapomorphy_evidence_tier"]
+        assert tier != "", f"Missing synapomorphy_evidence_tier on {r['standardized_variant_id']}"
+        if r["covered_without_6letter"] in ("", "-"):
+            assert "SISTER_UNRECOVERED" in tier, f"Variant {r['standardized_variant_id']} lacks sister coverage but tier is {tier}"
+        if tier.startswith("OUTGROUP_AND_SISTER_VERIFIED_SYNAPOMORPHY"):
+            assert r["covered_without_6letter"] not in ("", "-")
+
+    # Verify ultra-sensitive Anapla AMBN Exon 4 alignment audit files exist
+    ambn_dir = RUNS / "v102" / "ambn_exon4_coverage_audit"
+    assert (ambn_dir / "mafft_apla.fna").exists() and (ambn_dir / "muscle_apla.fna").exists()
+
+    # Verify T1, T2, T3 homoplasy counts in Table S5a match Table S9
+    enam8_ptcs = [r for r in s5a if r["dataset"] == "ENAM_exon8_aves" and r["mutation_type"] == "stop"]
+    assert sum(1 for r in enam8_ptcs if int(r["min_gains_no_rev_T1"]) >= 2) == 6
+    assert sum(1 for r in enam8_ptcs if int(r["min_gains_no_rev_T2"]) >= 2) == 10
+    assert sum(1 for r in enam8_ptcs if int(r["min_gains_no_rev_T3"]) >= 2) == 11
+
+    assert int(s9["T1"]["k_incong_irreversible_parsimony"]) == 6 and float(s9["T1"]["pct_incong_irreversible_parsimony"]) == 37.5
+    assert int(s9["T1"]["k_incong_reversible_ml_asr"]) == 5 and float(s9["T1"]["pct_incong_reversible_ml_asr"]) == 31.2
+    assert int(s9["T2"]["k_incong_irreversible_parsimony"]) == 10 and float(s9["T2"]["pct_incong_irreversible_parsimony"]) == 62.5
+    assert int(s9["T2"]["k_incong_reversible_ml_asr"]) == 9 and float(s9["T2"]["pct_incong_reversible_ml_asr"]) == 56.2
+    assert int(s9["T3"]["k_incong_irreversible_parsimony"]) == 11 and float(s9["T3"]["pct_incong_irreversible_parsimony"]) == 68.8
+    assert int(s9["T3"]["k_incong_reversible_ml_asr"]) == 10 and float(s9["T3"]["pct_incong_reversible_ml_asr"]) == 62.5
+
+    # Verify formal IQ-TREE 3 KH/SH/AU p-values reject T2 and T3 in both aligners
+    for topo in ("T2", "T3"):
+        assert float(s9[topo]["mafft_p_SH"]) <= 0.0040
+        assert float(s9[topo]["mafft_p_AU"]) <= 0.0018
+        assert float(s9[topo]["muscle_p_SH"]) <= 0.0040
+        assert float(s9[topo]["muscle_p_AU"]) <= 0.0018
+
+
+# ---------------------------------------------------------------------------
+# 12. v1.0.2 Phase D & Deliverables: Neutral K80 coverage-masked simulation
+# ---------------------------------------------------------------------------
+def test_v102_neutral_simulation_and_deliverables() -> None:
+    s8 = read_tsv(SUPP_SUB / "Table_S8_k80_simulation_sensitivity_v102.tsv")
+    assert len(s8) == 48
+
+    # Unmasked full 878-codon baseline overpredicts shared PTCs (25-28 median, p <= 0.052)
+    unmasked_t0 = next(
+        r for r in s8
+        if r["topology"] == "T1" and r["anc_seq_source"] == "Neornithes_ML"
+        and r["mask_mode"] == "unmasked_full_878" and float(r["kappa"]) == 4.0
+        and float(r["branch_scale"]) == 1.0 and float(r["t_stem"]) == 0.0
+    )
+    assert float(unmasked_t0["shared_ptc_median"]) == 25.0
+    assert float(unmasked_t0["obs16_p_two_sided"]) == 0.052
+
+    # Empirically masked dual-aligner baseline matches observed 16 shared PTCs (16.0 median, p = 1.000) and 37.5% incongruence
+    masked_t0 = next(
+        r for r in s8
+        if r["topology"] == "T1" and r["anc_seq_source"] == "Neornithes_ML"
+        and r["mask_mode"] == "empirical_dual_aligner_mask" and float(r["kappa"]) == 4.0
+        and float(r["branch_scale"]) == 1.0 and float(r["t_stem"]) == 0.0
+    )
+    assert float(masked_t0["shared_ptc_median"]) == 16.0
+    assert float(masked_t0["obs16_p_two_sided"]) == 1.0
+    assert float(masked_t0["incong_rate_median"]) == 0.4
+    assert float(masked_t0["obs_incong_p_two_sided"]) == 0.848
+    assert float(masked_t0["cond_N16_incong_median"]) == 0.375
+    assert float(masked_t0["crown_neornithes_syn_median"]) == 0.0
+
+    # Verify v1.0.2 audit deliverables exist
+    v102_dir = ROOT / "audit" / "v102"
+    for fname in (
+        "final_scientific_audit.md",
+        "variant_nomenclature.md",
+        "phylogenetic_robustness.md",
+        "neutral_simulation_report.md",
+        "claims_evidence_matrix.tsv",
+        "test_results.md",
+        "change_log.md",
+        "biorxiv_readiness_report.md",
+        "human_approval_checklist.md",
+    ):
+        p = v102_dir / fname
+        assert p.exists() and p.stat().st_size > 200, f"Missing or empty v1.0.2 deliverable: {p}"
+
+    v102_claims = read_tsv(v102_dir / "claims_evidence_matrix.tsv")
+    assert len(v102_claims) >= 16
+    assert {"claim_id", "finding_classification", "readiness_status"}.issubset(v102_claims[0].keys())

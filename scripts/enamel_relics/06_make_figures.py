@@ -18,7 +18,7 @@ import csv
 import hashlib
 import json
 import shutil
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import matplotlib as mpl
@@ -185,7 +185,7 @@ def make_figure1() -> dict[str, str]:
         return (val - nrg1_edge) / (lpl_edge - nrg1_edge)
 
     y_positions = np.arange(len(rep_species))[::-1]
-    for y, (sp, chrlbl, desc) in zip(y_positions, rep_species):
+    for y, (sp, chrlbl, desc) in zip(y_positions, rep_species, strict=False):
         im = intervals[sp]
         n_s, n_e, _ = parse_coord_range(im["nrg1_coords"])
         l_s, l_e, _ = parse_coord_range(im["lpl_coords"])
@@ -372,7 +372,7 @@ def make_figure1() -> dict[str, str]:
         zorder=6,
     )
 
-    for xi, v in zip(x_c, vals_kb):
+    for xi, v in zip(x_c, vals_kb, strict=False):
         lbl = f"{v:.1f}" if v >= 1.0 else (f"{v:.2f}" if v > 0 else "0")
         y_off = 1.1 if v >= 4.0 else 0.85
         axC.text(
@@ -564,7 +564,7 @@ def make_figure2() -> dict[str, str]:
         sub_yes = {r["species_code_6letter"]: r for r in ret if r["query_set"] == qset and r["seg_mode"] == "seg_yes"}
         sub_no = {r["species_code_6letter"]: r for r in ret if r["query_set"] == qset and r["seg_mode"] == "seg_no"}
 
-        for yi, sp in zip(y_idx, sp_order):
+        for yi, sp in zip(y_idx, sp_order, strict=False):
             ry = sub_yes[sp]
             rn = sub_no[sp]
             vy = float(ry["index_N1000"])
@@ -683,7 +683,7 @@ def make_figure3() -> dict[str, str]:
     axA.bar(xa, st_rates, bottom=fs_rates, color=COL["PTC"], edgecolor="#222222", lw=0.7, width=0.60, label="Premature stop codons (per 1,000 aligned aa)", zorder=3)
 
     axA.axvline(2.5, color="#999999", ls="--", lw=1.0)
-    for i, (fr, sr, sf) in enumerate(zip(fs_rates, st_rates, splice_flags)):
+    for i, (fr, sr, sf) in enumerate(zip(fs_rates, st_rates, splice_flags, strict=False)):
         tot = fr + sr
         axA.text(i, tot + 0.55, f"{tot:.2f}", ha="center", va="bottom", fontsize=8.4, fontweight="bold", color="#222222")
         if i == 0:
@@ -774,19 +774,19 @@ def make_figure3() -> dict[str, str]:
     psi_p, psi_i = count_mrca("Psittacopasserae")
 
     badges = [
-        (0.76, y_duro, f"Durocryptodira:\nENAM {duro_p} PTCs\nAMBN {duro_i} fs + Ex4 AG→AC", COL["Testudines"], (0.28, 10.35), "center"),
-        (0.36, y_aves, "Crown Neornithes:\n0 congruent lesions\n(5–6/16 PTCs incongruent)", "#222222", (0.00, 1.05), "center"),
-        (0.58, y_palaeo, f"Palaeognathae:\nENAM {pal_p} PTCs + Ex6 AG→AC/GT\nAMBN Ex4 {pal_i} fs (16-nt del)", COL["FS"], (0.12, 6.85), "center"),
+        (0.76, y_duro, f"Chemyd + Chrpic:\nENAM {duro_p} PTCs\nAMBN {duro_i} fs + Ex4 AG→AC*", COL["Testudines"], (0.28, 10.35), "center"),
+        (0.36, y_aves, "Crown Neornithes:\n0 congruent lesions\n(T1: 5–6/16 incong.;\nT2/T3: 9–11/16)", "#222222", (0.00, 1.05), "center"),
+        (0.58, y_palaeo, f"Palaeognathae:\nENAM {pal_p} PTCs + Ex6 AG→AC/GT\nAMBN Ex4 {pal_i} fs (16-nt del*)", COL["FS"], (0.12, 6.85), "center"),
         (0.78, y_nova, "Novaeratitae:\nENAM 5 PTCs + Ex6 GT→AT\nAMBN 2 PTCs", COL["SPLICE"], (0.98, 6.85), "center"),
         (0.78, y_gallo, f"Galloanserae:\nENAM {gal_i} fs (cod 619)\n+ {gal_p} PTC (p.Gly558Ter)", COL["Aves"], (0.62, 2.86), "center"),
-        (0.78, y_psitt, f"Psittacopasserae:\nENAM {psi_p} PTC (p.Trp1003Ter)", COL["Aves"], (0.52, -1.85), "center"),
+        (0.78, y_psitt, f"Psittacopasserae:\nENAM {psi_p} PTC (ref p.Trp1003Ter;\navian TGG/TGC→TGA)", COL["Aves"], (0.52, -1.85), "center"),
     ]
     for bx, by, txt, col, (tx, ty), ha in badges:
         axB1.scatter([bx], [by], s=50, color=col, edgecolor="black", lw=0.8, zorder=6)
         axB1.annotate(
             txt, xy=(bx, by), xytext=(tx, ty),
-            ha=ha, va="center", fontsize=7.2, fontweight="bold", color=col,
-            bbox={"boxstyle": "round,pad=0.24", "fc": "white", "ec": col, "lw": 0.9, "alpha": 0.97},
+            ha=ha, va="center", fontsize=7.0, fontweight="bold", color=col,
+            bbox={"boxstyle": "round,pad=0.22", "fc": "white", "ec": col, "lw": 0.9, "alpha": 0.97},
             arrowprops={"arrowstyle": "->", "color": col, "lw": 0.9, "shrinkA": 2, "shrinkB": 3},
             zorder=7,
         )
@@ -794,7 +794,7 @@ def make_figure3() -> dict[str, str]:
     axB1.set_xlim(-0.28, 2.02)
     axB1.set_ylim(-2.65, 12.25)
     axB1.axis("off")
-    axB1.set_title("B. Dual-aligner Level 4 synapomorphies mapped onto phylogeny (T1)", loc="left", pad=6)
+    axB1.set_title("B. Dual-aligner Level 4 shared coding lesions mapped onto phylogeny (T1)", loc="left", pad=6)
 
     # ---- Panel C (bottom-right): Six incongruent avian ENAM Exon 8 PTCs + ML ASR ----
     axB2 = fig.add_subplot(gs[1, 1])
@@ -830,7 +830,7 @@ def make_figure3() -> dict[str, str]:
     ]
     stop_colors = {"TGA": "#D55E00", "TAG": "#E69F00", "TAA": "#CC79A7"}
 
-    for ri, (leg, sp6) in enumerate(bird_rows):
+    for ri, (leg, _sp6) in enumerate(bird_rows):
         yi = len(bird_rows) - 1 - ri
         s_aln = seqs_ex8.get(leg, "")
         for ci, row in enumerate(incong):
@@ -864,7 +864,8 @@ def make_figure3() -> dict[str, str]:
     for r in incong:
         cod = int(r["codon_1based"])
         neorn_anc = r["neornithes_ml_codon"]
-        col_labels.append(f"Cod {cod}\n[{neorn_anc}]\n{site_note.get(cod, '')}")
+        neorn_aa = r.get("neornithes_ml_aa_3letter", "")
+        col_labels.append(f"Cod {cod}\n[{neorn_anc}: {neorn_aa}]\n{site_note.get(cod, '')}")
 
     axB2.set_xticks(range(len(incong)))
     axB2.set_xticklabels(col_labels, fontsize=7.6)
@@ -891,7 +892,7 @@ def make_figure3() -> dict[str, str]:
 
 def main() -> int:
     setup_style()
-    t0 = datetime.now(timezone.utc)
+    t0 = datetime.now(UTC)
     all_hashes: dict[str, str] = {}
     print("Generating Figure 1 (synteny + GRCg7b audit + ODAPH gap)...")
     all_hashes.update(make_figure1())
@@ -901,11 +902,11 @@ def main() -> int:
     all_hashes.update(make_figure3())
 
     entry = {
-        "ts": datetime.now(timezone.utc).isoformat(),
+        "ts": datetime.now(UTC).isoformat(),
         "kind": "enamel-relics-v101-figures",
         "script": "scripts/enamel_relics/06_make_figures.py",
         "outputs": all_hashes,
-        "elapsed_s": round((datetime.now(timezone.utc) - t0).total_seconds(), 2),
+        "elapsed_s": round((datetime.now(UTC) - t0).total_seconds(), 2),
     }
     for log_path in (OUT / "v101" / "provenance_figures.jsonl", OUT / "provenance_run.jsonl", ROOT / "runs" / "provenance.jsonl"):
         log_path.parent.mkdir(parents=True, exist_ok=True)
