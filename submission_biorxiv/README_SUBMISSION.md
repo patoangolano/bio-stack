@@ -1,10 +1,10 @@
-# bioRxiv Preprint Submission Package (`enamel-relics-v1.0.2` Candidate)
+# bioRxiv Preprint Submission Package (`enamel-relics-v1.0.2`)
 
 **Manuscript Title:** *Unannotated Enamel-Gene Relics on the Avian Z Chromosome, Disordered-Protein Homology Bias, and Phylogenetic Limits of Inactivating-Mutation Dating in Birds and Turtles*  
 **Author:** Matheus Lima (Independent Researcher, São Paulo, Brazil; `limatheus458@gmail.com`; ORCID: `0009-0000-3557-8337`)  
 **Target bioRxiv Subject Area:** **Evolutionary Biology** (secondary: **Genomics**)  
 **Article Type:** New Results (Empirical Comparative Genomics / Paleogenomics)  
-**Archival Identifiers:** Zenodo Concept DOI: [`10.5281/zenodo.24358066`](https://doi.org/10.5281/zenodo.24358066) (always resolves to the latest release; prior audited `enamel-relics-v1.0.1` release preserved at [`10.5281/zenodo.24360150`](https://doi.org/10.5281/zenodo.24360150); initial `enamel-relics-v1.0.0` snapshot preserved untouched at [`10.5281/zenodo.24358067`](https://doi.org/10.5281/zenodo.24358067))
+**Archival Identifiers:** `enamel-relics-v1.0.2` (Zenodo Version DOI: [`10.5281/zenodo.24368656`](https://doi.org/10.5281/zenodo.24368656); Zenodo Concept DOI: [`10.5281/zenodo.24358066`](https://doi.org/10.5281/zenodo.24358066); prior `enamel-relics-v1.0.1` preserved at [`10.5281/zenodo.24360150`](https://doi.org/10.5281/zenodo.24360150); initial `enamel-relics-v1.0.0` preserved at [`10.5281/zenodo.24358067`](https://doi.org/10.5281/zenodo.24358067))
 
 ## Package Contents
 
