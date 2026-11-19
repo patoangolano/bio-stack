@@ -14,7 +14,7 @@ import csv
 import hashlib
 import json
 import shutil
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -57,7 +57,7 @@ def main() -> int:
     s7_by_code = {r["locus"].split("_")[0]: r for r in s7_in}
     s1_out = []
     for r in s1_in:
-        code = r.get("legacy_code", r["species_code"])
+        code = r.get("legacy_code") or r["species_code"]
         code6 = old2new.get(code, code)
         note = r["audit_note"]
         if code in s7_by_code:
@@ -211,16 +211,18 @@ def main() -> int:
         s4_out.append(row)
     write_tsv(SUPP_RUNS / "Table_S4_miniprot_level3_and_splice_audit.tsv", s4_out)
 
-    # --- Table S5a & S5b: upgrade directly from Phase D IQ-TREE 3 ML ASR + flanked-MSA splice borders ---
-    shutil.copy2(V101 / "phaseD" / "Table_S5a_level4_shared_mutations_v101.tsv", SUPP_RUNS / "Table_S5a_level4_shared_mutations.tsv")
-    shutil.copy2(V101 / "phaseD" / "Table_S5b_level4_splice_borders_v101.tsv", SUPP_RUNS / "Table_S5b_level4_splice_borders.tsv")
+    # --- Table S5a & S5b: upgrade directly from v1.0.2 / Phase D IQ-TREE 3 ML ASR + flanked-MSA splice borders ---
+    v102_s5a = RUNS / "v102" / "Table_S5a_level4_shared_mutations_v102.tsv"
+    s5a_src = v102_s5a if v102_s5a.exists() else (V101 / "phaseD" / "Table_S5a_level4_shared_mutations_v101.tsv")
+    write_tsv(SUPP_RUNS / "Table_S5a_level4_shared_mutations.tsv", read_tsv(s5a_src))
+    write_tsv(SUPP_RUNS / "Table_S5b_level4_splice_borders.tsv", read_tsv(V101 / "phaseD" / "Table_S5b_level4_splice_borders_v101.tsv"))
 
     # --- Table S6: Fix Portuguese leak + embed numeric odaph_gap_bp from s32_vaos.json + 6-letter codes! ---
     odaph_gaps = json.loads((LEGACY / "odam_odaph" / "s32_vaos.json").read_text(encoding="utf-8"))
     s6_in = read_tsv(SUPP_RUNS / "Table_S6_auxiliary_odaph_multiz_recomb_psiamel.tsv")
     s6_out = []
     for r in s6_in:
-        code = r.get("legacy_code", r["species_code"])
+        code = r.get("legacy_code") or r["species_code"]
         code6 = old2new.get(code, code)
         ctrl = r["control_detail"].replace(
             "ODAM nao localizado em none especie COM dente; sensibilidade no ODAM do Xenopus:",
@@ -258,8 +260,16 @@ def main() -> int:
         s7_out.append(row)
     write_tsv(SUPP_RUNS / "Table_S7_native_model_audit_v101.tsv", s7_out)
 
-    # --- Also include species_ids.tsv as Table_S0 / reference key ---
-    shutil.copy2(V101 / "species_ids.tsv", SUPP_RUNS / "Table_S0_species_identifiers.tsv")
+    # --- Also include species_ids.tsv as Table_S0 / reference key (strict LF via write_tsv) ---
+    write_tsv(SUPP_RUNS / "Table_S0_species_identifiers.tsv", read_tsv(V101 / "species_ids.tsv"))
+
+    # --- Also include v1.0.2 Table_S8 (K80 simulation sensitivity) & Table_S9 (T1/T2/T3 topology sensitivity) ---
+    v102_s8 = RUNS / "v102" / "Table_S8_k80_simulation_sensitivity_v102.tsv"
+    v102_s9 = RUNS / "v102" / "Table_S9_topology_sensitivity_T1_T2_T3_v102.tsv"
+    if v102_s8.exists():
+        write_tsv(SUPP_RUNS / "Table_S8_k80_simulation_sensitivity_v102.tsv", read_tsv(v102_s8))
+    if v102_s9.exists():
+        write_tsv(SUPP_RUNS / "Table_S9_topology_sensitivity_T1_T2_T3_v102.tsv", read_tsv(v102_s9))
 
     # --- Regenerate MANIFEST_SHA256.tsv and mirror identically to submission_biorxiv/supplementary/ ---
     manifest = []
@@ -270,7 +280,7 @@ def main() -> int:
             "file": p.name,
             "bytes": p.stat().st_size,
             "sha256": sha256_file(p),
-            "generated_utc": datetime.now(timezone.utc).isoformat(),
+            "generated_utc": datetime.now(UTC).isoformat(),
         })
     write_tsv(SUPP_RUNS / "MANIFEST_SHA256.tsv", manifest)
 

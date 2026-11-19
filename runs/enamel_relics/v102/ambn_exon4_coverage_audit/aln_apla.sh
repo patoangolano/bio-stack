@@ -1,0 +1,2 @@
+mafft --localpair --maxiterate 1000 --quiet /mnt/c/Users/user/bio-stack/runs/enamel_relics/v102/ambn_exon4_coverage_audit/msa_with_apla.fna > /mnt/c/Users/user/bio-stack/runs/enamel_relics/v102/ambn_exon4_coverage_audit/mafft_apla.fna
+muscle -align /mnt/c/Users/user/bio-stack/runs/enamel_relics/v102/ambn_exon4_coverage_audit/msa_with_apla.fna -output /mnt/c/Users/user/bio-stack/runs/enamel_relics/v102/ambn_exon4_coverage_audit/muscle_apla.fna >/dev/null 2>&1
